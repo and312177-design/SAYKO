@@ -2,15 +2,19 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAYKØ FITNESS</title>
 
 <link rel="icon" type="image/jpeg" href="1790471069347.jpg">
+
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#080808">
+
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -18,395 +22,523 @@
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Tahoma,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-background:#080808;
-color:#fff;
-min-height:100vh;
-padding-bottom:40px;
+    background:#080808;
+    color:#fff;
+    min-height:100vh;
 }
 
+/* HEADER */
+
 header{
-padding:18px 14px;
-text-align:center;
-border-bottom:1px solid #222;
-position:sticky;
-top:0;
-z-index:10;
-background:#080808;
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#080808;
+    border-bottom:1px solid #222;
+    padding:18px 15px;
+}
+
+.headerInner{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
 }
 
 .logo{
-font-size:29px;
-font-weight:900;
-letter-spacing:2px;
+    font-size:29px;
+    font-weight:900;
+    letter-spacing:1px;
 }
 
 .logo span{
-color:#e50914;
+    color:#e50914;
 }
 
 .subtitle{
-color:#999;
-font-size:12px;
-margin-top:5px;
+    color:#aaa;
+    font-size:12px;
+    margin-top:5px;
+    letter-spacing:.5px;
 }
 
-#installButton{
-display:none;
-margin:12px auto 0;
-background:#e50914;
-color:#fff;
-border:none;
-border-radius:10px;
-padding:10px 16px;
-font-weight:bold;
+.installBtn{
+    display:none;
+    margin:12px auto 0;
+    background:#e50914;
+    color:#fff;
+    border:0;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
 }
+
+/* CONTAINER */
 
 .container{
-max-width:900px;
-margin:auto;
-padding:15px;
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    padding:18px 12px 40px;
 }
 
-.search{
-width:100%;
-padding:14px;
-background:#111;
-border:1px solid #333;
-border-radius:12px;
-color:white;
-outline:none;
-margin-bottom:15px;
-font-size:14px;
+/* SEARCH */
+
+.searchBox{
+    margin-bottom:15px;
 }
 
-.search::placeholder{
-color:#777;
+.searchBox input{
+    width:100%;
+    padding:14px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:12px;
+    color:#fff;
+    outline:none;
+    font-size:15px;
 }
+
+.searchBox input:focus{
+    border-color:#e50914;
+}
+
+.searchBox input::placeholder{
+    color:#777;
+}
+
+/* GOAL */
 
 .goal{
-background:#111;
-border:1px solid #242424;
-border-radius:15px;
-padding:15px;
-margin-bottom:18px;
+    background:#111;
+    border:1px solid #242424;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
 }
 
-.goalHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:13px;
+.goalHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
 }
 
-.goalHead button{
-background:#e50914;
-border:none;
-color:white;
-border-radius:8px;
-padding:8px 13px;
-font-weight:bold;
+.goalTitle{
+    font-size:18px;
+    font-weight:bold;
 }
+
+.editBtn{
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:7px 12px;
+    cursor:pointer;
+}
+
+.editBtn:hover{
+    background:#e50914;
+    border-color:#e50914;
+}
+
+/* STATS */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
 }
 
 .stat{
-background:#080808;
-border-radius:10px;
-padding:10px;
-text-align:center;
+    background:#080808;
+    border:1px solid #242424;
+    border-radius:10px;
+    padding:10px;
 }
 
-.stat b{
-display:block;
-font-size:15px;
+.statName{
+    font-size:12px;
+    color:#aaa;
+    margin-bottom:7px;
 }
 
-.stat small{
-display:block;
-color:#888;
-font-size:10px;
-margin-top:4px;
+.statValue{
+    font-size:14px;
+    font-weight:bold;
 }
 
 .progress{
-height:6px;
-background:#292929;
-border-radius:10px;
-overflow:hidden;
-margin-top:7px;
+    height:6px;
+    background:#292929;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:8px;
 }
 
-.progress i{
-display:block;
-height:100%;
-background:#e50914;
-width:0%;
+.progress div{
+    height:100%;
+    width:0%;
+    background:#e50914;
+    transition:.3s;
 }
+
+/* SECTION */
 
 .sectionTitle{
-font-size:18px;
-margin:18px 0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:20px 0 12px;
 }
 
-.foodGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
-}
-
-.food{
-background:#111;
-border:1px solid #242424;
-border-radius:12px;
-padding:11px 7px;
-text-align:center;
-cursor:pointer;
-min-height:82px;
-transition:.15s;
-}
-
-.food:active{
-transform:scale(.97);
-}
-
-.food b{
-display:block;
-font-size:13px;
-line-height:1.4;
-}
-
-.food small{
-display:block;
-color:#888;
-font-size:9px;
-margin-top:5px;
-}
-
-.selected{
-background:#111;
-border:1px solid #242424;
-border-radius:13px;
-overflow:hidden;
-}
-
-.empty{
-padding:22px;
-text-align:center;
-color:#666;
-}
-
-.foodRow{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:8px;
-padding:12px;
-border-bottom:1px solid #222;
-}
-
-.foodRow:last-child{
-border-bottom:none;
-}
-
-.foodInfo{
-flex:1;
-}
-
-.foodInfo b{
-display:block;
-font-size:14px;
-}
-
-.foodInfo small{
-display:block;
-color:#888;
-font-size:10px;
-margin-top:4px;
-line-height:1.6;
-}
-
-.deleteBtn{
-background:#222;
-color:white;
-border:none;
-border-radius:7px;
-padding:7px 9px;
+.sectionTitle h2{
+    font-size:19px;
 }
 
 .clearBtn{
-margin-top:10px;
-background:#222;
-color:white;
-border:none;
-border-radius:9px;
-padding:9px 14px;
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:7px 11px;
+    cursor:pointer;
 }
 
-footer{
-text-align:center;
-color:#555;
-font-size:12px;
-margin-top:25px;
+.clearBtn:hover{
+    background:#e50914;
 }
 
-/* MODALS */
+/* FOOD GRID */
+
+.foodGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.food{
+    background:#111;
+    border:1px solid #242424;
+    border-radius:12px;
+    min-height:82px;
+    padding:10px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    transition:.2s;
+}
+
+.food:hover{
+    border-color:#e50914;
+    transform:translateY(-1px);
+}
+
+.food b{
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.food small{
+    color:#888;
+    font-size:10px;
+}
+
+/* SELECTED */
+
+.selected{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.foodRow{
+    background:#111;
+    border:1px solid #242424;
+    border-radius:12px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.foodInfo{
+    min-width:0;
+}
+
+.foodInfo b{
+    display:block;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.foodInfo small{
+    color:#999;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.deleteBtn{
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:8px 10px;
+    cursor:pointer;
+    flex-shrink:0;
+}
+
+.deleteBtn:hover{
+    background:#e50914;
+    border-color:#e50914;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:25px;
+    background:#111;
+    border:1px solid #242424;
+    border-radius:12px;
+}
+
+/* MODAL */
 
 .modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.82);
-z-index:50;
-align-items:center;
-justify-content:center;
-padding:15px;
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:500;
+    background:rgba(0,0,0,.82);
+    align-items:center;
+    justify-content:center;
+    padding:15px;
 }
 
 .modalBox{
-background:#111;
-border:1px solid #333;
-border-radius:16px;
-padding:18px;
-width:100%;
-max-width:420px;
+    width:100%;
+    max-width:450px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:16px;
+    padding:18px;
+    max-height:90vh;
+    overflow-y:auto;
 }
 
-.modalBox h2{
-font-size:19px;
-margin-bottom:14px;
+.modalHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
 }
 
-.modalBox input,
-.modalBox select{
-width:100%;
-padding:12px;
-margin:6px 0;
-background:#080808;
-border:1px solid #333;
-border-radius:9px;
-color:white;
-outline:none;
-}
-
-.units{
-display:flex;
-gap:7px;
-margin:8px 0;
-}
-
-.unitBtn{
-flex:1;
-padding:10px;
-background:#222;
-border:1px solid #333;
-border-radius:9px;
-color:white;
-}
-
-.unitBtn.active{
-background:#e50914;
-border-color:#e50914;
-}
-
-.hint{
-color:#888;
-font-size:11px;
-margin-top:5px;
-}
-
-.preview{
-background:#080808;
-border-radius:10px;
-padding:11px;
-margin:10px 0;
-font-size:12px;
-line-height:1.8;
-color:#ddd;
-}
-
-.actions{
-display:flex;
-gap:8px;
-}
-
-.actions button{
-flex:1;
-padding:11px;
-border:none;
-border-radius:9px;
-font-weight:bold;
-}
-
-.addBtn{
-background:#e50914;
-color:white;
+.modalHeader h3{
+    font-size:19px;
 }
 
 .closeBtn{
-background:#222;
-color:white;
+    width:34px;
+    height:34px;
+    border:1px solid #333;
+    background:#222;
+    color:#fff;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
 }
 
+.closeBtn:hover{
+    background:#e50914;
+}
+
+/* UNIT BUTTONS */
+
+.unitButtons{
+    display:flex;
+    gap:7px;
+    margin-bottom:12px;
+}
+
+.unitBtn{
+    flex:1;
+    padding:10px;
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.unitBtn.active{
+    background:#e50914;
+    border-color:#e50914;
+}
+
+/* INPUT */
+
+.inputGroup{
+    margin-bottom:12px;
+}
+
+.inputGroup label{
+    display:block;
+    color:#bbb;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.inputGroup input,
+.inputGroup select{
+    width:100%;
+    padding:12px;
+    background:#080808;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:9px;
+    outline:none;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus{
+    border-color:#e50914;
+}
+
+.quantityHint{
+    color:#777;
+    font-size:11px;
+    margin-top:6px;
+}
+
+/* PREVIEW */
+
+.preview{
+    background:#080808;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:12px;
+    line-height:1.8;
+    color:#bbb;
+    font-size:13px;
+    margin:12px 0;
+}
+
+.preview b{
+    color:#fff;
+}
+
+/* MAIN BUTTON */
+
+.mainBtn{
+    width:100%;
+    background:#e50914;
+    color:#fff;
+    border:0;
+    border-radius:10px;
+    padding:13px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.mainBtn:hover{
+    background:#c70811;
+}
+
+/* GOAL OPTIONS */
+
 .goalOptions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:7px;
-margin:9px 0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
 }
 
 .goalOption{
-background:#222;
-color:white;
-border:1px solid #333;
-border-radius:8px;
-padding:9px;
-font-size:11px;
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:9px;
+    padding:11px 7px;
+    cursor:pointer;
+    font-size:12px;
 }
 
 .goalOption.active{
-background:#e50914;
-border-color:#e50914;
+    background:#e50914;
+    border-color:#e50914;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    color:#666;
+    font-size:11px;
+    padding:25px 10px;
 }
 
 /* MOBILE */
 
 @media(max-width:600px){
 
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
+    .container{
+        padding:15px 10px 35px;
+    }
 
-.foodGrid{
-grid-template-columns:repeat(3,1fr);
-}
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .foodGrid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .logo{
+        font-size:27px;
+    }
 
 }
 
 @media(max-width:350px){
 
-.foodGrid{
-grid-template-columns:repeat(2,1fr);
-}
+    .foodGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .food{
+        min-height:75px;
+    }
+
+    .food b{
+        font-size:12px;
+    }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
+
+<div class="headerInner">
 
 <div class="logo">
 SAYKØ <span>FITNESS</span>
@@ -416,108 +548,156 @@ SAYKØ <span>FITNESS</span>
 Nutrition • Calories • Progress
 </div>
 
-<button id="installButton">
+<button id="installButton" class="installBtn">
 📱 تثبيت SAYKØ
 </button>
 
+</div>
+
 </header>
+
 
 <main class="container">
 
+
+<!-- SEARCH -->
+
+<div class="searchBox">
+
 <input
 id="search"
-class="search"
-placeholder="ابحث عن أكلة أو سناك..."
->
+type="text"
+placeholder="ابحث عن أكلة..."
+autocomplete="off">
 
-<section class="goal">
+</div>
 
-<div class="goalHead">
 
-<b>هدفك اليومي</b>
+<!-- DAILY GOAL -->
 
-<button onclick="openGoal()">
+<div class="goal">
+
+<div class="goalHeader">
+
+<div class="goalTitle">
+هدفك اليومي
+</div>
+
+<button class="editBtn" onclick="openGoal()">
 تعديل
 </button>
 
 </div>
 
+
 <div class="stats">
 
 <div class="stat">
 
-<b id="calTotal">0 / 0</b>
+<div class="statName">
+السعرات
+</div>
 
-<small>السعرات</small>
+<div class="statValue" id="calTotal">
+0 / 2500
+</div>
 
 <div class="progress">
-<i id="calBar"></i>
+<div id="calBar"></div>
 </div>
 
 </div>
+
 
 <div class="stat">
 
-<b id="proTotal">0 / 0</b>
+<div class="statName">
+البروتين
+</div>
 
-<small>بروتين</small>
+<div class="statValue" id="proTotal">
+0 / 150
+</div>
 
 <div class="progress">
-<i id="proBar"></i>
+<div id="proBar"></div>
 </div>
 
 </div>
+
 
 <div class="stat">
 
-<b id="carbTotal">0 / 0</b>
+<div class="statName">
+الكارب
+</div>
 
-<small>كارب</small>
+<div class="statValue" id="carbTotal">
+0 / 300
+</div>
 
 <div class="progress">
-<i id="carbBar"></i>
+<div id="carbBar"></div>
 </div>
 
 </div>
+
 
 <div class="stat">
 
-<b id="fatTotal">0 / 0</b>
+<div class="statName">
+الدهون
+</div>
 
-<small>دهون</small>
+<div class="statValue" id="fatTotal">
+0 / 80
+</div>
 
 <div class="progress">
-<i id="fatBar"></i>
+<div id="fatBar"></div>
 </div>
 
 </div>
 
 </div>
-</section>
 
-<h2 class="sectionTitle">
-الأطعمة والسناكس
+</div>
+
+
+<!-- FOODS -->
+
+<div class="sectionTitle">
+
+<h2>
+الأطعمة
 </h2>
+
+</div>
+
 
 <div id="foodGrid" class="foodGrid"></div>
 
-<h2 class="sectionTitle">
+
+<!-- SELECTED -->
+
+<div class="sectionTitle">
+
+<h2>
 الأطعمة المختارة
 </h2>
-
-<div id="selected" class="selected">
-
-<div class="empty">
-لم تضف أي طعام بعد
-</div>
-
-</div>
 
 <button class="clearBtn" onclick="clearAll()">
 مسح الكل
 </button>
 
+</div>
+
+
+<div id="selected" class="selected"></div>
+
+
 </main>
+
 
 <footer>
 SAYKØ FITNESS
@@ -530,33 +710,59 @@ SAYKØ FITNESS
 
 <div class="modalBox">
 
-<h2 id="foodTitle"></h2>
+<div class="modalHeader">
 
-<div class="units">
+<h3 id="foodTitle">
+الطعام
+</h3>
+
+<button class="closeBtn" onclick="closeFood()">
+×
+</button>
+
+</div>
+
+
+<div class="unitButtons">
 
 <button
 id="gramsBtn"
 class="unitBtn active"
 onclick="selectUnit('grams')">
+
 جرام
+
 </button>
+
 
 <button
 id="spoonBtn"
 class="unitBtn"
 onclick="selectUnit('spoon')">
-معلقة كبيرة
+
+معلقة
+
 </button>
+
 
 <button
 id="pieceBtn"
 class="unitBtn"
-style="display:none"
-onclick="selectUnit('piece')">
+onclick="selectUnit('piece')"
+style="display:none">
+
 قطعة
+
 </button>
 
 </div>
+
+
+<div class="inputGroup">
+
+<label>
+الكمية
+</label>
 
 <input
 id="quantity"
@@ -564,26 +770,24 @@ type="number"
 min="0"
 step="0.1"
 value="100"
-oninput="updatePreview()"
->
+oninput="updatePreview()">
 
-<div id="quantityHint" class="hint"></div>
+<div id="quantityHint" class="quantityHint">
+القيمة محسوبة حسب الوزن بالجرام
+</div>
+
+</div>
+
 
 <div id="preview" class="preview"></div>
 
-<div class="actions">
 
-<button class="addBtn" onclick="confirmFood()">
-إضافة
-</button>
-
-<button class="closeBtn" onclick="closeFood()">
-إلغاء
+<button class="mainBtn" onclick="confirmFood()">
+إضافة للطعام
 </button>
 
 </div>
 
-</div>
 </div>
 
 
@@ -593,27 +797,66 @@ oninput="updatePreview()"
 
 <div class="modalBox">
 
-<h2>
+<div class="modalHeader">
+
+<h3>
 احسب احتياجك اليومي
-</h2>
+</h3>
+
+<button class="closeBtn" onclick="closeGoal()">
+×
+</button>
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+الوزن بالكيلو
+</label>
 
 <input
 id="weight"
 type="number"
-placeholder="الوزن بالكجم"
->
+placeholder="مثال: 65">
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+الطول بالسنتيمتر
+</label>
 
 <input
 id="height"
 type="number"
-placeholder="الطول بالسنتيمتر"
->
+placeholder="مثال: 170">
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+العمر
+</label>
 
 <input
 id="age"
 type="number"
-placeholder="العمر"
->
+placeholder="مثال: 17">
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+الجنس
+</label>
 
 <select id="gender">
 
@@ -626,6 +869,15 @@ placeholder="العمر"
 </option>
 
 </select>
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+مستوى النشاط
+</label>
 
 <select id="activity">
 
@@ -647,57 +899,72 @@ placeholder="العمر"
 
 </select>
 
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+الهدف
+</label>
+
 <div class="goalOptions">
 
 <button
 class="goalOption active"
 data-goal="build"
 onclick="setGoalType(this)">
+
 ضبط الدهون وبناء العضلات
+
 </button>
 
 <button
 class="goalOption"
 data-goal="maintain"
 onclick="setGoalType(this)">
+
 تثبيت الوزن
+
 </button>
 
 <button
 class="goalOption"
 data-goal="lose"
 onclick="setGoalType(this)">
+
 خسارة وزن تدريجية
+
 </button>
 
 <button
 class="goalOption"
 data-goal="gain"
 onclick="setGoalType(this)">
+
 زيادة الوزن
-</button>
 
-</div>
-
-<div class="actions">
-
-<button class="addBtn" onclick="calculateGoal()">
-حفظ
-</button>
-
-<button class="closeBtn" onclick="closeGoal()">
-إلغاء
 </button>
 
 </div>
 
 </div>
+
+
+<button class="mainBtn" onclick="calculateGoal()">
+احسب احتياجي
+</button>
+
+</div>
+
 </div>
 
 
 <script>
 
-/* ================= DATABASE ================= */
+/* =========================
+   FOOD DATABASE
+========================= */
 
 const foods = [
 
@@ -705,13 +972,16 @@ const foods = [
 {name:"أرز بني",calories:123,carbs:26,protein:2.7,fat:1},
 {name:"أرز بسمتي",calories:121,carbs:25,protein:3,fat:.4},
 {name:"أرز أصفر",calories:150,carbs:30,protein:3,fat:2},
+
 {name:"مكرونة مسلوقة",calories:158,carbs:31,protein:6,fat:.9},
 {name:"مكرونة جافة",calories:371,carbs:75,protein:13,fat:1.5},
 {name:"مكرونة قمح كامل",calories:149,carbs:30,protein:6,fat:1.5},
+
 {name:"فريك",calories:115,carbs:22,protein:4.5,fat:.7},
 {name:"برغل",calories:83,carbs:19,protein:3,fat:.2},
 {name:"كسكسي",calories:112,carbs:23,protein:3.8,fat:.2},
 {name:"كينوا مطبوخة",calories:120,carbs:21,protein:4.4,fat:1.9},
+
 {name:"شوفان",calories:389,carbs:66,protein:17,fat:7},
 {name:"شوفان مطبوخ",calories:71,carbs:12,protein:2.5,fat:1.5},
 {name:"ذرة",calories:96,carbs:21,protein:3.4,fat:1.5},
@@ -881,6 +1151,7 @@ const foods = [
 {name:"دوريتوس",calories:500,carbs:57,protein:7,fat:27},
 {name:"تايجر",calories:520,carbs:55,protein:6,fat:30},
 {name:"نايتي",calories:470,carbs:62,protein:6,fat:21},
+
 {name:"بسكويت سادة",calories:450,carbs:70,protein:7,fat:16},
 {name:"بسكويت شوكولاتة",calories:490,carbs:65,protein:6,fat:23},
 {name:"بسكويت محشو",calories:480,carbs:68,protein:5,fat:21},
@@ -923,7 +1194,9 @@ const foods = [
 ];
 
 
-/* ================= SPOON WEIGHTS ================= */
+/* =========================
+   SPOON WEIGHTS
+========================= */
 
 const spoonWeights={
 
@@ -970,9 +1243,12 @@ const spoonWeights={
 };
 
 
-/* ================= VARIABLES ================= */
+/* =========================
+   APP DATA
+========================= */
 
 let selectedFood=null;
+
 let selectedUnit="grams";
 
 let selectedFoods=
@@ -1005,13 +1281,13 @@ return spoonWeights[food.name] || 10;
 }
 
 
-/* ================= RENDER ================= */
+/* =========================
+   RENDER FOODS
+========================= */
 
 function renderFoods(list=foods){
 
-$("foodGrid").innerHTML=
-
-list.map(food=>`
+$("foodGrid").innerHTML=list.map((food,index)=>`
 
 <div
 class="food"
@@ -1030,21 +1306,25 @@ ${food.calories} kcal / 100g
 }
 
 
-/* ================= OPEN FOOD ================= */
+/* =========================
+   OPEN FOOD
+========================= */
 
 function openFood(index){
 
 selectedFood=foods[index];
 
-$("foodTitle").textContent=
-selectedFood.name;
+$("foodTitle").textContent=selectedFood.name;
+
 
 if(selectedFood.weight){
 
 selectedUnit="piece";
 
 $("pieceBtn").style.display="block";
+
 $("gramsBtn").style.display="none";
+
 $("spoonBtn").style.display="none";
 
 }else{
@@ -1052,13 +1332,17 @@ $("spoonBtn").style.display="none";
 selectedUnit="grams";
 
 $("pieceBtn").style.display="none";
+
 $("gramsBtn").style.display="block";
+
 $("spoonBtn").style.display="block";
 
 }
 
+
 $("quantity").value=
 selectedUnit==="piece" ? 1 : 100;
+
 
 selectUnit(selectedUnit);
 
@@ -1069,62 +1353,79 @@ $("foodModal").style.display="flex";
 }
 
 
-/* ================= UNIT ================= */
+/* =========================
+   UNIT
+========================= */
 
 function selectUnit(unit){
 
 selectedUnit=unit;
 
-$("gramsBtn")
-.classList
-.toggle("active",unit==="grams");
+$("gramsBtn").classList.toggle(
+"active",
+unit==="grams"
+);
 
-$("spoonBtn")
-.classList
-.toggle("active",unit==="spoon");
+$("spoonBtn").classList.toggle(
+"active",
+unit==="spoon"
+);
 
-$("pieceBtn")
-.classList
-.toggle("active",unit==="piece");
+$("pieceBtn").classList.toggle(
+"active",
+unit==="piece"
+);
 
-$("quantity").value=
-unit==="piece" ? 1 : 100;
+
+if(unit==="piece"){
+
+$("quantity").value=1;
+
+}else{
+
+$("quantity").value=100;
+
+}
+
 
 updatePreview();
 
 }
 
 
-/* ================= PREVIEW ================= */
+/* =========================
+   PREVIEW
+========================= */
 
 function updatePreview(){
 
 if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
+
+let q=parseFloat($("quantity").value)||0;
 
 let grams=q;
 
 let label="جم";
 
+
 if(selectedUnit==="spoon"){
 
-grams=
-q*getSpoonWeight(selectedFood);
+grams=q*getSpoonWeight(selectedFood);
 
 label="معلقة";
 
 }
 
+
 if(selectedUnit==="piece"){
 
-grams=
-q*(selectedFood.weight||100);
+grams=q*(selectedFood.weight||100);
 
 label="قطعة";
 
 }
+
 
 if(selectedUnit==="spoon"){
 
@@ -1143,7 +1444,9 @@ $("quantityHint").textContent=
 
 }
 
+
 let factor=grams/100;
+
 
 $("preview").innerHTML=`
 
@@ -1178,28 +1481,31 @@ kcal
 }
 
 
-/* ================= ADD FOOD ================= */
+/* =========================
+   CONFIRM FOOD
+========================= */
 
 function confirmFood(){
 
 if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
+
+let q=parseFloat($("quantity").value)||0;
+
 
 if(q<=0)return;
 
+
 let grams;
+
 
 if(selectedUnit==="spoon"){
 
-grams=
-q*getSpoonWeight(selectedFood);
+grams=q*getSpoonWeight(selectedFood);
 
 }else if(selectedUnit==="piece"){
 
-grams=
-q*(selectedFood.weight||100);
+grams=q*(selectedFood.weight||100);
 
 }else{
 
@@ -1207,24 +1513,23 @@ grams=q;
 
 }
 
+
 let factor=grams/100;
+
 
 selectedFoods.push({
 
 name:selectedFood.name,
+
 grams:grams,
 
-calories:
-selectedFood.calories*factor,
+calories:selectedFood.calories*factor,
 
-protein:
-selectedFood.protein*factor,
+protein:selectedFood.protein*factor,
 
-carbs:
-selectedFood.carbs*factor,
+carbs:selectedFood.carbs*factor,
 
-fat:
-selectedFood.fat*factor,
+fat:selectedFood.fat*factor,
 
 display:
 `${q} ${
@@ -1237,6 +1542,7 @@ selectedUnit==="spoon"
 
 });
 
+
 saveData();
 
 closeFood();
@@ -1246,6 +1552,10 @@ renderSelected();
 }
 
 
+/* =========================
+   CLOSE FOOD
+========================= */
+
 function closeFood(){
 
 $("foodModal").style.display="none";
@@ -1253,25 +1563,25 @@ $("foodModal").style.display="none";
 }
 
 
-/* ================= SELECTED ================= */
+/* =========================
+   RENDER SELECTED
+========================= */
 
 function renderSelected(){
 
 if(!selectedFoods.length){
 
-$("selected").innerHTML=`
-
-<div class="empty">
+$("selected").innerHTML=
+`<div class="empty">
 لم تضف أي طعام بعد
-</div>
-
-`;
+</div>`;
 
 updateStats();
 
 return;
 
 }
+
 
 $("selected").innerHTML=
 
@@ -1281,13 +1591,15 @@ selectedFoods.map((food,index)=>`
 
 <div class="foodInfo">
 
-<b>${food.name}</b>
+<b>
+${food.name}
+</b>
 
 <small>
 
 ${food.display}
-
-≈ ${food.grams.toFixed(1)} جم
+≈
+${food.grams.toFixed(1)} جم
 
 •
 
@@ -1295,15 +1607,18 @@ ${food.calories.toFixed(0)} kcal
 
 •
 
-بروتين ${food.protein.toFixed(1)}g
+بروتين
+${food.protein.toFixed(1)}g
 
 •
 
-كارب ${food.carbs.toFixed(1)}g
+كارب
+${food.carbs.toFixed(1)}g
 
 •
 
-دهون ${food.fat.toFixed(1)}g
+دهون
+${food.fat.toFixed(1)}g
 
 </small>
 
@@ -1321,10 +1636,15 @@ onclick="removeFood(${index})">
 
 `).join("");
 
+
 updateStats();
 
 }
 
+
+/* =========================
+   REMOVE
+========================= */
 
 function removeFood(index){
 
@@ -1337,6 +1657,10 @@ renderSelected();
 }
 
 
+/* =========================
+   CLEAR
+========================= */
+
 function clearAll(){
 
 selectedFoods=[];
@@ -1348,7 +1672,9 @@ renderSelected();
 }
 
 
-/* ================= SAVE ================= */
+/* =========================
+   SAVE
+========================= */
 
 function saveData(){
 
@@ -1365,19 +1691,22 @@ JSON.stringify(dailyGoal)
 }
 
 
-/* ================= STATS ================= */
+/* =========================
+   UPDATE STATS
+========================= */
 
 function updateStats(){
 
-let total=
-
-selectedFoods.reduce(
+let total=selectedFoods.reduce(
 
 (total,food)=>({
 
 cal:total.cal+food.calories,
+
 pro:total.pro+food.protein,
+
 carb:total.carb+food.carbs,
+
 fat:total.fat+food.fat
 
 }),
@@ -1391,6 +1720,7 @@ fat:0
 
 );
 
+
 $("calTotal").textContent=
 `${total.cal.toFixed(0)} / ${dailyGoal.calories}`;
 
@@ -1403,11 +1733,13 @@ $("carbTotal").textContent=
 $("fatTotal").textContent=
 `${total.fat.toFixed(1)} / ${dailyGoal.fat}`;
 
+
 $("calBar").style.width=
 Math.min(
 100,
 total.cal/dailyGoal.calories*100
 )+"%";
+
 
 $("proBar").style.width=
 Math.min(
@@ -1415,11 +1747,13 @@ Math.min(
 total.pro/dailyGoal.protein*100
 )+"%";
 
+
 $("carbBar").style.width=
 Math.min(
 100,
 total.carb/dailyGoal.carbs*100
 )+"%";
+
 
 $("fatBar").style.width=
 Math.min(
@@ -1430,16 +1764,17 @@ total.fat/dailyGoal.fat*100
 }
 
 
-/* ================= SEARCH ================= */
+/* =========================
+   SEARCH
+========================= */
 
 $("search").addEventListener(
 "input",
 function(){
 
 let query=
-this.value
-.trim()
-.toLowerCase();
+this.value.trim().toLowerCase();
+
 
 if(!query){
 
@@ -1448,6 +1783,7 @@ renderFoods(foods);
 return;
 
 }
+
 
 renderFoods(
 
@@ -1462,7 +1798,9 @@ food.name
 });
 
 
-/* ================= GOAL ================= */
+/* =========================
+   GOAL MODAL
+========================= */
 
 function openGoal(){
 
@@ -1487,10 +1825,14 @@ $("goalModal").style.display="none";
 }
 
 
+/* =========================
+   GOAL TYPE
+========================= */
+
 function setGoalType(button){
 
-goalType=
-button.dataset.goal;
+goalType=button.dataset.goal;
+
 
 document
 .querySelectorAll(".goalOption")
@@ -1498,12 +1840,15 @@ document
 button.classList.remove("active")
 );
 
+
 button.classList.add("active");
 
 }
 
 
-/* ================= CALCULATE ================= */
+/* =========================
+   CALCULATE GOAL
+========================= */
 
 function calculateGoal(){
 
@@ -1522,6 +1867,7 @@ $("gender").value;
 let activity=
 parseFloat($("activity").value);
 
+
 if(!weight||!height||!age){
 
 alert("اكتب الوزن والطول والعمر");
@@ -1530,7 +1876,9 @@ return;
 
 }
 
+
 let bmr;
+
 
 if(gender==="male"){
 
@@ -1550,20 +1898,18 @@ bmr=
 
 }
 
+
 let calories=
 bmr*activity;
 
-if(goalType==="lose"){
 
+if(goalType==="lose")
 calories-=250;
 
-}
 
-if(goalType==="gain"){
-
+if(goalType==="gain")
 calories+=250;
 
-}
 
 let protein=
 weight*1.8;
@@ -1574,26 +1920,22 @@ weight*.8;
 let carbs=
 Math.max(
 0,
-(calories-
-protein*4-
-fat*9)/4
+(calories-protein*4-fat*9)/4
 );
+
 
 dailyGoal={
 
-calories:
-Math.round(calories),
+calories:Math.round(calories),
 
-protein:
-Math.round(protein),
+protein:Math.round(protein),
 
-carbs:
-Math.round(carbs),
+carbs:Math.round(carbs),
 
-fat:
-Math.round(fat)
+fat:Math.round(fat)
 
 };
+
 
 localStorage.setItem(
 "saykoWeight",
@@ -1610,6 +1952,7 @@ localStorage.setItem(
 age
 );
 
+
 saveData();
 
 updateStats();
@@ -1619,7 +1962,9 @@ closeGoal();
 }
 
 
-/* ================= INITIAL ================= */
+/* =========================
+   INITIAL LOAD
+========================= */
 
 renderFoods();
 
@@ -1628,12 +1973,15 @@ renderSelected();
 updateStats();
 
 
-/* ================= PWA ================= */
+/* =========================
+   PWA INSTALL
+========================= */
 
 let deferredInstallPrompt=null;
 
 const installButton=
 $("installButton");
+
 
 window.addEventListener(
 "beforeinstallprompt",
@@ -1647,13 +1995,13 @@ installButton.style.display="block";
 
 });
 
+
 installButton.addEventListener(
 "click",
 async function(){
 
-if(!deferredInstallPrompt){
-return;
-}
+if(!deferredInstallPrompt)return;
+
 
 deferredInstallPrompt.prompt();
 
@@ -1665,6 +2013,7 @@ installButton.style.display="none";
 
 });
 
+
 window.addEventListener(
 "appinstalled",
 function(){
@@ -1674,7 +2023,9 @@ installButton.style.display="none";
 });
 
 
-/* ================= SERVICE WORKER ================= */
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if("serviceWorker" in navigator){
 
