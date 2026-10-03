@@ -2,1303 +2,748 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>SAYKØ FITNESS</title>
 
-<link rel="icon" type="image/jpeg" href="1790471069347.jpg">
-<link rel="manifest" href="manifest.json">
+<link rel="icon"
+type="image/jpeg"
+href="1790471069347.jpg">
 
-<meta name="theme-color" content="#080808">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest"
+href="manifest.json">
+
+<meta name="theme-color"
+content="#e50914">
+
+<meta name="mobile-web-app-capable"
+content="yes">
+
+<meta name="apple-mobile-web-app-capable"
+content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+content="black">
 
 <style>
 
-/* =========================================================
-   SAYKØ FITNESS — NEW CSS ONLY
-   ========================================================= */
-
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Tahoma,sans-serif;
--webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif;
 }
-
-:root{
---bg:#060606;
---card:#101010;
---card2:#151515;
---border:#292929;
---border2:#353535;
---red:#e50914;
---red-dark:#a8060d;
---red-light:#ff2631;
---white:#fff;
---gray:#888;
---gray2:#555;
-}
-
-/* ================= BODY ================= */
 
 html{
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-background:
-radial-gradient(
-circle at 50% -15%,
-rgba(229,9,20,.16),
-transparent 35%
-),
-radial-gradient(
-circle at 100% 50%,
-rgba(229,9,20,.035),
-transparent 30%
-),
-var(--bg);
-
-color:var(--white);
-min-height:100vh;
-padding-bottom:45px;
-overflow-x:hidden;
+    background:#060606;
+    color:#fff;
+    min-height:100vh;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 header{
-position:sticky;
-top:0;
-z-index:20;
+    background:
+    linear-gradient(
+        180deg,
+        #111 0%,
+        #080808 100%
+    );
 
-padding:18px 14px 16px;
+    border-bottom:1px solid #252525;
 
-text-align:center;
+    padding:22px 15px 18px;
 
-background:rgba(6,6,6,.92);
+    text-align:center;
 
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
+    position:sticky;
 
-border-bottom:1px solid rgba(255,255,255,.07);
+    top:0;
 
-box-shadow:
-0 8px 35px rgba(0,0,0,.4);
+    z-index:100;
 }
 
 .logo{
-font-size:30px;
-font-weight:900;
-letter-spacing:2.5px;
-
-text-shadow:
-0 0 20px rgba(255,255,255,.06);
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:1px;
 }
 
 .logo span{
-color:var(--red);
-
-text-shadow:
-0 0 18px rgba(229,9,20,.35);
+    color:#e50914;
 }
 
 .subtitle{
-color:#777;
-font-size:11px;
-margin-top:7px;
-letter-spacing:1px;
+    color:#999;
+    font-size:12px;
+    margin-top:5px;
 }
 
 #installButton{
-display:none;
+    display:none;
 
-margin:13px auto 0;
+    margin:14px auto 0;
 
-background:
-linear-gradient(
-135deg,
-var(--red-light),
-var(--red-dark)
-);
+    border:1px solid #e50914;
 
-color:#fff;
+    background:#e50914;
 
-border:1px solid rgba(255,255,255,.08);
+    color:#fff;
 
-border-radius:11px;
+    padding:10px 18px;
 
-padding:10px 18px;
+    border-radius:10px;
 
-font-weight:bold;
-font-size:12px;
+    font-size:13px;
 
-cursor:pointer;
+    font-weight:bold;
 
-box-shadow:
-0 8px 22px rgba(229,9,20,.2);
-
-transition:.2s;
+    cursor:pointer;
 }
 
-#installButton:active{
-transform:scale(.95);
-}
-
-/* ================= CONTAINER ================= */
+/* CONTAINER */
 
 .container{
-width:100%;
-max-width:920px;
-margin:auto;
-padding:18px 15px 0;
+    width:100%;
+    max-width:900px;
+
+    margin:auto;
+
+    padding:18px 14px 40px;
 }
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 
 .search{
-width:100%;
-height:50px;
+    width:100%;
 
-padding:0 17px;
+    background:#101010;
 
-background:
-linear-gradient(
-145deg,
-#151515,
-#0d0d0d
-);
+    border:1px solid #292929;
 
-border:1px solid var(--border);
+    color:#fff;
 
-border-radius:15px;
+    padding:15px;
 
-color:white;
+    border-radius:14px;
 
-outline:none;
+    outline:none;
 
-margin-bottom:18px;
+    font-size:15px;
 
-font-size:14px;
-
-box-shadow:
-inset 0 1px 0 rgba(255,255,255,.025),
-0 8px 25px rgba(0,0,0,.2);
-
-transition:.2s;
-}
-
-.search::placeholder{
-color:#666;
+    margin-bottom:16px;
 }
 
 .search:focus{
-border-color:rgba(229,9,20,.75);
-
-box-shadow:
-0 0 0 3px rgba(229,9,20,.08),
-0 8px 25px rgba(0,0,0,.25);
+    border-color:#e50914;
 }
 
-/* ================= GOAL ================= */
+.search::placeholder{
+    color:#777;
+}
+
+/* GOAL */
 
 .goal{
-position:relative;
+    background:
+    linear-gradient(
+        145deg,
+        #121212,
+        #090909
+    );
 
-background:
-linear-gradient(
-145deg,
-#151515,
-#0e0e0e
-);
+    border:1px solid #252525;
 
-border:1px solid var(--border);
+    border-radius:18px;
 
-border-radius:18px;
+    padding:16px;
 
-padding:17px;
+    margin-bottom:22px;
 
-margin-bottom:24px;
-
-box-shadow:
-0 14px 40px rgba(0,0,0,.28);
-
-overflow:hidden;
-}
-
-.goal::before{
-content:"";
-
-position:absolute;
-
-top:0;
-right:0;
-
-width:100px;
-height:2px;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-var(--red)
-);
-
-box-shadow:
-0 0 16px rgba(229,9,20,.7);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
 .goalHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
+    display:flex;
 
-margin-bottom:15px;
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
 }
 
 .goalHead b{
-font-size:16px;
-font-weight:800;
+    font-size:17px;
 }
 
 .goalHead button{
-background:
-rgba(229,9,20,.12);
+    background:#e50914;
 
-border:1px solid rgba(229,9,20,.4);
+    color:#fff;
 
-color:white;
+    border:0;
 
-border-radius:9px;
+    padding:8px 15px;
 
-padding:8px 14px;
+    border-radius:9px;
 
-font-weight:bold;
-font-size:11px;
+    font-weight:bold;
 
-cursor:pointer;
-
-transition:.2s;
+    cursor:pointer;
 }
-
-.goalHead button:hover{
-background:var(--red);
-border-color:var(--red);
-
-box-shadow:
-0 5px 15px rgba(229,9,20,.2);
-}
-
-.goalHead button:active{
-transform:scale(.94);
-}
-
-/* ================= STATS ================= */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:9px;
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:10px;
 }
 
 .stat{
-position:relative;
+    background:#0b0b0b;
 
-background:
-linear-gradient(
-145deg,
-#0b0b0b,
-#101010
-);
+    border:1px solid #202020;
 
-border:1px solid #222;
+    border-radius:12px;
 
-border-radius:13px;
-
-padding:12px 8px;
-
-text-align:center;
-
-overflow:hidden;
-
-transition:.2s;
-}
-
-.stat::before{
-content:"";
-
-position:absolute;
-
-top:0;
-left:20%;
-right:20%;
-
-height:1px;
-
-background:rgba(229,9,20,.45);
-}
-
-.stat:hover{
-border-color:#333;
-
-transform:translateY(-1px);
+    padding:12px 9px;
 }
 
 .stat b{
-display:block;
+    display:block;
 
-font-size:14px;
-font-weight:800;
+    font-size:13px;
 
-white-space:nowrap;
+    margin-bottom:5px;
 }
 
 .stat small{
-display:block;
+    color:#888;
 
-color:#777;
-
-font-size:10px;
-
-margin-top:5px;
+    font-size:11px;
 }
 
 .progress{
-height:6px;
+    width:100%;
 
-background:#292929;
+    height:5px;
 
-border-radius:20px;
+    background:#242424;
 
-overflow:hidden;
+    border-radius:20px;
 
-margin-top:9px;
+    overflow:hidden;
+
+    margin-top:9px;
 }
 
 .progress i{
-display:block;
+    display:block;
 
-height:100%;
+    width:0%;
 
-background:
-linear-gradient(
-90deg,
-#8f0008,
-var(--red),
-var(--red-light)
-);
+    height:100%;
 
-width:0%;
+    background:
+    linear-gradient(
+        90deg,
+        #a8060d,
+        #e50914,
+        #ff2631
+    );
 
-border-radius:20px;
+    border-radius:20px;
 
-box-shadow:
-0 0 10px rgba(229,9,20,.3);
-
-transition:
-width .45s ease;
+    transition:.3s;
 }
 
-/* ================= SECTION TITLES ================= */
+/* TITLES */
 
 .sectionTitle{
-position:relative;
+    font-size:18px;
 
-font-size:17px;
-font-weight:800;
+    margin:
+    24px 0 12px;
 
-margin:24px 0 12px;
+    border-right:
+    3px solid #e50914;
 
-padding-right:11px;
+    padding-right:9px;
 }
 
-.sectionTitle::before{
-content:"";
-
-position:absolute;
-
-right:0;
-top:50%;
-
-transform:translateY(-50%);
-
-width:3px;
-height:19px;
-
-background:var(--red);
-
-border-radius:10px;
-
-box-shadow:
-0 0 10px rgba(229,9,20,.4);
-}
-
-/* ================= FOOD GRID ================= */
+/* FOOD GRID */
 
 .foodGrid{
-display:grid;
+    display:grid;
 
-grid-template-columns:
-repeat(4,minmax(0,1fr));
+    grid-template-columns:
+    repeat(4,1fr);
 
-gap:9px;
+    gap:9px;
 }
 
 .food{
-position:relative;
+    background:
+    linear-gradient(
+        145deg,
+        #151515,
+        #0b0b0b
+    );
 
-background:
-linear-gradient(
-145deg,
-#151515,
-#0e0e0e
-);
+    border:1px solid #252525;
 
-border:1px solid var(--border);
+    border-radius:13px;
 
-border-radius:14px;
+    padding:12px 8px;
 
-padding:13px 7px;
+    min-height:75px;
 
-text-align:center;
+    display:flex;
 
-cursor:pointer;
+    flex-direction:column;
 
-min-height:88px;
+    justify-content:center;
 
-display:flex;
-flex-direction:column;
-justify-content:center;
+    cursor:pointer;
 
-overflow:hidden;
-
-transition:
-transform .15s,
-border-color .2s,
-background .2s,
-box-shadow .2s;
-}
-
-.food::after{
-content:"+";
-
-position:absolute;
-
-top:6px;
-left:8px;
-
-color:#444;
-
-font-size:12px;
-
-transition:.2s;
+    transition:.2s;
 }
 
 .food:hover{
-border-color:
-rgba(229,9,20,.65);
+    border-color:#e50914;
 
-background:
-linear-gradient(
-145deg,
-#191919,
-#101010
-);
-
-box-shadow:
-0 9px 25px rgba(0,0,0,.3);
-}
-
-.food:hover::after{
-color:var(--red);
+    transform:translateY(-2px);
 }
 
 .food:active{
-transform:scale(.95);
-
-border-color:var(--red);
+    transform:scale(.97);
 }
 
 .food b{
-display:block;
+    font-size:13px;
 
-font-size:12px;
-
-font-weight:700;
-
-line-height:1.5;
+    line-height:1.5;
 }
 
 .food small{
-display:block;
+    color:#888;
 
-color:#777;
+    font-size:10px;
 
-font-size:9px;
-
-margin-top:6px;
+    margin-top:4px;
 }
 
-/* ================= SELECTED ================= */
+/* SELECTED */
 
 .selected{
-background:
-linear-gradient(
-145deg,
-#131313,
-#0d0d0d
-);
+    display:flex;
 
-border:1px solid var(--border);
+    flex-direction:column;
 
-border-radius:16px;
-
-overflow:hidden;
-
-box-shadow:
-0 12px 35px rgba(0,0,0,.22);
+    gap:9px;
 }
 
 .empty{
-padding:30px 15px;
+    background:#101010;
 
-text-align:center;
+    border:1px dashed #303030;
 
-color:#5d5d5d;
+    color:#777;
 
-font-size:13px;
+    padding:25px;
+
+    border-radius:13px;
+
+    text-align:center;
+
+    font-size:14px;
 }
 
 .foodRow{
-display:flex;
+    background:#111;
 
-align-items:center;
+    border:1px solid #252525;
 
-justify-content:space-between;
+    border-radius:13px;
 
-gap:12px;
+    padding:13px;
 
-padding:14px;
+    display:flex;
 
-border-bottom:1px solid #222;
+    align-items:center;
 
-transition:.2s;
-}
+    justify-content:space-between;
 
-.foodRow:last-child{
-border-bottom:none;
-}
-
-.foodRow:hover{
-background:#161616;
+    gap:10px;
 }
 
 .foodInfo{
-flex:1;
-min-width:0;
+    min-width:0;
 }
 
 .foodInfo b{
-display:block;
+    display:block;
 
-font-size:13px;
+    font-size:14px;
 
-font-weight:800;
-
-margin-bottom:4px;
+    margin-bottom:5px;
 }
 
 .foodInfo small{
-display:block;
+    color:#999;
 
-color:#777;
+    font-size:10px;
 
-font-size:10px;
-
-margin-top:4px;
-
-line-height:1.7;
+    line-height:1.8;
 }
 
 .deleteBtn{
-flex-shrink:0;
+    flex-shrink:0;
 
-background:#1d1d1d;
+    background:#22090b;
 
-color:#bbb;
+    color:#ff5961;
 
-border:1px solid #2c2c2c;
+    border:1px solid #5c1116;
 
-border-radius:9px;
+    padding:8px 11px;
 
-padding:8px 10px;
+    border-radius:8px;
 
-font-size:10px;
+    cursor:pointer;
 
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.2s;
-}
-
-.deleteBtn:hover{
-border-color:var(--red);
-
-color:white;
-}
-
-.deleteBtn:active{
-background:var(--red);
-
-border-color:var(--red);
-
-color:white;
-
-transform:scale(.94);
+    font-size:11px;
 }
 
 .clearBtn{
-display:block;
+    width:100%;
 
-margin-top:11px;
-margin-right:0;
+    margin-top:13px;
 
-background:#151515;
+    background:#111;
 
-color:#aaa;
+    color:#e50914;
 
-border:1px solid #292929;
+    border:1px solid #e50914;
 
-border-radius:10px;
+    padding:12px;
 
-padding:9px 15px;
+    border-radius:11px;
 
-font-size:11px;
+    font-weight:bold;
 
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.2s;
+    cursor:pointer;
 }
 
-.clearBtn:hover{
-color:white;
-
-border-color:#3a3a3a;
-}
-
-.clearBtn:active{
-background:var(--red);
-
-color:white;
-
-border-color:var(--red);
-
-transform:scale(.96);
-}
-
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer{
-text-align:center;
+    text-align:center;
 
-color:#444;
+    color:#555;
 
-font-size:10px;
+    border-top:1px solid #191919;
 
-letter-spacing:1.5px;
+    padding:22px;
 
-margin-top:35px;
+    font-size:12px;
 }
 
-/* ================= MODALS ================= */
+/* MODAL */
 
 .modal{
-display:none;
+    display:none;
 
-position:fixed;
+    position:fixed;
 
-inset:0;
+    inset:0;
 
-background:
-rgba(0,0,0,.78);
+    background:
+    rgba(0,0,0,.82);
 
-backdrop-filter:blur(8px);
--webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(5px);
 
-z-index:50;
+    z-index:500;
 
-align-items:center;
+    align-items:center;
 
-justify-content:center;
+    justify-content:center;
 
-padding:15px;
-
-animation:fadeIn .2s ease;
-}
-
-@keyframes fadeIn{
-from{
-opacity:0;
-}
-to{
-opacity:1;
-}
+    padding:15px;
 }
 
 .modalBox{
-position:relative;
+    width:100%;
 
-background:
-linear-gradient(
-145deg,
-#181818,
-#0e0e0e
-);
+    max-width:430px;
 
-border:1px solid #333;
+    max-height:
+    90vh;
 
-border-radius:20px;
+    overflow-y:auto;
 
-padding:20px;
+    background:
+    linear-gradient(
+        145deg,
+        #151515,
+        #080808
+    );
 
-width:100%;
+    border:1px solid #333;
 
-max-width:430px;
+    border-top:
+    3px solid #e50914;
 
-box-shadow:
-0 25px 80px rgba(0,0,0,.75);
+    border-radius:18px;
 
-max-height:90vh;
+    padding:20px;
 
-overflow-y:auto;
-
-animation:modalUp .22s ease;
-}
-
-@keyframes modalUp{
-
-from{
-opacity:0;
-transform:
-translateY(15px)
-scale(.97);
-}
-
-to{
-opacity:1;
-transform:
-translateY(0)
-scale(1);
-}
-
-}
-
-.modalBox::before{
-content:"";
-
-position:absolute;
-
-top:0;
-right:25px;
-
-width:70px;
-height:2px;
-
-background:var(--red);
-
-box-shadow:
-0 0 15px rgba(229,9,20,.55);
+    box-shadow:
+    0 20px 70px rgba(0,0,0,.7);
 }
 
 .modalBox h2{
-font-size:19px;
+    font-size:20px;
 
-font-weight:800;
+    margin-bottom:18px;
 
-margin-bottom:16px;
+    text-align:center;
 }
 
-/* ================= INPUTS ================= */
+/* UNITS */
+
+.units{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:7px;
+
+    margin-bottom:13px;
+}
+
+.unitBtn{
+    background:#111;
+
+    border:1px solid #292929;
+
+    color:#aaa;
+
+    padding:10px 5px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:12px;
+}
+
+.unitBtn.active{
+    background:#e50914;
+
+    border-color:#e50914;
+
+    color:#fff;
+
+    font-weight:bold;
+}
+
+/* INPUTS */
 
 .modalBox input,
 .modalBox select{
-width:100%;
+    width:100%;
 
-height:46px;
+    background:#0d0d0d;
 
-padding:0 13px;
+    border:1px solid #292929;
 
-margin:5px 0;
+    color:#fff;
 
-background:#090909;
+    padding:13px;
 
-border:1px solid #303030;
+    border-radius:10px;
 
-border-radius:11px;
+    outline:none;
 
-color:white;
+    margin-bottom:10px;
 
-outline:none;
-
-font-size:13px;
-
-transition:.2s;
-}
-
-.modalBox input::placeholder{
-color:#666;
+    font-size:14px;
 }
 
 .modalBox input:focus,
 .modalBox select:focus{
-border-color:var(--red);
-
-box-shadow:
-0 0 0 3px rgba(229,9,20,.08);
-}
-
-.modalBox select{
-cursor:pointer;
+    border-color:#e50914;
 }
 
 .modalBox select option{
-background:#111;
-color:white;
+    background:#111;
+
+    color:#fff;
 }
-
-/* ================= UNITS ================= */
-
-.units{
-display:flex;
-
-gap:7px;
-
-margin:8px 0 10px;
-}
-
-.unitBtn{
-flex:1;
-
-height:40px;
-
-padding:0 7px;
-
-background:#191919;
-
-border:1px solid #303030;
-
-border-radius:10px;
-
-color:#aaa;
-
-font-size:11px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.2s;
-}
-
-.unitBtn:hover{
-color:white;
-
-border-color:#414141;
-}
-
-.unitBtn.active{
-background:
-linear-gradient(
-135deg,
-var(--red-light),
-var(--red-dark)
-);
-
-border-color:var(--red);
-
-color:white;
-
-box-shadow:
-0 6px 18px rgba(229,9,20,.18);
-}
-
-/* ================= HINT ================= */
 
 .hint{
-color:#777;
+    color:#888;
 
-font-size:10px;
+    font-size:11px;
 
-margin-top:6px;
+    margin:4px 0 12px;
 
-line-height:1.6;
+    text-align:center;
 }
 
-/* ================= PREVIEW ================= */
-
 .preview{
-background:#090909;
+    background:#0b0b0b;
 
-border-radius:12px;
+    border:1px solid #222;
 
-padding:13px;
+    border-radius:12px;
 
-margin:11px 0;
+    padding:14px;
 
-font-size:11px;
+    line-height:2;
 
-line-height:2;
+    color:#aaa;
 
-color:#aaa;
+    font-size:13px;
 
-border:1px solid #242424;
+    margin-bottom:15px;
 }
 
 .preview b{
-color:#fff;
-
-font-weight:800;
+    color:#fff;
 }
 
-/* ================= ACTIONS ================= */
+/* ACTIONS */
 
 .actions{
-display:flex;
+    display:grid;
 
-gap:8px;
+    grid-template-columns:
+    1fr 1fr;
 
-margin-top:8px;
+    gap:8px;
+
+    margin-top:12px;
 }
 
-.actions button{
-flex:1;
+.addBtn,
+.closeBtn{
+    border:0;
 
-height:44px;
+    padding:12px;
 
-padding:0 10px;
+    border-radius:10px;
 
-border:none;
+    cursor:pointer;
 
-border-radius:11px;
+    font-weight:bold;
 
-font-weight:bold;
-
-font-size:12px;
-
-cursor:pointer;
-
-transition:.2s;
+    font-size:14px;
 }
 
 .addBtn{
-background:
-linear-gradient(
-135deg,
-var(--red-light),
-var(--red-dark)
-);
+    background:#e50914;
 
-color:white;
-
-box-shadow:
-0 7px 20px rgba(229,9,20,.17);
-}
-
-.addBtn:hover{
-filter:brightness(1.08);
-}
-
-.addBtn:active{
-transform:scale(.96);
-
-box-shadow:none;
+    color:#fff;
 }
 
 .closeBtn{
-background:#202020;
+    background:#202020;
 
-color:#aaa;
+    color:#bbb;
 
-border:1px solid #303030 !important;
+    border:1px solid #333;
 }
 
-.closeBtn:hover{
-background:#272727;
-
-color:white;
-}
-
-.closeBtn:active{
-transform:scale(.96);
-}
-
-/* ================= GOAL OPTIONS ================= */
+/* GOAL OPTIONS */
 
 .goalOptions{
-display:grid;
+    display:grid;
 
-grid-template-columns:1fr 1fr;
+    grid-template-columns:
+    1fr 1fr;
 
-gap:8px;
+    gap:8px;
 
-margin:11px 0;
+    margin-top:4px;
 }
 
 .goalOption{
-min-height:48px;
+    background:#101010;
 
-background:#181818;
+    color:#999;
 
-color:#999;
+    border:1px solid #292929;
 
-border:1px solid #303030;
+    padding:11px 7px;
 
-border-radius:10px;
+    border-radius:10px;
 
-padding:8px;
+    cursor:pointer;
 
-font-size:10px;
+    font-size:11px;
 
-font-weight:bold;
-
-line-height:1.4;
-
-cursor:pointer;
-
-transition:.2s;
-}
-
-.goalOption:hover{
-color:white;
-
-border-color:#424242;
+    line-height:1.5;
 }
 
 .goalOption.active{
-background:
-linear-gradient(
-135deg,
-var(--red-light),
-var(--red-dark)
-);
+    background:#30080b;
 
-color:white;
+    border-color:#e50914;
 
-border-color:var(--red);
-
-box-shadow:
-0 6px 18px rgba(229,9,20,.15);
+    color:#fff;
 }
 
-/* ================= SCROLLBAR ================= */
+/* MOBILE */
 
-::-webkit-scrollbar{
-width:5px;
-}
+@media(max-width:650px){
 
-::-webkit-scrollbar-track{
-background:#070707;
-}
+    .stats{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
 
-::-webkit-scrollbar-thumb{
-background:#303030;
-
-border-radius:10px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-background:var(--red);
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:700px){
-
-header{
-padding:16px 12px 14px;
-}
-
-.logo{
-font-size:27px;
-}
-
-.container{
-padding:
-15px 12px 0;
-}
-
-.stats{
-grid-template-columns:
-repeat(2,1fr);
-gap:8px;
-}
-
-.foodGrid{
-grid-template-columns:
-repeat(3,1fr);
-
-gap:8px;
-}
-
-.food{
-min-height:84px;
-
-padding:11px 6px;
-}
-
-.food b{
-font-size:11px;
-}
-
-.sectionTitle{
-font-size:16px;
-}
+    .foodGrid{
+        grid-template-columns:
+        repeat(3,1fr);
+    }
 
 }
-
-/* ================= SMALL MOBILE ================= */
-
-@media(max-width:420px){
-
-.container{
-padding-left:10px;
-padding-right:10px;
-}
-
-.logo{
-font-size:25px;
-}
-
-.subtitle{
-font-size:10px;
-}
-
-.goal{
-padding:14px;
-
-border-radius:16px;
-}
-
-.goalHead b{
-font-size:14px;
-}
-
-.goalHead button{
-padding:7px 11px;
-
-font-size:10px;
-}
-
-.stat{
-padding:10px 6px;
-}
-
-.stat b{
-font-size:13px;
-}
-
-.foodGrid{
-grid-template-columns:
-repeat(3,1fr);
-
-gap:6px;
-}
-
-.food{
-min-height:78px;
-
-border-radius:12px;
-}
-
-.food b{
-font-size:10px;
-}
-
-.food small{
-font-size:8px;
-}
-
-.foodRow{
-padding:12px 10px;
-}
-
-.foodInfo b{
-font-size:12px;
-}
-
-.foodInfo small{
-font-size:9px;
-}
-
-.deleteBtn{
-padding:7px 8px;
-
-font-size:9px;
-}
-
-.modal{
-padding:10px;
-}
-
-.modalBox{
-padding:16px;
-
-border-radius:17px;
-}
-
-}
-
-/* ================= VERY SMALL ================= */
 
 @media(max-width:350px){
 
-.foodGrid{
-grid-template-columns:
-repeat(2,1fr);
+    .foodGrid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
 
-gap:7px;
-}
+    .logo{
+        font-size:25px;
+    }
 
-.food{
-min-height:82px;
-}
-
-.goalOptions{
-grid-template-columns:1fr;
-}
-
-.actions button{
-height:42px;
-}
-
-}
-
-/* ================= REDUCE MOTION ================= */
-
-@media(prefers-reduced-motion:reduce){
-
-*,
-*::before,
-*::after{
-animation-duration:.01ms !important;
-
-animation-iteration-count:1 !important;
-
-transition-duration:.01ms !important;
-
-scroll-behavior:auto !important;
-}
+    .container{
+        padding-left:10px;
+        padding-right:10px;
+    }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -1319,19 +764,23 @@ Nutrition • Calories • Progress
 
 </header>
 
+
 <main class="container">
+
 
 <input
 id="search"
 class="search"
-placeholder="ابحث عن أكلة أو سناك..."
->
+placeholder="ابحث عن أكلة أو سناك...">
+
 
 <section class="goal">
 
 <div class="goalHead">
 
-<b>هدفك اليومي</b>
+<b>
+هدفك اليومي
+</b>
 
 <button onclick="openGoal()">
 تعديل
@@ -1339,13 +788,19 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
+
 <div class="stats">
+
 
 <div class="stat">
 
-<b id="calTotal">0 / 0</b>
+<b id="calTotal">
+0 / 2500
+</b>
 
-<small>السعرات</small>
+<small>
+السعرات
+</small>
 
 <div class="progress">
 <i id="calBar"></i>
@@ -1353,11 +808,16 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
+
 <div class="stat">
 
-<b id="proTotal">0 / 0</b>
+<b id="proTotal">
+0 / 150
+</b>
 
-<small>بروتين</small>
+<small>
+بروتين
+</small>
 
 <div class="progress">
 <i id="proBar"></i>
@@ -1365,11 +825,16 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
+
 <div class="stat">
 
-<b id="carbTotal">0 / 0</b>
+<b id="carbTotal">
+0 / 300
+</b>
 
-<small>كارب</small>
+<small>
+كارب
+</small>
 
 <div class="progress">
 <i id="carbBar"></i>
@@ -1377,11 +842,16 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
+
 <div class="stat">
 
-<b id="fatTotal">0 / 0</b>
+<b id="fatTotal">
+0 / 80
+</b>
 
-<small>دهون</small>
+<small>
+دهون
+</small>
 
 <div class="progress">
 <i id="fatBar"></i>
@@ -1389,20 +859,29 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
+
 </div>
+
 </section>
+
 
 <h2 class="sectionTitle">
 الأطعمة والسناكس
 </h2>
 
-<div id="foodGrid" class="foodGrid"></div>
+<div
+id="foodGrid"
+class="foodGrid">
+</div>
+
 
 <h2 class="sectionTitle">
 الأطعمة المختارة
 </h2>
 
-<div id="selected" class="selected">
+<div
+id="selected"
+class="selected">
 
 <div class="empty">
 لم تضف أي طعام بعد
@@ -1410,11 +889,17 @@ placeholder="ابحث عن أكلة أو سناك..."
 
 </div>
 
-<button class="clearBtn" onclick="clearAll()">
+
+<button
+class="clearBtn"
+onclick="clearAll()">
+
 مسح الكل
+
 </button>
 
 </main>
+
 
 <footer>
 SAYKØ FITNESS
@@ -1423,11 +908,14 @@ SAYKØ FITNESS
 
 <!-- FOOD MODAL -->
 
-<div id="foodModal" class="modal">
+<div
+id="foodModal"
+class="modal">
 
 <div class="modalBox">
 
 <h2 id="foodTitle"></h2>
+
 
 <div class="units">
 
@@ -1435,25 +923,34 @@ SAYKØ FITNESS
 id="gramsBtn"
 class="unitBtn active"
 onclick="selectUnit('grams')">
+
 جرام
+
 </button>
+
 
 <button
 id="spoonBtn"
 class="unitBtn"
 onclick="selectUnit('spoon')">
+
 معلقة كبيرة
+
 </button>
+
 
 <button
 id="pieceBtn"
 class="unitBtn"
 style="display:none"
 onclick="selectUnit('piece')">
+
 قطعة
+
 </button>
 
 </div>
+
 
 <input
 id="quantity"
@@ -1461,32 +958,52 @@ type="number"
 min="0"
 step="0.1"
 value="100"
-oninput="updatePreview()"
->
+oninput="updatePreview()">
 
-<div id="quantityHint" class="hint"></div>
 
-<div id="preview" class="preview"></div>
+<div
+id="quantityHint"
+class="hint">
+</div>
+
+
+<div
+id="preview"
+class="preview">
+</div>
+
 
 <div class="actions">
 
-<button class="addBtn" onclick="confirmFood()">
+<button
+class="addBtn"
+onclick="confirmFood()">
+
 إضافة
+
 </button>
 
-<button class="closeBtn" onclick="closeFood()">
+
+<button
+class="closeBtn"
+onclick="closeFood()">
+
 إلغاء
+
 </button>
 
 </div>
 
 </div>
+
 </div>
 
 
 <!-- GOAL MODAL -->
 
-<div id="goalModal" class="modal">
+<div
+id="goalModal"
+class="modal">
 
 <div class="modalBox">
 
@@ -1494,23 +1011,24 @@ oninput="updatePreview()"
 احسب احتياجك اليومي
 </h2>
 
+
 <input
 id="weight"
 type="number"
-placeholder="الوزن بالكجم"
->
+placeholder="الوزن بالكجم">
+
 
 <input
 id="height"
 type="number"
-placeholder="الطول بالسنتيمتر"
->
+placeholder="الطول بالسنتيمتر">
+
 
 <input
 id="age"
 type="number"
-placeholder="العمر"
->
+placeholder="العمر">
+
 
 <select id="gender">
 
@@ -1524,6 +1042,7 @@ placeholder="العمر"
 
 </select>
 
+
 <select id="activity">
 
 <option value="1.2">
@@ -1534,7 +1053,8 @@ placeholder="العمر"
 نشاط خفيف
 </option>
 
-<option value="1.55" selected>
+<option value="1.55"
+selected>
 نشاط متوسط
 </option>
 
@@ -1544,57 +1064,82 @@ placeholder="العمر"
 
 </select>
 
+
 <div class="goalOptions">
 
 <button
 class="goalOption active"
 data-goal="build"
 onclick="setGoalType(this)">
+
 ضبط الدهون وبناء العضلات
+
 </button>
+
 
 <button
 class="goalOption"
 data-goal="maintain"
 onclick="setGoalType(this)">
+
 تثبيت الوزن
+
 </button>
+
 
 <button
 class="goalOption"
 data-goal="lose"
 onclick="setGoalType(this)">
+
 خسارة وزن تدريجية
+
 </button>
+
 
 <button
 class="goalOption"
 data-goal="gain"
 onclick="setGoalType(this)">
+
 زيادة الوزن
+
 </button>
 
 </div>
+
 
 <div class="actions">
 
-<button class="addBtn" onclick="calculateGoal()">
+<button
+class="addBtn"
+onclick="calculateGoal()">
+
 حفظ
+
 </button>
 
-<button class="closeBtn" onclick="closeGoal()">
+
+<button
+class="closeBtn"
+onclick="closeGoal()">
+
 إلغاء
+
 </button>
 
 </div>
 
 </div>
+
 </div>
 
 
 <script>
 
-/* ================= DATABASE ================= */
+/* =========================
+FOODS DATABASE
+========================= */
 
 const foods = [
 
@@ -1602,6 +1147,7 @@ const foods = [
 {name:"أرز بني",calories:123,carbs:26,protein:2.7,fat:1},
 {name:"أرز بسمتي",calories:121,carbs:25,protein:3,fat:.4},
 {name:"أرز أصفر",calories:150,carbs:30,protein:3,fat:2},
+
 {name:"مكرونة مسلوقة",calories:158,carbs:31,protein:6,fat:.9},
 {name:"مكرونة جافة",calories:371,carbs:75,protein:13,fat:1.5},
 {name:"مكرونة قمح كامل",calories:149,carbs:30,protein:6,fat:1.5},
@@ -1820,7 +1366,9 @@ const foods = [
 ];
 
 
-/* ================= SPOON WEIGHTS ================= */
+/* =========================
+SPOON WEIGHTS
+========================= */
 
 const spoonWeights={
 
@@ -1828,38 +1376,49 @@ const spoonWeights={
 "أرز بني":15,
 "أرز بسمتي":15,
 "أرز أصفر":15,
+
 "مكرونة مسلوقة":12,
 "فريك":12,
 "برغل":12,
 "كسكسي":12,
+
 "شوفان":10,
 "شوفان مطبوخ":15,
+
 "سكر أبيض":12.5,
 "كاكاو خام":5,
+
 "عسل":21,
 "مربى":20,
 "نوتيلا":19,
+
 "زيت زيتون":14,
 "زبدة":14,
 "سمنة":14,
+
 "طحينة":15,
 "زبدة فول سوداني":16,
+
 "فول سوداني":9,
 "لوز":9,
 "عين جمل":8,
 "كاجو":9,
 "فستق":9,
 "بندق":9,
+
 "جبنة قريش":15,
 "جبنة بيضاء":15,
 "زبادي":15,
 "لبن كامل الدسم":15,
+
 "كاتشب":17,
 "مايونيز":14,
 "صوص باربكيو":17,
+
 "فول":20,
 "عدس":18,
 "حمص":18,
+
 "فشار بدون زيت":3,
 "جرانولا":10,
 "شوربة عدس":15
@@ -1867,658 +1426,902 @@ const spoonWeights={
 };
 
 
-/* ================= VARIABLES ================= */
+/* =========================
+APP VARIABLES
+========================= */
 
 let selectedFood=null;
+
 let selectedUnit="grams";
+
 
 let selectedFoods=
 JSON.parse(
-localStorage.getItem("novarSelectedFoods") || "[]"
+localStorage.getItem(
+"novarSelectedFoods"
+) || "[]"
 );
+
 
 let dailyGoal=
 JSON.parse(
-localStorage.getItem("novarDailyGoals") || "null"
-) || {
-
-calories:2500,
-protein:150,
-carbs:300,
-fat:80
-
+localStorage.getItem(
+"novarDailyGoals"
+) || "null"
+)
+||
+{
+    calories:2500,
+    protein:150,
+    carbs:300,
+    fat:80
 };
+
 
 let goalType="build";
 
-const $=id=>document.getElementById(id);
+
+const $=
+id=>document.getElementById(id);
+
+
+/* =========================
+SPOON WEIGHT
+========================= */
 
 function getSpoonWeight(food){
 
-return spoonWeights[food.name] || 10;
+    return spoonWeights[food.name] || 10;
 
 }
 
 
-/* ================= RENDER ================= */
+/* =========================
+RENDER FOODS
+========================= */
 
 function renderFoods(list=foods){
 
-$("foodGrid").innerHTML=
+    $("foodGrid").innerHTML=
 
-list.map(food=>`
+    list.map(food=>`
 
-<div
-class="food"
-onclick="openFood(${foods.indexOf(food)})">
+        <div
+        class="food"
+        onclick="openFood(${foods.indexOf(food)})">
 
-<b>${food.name}</b>
+            <b>
+                ${food.name}
+            </b>
 
-<small>
-${food.calories} kcal / 100g
-</small>
+            <small>
+                ${food.calories} kcal / 100g
+            </small>
 
-</div>
+        </div>
 
-`).join("");
+    `).join("");
 
 }
 
 
-/* ================= OPEN FOOD ================= */
+/* =========================
+OPEN FOOD
+========================= */
 
 function openFood(index){
 
-selectedFood=foods[index];
+    selectedFood=foods[index];
 
-$("foodTitle").textContent=
-selectedFood.name;
+    $("foodTitle").textContent=
+    selectedFood.name;
 
-if(selectedFood.weight){
 
-selectedUnit="piece";
+    if(selectedFood.weight){
 
-$("pieceBtn").style.display="block";
-$("gramsBtn").style.display="none";
-$("spoonBtn").style.display="none";
+        selectedUnit="piece";
 
-}else{
+        $("pieceBtn").style.display="block";
 
-selectedUnit="grams";
+        $("gramsBtn").style.display="none";
 
-$("pieceBtn").style.display="none";
-$("gramsBtn").style.display="block";
-$("spoonBtn").style.display="block";
+        $("spoonBtn").style.display="none";
+
+    }else{
+
+        selectedUnit="grams";
+
+        $("pieceBtn").style.display="none";
+
+        $("gramsBtn").style.display="block";
+
+        $("spoonBtn").style.display="block";
+
+    }
+
+
+    $("quantity").value=
+    selectedUnit==="piece"
+    ? 1
+    : 100;
+
+
+    selectUnit(selectedUnit);
+
+    updatePreview();
+
+
+    $("foodModal").style.display="flex";
 
 }
 
-$("quantity").value=
-selectedUnit==="piece" ? 1 : 100;
 
-selectUnit(selectedUnit);
-
-updatePreview();
-
-$("foodModal").style.display="flex";
-
-}
-
-
-/* ================= UNIT ================= */
+/* =========================
+SELECT UNIT
+========================= */
 
 function selectUnit(unit){
 
-selectedUnit=unit;
+    selectedUnit=unit;
 
-$("gramsBtn")
-.classList
-.toggle("active",unit==="grams");
 
-$("spoonBtn")
-.classList
-.toggle("active",unit==="spoon");
+    $("gramsBtn")
+    .classList
+    .toggle(
+        "active",
+        unit==="grams"
+    );
 
-$("pieceBtn")
-.classList
-.toggle("active",unit==="piece");
 
-$("quantity").value=
-unit==="piece" ? 1 : 100;
+    $("spoonBtn")
+    .classList
+    .toggle(
+        "active",
+        unit==="spoon"
+    );
 
-updatePreview();
+
+    $("pieceBtn")
+    .classList
+    .toggle(
+        "active",
+        unit==="piece"
+    );
+
+
+    $("quantity").value=
+    unit==="piece"
+    ? 1
+    : 100;
+
+
+    updatePreview();
 
 }
 
 
-/* ================= PREVIEW ================= */
+/* =========================
+UPDATE PREVIEW
+========================= */
 
 function updatePreview(){
 
-if(!selectedFood)return;
+    if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
 
-let grams=q;
+    let q=
+    parseFloat(
+        $("quantity").value
+    ) || 0;
 
-let label="جم";
 
-if(selectedUnit==="spoon"){
+    let grams=q;
 
-grams=
-q*getSpoonWeight(selectedFood);
+    let label="جم";
 
-label="معلقة";
+
+    if(selectedUnit==="spoon"){
+
+        grams=
+        q*
+        getSpoonWeight(
+            selectedFood
+        );
+
+        label="معلقة";
+
+    }
+
+
+    if(selectedUnit==="piece"){
+
+        grams=
+        q*
+        (selectedFood.weight||100);
+
+        label="قطعة";
+
+    }
+
+
+    if(selectedUnit==="spoon"){
+
+        $("quantityHint").textContent=
+        `المعلقة الكبيرة من ${selectedFood.name} ≈ ${getSpoonWeight(selectedFood)} جم`;
+
+    }else if(selectedUnit==="piece"){
+
+        $("quantityHint").textContent=
+        `القطعة ≈ ${selectedFood.weight} جم`;
+
+    }else{
+
+        $("quantityHint").textContent=
+        "القيمة محسوبة حسب الوزن بالجرام";
+
+    }
+
+
+    let factor=
+    grams/100;
+
+
+    $("preview").innerHTML=`
+
+        الكمية:
+        <b>${q} ${label}</b>
+        ≈
+        <b>${grams.toFixed(1)} جم</b>
+
+        <br>
+
+        السعرات:
+        <b>
+        ${(selectedFood.calories*factor).toFixed(0)}
+        </b>
+        kcal
+
+        <br>
+
+        البروتين:
+        <b>
+        ${(selectedFood.protein*factor).toFixed(1)}g
+        </b>
+
+        &nbsp; | &nbsp;
+
+        الكارب:
+        <b>
+        ${(selectedFood.carbs*factor).toFixed(1)}g
+        </b>
+
+        &nbsp; | &nbsp;
+
+        الدهون:
+        <b>
+        ${(selectedFood.fat*factor).toFixed(1)}g
+        </b>
+
+    `;
 
 }
 
-if(selectedUnit==="piece"){
 
-grams=
-q*(selectedFood.weight||100);
-
-label="قطعة";
-
-}
-
-if(selectedUnit==="spoon"){
-
-$("quantityHint").textContent=
-`المعلقة الكبيرة من ${selectedFood.name} ≈ ${getSpoonWeight(selectedFood)} جم`;
-
-}else if(selectedUnit==="piece"){
-
-$("quantityHint").textContent=
-`القطعة ≈ ${selectedFood.weight} جم`;
-
-}else{
-
-$("quantityHint").textContent=
-"القيمة محسوبة حسب الوزن بالجرام";
-
-}
-
-let factor=grams/100;
-
-$("preview").innerHTML=`
-
-الكمية:
-<b>${q} ${label}</b>
-≈
-<b>${grams.toFixed(1)} جم</b>
-
-<br>
-
-السعرات:
-<b>${(selectedFood.calories*factor).toFixed(0)}</b>
-kcal
-
-<br>
-
-البروتين:
-<b>${(selectedFood.protein*factor).toFixed(1)}g</b>
-
-&nbsp; | &nbsp;
-
-الكارب:
-<b>${(selectedFood.carbs*factor).toFixed(1)}g</b>
-
-&nbsp; | &nbsp;
-
-الدهون:
-<b>${(selectedFood.fat*factor).toFixed(1)}g</b>
-
-`;
-
-}
-
-
-/* ================= ADD FOOD ================= */
+/* =========================
+CONFIRM FOOD
+========================= */
 
 function confirmFood(){
 
-if(!selectedFood)return;
+    if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
 
-if(q<=0)return;
+    let q=
+    parseFloat(
+        $("quantity").value
+    ) || 0;
 
-let grams;
 
-if(selectedUnit==="spoon"){
+    if(q<=0)return;
 
-grams=
-q*getSpoonWeight(selectedFood);
 
-}else if(selectedUnit==="piece"){
+    let grams;
 
-grams=
-q*(selectedFood.weight||100);
 
-}else{
+    if(selectedUnit==="spoon"){
 
-grams=q;
+        grams=
+        q*
+        getSpoonWeight(
+            selectedFood
+        );
+
+    }else if(selectedUnit==="piece"){
+
+        grams=
+        q*
+        (selectedFood.weight||100);
+
+    }else{
+
+        grams=q;
+
+    }
+
+
+    let factor=
+    grams/100;
+
+
+    selectedFoods.push({
+
+        name:selectedFood.name,
+
+        grams:grams,
+
+        calories:
+        selectedFood.calories*
+        factor,
+
+        protein:
+        selectedFood.protein*
+        factor,
+
+        carbs:
+        selectedFood.carbs*
+        factor,
+
+        fat:
+        selectedFood.fat*
+        factor,
+
+        display:
+        `${q} ${
+            selectedUnit==="spoon"
+            ? "معلقة"
+            : selectedUnit==="piece"
+            ? "قطعة"
+            : "جم"
+        }`
+
+    });
+
+
+    saveData();
+
+    closeFood();
+
+    renderSelected();
 
 }
 
-let factor=grams/100;
 
-selectedFoods.push({
-
-name:selectedFood.name,
-grams:grams,
-
-calories:
-selectedFood.calories*factor,
-
-protein:
-selectedFood.protein*factor,
-
-carbs:
-selectedFood.carbs*factor,
-
-fat:
-selectedFood.fat*factor,
-
-display:
-`${q} ${
-selectedUnit==="spoon"
-?"معلقة"
-:selectedUnit==="piece"
-?"قطعة"
-:"جم"
-}`
-
-});
-
-saveData();
-
-closeFood();
-
-renderSelected();
-
-}
-
+/* =========================
+CLOSE FOOD
+========================= */
 
 function closeFood(){
 
-$("foodModal").style.display="none";
+    $("foodModal")
+    .style
+    .display="none";
 
 }
 
 
-/* ================= SELECTED ================= */
+/* =========================
+RENDER SELECTED
+========================= */
 
 function renderSelected(){
 
-if(!selectedFoods.length){
+    if(!selectedFoods.length){
 
-$("selected").innerHTML=`
+        $("selected").innerHTML=`
 
-<div class="empty">
-لم تضف أي طعام بعد
-</div>
+            <div class="empty">
+                لم تضف أي طعام بعد
+            </div>
 
-`;
+        `;
 
-updateStats();
+        updateStats();
 
-return;
+        return;
+
+    }
+
+
+    $("selected").innerHTML=
+
+    selectedFoods.map(
+    (food,index)=>`
+
+        <div class="foodRow">
+
+            <div class="foodInfo">
+
+                <b>
+                    ${food.name}
+                </b>
+
+                <small>
+
+                    ${food.display}
+
+                    ≈
+                    ${food.grams.toFixed(1)}
+                    جم
+
+                    •
+
+                    ${food.calories.toFixed(0)}
+                    kcal
+
+                    •
+
+                    بروتين
+                    ${food.protein.toFixed(1)}g
+
+                    •
+
+                    كارب
+                    ${food.carbs.toFixed(1)}g
+
+                    •
+
+                    دهون
+                    ${food.fat.toFixed(1)}g
+
+                </small>
+
+            </div>
+
+
+            <button
+            class="deleteBtn"
+            onclick="removeFood(${index})">
+
+                حذف
+
+            </button>
+
+        </div>
+
+    `).join("");
+
+
+
+    updateStats();
 
 }
 
-$("selected").innerHTML=
 
-selectedFoods.map((food,index)=>`
-
-<div class="foodRow">
-
-<div class="foodInfo">
-
-<b>${food.name}</b>
-
-<small>
-
-${food.display}
-
-≈ ${food.grams.toFixed(1)} جم
-
-•
-
-${food.calories.toFixed(0)} kcal
-
-•
-
-بروتين ${food.protein.toFixed(1)}g
-
-•
-
-كارب ${food.carbs.toFixed(1)}g
-
-•
-
-دهون ${food.fat.toFixed(1)}g
-
-</small>
-
-</div>
-
-<button
-class="deleteBtn"
-onclick="removeFood(${index})">
-
-حذف
-
-</button>
-
-</div>
-
-`).join("");
-
-updateStats();
-
-}
-
+/* =========================
+REMOVE FOOD
+========================= */
 
 function removeFood(index){
 
-selectedFoods.splice(index,1);
+    selectedFoods.splice(
+        index,
+        1
+    );
 
-saveData();
+    saveData();
 
-renderSelected();
+    renderSelected();
 
 }
 
+
+/* =========================
+CLEAR ALL
+========================= */
 
 function clearAll(){
 
-selectedFoods=[];
+    selectedFoods=[];
 
-saveData();
+    saveData();
 
-renderSelected();
+    renderSelected();
 
 }
 
 
-/* ================= SAVE ================= */
+/* =========================
+SAVE DATA
+========================= */
 
 function saveData(){
 
-localStorage.setItem(
-"novarSelectedFoods",
-JSON.stringify(selectedFoods)
-);
+    localStorage.setItem(
+        "novarSelectedFoods",
+        JSON.stringify(selectedFoods)
+    );
 
-localStorage.setItem(
-"novarDailyGoals",
-JSON.stringify(dailyGoal)
-);
+
+    localStorage.setItem(
+        "novarDailyGoals",
+        JSON.stringify(dailyGoal)
+    );
 
 }
 
 
-/* ================= STATS ================= */
+/* =========================
+UPDATE STATS
+========================= */
 
 function updateStats(){
 
-let total=
+    let total=
+    selectedFoods.reduce(
 
-selectedFoods.reduce(
+        (total,food)=>({
 
-(total,food)=>({
+            cal:
+            total.cal+
+            food.calories,
 
-cal:total.cal+food.calories,
-pro:total.pro+food.protein,
-carb:total.carb+food.carbs,
-fat:total.fat+food.fat
+            pro:
+            total.pro+
+            food.protein,
 
-}),
+            carb:
+            total.carb+
+            food.carbs,
 
-{
-cal:0,
-pro:0,
-carb:0,
-fat:0
+            fat:
+            total.fat+
+            food.fat
+
+        }),
+
+        {
+            cal:0,
+            pro:0,
+            carb:0,
+            fat:0
+        }
+
+    );
+
+
+    $("calTotal").textContent=
+    `${total.cal.toFixed(0)} / ${dailyGoal.calories}`;
+
+
+    $("proTotal").textContent=
+    `${total.pro.toFixed(1)} / ${dailyGoal.protein}`;
+
+
+    $("carbTotal").textContent=
+    `${total.carb.toFixed(1)} / ${dailyGoal.carbs}`;
+
+
+    $("fatTotal").textContent=
+    `${total.fat.toFixed(1)} / ${dailyGoal.fat}`;
+
+
+    $("calBar").style.width=
+
+    Math.min(
+        100,
+        dailyGoal.calories
+        ?
+        total.cal/
+        dailyGoal.calories*
+        100
+        :
+        0
+    )+"%";
+
+
+    $("proBar").style.width=
+
+    Math.min(
+        100,
+        dailyGoal.protein
+        ?
+        total.pro/
+        dailyGoal.protein*
+        100
+        :
+        0
+    )+"%";
+
+
+    $("carbBar").style.width=
+
+    Math.min(
+        100,
+        dailyGoal.carbs
+        ?
+        total.carb/
+        dailyGoal.carbs*
+        100
+        :
+        0
+    )+"%";
+
+
+    $("fatBar").style.width=
+
+    Math.min(
+        100,
+        dailyGoal.fat
+        ?
+        total.fat/
+        dailyGoal.fat*
+        100
+        :
+        0
+    )+"%";
+
 }
 
-);
 
-$("calTotal").textContent=
-`${total.cal.toFixed(0)} / ${dailyGoal.calories}`;
+/* =========================
+SEARCH
+========================= */
 
-$("proTotal").textContent=
-`${total.pro.toFixed(1)} / ${dailyGoal.protein}`;
-
-$("carbTotal").textContent=
-`${total.carb.toFixed(1)} / ${dailyGoal.carbs}`;
-
-$("fatTotal").textContent=
-`${total.fat.toFixed(1)} / ${dailyGoal.fat}`;
-
-$("calBar").style.width=
-Math.min(
-100,
-dailyGoal.calories ?
-total.cal/dailyGoal.calories*100 : 0
-)+"%";
-
-$("proBar").style.width=
-Math.min(
-100,
-dailyGoal.protein ?
-total.pro/dailyGoal.protein*100 : 0
-)+"%";
-
-$("carbBar").style.width=
-Math.min(
-100,
-dailyGoal.carbs ?
-total.carb/dailyGoal.carbs*100 : 0
-)+"%";
-
-$("fatBar").style.width=
-Math.min(
-100,
-dailyGoal.fat ?
-total.fat/dailyGoal.fat*100 : 0
-)+"%";
-
-}
-
-
-/* ================= SEARCH ================= */
-
-$("search").addEventListener(
+$("search")
+.addEventListener(
 "input",
 function(){
 
-let query=
-this.value
-.trim()
-.toLowerCase();
+    let query=
+    this.value
+    .trim()
+    .toLowerCase();
 
-if(!query){
 
-renderFoods(foods);
+    if(!query){
 
-return;
+        renderFoods(foods);
 
-}
+        return;
 
-renderFoods(
+    }
 
-foods.filter(food=>
-food.name
-.toLowerCase()
-.includes(query)
-)
 
-);
+    renderFoods(
+
+        foods.filter(
+            food=>
+            food.name
+            .toLowerCase()
+            .includes(query)
+        )
+
+    );
 
 });
 
 
-/* ================= GOAL ================= */
+/* =========================
+GOAL MODAL
+========================= */
 
 function openGoal(){
 
-$("weight").value=
-localStorage.getItem("saykoWeight")||"";
+    $("weight").value=
+    localStorage.getItem(
+        "saykoWeight"
+    ) || "";
 
-$("height").value=
-localStorage.getItem("saykoHeight")||"";
 
-$("age").value=
-localStorage.getItem("saykoAge")||"";
+    $("height").value=
+    localStorage.getItem(
+        "saykoHeight"
+    ) || "";
 
-$("goalModal").style.display="flex";
+
+    $("age").value=
+    localStorage.getItem(
+        "saykoAge"
+    ) || "";
+
+
+    $("goalModal")
+    .style
+    .display="flex";
 
 }
 
 
 function closeGoal(){
 
-$("goalModal").style.display="none";
+    $("goalModal")
+    .style
+    .display="none";
 
 }
 
+
+/* =========================
+GOAL TYPE
+========================= */
 
 function setGoalType(button){
 
-goalType=
-button.dataset.goal;
+    goalType=
+    button.dataset.goal;
 
-document
-.querySelectorAll(".goalOption")
-.forEach(button=>
-button.classList.remove("active")
-);
 
-button.classList.add("active");
+    document
+    .querySelectorAll(
+        ".goalOption"
+    )
+    .forEach(
+        button=>
+        button
+        .classList
+        .remove("active")
+    );
+
+
+    button
+    .classList
+    .add("active");
 
 }
 
 
-/* ================= CALCULATE ================= */
+/* =========================
+CALCULATE GOAL
+========================= */
 
 function calculateGoal(){
 
-let weight=
-parseFloat($("weight").value);
+    let weight=
+    parseFloat(
+        $("weight").value
+    );
 
-let height=
-parseFloat($("height").value);
 
-let age=
-parseFloat($("age").value);
+    let height=
+    parseFloat(
+        $("height").value
+    );
 
-let gender=
-$("gender").value;
 
-let activity=
-parseFloat($("activity").value);
+    let age=
+    parseFloat(
+        $("age").value
+    );
 
-if(!weight||!height||!age){
 
-alert("اكتب الوزن والطول والعمر");
+    let gender=
+    $("gender").value;
 
-return;
+
+    let activity=
+    parseFloat(
+        $("activity").value
+    );
+
+
+    if(!weight || !height || !age){
+
+        alert(
+            "اكتب الوزن والطول والعمر"
+        );
+
+        return;
+
+    }
+
+
+    let bmr;
+
+
+    if(gender==="male"){
+
+        bmr=
+        10*weight+
+        6.25*height-
+        5*age+
+        5;
+
+    }else{
+
+        bmr=
+        10*weight+
+        6.25*height-
+        5*age-
+        161;
+
+    }
+
+
+    let calories=
+    bmr*
+    activity;
+
+
+    if(goalType==="lose"){
+
+        calories-=250;
+
+    }
+
+
+    if(goalType==="gain"){
+
+        calories+=250;
+
+    }
+
+
+    let protein=
+    weight*1.8;
+
+
+    let fat=
+    weight*.8;
+
+
+    let carbs=
+    Math.max(
+        0,
+        (
+            calories-
+            protein*4-
+            fat*9
+        )/4
+    );
+
+
+    dailyGoal={
+
+        calories:
+        Math.round(calories),
+
+        protein:
+        Math.round(protein),
+
+        carbs:
+        Math.round(carbs),
+
+        fat:
+        Math.round(fat)
+
+    };
+
+
+    localStorage.setItem(
+        "saykoWeight",
+        weight
+    );
+
+
+    localStorage.setItem(
+        "saykoHeight",
+        height
+    );
+
+
+    localStorage.setItem(
+        "saykoAge",
+        age
+    );
+
+
+    saveData();
+
+    updateStats();
+
+    closeGoal();
 
 }
 
-let bmr;
 
-if(gender==="male"){
-
-bmr=
-10*weight+
-6.25*height-
-5*age+
-5;
-
-}else{
-
-bmr=
-10*weight+
-6.25*height-
-5*age-
-161;
-
-}
-
-let calories=
-bmr*activity;
-
-if(goalType==="lose"){
-
-calories-=250;
-
-}
-
-if(goalType==="gain"){
-
-calories+=250;
-
-}
-
-let protein=
-weight*1.8;
-
-let fat=
-weight*.8;
-
-let carbs=
-Math.max(
-0,
-(calories-
-protein*4-
-fat*9)/4
-);
-
-dailyGoal={
-
-calories:
-Math.round(calories),
-
-protein:
-Math.round(protein),
-
-carbs:
-Math.round(carbs),
-
-fat:
-Math.round(fat)
-
-};
-
-localStorage.setItem(
-"saykoWeight",
-weight
-);
-
-localStorage.setItem(
-"saykoHeight",
-height
-);
-
-localStorage.setItem(
-"saykoAge",
-age
-);
-
-saveData();
-
-updateStats();
-
-closeGoal();
-
-}
-
-
-/* ================= INITIAL ================= */
+/* =========================
+INITIALIZE
+========================= */
 
 renderFoods();
 
@@ -2527,83 +2330,110 @@ renderSelected();
 updateStats();
 
 
-/* ================= PWA ================= */
+/* =========================
+PWA INSTALL
+========================= */
 
 let deferredInstallPrompt=null;
 
+
 const installButton=
 $("installButton");
+
 
 window.addEventListener(
 "beforeinstallprompt",
 function(event){
 
-event.preventDefault();
+    event.preventDefault();
 
-deferredInstallPrompt=event;
+    deferredInstallPrompt=
+    event;
 
-installButton.style.display="block";
+    installButton.style.display=
+    "block";
 
 });
+
 
 installButton.addEventListener(
 "click",
 async function(){
 
-if(!deferredInstallPrompt){
-return;
-}
+    if(!deferredInstallPrompt){
 
-deferredInstallPrompt.prompt();
+        return;
 
-await deferredInstallPrompt.userChoice;
+    }
 
-deferredInstallPrompt=null;
 
-installButton.style.display="none";
+    deferredInstallPrompt.prompt();
+
+
+    await
+    deferredInstallPrompt.userChoice;
+
+
+    deferredInstallPrompt=null;
+
+
+    installButton.style.display=
+    "none";
 
 });
+
 
 window.addEventListener(
 "appinstalled",
 function(){
 
-installButton.style.display="none";
+    installButton.style.display=
+    "none";
 
 });
 
 
-/* ================= SERVICE WORKER ================= */
+/* =========================
+SERVICE WORKER
+========================= */
 
 if("serviceWorker" in navigator){
 
-window.addEventListener(
-"load",
-function(){
+    window.addEventListener(
+    "load",
+    function(){
 
-navigator.serviceWorker
-.register("./service-worker.js")
-.then(function(){
+        navigator.serviceWorker
+        .register(
+            "./service-worker.js"
+        )
 
-console.log(
-"SAYKØ FITNESS PWA Ready"
-);
+        .then(
+            function(){
 
-})
-.catch(function(error){
+                console.log(
+                    "SAYKØ FITNESS PWA Ready"
+                );
 
-console.log(
-"Service Worker Error:",
-error
-);
+            }
+        )
 
-});
+        .catch(
+            function(error){
 
-});
+                console.log(
+                    "Service Worker Error:",
+                    error
+                );
+
+            }
+        );
+
+    });
 
 }
 
 </script>
 
 </body>
-    </html>
+   </html>
