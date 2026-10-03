@@ -43,7 +43,7 @@ html{
 }
 
 body{
-    background:#060606;
+    background:#080808;
     color:#fff;
     min-height:100vh;
 }
@@ -51,23 +51,12 @@ body{
 /* HEADER */
 
 header{
-    background:
-    linear-gradient(
-        180deg,
-        #111 0%,
-        #080808 100%
-    );
-
-    border-bottom:1px solid #252525;
-
+    background:#080808;
+    border-bottom:1px solid #222;
     padding:22px 15px 18px;
-
     text-align:center;
-
     position:sticky;
-
     top:0;
-
     z-index:100;
 }
 
@@ -82,30 +71,21 @@ header{
 }
 
 .subtitle{
-    color:#999;
+    color:#888;
     font-size:12px;
     margin-top:5px;
 }
 
 #installButton{
     display:none;
-
     margin:14px auto 0;
-
     border:1px solid #e50914;
-
     background:#e50914;
-
     color:#fff;
-
     padding:10px 18px;
-
     border-radius:10px;
-
     font-size:13px;
-
     font-weight:bold;
-
     cursor:pointer;
 }
 
@@ -114,9 +94,7 @@ header{
 .container{
     width:100%;
     max-width:900px;
-
     margin:auto;
-
     padding:18px 14px 40px;
 }
 
@@ -124,21 +102,13 @@ header{
 
 .search{
     width:100%;
-
-    background:#101010;
-
+    background:#111;
     border:1px solid #292929;
-
     color:#fff;
-
     padding:15px;
-
     border-radius:14px;
-
     outline:none;
-
     font-size:15px;
-
     margin-bottom:16px;
 }
 
@@ -153,32 +123,18 @@ header{
 /* GOAL */
 
 .goal{
-    background:
-    linear-gradient(
-        145deg,
-        #121212,
-        #090909
-    );
-
-    border:1px solid #252525;
-
-    border-radius:18px;
-
+    background:linear-gradient(145deg,#151515,#0d0d0d);
+    border:1px solid #262626;
+    border-radius:16px;
     padding:16px;
-
     margin-bottom:22px;
-
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.35);
+    box-shadow:none;
 }
 
 .goalHead{
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:16px;
 }
 
@@ -188,84 +144,53 @@ header{
 
 .goalHead button{
     background:#e50914;
-
     color:#fff;
-
     border:0;
-
     padding:8px 15px;
-
     border-radius:9px;
-
     font-weight:bold;
-
     cursor:pointer;
 }
 
 .stats{
     display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:10px;
 }
 
 .stat{
-    background:#0b0b0b;
-
-    border:1px solid #202020;
-
+    background:#151515;
+    border:1px solid #252525;
     border-radius:12px;
-
     padding:12px 9px;
 }
 
 .stat b{
     display:block;
-
     font-size:13px;
-
     margin-bottom:5px;
 }
 
 .stat small{
     color:#888;
-
     font-size:11px;
 }
 
 .progress{
     width:100%;
-
-    height:5px;
-
-    background:#242424;
-
+    height:7px;
+    background:#222;
     border-radius:20px;
-
     overflow:hidden;
-
     margin-top:9px;
 }
 
 .progress i{
     display:block;
-
     width:0%;
-
     height:100%;
-
-    background:
-    linear-gradient(
-        90deg,
-        #a8060d,
-        #e50914,
-        #ff2631
-    );
-
+    background:#e50914;
     border-radius:20px;
-
     transition:.3s;
 }
 
@@ -273,13 +198,8 @@ header{
 
 .sectionTitle{
     font-size:18px;
-
-    margin:
-    24px 0 12px;
-
-    border-right:
-    3px solid #e50914;
-
+    margin:24px 0 12px;
+    border-right:3px solid #e50914;
     padding-right:9px;
 }
 
@@ -287,61 +207,41 @@ header{
 
 .foodGrid{
     display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:9px;
 }
 
 .food{
-    background:
-    linear-gradient(
-        145deg,
-        #151515,
-        #0b0b0b
-    );
-
+    background:#111;
     border:1px solid #252525;
-
-    border-radius:13px;
-
+    border-radius:12px;
     padding:12px 8px;
-
     min-height:75px;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     cursor:pointer;
-
     transition:.2s;
 }
 
 .food:hover{
     border-color:#e50914;
-
     transform:translateY(-2px);
 }
 
 .food:active{
     transform:scale(.97);
+    border-color:#e50914;
 }
 
 .food b{
     font-size:13px;
-
     line-height:1.5;
 }
 
 .food small{
     color:#888;
-
     font-size:10px;
-
     margin-top:4px;
 }
 
@@ -349,43 +249,28 @@ header{
 
 .selected{
     display:flex;
-
     flex-direction:column;
-
     gap:9px;
 }
 
 .empty{
     background:#101010;
-
     border:1px dashed #303030;
-
-    color:#777;
-
+    color:#666;
     padding:25px;
-
     border-radius:13px;
-
     text-align:center;
-
     font-size:14px;
 }
 
 .foodRow{
-    background:#111;
-
+    background:#151515;
     border:1px solid #252525;
-
-    border-radius:13px;
-
+    border-radius:10px;
     padding:13px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
 }
 
@@ -395,55 +280,36 @@ header{
 
 .foodInfo b{
     display:block;
-
     font-size:14px;
-
     margin-bottom:5px;
 }
 
 .foodInfo small{
-    color:#999;
-
+    color:#888;
     font-size:10px;
-
     line-height:1.8;
 }
 
 .deleteBtn{
     flex-shrink:0;
-
-    background:#22090b;
-
-    color:#ff5961;
-
-    border:1px solid #5c1116;
-
+    background:#25090b;
+    color:#e50914;
+    border:0;
     padding:8px 11px;
-
     border-radius:8px;
-
     cursor:pointer;
-
     font-size:11px;
 }
 
 .clearBtn{
     width:100%;
-
     margin-top:13px;
-
-    background:#111;
-
-    color:#e50914;
-
-    border:1px solid #e50914;
-
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
     padding:12px;
-
-    border-radius:11px;
-
+    border-radius:10px;
     font-weight:bold;
-
     cursor:pointer;
 }
 
@@ -451,13 +317,9 @@ header{
 
 footer{
     text-align:center;
-
-    color:#555;
-
+    color:#444;
     border-top:1px solid #191919;
-
     padding:22px;
-
     font-size:12px;
 }
 
@@ -465,60 +327,32 @@ footer{
 
 .modal{
     display:none;
-
     position:fixed;
-
     inset:0;
-
-    background:
-    rgba(0,0,0,.82);
-
+    background:rgba(0,0,0,.88);
     backdrop-filter:blur(5px);
-
     z-index:500;
-
     align-items:center;
-
     justify-content:center;
-
     padding:15px;
 }
 
 .modalBox{
     width:100%;
-
     max-width:430px;
-
-    max-height:
-    90vh;
-
+    max-height:90vh;
     overflow-y:auto;
-
-    background:
-    linear-gradient(
-        145deg,
-        #151515,
-        #080808
-    );
-
-    border:1px solid #333;
-
-    border-top:
-    3px solid #e50914;
-
+    background:#0d0d0d;
+    border:1px solid #292929;
+    border-top:3px solid #e50914;
     border-radius:18px;
-
     padding:20px;
-
-    box-shadow:
-    0 20px 70px rgba(0,0,0,.7);
+    box-shadow:0 20px 70px rgba(0,0,0,.8);
 }
 
 .modalBox h2{
     font-size:20px;
-
     margin-bottom:18px;
-
     text-align:center;
 }
 
@@ -526,38 +360,25 @@ footer{
 
 .units{
     display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:7px;
-
     margin-bottom:13px;
 }
 
 .unitBtn{
     background:#111;
-
     border:1px solid #292929;
-
     color:#aaa;
-
     padding:10px 5px;
-
     border-radius:9px;
-
     cursor:pointer;
-
     font-size:12px;
 }
 
 .unitBtn.active{
     background:#e50914;
-
     border-color:#e50914;
-
     color:#fff;
-
     font-weight:bold;
 }
 
@@ -566,21 +387,13 @@ footer{
 .modalBox input,
 .modalBox select{
     width:100%;
-
-    background:#0d0d0d;
-
+    background:#080808;
     border:1px solid #292929;
-
     color:#fff;
-
     padding:13px;
-
     border-radius:10px;
-
     outline:none;
-
     margin-bottom:10px;
-
     font-size:14px;
 }
 
@@ -591,35 +404,24 @@ footer{
 
 .modalBox select option{
     background:#111;
-
     color:#fff;
 }
 
 .hint{
     color:#888;
-
     font-size:11px;
-
     margin:4px 0 12px;
-
     text-align:center;
 }
 
 .preview{
-    background:#0b0b0b;
-
+    background:#151515;
     border:1px solid #222;
-
-    border-radius:12px;
-
+    border-radius:10px;
     padding:14px;
-
     line-height:2;
-
-    color:#aaa;
-
+    color:#888;
     font-size:13px;
-
     margin-bottom:15px;
 }
 
@@ -631,41 +433,29 @@ footer{
 
 .actions{
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:8px;
-
     margin-top:12px;
 }
 
 .addBtn,
 .closeBtn{
     border:0;
-
     padding:12px;
-
     border-radius:10px;
-
     cursor:pointer;
-
     font-weight:bold;
-
     font-size:14px;
 }
 
 .addBtn{
     background:#e50914;
-
     color:#fff;
 }
 
 .closeBtn{
     background:#202020;
-
-    color:#bbb;
-
+    color:#fff;
     border:1px solid #333;
 }
 
@@ -673,38 +463,25 @@ footer{
 
 .goalOptions{
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:8px;
-
     margin-top:4px;
 }
 
 .goalOption{
     background:#101010;
-
-    color:#999;
-
+    color:#888;
     border:1px solid #292929;
-
     padding:11px 7px;
-
     border-radius:10px;
-
     cursor:pointer;
-
     font-size:11px;
-
     line-height:1.5;
 }
 
 .goalOption.active{
-    background:#30080b;
-
+    background:#19090b;
     border-color:#e50914;
-
     color:#fff;
 }
 
@@ -713,13 +490,11 @@ footer{
 @media(max-width:650px){
 
     .stats{
-        grid-template-columns:
-        repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .foodGrid{
-        grid-template-columns:
-        repeat(3,1fr);
+        grid-template-columns:repeat(3,1fr);
     }
 
 }
@@ -727,8 +502,7 @@ footer{
 @media(max-width:350px){
 
     .foodGrid{
-        grid-template-columns:
-        repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .logo{
@@ -2436,4 +2210,4 @@ if("serviceWorker" in navigator){
 </script>
 
 </body>
-   </html>
+</html>
