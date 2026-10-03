@@ -2,12 +2,26 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAYKØ FITNESS</title>
 
 <link rel="icon" type="image/jpeg" href="1790471069347.jpg">
+
+<!-- ================= PWA ================= -->
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#080808">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 <style>
 
@@ -46,6 +60,21 @@ header{
     color:#888;
     font-size:12px;
     margin-top:5px;
+}
+
+/* ================= INSTALL ================= */
+
+#installButton{
+    display:none;
+    margin:12px auto 0;
+    padding:10px 18px;
+    border:0;
+    border-radius:10px;
+    background:#e50914;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:13px;
 }
 
 /* ================= SEARCH ================= */
@@ -596,6 +625,7 @@ footer{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -609,6 +639,10 @@ SAYKØ <span>FITNESS</span>
 <div class="subtitle">
 Nutrition • Calories • Progress
 </div>
+
+<button id="installButton">
+📱 تثبيت SAYKØ
+</button>
 
 </header>
 
@@ -790,6 +824,7 @@ id="fatProgress">
 الأطعمة
 </div>
 
+
 <div
 class="food-container"
 id="foodContainer">
@@ -907,14 +942,12 @@ id="foodPopupSub">
 
 </div>
 
-
 <input
 type="number"
 id="foodQuantity"
 placeholder="الكمية بالجرام"
 min="1"
 step="1">
-
 
 <div
 class="preview"
@@ -924,7 +957,6 @@ id="foodPreview">
 <b>0 cl</b>
 
 </div>
-
 
 <div class="popup-buttons">
 
@@ -960,11 +992,15 @@ id="goalPopup">
 <div class="popup-box">
 
 <div class="popup-title">
+
 احسب احتياجك اليومي
+
 </div>
 
 <div class="popup-sub">
+
 أدخل بياناتك لحساب احتياجك التقريبي
+
 </div>
 
 
@@ -1021,7 +1057,6 @@ onclick="toggleDropdown('genderSelect')">
 
 </div>
 
-
 <div class="custom-options">
 
 <div
@@ -1071,7 +1106,6 @@ onclick="toggleDropdown('activitySelect')">
 <span class="select-arrow"></span>
 
 </div>
-
 
 <div class="custom-options">
 
@@ -1146,7 +1180,6 @@ onclick="toggleDropdown('goalSelect')">
 <span class="select-arrow"></span>
 
 </div>
-
 
 <div class="custom-options">
 
@@ -1797,11 +1830,6 @@ function openFood(index,food){
         document.getElementById("foodQuantity");
 
 
-    /*
-       لو المنتج عبارة عن كيس:
-       نبدأ تلقائياً بـ 1 كيس
-    */
-
     if(food.unit==="كيس"){
 
         quantityInput.value=1;
@@ -1888,20 +1916,12 @@ function updatePreview(){
     let factor=0;
 
 
-    /*
-       المنتجات التي لها وحدة كيس
-    */
-
     if(food.unit==="كيس"){
 
         factor=quantity;
 
     }
 
-
-    /*
-       المنتجات التي لها وزن للقطعة
-    */
 
     else if(food.weight){
 
@@ -1914,10 +1934,6 @@ function updatePreview(){
 
     }
 
-
-    /*
-       المنتجات العادية لكل 100 جم
-    */
 
     else{
 
@@ -1998,11 +2014,6 @@ function confirmFood(){
     let grams;
 
 
-    /*
-       HOHOS
-       1 كيس = 60 جم
-    */
-
     if(food.unit==="كيس"){
 
         factor=quantity;
@@ -2012,10 +2023,6 @@ function confirmFood(){
 
     }
 
-
-    /*
-       المنتجات التي لها وزن للقطعة
-    */
 
     else if(food.weight){
 
@@ -2035,10 +2042,6 @@ function confirmFood(){
 
     }
 
-
-    /*
-       المنتجات العادية
-    */
 
     else{
 
@@ -2938,6 +2941,100 @@ document
 
 
 /* =====================================================
+   PWA INSTALL
+===================================================== */
+
+let deferredInstallPrompt = null;
+
+const installButton =
+    document.getElementById("installButton");
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event){
+
+        event.preventDefault();
+
+        deferredInstallPrompt = event;
+
+        installButton.style.display = "block";
+
+    }
+);
+
+
+installButton.addEventListener(
+    "click",
+    async function(){
+
+        if(!deferredInstallPrompt){
+
+            return;
+
+        }
+
+        deferredInstallPrompt.prompt();
+
+        await deferredInstallPrompt.userChoice;
+
+        deferredInstallPrompt = null;
+
+        installButton.style.display = "none";
+
+    }
+);
+
+
+window.addEventListener(
+    "appinstalled",
+    function(){
+
+        installButton.style.display = "none";
+
+        console.log(
+            "SAYKØ FITNESS installed"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(function(){
+
+                console.log(
+                    "SAYKØ FITNESS PWA Ready"
+                );
+
+            })
+            .catch(function(error){
+
+                console.log(
+                    "Service Worker Error:",
+                    error
+                );
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =====================================================
    START
 ===================================================== */
 
@@ -2946,4 +3043,5 @@ loadData();
 </script>
 
 </body>
+
     </html>
