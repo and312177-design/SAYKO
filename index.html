@@ -23,6 +23,7 @@
 
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+
 <style>
 
 *{
@@ -264,6 +265,7 @@ header{
     color:#888;
     font-size:10px;
     margin-top:4px;
+    line-height:1.8;
 }
 
 .delete-btn{
@@ -276,6 +278,8 @@ header{
     cursor:pointer;
     font-size:16px;
 }
+
+/* ================= EMPTY ================= */
 
 .empty{
     color:#666;
@@ -392,7 +396,7 @@ header{
     box-shadow:0 0 0 2px rgba(229,9,20,.10);
 }
 
-/* ================= CUSTOM DROPDOWN ================= */
+/* ================= CUSTOM SELECT ================= */
 
 .custom-select{
     position:relative;
@@ -439,7 +443,7 @@ header{
     transform:rotate(180deg);
 }
 
-/* ================= CUSTOM OPTIONS ================= */
+/* ================= OPTIONS ================= */
 
 .custom-options{
     display:none;
@@ -530,10 +534,19 @@ header{
     margin-bottom:10px;
     font-size:12px;
     color:#aaa;
+    line-height:1.9;
 }
 
 .preview b{
     color:#fff;
+}
+
+/* ================= SPOON INFO ================= */
+
+.spoon-info{
+    color:#777;
+    font-size:10px;
+    margin:-4px 2px 9px;
 }
 
 /* ================= BUTTONS ================= */
@@ -628,7 +641,11 @@ footer{
 
 </head>
 
+
 <body>
+
+
+<!-- ================= HEADER ================= -->
 
 <header>
 
@@ -647,7 +664,7 @@ Nutrition • Calories • Progress
 </header>
 
 
-<!-- SEARCH -->
+<!-- ================= SEARCH ================= -->
 
 <div class="search-box">
 
@@ -660,7 +677,7 @@ autocomplete="off">
 </div>
 
 
-<!-- GOAL CARD -->
+<!-- ================= GOAL CARD ================= -->
 
 <div class="goal-card">
 
@@ -688,8 +705,6 @@ onclick="openGoalPopup()">
 </div>
 
 
-<!-- CALORIES -->
-
 <div class="progress">
 
 <div class="progress-label">
@@ -699,9 +714,7 @@ onclick="openGoalPopup()">
 <span>
 
 <span id="usedCalories">0</span>
-
 /
-
 <span id="goalCaloriesSmall">0</span>
 
 </span>
@@ -720,8 +733,6 @@ id="calorieProgress">
 </div>
 
 
-<!-- PROTEIN -->
-
 <div class="progress">
 
 <div class="progress-label">
@@ -731,9 +742,7 @@ id="calorieProgress">
 <span>
 
 <span id="usedProtein">0</span>
-
 /
-
 <span id="goalProtein">0</span> g
 
 </span>
@@ -752,8 +761,6 @@ id="proteinProgress">
 </div>
 
 
-<!-- CARBS -->
-
 <div class="progress">
 
 <div class="progress-label">
@@ -763,9 +770,7 @@ id="proteinProgress">
 <span>
 
 <span id="usedCarbs">0</span>
-
 /
-
 <span id="goalCarbs">0</span> g
 
 </span>
@@ -784,8 +789,6 @@ id="carbsProgress">
 </div>
 
 
-<!-- FAT -->
-
 <div class="progress">
 
 <div class="progress-label">
@@ -795,9 +798,7 @@ id="carbsProgress">
 <span>
 
 <span id="usedFat">0</span>
-
 /
-
 <span id="goalFat">0</span> g
 
 </span>
@@ -818,7 +819,7 @@ id="fatProgress">
 </div>
 
 
-<!-- FOOD TITLE -->
+<!-- ================= FOOD TITLE ================= -->
 
 <div class="food-title">
 الأطعمة
@@ -831,7 +832,7 @@ id="foodContainer">
 </div>
 
 
-<!-- SELECTED -->
+<!-- ================= SELECTED ================= -->
 
 <div class="selected-section">
 
@@ -942,12 +943,75 @@ id="foodPopupSub">
 
 </div>
 
+
+<label class="form-label">
+طريقة إدخال الكمية
+</label>
+
+
+<div
+class="custom-select"
+id="foodUnitSelect">
+
+<div
+class="custom-select-button"
+onclick="toggleDropdown('foodUnitSelect')">
+
+<span id="foodUnitText">
+جرام
+</span>
+
+<span class="select-arrow"></span>
+
+</div>
+
+
+<div class="custom-options">
+
+<div
+class="custom-option selected"
+data-value="grams"
+onclick="selectFoodUnit('grams','جرام')">
+
+<span>جرام</span>
+
+<span class="option-check">✓</span>
+
+</div>
+
+
+<div
+class="custom-option"
+data-value="spoon"
+onclick="selectFoodUnit('spoon','ملعقة كبيرة')">
+
+<span>ملعقة كبيرة</span>
+
+<span class="option-check">✓</span>
+
+</div>
+
+</div>
+
+</div>
+
+
 <input
 type="number"
 id="foodQuantity"
 placeholder="الكمية بالجرام"
-min="1"
-step="1">
+min="0.1"
+step="0.1">
+
+
+<div
+class="spoon-info"
+id="foodGramInfo">
+
+أدخل الكمية بالجرام
+
+</div>
+
 
 <div
 class="preview"
@@ -957,6 +1021,7 @@ id="foodPreview">
 <b>0 cl</b>
 
 </div>
+
 
 <div class="popup-buttons">
 
@@ -1260,7 +1325,7 @@ onclick="calculateAndSaveGoal()">
 </div>
 
 
-<!-- SCROLL -->
+<!-- ================= SCROLL ================= -->
 
 <div class="scroll-buttons">
 
@@ -1291,13 +1356,7 @@ const foods = [
 {name:"برغل",calories:83,carbs:19,protein:3,fat:.2},
 {name:"كسكسي",calories:112,carbs:23,protein:3.8,fat:.2},
 
-{
-name:"العجينة",
-calories:318.3,
-carbs:52,
-protein:5.9,
-fat:9.1
-},
+{name:"العجينة",calories:318.3,carbs:52,protein:5.9,fat:9.1},
 
 {name:"عيش بلدي",calories:250,carbs:50,protein:8.9,fat:1.6},
 {name:"عيش سن",calories:230,carbs:44,protein:9,fat:2},
@@ -1322,13 +1381,7 @@ fat:9.1
 {name:"حمص",calories:164,carbs:27,protein:9,fat:2.6},
 {name:"بازلاء",calories:84,carbs:16,protein:5,fat:.4},
 
-{
-name:"فول سوداني خام",
-calories:567,
-carbs:16.1,
-protein:25.8,
-fat:49.2
-},
+{name:"فول سوداني خام",calories:567,carbs:16.1,protein:25.8,fat:49.2},
 
 {name:"صدر فراخ",calories:120,carbs:0,protein:22.5,fat:2.6},
 {name:"فراخ",calories:130,carbs:0,protein:19,fat:6},
@@ -1419,15 +1472,7 @@ fiber:1.5
 {name:"فتة",calories:180,carbs:20,protein:8,fat:8},
 {name:"كفتة",calories:220,carbs:4,protein:18,fat:15},
 {name:"حواوشي",calories:250,carbs:25,protein:12,fat:12},
-
-{
-name:"شاورما فراخ",
-calories:150,
-carbs:3,
-protein:16,
-fat:8
-},
-
+{name:"شاورما فراخ",calories:150,carbs:3,protein:16,fat:8},
 {name:"جلاش",calories:280,carbs:35,protein:7,fat:12},
 {name:"جلاش باللحمة المفرومة",calories:300,carbs:30,protein:12,fat:16},
 {name:"جلاش بالجبنة",calories:290,carbs:30,protein:10,fat:15},
@@ -1504,6 +1549,24 @@ protein:6,
 fat:13
 },
 
+/* ================= ADDITIONS ================= */
+
+{
+name:"سكر أبيض",
+calories:387,
+carbs:100,
+protein:0,
+fat:0
+},
+
+{
+name:"كاكاو خام",
+calories:228,
+carbs:57.9,
+protein:19.6,
+fat:13.7
+},
+
 /* ================= HOHOS ================= */
 
 {
@@ -1520,6 +1583,150 @@ fat:9.6
 
 
 /* =====================================================
+   SPOON WEIGHTS
+===================================================== */
+
+const spoonWeights = {
+
+    "أرز أبيض مطبوخ":15,
+    "أرز بني":15,
+    "أرز بسمتي":15,
+    "مكرونة":12,
+    "فريك":12,
+    "برغل":12,
+    "كسكسي":12,
+    "العجينة":10,
+
+    "عيش بلدي":20,
+    "عيش سن":20,
+    "عيش شامي":20,
+    "فينو":20,
+    "توست أبيض":20,
+    "توست أسمر":20,
+
+    "بطاطس مسلوقة":15,
+    "بطاطا":15,
+    "ذرة":12,
+
+    "فول":18,
+    "عدس":18,
+    "فاصوليا بيضاء":18,
+    "فاصوليا حمراء":18,
+    "لوبيا":18,
+    "حمص":17,
+    "بازلاء":15,
+
+    "فول سوداني خام":8,
+
+    "صدر فراخ":15,
+    "فراخ":15,
+    "ورك فراخ":15,
+    "دبوس فراخ":15,
+
+    "لحمة بقري":15,
+    "لحمة مفرومة قليلة الدهن":15,
+    "لحمة مفرومة":15,
+    "لحمة ضاني":15,
+    "كبدة":15,
+    "كبدة إسكندراني":15,
+
+    "سمك بلطي":15,
+    "سمك قاروص":15,
+    "سلمون":15,
+    "ماكريل":15,
+    "تونة":15,
+    "جمبري":15,
+    "سردين":15,
+
+    "لبن كامل الدسم":15,
+    "لبن خالي الدسم":15,
+    "زبادي":15,
+    "زبادي يوناني":15,
+    "جبنة قريش":15,
+    "جبنة بيضاء":15,
+    "جبنة بيضاء لايت":15,
+    "جبنة رومي":15,
+    "موتزاريلا":15,
+
+    "طماطم":15,
+    "خيار":15,
+    "بصل":15,
+    "جزر":12,
+    "فلفل أخضر":12,
+    "فلفل أحمر":12,
+    "بروكلي":10,
+    "قرنبيط":10,
+    "كوسة":15,
+    "باذنجان":15,
+    "سبانخ":10,
+    "ملوخية":10,
+    "فاصوليا خضراء":12,
+    "بامية":12,
+
+    "موز":15,
+    "تفاح":15,
+    "برتقال":15,
+    "فراولة":15,
+    "مانجا":15,
+    "عنب":15,
+    "بطيخ":15,
+    "جوافة":15,
+    "رمان":15,
+    "كيوي":15,
+
+    "زيت زيتون":13.5,
+    "زبدة":14,
+    "سمنة":14,
+    "طحينة":15,
+    "زبدة فول سوداني":16,
+    "نوتيلا":18,
+    "لوز":8,
+    "عين جمل":7,
+
+    "طعمية":15,
+    "فلافل صغيرة":15,
+    "فلافل كبيرة":15,
+    "شكشوكة":15,
+    "كشري":15,
+    "محشي كرنب":15,
+    "محشي ورق عنب":15,
+    "محشي كوسة":15,
+    "كوسة باللحمة المفرومة":15,
+    "محشي باذنجان":15,
+    "مسقعة":15,
+    "مكرونة بالبشاميل":15,
+    "فتة":15,
+    "كفتة":15,
+    "حواوشي":15,
+    "شاورما فراخ":15,
+
+    "جلاش":10,
+    "جلاش باللحمة المفرومة":10,
+    "جلاش بالجبنة":10,
+    "أم علي":15,
+    "رز بلبن":15,
+    "مهلبية":15,
+    "بطاطس مقلية":15,
+    "بطاطس بالفرن":15,
+    "فول بالزيت":18,
+    "فول بالبيض":18,
+    "بيض مقلي":15,
+    "بيض مسلوق":15,
+
+    "سكر أبيض":12.5,
+    "كاكاو خام":5
+
+};
+
+
+function getSpoonWeight(food){
+
+    return spoonWeights[food.name] || 10;
+
+}
+
+
+/* =====================================================
    VARIABLES
 ===================================================== */
 
@@ -1529,6 +1736,9 @@ JSON.parse(
 ) || [];
 
 let selectedFoodIndex = null;
+
+let selectedFoodUnit = "grams";
+
 
 let userData =
 JSON.parse(
@@ -1544,6 +1754,7 @@ JSON.parse(
 
 };
 
+
 let dailyGoals =
 JSON.parse(
     localStorage.getItem("novarDailyGoals")
@@ -1555,6 +1766,7 @@ JSON.parse(
     fat:0
 
 };
+
 
 let customValues = {
 
@@ -1626,6 +1838,45 @@ function selectOption(id,value,text){
 }
 
 
+function selectFoodUnit(value,text){
+
+    selectedFoodUnit = value;
+
+    document
+    .getElementById("foodUnitText")
+    .textContent = text;
+
+
+    document
+    .querySelectorAll("#foodUnitSelect .custom-option")
+    .forEach(option=>{
+        option.classList.remove("selected");
+    });
+
+
+    const selected =
+        document.querySelector(
+            `#foodUnitSelect .custom-option[data-value="${value}"]`
+        );
+
+
+    if(selected){
+        selected.classList.add("selected");
+    }
+
+
+    document
+    .getElementById("foodUnitSelect")
+    .classList.remove("open");
+
+
+    updateQuantityPlaceholder();
+
+    updatePreview();
+
+}
+
+
 document.addEventListener("click",function(e){
 
     if(!e.target.closest(".custom-select")){
@@ -1651,6 +1902,7 @@ function renderFoods(list=foods){
         document.getElementById("foodContainer");
 
     container.innerHTML="";
+
 
     if(list.length===0){
 
@@ -1694,6 +1946,7 @@ function renderFoods(list=foods){
         `;
 
         return;
+
     }
 
 
@@ -1703,6 +1956,7 @@ function renderFoods(list=foods){
             document.createElement("div");
 
         card.className="food-card";
+
 
         card.onclick=()=>{
 
@@ -1737,6 +1991,7 @@ function renderFoods(list=foods){
             </div>
 
         `;
+
 
         container.appendChild(card);
 
@@ -1775,6 +2030,7 @@ function searchFood(){
     const value =
         normalizeArabic(input.value);
 
+
     if(value===""){
 
         renderFoods(foods);
@@ -1782,6 +2038,7 @@ function searchFood(){
         return;
 
     }
+
 
     const result =
         foods.filter(food=>{
@@ -1793,7 +2050,79 @@ function searchFood(){
 
         });
 
+
     renderFoods(result);
+
+}
+
+
+/* =====================================================
+   FOOD UNIT UI
+===================================================== */
+
+function updateQuantityPlaceholder(){
+
+    if(selectedFoodIndex === null)return;
+
+
+    const food =
+        foods[selectedFoodIndex];
+
+
+    const input =
+        document.getElementById("foodQuantity");
+
+
+    const info =
+        document.getElementById("foodGramInfo");
+
+
+    if(food.unit==="كيس"){
+
+        input.placeholder="عدد الأكياس";
+
+        info.innerHTML =
+            `1 كيس = <b>${food.weight} جم</b>`;
+
+        return;
+
+    }
+
+
+    if(food.weight){
+
+        input.placeholder="عدد القطع";
+
+        info.innerHTML =
+            `1 قطعة = <b>${food.weight} جم</b>`;
+
+        return;
+
+    }
+
+
+    if(selectedFoodUnit==="spoon"){
+
+        const spoonWeight =
+            getSpoonWeight(food);
+
+
+        input.placeholder="عدد الملاعق";
+
+
+        info.innerHTML =
+            `1 ملعقة كبيرة ≈ <b>${spoonWeight} جم</b>`;
+
+    }
+
+    else{
+
+        input.placeholder="الكمية بالجرام";
+
+        info.innerHTML =
+            "أدخل الكمية بالجرام";
+
+    }
 
 }
 
@@ -1805,6 +2134,9 @@ function searchFood(){
 function openFood(index,food){
 
     selectedFoodIndex=index;
+
+    selectedFoodUnit="grams";
+
 
     document
     .getElementById("foodPopupTitle")
@@ -1830,6 +2162,13 @@ function openFood(index,food){
         document.getElementById("foodQuantity");
 
 
+    quantityInput.value="";
+
+    quantityInput.step="0.1";
+
+    quantityInput.min="0.1";
+
+
     if(food.unit==="كيس"){
 
         quantityInput.value=1;
@@ -1838,27 +2177,65 @@ function openFood(index,food){
 
         quantityInput.min=1;
 
-        quantityInput.placeholder="عدد الأكياس";
+        selectedFoodUnit="piece";
 
     }
 
-    else{
 
-        quantityInput.value="";
+    else if(food.weight){
+
+        quantityInput.value=1;
 
         quantityInput.step=1;
 
         quantityInput.min=1;
 
-        quantityInput.placeholder=
+    }
 
-            food.weight
-            ?
-            "عدد القطع أو الجرام"
-            :
-            "الكمية بالجرام";
+
+    else{
+
+        quantityInput.placeholder="الكمية بالجرام";
 
     }
+
+
+    document
+    .getElementById("foodUnitText")
+    .textContent =
+        food.unit
+        ?
+        "كيس"
+        :
+        food.weight
+        ?
+        "قطعة"
+        :
+        "جرام";
+
+
+    document
+    .querySelectorAll("#foodUnitSelect .custom-option")
+    .forEach(option=>{
+        option.classList.remove("selected");
+    });
+
+
+    if(!food.unit && !food.weight){
+
+        const gramsOption =
+            document.querySelector(
+                '#foodUnitSelect .custom-option[data-value="grams"]'
+            );
+
+        if(gramsOption){
+            gramsOption.classList.add("selected");
+        }
+
+    }
+
+
+    updateQuantityPlaceholder();
 
 
     document
@@ -1914,31 +2291,61 @@ function updatePreview(){
 
 
     let factor=0;
+    let grams=0;
 
+
+    /* ================= BAG ================= */
 
     if(food.unit==="كيس"){
 
         factor=quantity;
 
+        grams =
+            quantity * food.weight;
+
     }
 
+
+    /* ================= PIECE ================= */
 
     else if(food.weight){
 
-        factor =
-            quantity<=10
-            ?
-            quantity
-            :
-            quantity/food.weight;
+        factor=quantity;
+
+        grams =
+            quantity * food.weight;
 
     }
 
 
-    else{
+    /* ================= SPOON ================= */
+
+    else if(selectedFoodUnit==="spoon"){
+
+        const spoonWeight =
+            getSpoonWeight(food);
+
+
+        grams =
+            quantity * spoonWeight;
+
 
         factor =
-            quantity/100;
+            grams / 100;
+
+    }
+
+
+    /* ================= GRAMS ================= */
+
+    else{
+
+        grams =
+            quantity;
+
+
+        factor =
+            grams / 100;
 
     }
 
@@ -1946,6 +2353,11 @@ function updatePreview(){
     document
     .getElementById("foodPreview")
     .innerHTML=`
+
+        الوزن:
+        <b>${round(grams)} جم</b>
+
+        <br>
 
         السعرات:
         <b>
@@ -2010,46 +2422,77 @@ function confirmFood(){
         foods[selectedFoodIndex];
 
 
-    let factor;
-    let grams;
+    let factor=0;
+    let grams=0;
+    let quantityText="";
 
+
+    /* ================= BAG ================= */
 
     if(food.unit==="كيس"){
 
         factor=quantity;
 
         grams =
-            quantity*food.weight;
+            quantity * food.weight;
+
+        quantityText =
+            `${quantity} كيس`;
 
     }
 
+
+    /* ================= PIECE ================= */
 
     else if(food.weight){
 
-        factor =
-            quantity<=10
-            ?
-            quantity
-            :
-            quantity/food.weight;
+        factor=quantity;
 
         grams =
-            quantity<=10
-            ?
-            quantity*food.weight
-            :
-            quantity;
+            quantity * food.weight;
+
+        quantityText =
+            `${quantity} قطعة`;
 
     }
 
 
-    else{
+    /* ================= SPOON ================= */
+
+    else if(selectedFoodUnit==="spoon"){
+
+        const spoonWeight =
+            getSpoonWeight(food);
+
+
+        grams =
+            quantity * spoonWeight;
+
 
         factor =
-            quantity/100;
+            grams / 100;
+
+
+        quantityText =
+            `${quantity} ملعقة`;
+
+    }
+
+
+    /* ================= GRAMS ================= */
+
+    else{
 
         grams =
             quantity;
+
+
+        factor =
+            grams / 100;
+
+
+        quantityText =
+            `${quantity} جم`;
 
     }
 
@@ -2061,6 +2504,8 @@ function confirmFood(){
         name:food.name,
 
         grams:grams,
+
+        quantityText:quantityText,
 
         calories:food.calories*factor,
 
@@ -2104,6 +2549,7 @@ function renderSelected(){
 
     }
 
+
     else{
 
         list.innerHTML="";
@@ -2113,6 +2559,7 @@ function renderSelected(){
 
             const row =
                 document.createElement("div");
+
 
             row.className="selected-item";
 
@@ -2127,6 +2574,16 @@ function renderSelected(){
 
                     <div class="item-details">
 
+                        ${
+                            item.quantityText
+                            ?
+                            item.quantityText
+                            :
+                            round(item.grams)+" جم"
+                        }
+
+                        •
+
                         ${round(item.grams)} جم
 
                         •
@@ -2137,6 +2594,16 @@ function renderSelected(){
 
                         بروتين
                         ${round(item.protein)}g
+
+                        •
+
+                        كارب
+                        ${round(item.carbs)}g
+
+                        •
+
+                        دهون
+                        ${round(item.fat)}g
 
                     </div>
 
@@ -2945,6 +3412,7 @@ document
 ===================================================== */
 
 let deferredInstallPrompt = null;
+
 
 const installButton =
     document.getElementById("installButton");
