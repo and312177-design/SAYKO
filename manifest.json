@@ -3,7 +3,7 @@
   "short_name": "SAYKØ",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#080808",
+  "background_color": "#060606",
   "theme_color": "#e50914",
   "orientation": "portrait",
   "icons": [
