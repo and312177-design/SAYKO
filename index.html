@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#080808">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <style>
 
@@ -32,20 +32,26 @@ body{
     background:#080808;
     color:#fff;
     min-height:100vh;
+    padding-bottom:80px;
 }
 
-/* HEADER */
+button{
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+}
 
 header{
+    padding:25px 18px 18px;
     text-align:center;
-    padding:22px 10px 15px;
+    background:#080808;
     border-bottom:1px solid #222;
 }
 
 .logo{
     font-size:30px;
     font-weight:900;
-    letter-spacing:2px;
+    letter-spacing:1px;
 }
 
 .logo span{
@@ -53,72 +59,61 @@ header{
 }
 
 .subtitle{
-    color:#888;
-    font-size:12px;
-    margin-top:5px;
+    margin-top:6px;
+    color:#aaa;
+    font-size:13px;
 }
 
 #installButton{
     display:none;
-    margin:12px auto 0;
-    padding:9px 16px;
-    border:0;
-    border-radius:9px;
+    margin:15px auto 0;
     background:#e50914;
     color:#fff;
-    cursor:pointer;
+    padding:11px 20px;
+    border-radius:10px;
     font-weight:bold;
 }
 
-#installButton:active{
-    transform:scale(.96);
-}
-
-/* CONTAINER */
-
 .container{
     width:100%;
-    max-width:900px;
+    max-width:700px;
     margin:auto;
+    padding:15px;
 }
 
-/* SEARCH */
+.searchBox{
+    margin-bottom:15px;
+}
 
-.search{
-    width:calc(100% - 30px);
-    margin:15px;
-    padding:13px 16px;
+.searchBox input{
+    width:100%;
+    padding:15px;
     border-radius:12px;
     border:1px solid #292929;
     background:#111;
     color:#fff;
     outline:none;
-    font-size:14px;
+    font-size:15px;
 }
 
-.search:focus{
+.searchBox input:focus{
     border-color:#e50914;
 }
 
-.search::placeholder{
-    color:#777;
-}
-
-/* DAILY GOAL */
-
-.goal{
-    margin:0 15px 15px;
+.goalCard{
     background:linear-gradient(145deg,#151515,#0d0d0d);
-    border:1px solid #262626;
+    border:1px solid #292929;
     border-radius:16px;
     padding:16px;
+    margin-bottom:18px;
 }
 
 .goalHead{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:16px;
+    gap:10px;
+    margin-bottom:18px;
 }
 
 .goalHead b{
@@ -127,151 +122,120 @@ header{
 
 #goalCalories{
     color:#e50914;
-    font-size:13px;
-    margin-right:6px;
-    font-weight:bold;
+    margin-right:7px;
+    font-size:15px;
 }
 
-.goalHead button{
+.goalHead button,
+.clearBtn,
+.deleteBtn,
+.primaryBtn,
+.scrollBtn{
     background:#e50914;
     color:#fff;
-    border:0;
-    border-radius:8px;
-    padding:8px 14px;
-    cursor:pointer;
     font-weight:bold;
-    transition:.15s;
+    border-radius:9px;
+    padding:9px 14px;
 }
 
-.goalHead button:active{
-    transform:scale(.94);
-    background:#c90812;
+.goalStat{
+    margin-bottom:15px;
 }
 
-/* DAILY GOALS */
-
-.stats{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.stat{
-    background:#111;
-    border:1px solid #252525;
-    border-radius:11px;
-    padding:11px 12px;
+.goalStat:last-child{
+    margin-bottom:0;
 }
 
 .statTop{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     margin-bottom:7px;
-}
-
-.statName{
-    color:#fff;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.statValue{
-    color:#fff;
-    font-size:12px;
+    font-size:14px;
 }
 
 .progress{
     width:100%;
-    height:7px;
-    background:#222;
-    border-radius:10px;
+    height:8px;
+    background:#292929;
+    border-radius:20px;
     overflow:hidden;
 }
 
-.progress i{
-    display:block;
+.progressBar{
     height:100%;
     width:0%;
     background:#e50914;
-    border-radius:10px;
-    transition:.35s;
+    border-radius:20px;
+    transition:.3s;
 }
-
-/* SECTION */
 
 .sectionTitle{
-    font-size:17px;
-    margin:18px 15px 10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:20px 0 12px;
 }
 
-/* FOOD GRID */
+.sectionTitle h2{
+    font-size:18px;
+}
 
 .foodGrid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:8px;
-    padding:0 10px 20px;
+    gap:9px;
 }
 
 .food{
-    background:#111;
-    border:1px solid #252525;
+    background:#121212;
+    border:1px solid #292929;
     border-radius:12px;
-    padding:10px 5px;
-    text-align:center;
-    min-height:82px;
-    cursor:pointer;
-    transition:.15s;
+    min-height:95px;
+    padding:10px 6px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    text-align:center;
+    cursor:pointer;
+    transition:.15s;
 }
 
 .food:active{
-    transform:scale(.94);
-    border-color:#e50914;
+    transform:scale(.96);
 }
 
 .food b{
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:6px;
-    line-height:1.3;
+    font-size:13px;
+    line-height:1.4;
 }
 
 .food small{
+    margin-top:6px;
     color:#e50914;
     font-size:10px;
 }
 
-/* SELECTED */
-
-.selected{
-    margin:0 10px 10px;
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:15px;
-    padding:12px;
+.selectedBox{
+    margin-top:20px;
 }
 
-.empty{
-    text-align:center;
-    color:#777;
-    padding:18px 5px;
-    font-size:13px;
+.selected{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
 }
 
 .foodRow{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:12px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:10px;
-    background:#151515;
-    border-radius:10px;
-    padding:10px;
-    margin-top:7px;
 }
 
 .foodInfo{
@@ -281,63 +245,38 @@ header{
 
 .foodInfo b{
     display:block;
-    font-size:13px;
     margin-bottom:5px;
 }
 
 .foodInfo small{
-    color:#fff;
-    font-size:10px;
+    color:#aaa;
+    font-size:11px;
     line-height:1.7;
 }
 
 .deleteBtn{
     flex-shrink:0;
-    width:52px;
-    height:34px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:11px;
-    font-weight:bold;
-    background:#e50914;
-    color:#fff;
-    border:0;
-    transition:.15s;
+    padding:8px 11px;
+    font-size:12px;
 }
-
-.deleteBtn:active{
-    transform:scale(.94);
-    background:#c90812;
-}
-
-/* CLEAR */
 
 .clearBtn{
-    display:block;
-    width:calc(100% - 20px);
-    margin:12px 10px 25px;
-    padding:12px 14px;
-    background:#e50914;
-    color:#fff;
-    border:0;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.15s;
+    font-size:12px;
 }
 
-.clearBtn:active{
-    transform:scale(.98);
-    background:#c90812;
+.empty{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:20px;
+    text-align:center;
+    color:#777;
 }
-
-/* MODAL */
 
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.88);
+    background:rgba(0,0,0,.78);
     display:none;
     align-items:center;
     justify-content:center;
@@ -347,206 +286,189 @@ header{
 
 .modalBox{
     width:100%;
-    max-width:380px;
-    max-height:92vh;
-    overflow-y:auto;
-    background:#0d0d0d;
-    border:1px solid #292929;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 20px 70px rgba(0,0,0,.8);
+    max-width:450px;
+    max-height:90vh;
+    overflow:auto;
+    background:#111;
+    border:1px solid #303030;
+    border-radius:18px;
+    padding:18px;
 }
 
-.modalBox h2{
-    text-align:center;
-    font-size:19px;
-    margin-bottom:16px;
+.modalBox h3{
+    margin-bottom:15px;
+    font-size:20px;
 }
 
-/* UNITS */
+.closeBtn{
+    width:100%;
+    background:#222;
+    color:#fff;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
 
-.units{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+.quantityInput{
+    width:100%;
+    padding:13px;
+    background:#080808;
+    color:#fff;
+    border:1px solid #333;
+    border-radius:10px;
+    outline:none;
+    margin:10px 0;
+}
+
+.unitButtons{
+    display:flex;
     gap:7px;
     margin-bottom:12px;
 }
 
-.unitBtn{
-    padding:11px 5px;
-    background:#111;
-    color:#fff;
-    border:1px solid #292929;
+.unitButtons button{
+    flex:1;
+    padding:10px;
     border-radius:9px;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.unitBtn.active{
-    background:#e50914;
-    border-color:#e50914;
-}
-
-/* INPUTS */
-
-.modal input,
-.modal select{
-    width:100%;
-    padding:13px 14px;
-    margin-bottom:10px;
-    background:#080808;
-    border:1px solid #292929;
-    border-radius:11px;
+    background:#222;
     color:#fff;
-    outline:none;
-    font-size:13px;
 }
 
-.modal input:focus,
-.modal select:focus{
-    border-color:#e50914;
+.unitButtons button.active{
+    background:#e50914;
 }
 
-.hint{
-    color:#777;
-    font-size:11px;
-    margin-bottom:10px;
+#quantityHint{
+    color:#888;
+    font-size:12px;
+    margin-bottom:12px;
 }
 
 .preview{
-    background:#080808;
-    border:1px solid #222;
-    border-radius:11px;
+    background:#181818;
+    border-radius:12px;
     padding:13px;
-    color:#fff;
-    font-size:12px;
     line-height:2;
-    margin-bottom:14px;
+    font-size:13px;
+    margin-bottom:12px;
 }
 
-/* ACTIONS */
-
-.actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-}
-
-.actions button{
+.goalInput{
+    width:100%;
+    padding:13px;
+    margin-bottom:10px;
+    background:#080808;
+    border:1px solid #333;
     border-radius:10px;
-    padding:12px;
-    cursor:pointer;
-    font-weight:bold;
-    background:#111;
     color:#fff;
-    border:1px solid #292929;
-    transition:.15s;
-}
-
-.actions button:first-child{
-    background:#e50914;
-    border-color:#e50914;
-}
-
-.actions button:active{
-    transform:scale(.96);
-}
-
-/* GOAL OPTIONS */
-
-.goalOptions{
-    display:grid;
-    gap:7px;
-    margin:5px 0 14px;
+    outline:none;
 }
 
 .goalOption{
     width:100%;
-    padding:12px;
-    background:#111;
+    background:#222;
     color:#fff;
-    border:1px solid #292929;
+    padding:11px;
     border-radius:10px;
-    cursor:pointer;
-    font-size:12px;
+    margin-bottom:7px;
+    text-align:right;
 }
 
 .goalOption.active{
     background:#e50914;
-    border-color:#e50914;
 }
 
-/* SCROLL */
+.primaryBtn{
+    width:100%;
+    padding:13px;
+    font-size:15px;
+}
 
-.scroll-buttons{
+.updateBox{
+    width:100%;
+    max-width:400px;
+    background:#111;
+    border:1px solid #e50914;
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(229,9,20,.15);
+}
+
+.updateIcon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.updateBox h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.updateBox p{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.updateActions{
+    display:flex;
+    gap:8px;
+}
+
+.updateActions button{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+#updateNowBtn{
+    background:#e50914;
+    color:#fff;
+}
+
+#updateLaterBtn{
+    background:#222;
+    color:#fff;
+}
+
+.scrollControls{
     position:fixed;
-    left:14px;
-    bottom:18px;
+    left:15px;
+    bottom:15px;
     display:flex;
     flex-direction:column;
     gap:8px;
-    z-index:900;
+    z-index:500;
 }
 
 .scrollBtn{
-    width:42px;
-    height:42px;
-    border-radius:11px;
-    background:#e50914;
-    color:#fff;
-    border:0;
-    font-size:20px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.15s;
+    width:43px;
+    height:43px;
+    padding:0;
+    border-radius:50%;
+    font-size:18px;
 }
-
-.scrollBtn:active{
-    transform:scale(.92);
-    background:#c90812;
-}
-
-/* FOOTER */
 
 footer{
     text-align:center;
-    color:#777;
-    font-size:11px;
-    padding:20px 10px 30px;
+    color:#666;
+    font-size:12px;
+    padding:30px 0 10px;
 }
-
-/* MOBILE */
 
 @media(max-width:350px){
 
     .foodGrid{
-        gap:5px;
-        padding-left:7px;
-        padding-right:7px;
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .food{
-        padding:7px 3px;
-        min-height:76px;
+    .logo{
+        font-size:26px;
     }
 
-    .food b{
-        font-size:10px;
-    }
-
-    .food small{
-        font-size:9px;
-    }
-
-    .scroll-buttons{
-        left:10px;
-        bottom:12px;
-    }
-
-    .scrollBtn{
-        width:38px;
-        height:38px;
-    }
 }
 
 </style>
@@ -556,567 +478,735 @@ footer{
 
 <header>
 
-<div class="logo">
-SAYKØ <span>FITNESS</span>
-</div>
+    <div class="logo">
+        SAYKØ <span>FITNESS</span>
+    </div>
 
-<div class="subtitle">
-Nutrition • Calories • Progress
-</div>
+    <div class="subtitle">
+        Nutrition • Calories • Progress
+    </div>
 
-<button id="installButton">
-تثبيت SAYKØ
-</button>
+    <button id="installButton">
+        تثبيت التطبيق
+    </button>
 
 </header>
 
-<main class="container">
+<div class="container">
 
-<input
-id="search"
-class="search"
-placeholder="ابحث عن أكلة أو سناك..."
->
+    <div class="searchBox">
+        <input
+            id="search"
+            type="text"
+            placeholder="ابحث عن أكلة..."
+        >
+    </div>
 
-<section class="goal">
+    <section class="goalCard">
 
-<div class="goalHead">
+        <div class="goalHead">
 
-<b>
-هدفك اليومي
-<span id="goalCalories">2500 kcal</span>
-</b>
+            <b>
+                هدفك اليومي
+                <span id="goalCalories">2500 kcal</span>
+            </b>
 
-<button onclick="openGoal()">
-تعديل
-</button>
+            <button onclick="openGoal()">
+                تعديل
+            </button>
+
+        </div>
+
+        <div class="goalStat">
+
+            <div class="statTop">
+                <span>السعرات</span>
+                <span id="calTotal">0 / 2500 kcal</span>
+            </div>
+
+            <div class="progress">
+                <div id="calBar" class="progressBar"></div>
+            </div>
+
+        </div>
+
+        <div class="goalStat">
+
+            <div class="statTop">
+                <span>البروتين</span>
+                <span id="proTotal">0 / 150 g</span>
+            </div>
+
+            <div class="progress">
+                <div id="proBar" class="progressBar"></div>
+            </div>
+
+        </div>
+
+        <div class="goalStat">
+
+            <div class="statTop">
+                <span>الكارب</span>
+                <span id="carbTotal">0 / 300 g</span>
+            </div>
+
+            <div class="progress">
+                <div id="carbBar" class="progressBar"></div>
+            </div>
+
+        </div>
+
+        <div class="goalStat">
+
+            <div class="statTop">
+                <span>الدهون</span>
+                <span id="fatTotal">0 / 80 g</span>
+            </div>
+
+            <div class="progress">
+                <div id="fatBar" class="progressBar"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="sectionTitle">
+        <h2>الأطعمة</h2>
+    </div>
+
+    <div id="foodGrid" class="foodGrid"></div>
+
+    <section class="selectedBox">
+
+        <div class="sectionTitle">
+
+            <h2>الأطعمة المختارة</h2>
+
+            <button class="clearBtn" onclick="clearAll()">
+                مسح الكل
+            </button>
+
+        </div>
+
+        <div id="selected" class="selected"></div>
+
+    </section>
 
 </div>
-
-<div class="stats">
-
-<div class="stat">
-
-<div class="statTop">
-<span class="statName">السعرات</span>
-<span class="statValue" id="calTotal">0 / 2500 kcal</span>
-</div>
-
-<div class="progress">
-<i id="calBar"></i>
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="statTop">
-<span class="statName">البروتين</span>
-<span class="statValue" id="proTotal">0 / 150 g</span>
-</div>
-
-<div class="progress">
-<i id="proBar"></i>
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="statTop">
-<span class="statName">الكارب</span>
-<span class="statValue" id="carbTotal">0 / 300 g</span>
-</div>
-
-<div class="progress">
-<i id="carbBar"></i>
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="statTop">
-<span class="statName">الدهون</span>
-<span class="statValue" id="fatTotal">0 / 80 g</span>
-</div>
-
-<div class="progress">
-<i id="fatBar"></i>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<h2 class="sectionTitle">
-الأطعمة والسناكس
-</h2>
-
-<div id="foodGrid" class="foodGrid"></div>
-
-<h2 class="sectionTitle">
-الأطعمة المختارة
-</h2>
-
-<div id="selected" class="selected">
-<div class="empty">
-لم تضف أي طعام بعد
-</div>
-</div>
-
-<button class="clearBtn" onclick="clearAll()">
-مسح الكل
-</button>
-
-</main>
 
 <footer>
-SAYKØ FITNESS
+    SAYKØ FITNESS
 </footer>
 
-<div class="scroll-buttons">
-
-<button class="scrollBtn" onclick="scrollToTop()">↑</button>
-
-<button class="scrollBtn" onclick="scrollToBottom()">↓</button>
-
-</div>
-
-
-<!-- FOOD MODAL -->
+<!-- Food Modal -->
 
 <div id="foodModal" class="modal">
 
-<div class="modalBox">
+    <div class="modalBox">
 
-<h2 id="foodTitle"></h2>
+        <h3 id="foodTitle">الطعام</h3>
 
-<div class="units">
+        <div class="unitButtons">
 
-<button
-id="gramsBtn"
-class="unitBtn active"
-onclick="selectUnit('grams')">
-جرام
-</button>
+            <button
+                id="gramsBtn"
+                onclick="selectUnit('grams')"
+            >
+                جرام
+            </button>
 
-<button
-id="spoonBtn"
-class="unitBtn"
-onclick="selectUnit('spoon')">
-معلقة كبيرة
-</button>
+            <button
+                id="spoonBtn"
+                onclick="selectUnit('spoon')"
+            >
+                معلقة
+            </button>
 
-<button
-id="pieceBtn"
-class="unitBtn"
-style="display:none"
-onclick="selectUnit('piece')">
-قطعة
-</button>
+            <button
+                id="pieceBtn"
+                onclick="selectUnit('piece')"
+                style="display:none"
+            >
+                قطعة
+            </button>
+
+        </div>
+
+        <input
+            id="quantity"
+            class="quantityInput"
+            type="number"
+            min="0"
+            step="0.1"
+            value="100"
+            oninput="updatePreview()"
+        >
+
+        <div id="quantityHint"></div>
+
+        <div id="preview" class="preview"></div>
+
+        <button
+            class="primaryBtn"
+            onclick="confirmFood()"
+        >
+            إضافة
+        </button>
+
+        <button
+            class="closeBtn"
+            onclick="closeFood()"
+        >
+            إلغاء
+        </button>
+
+    </div>
 
 </div>
 
-<input
-id="quantity"
-type="number"
-min="0"
-step="0.1"
-value="100"
-oninput="updatePreview()"
->
-
-<div id="quantityHint" class="hint"></div>
-
-<div id="preview" class="preview"></div>
-
-<div class="actions">
-
-<button onclick="confirmFood()">
-إضافة
-</button>
-
-<button onclick="closeFood()">
-إلغاء
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- GOAL MODAL -->
+<!-- Goal Modal -->
 
 <div id="goalModal" class="modal">
 
-<div class="modalBox">
+    <div class="modalBox">
 
-<h2>
-احسب احتياجك اليومي
-</h2>
+        <h3>احسب احتياجك اليومي</h3>
 
-<input
-id="weight"
-type="number"
-placeholder="الوزن بالكجم"
->
+        <input
+            id="weight"
+            class="goalInput"
+            type="number"
+            placeholder="الوزن بالكيلو"
+        >
 
-<input
-id="height"
-type="number"
-placeholder="الطول بالسنتيمتر"
->
+        <input
+            id="height"
+            class="goalInput"
+            type="number"
+            placeholder="الطول بالسنتيمتر"
+        >
 
-<input
-id="age"
-type="number"
-placeholder="العمر"
->
+        <input
+            id="age"
+            class="goalInput"
+            type="number"
+            placeholder="العمر"
+        >
 
-<select id="gender">
+        <select id="gender" class="goalInput">
 
-<option value="male">ذكر</option>
-<option value="female">أنثى</option>
+            <option value="male">
+                ذكر
+            </option>
 
-</select>
+            <option value="female">
+                أنثى
+            </option>
 
-<select id="activity">
+        </select>
 
-<option value="1.2">قليل الحركة</option>
-<option value="1.375">نشاط خفيف</option>
-<option value="1.55" selected>نشاط متوسط</option>
-<option value="1.725">نشاط عالي</option>
+        <select id="activity" class="goalInput">
 
-</select>
+            <option value="1.2">
+                قليل الحركة
+            </option>
 
-<div class="goalOptions">
+            <option value="1.375">
+                نشاط خفيف
+            </option>
 
-<button
-class="goalOption active"
-data-goal="build"
-onclick="setGoalType(this)">
-ضبط الدهون وبناء العضلات
-</button>
+            <option value="1.55" selected>
+                نشاط متوسط
+            </option>
 
-<button
-class="goalOption"
-data-goal="maintain"
-onclick="setGoalType(this)">
-تثبيت الوزن
-</button>
+            <option value="1.725">
+                نشاط عالي
+            </option>
 
-<button
-class="goalOption"
-data-goal="lose"
-onclick="setGoalType(this)">
-خسارة وزن تدريجية
-</button>
+        </select>
 
-<button
-class="goalOption"
-data-goal="gain"
-onclick="setGoalType(this)">
-زيادة الوزن
-</button>
+        <button
+            class="goalOption active"
+            data-goal="build"
+            onclick="setGoalType(this)"
+        >
+            ضبط الدهون وبناء العضلات
+        </button>
+
+        <button
+            class="goalOption"
+            data-goal="maintain"
+            onclick="setGoalType(this)"
+        >
+            تثبيت الوزن
+        </button>
+
+        <button
+            class="goalOption"
+            data-goal="lose"
+            onclick="setGoalType(this)"
+        >
+            خسارة وزن تدريجية
+        </button>
+
+        <button
+            class="goalOption"
+            data-goal="gain"
+            onclick="setGoalType(this)"
+        >
+            زيادة الوزن
+        </button>
+
+        <button
+            class="primaryBtn"
+            onclick="calculateGoal()"
+        >
+            حساب الاحتياج
+        </button>
+
+        <button
+            class="closeBtn"
+            onclick="closeGoal()"
+        >
+            إلغاء
+        </button>
+
+    </div>
 
 </div>
 
-<div class="actions">
+<!-- Update Modal -->
 
-<button onclick="calculateGoal()">
-حفظ
-</button>
+<div id="updateModal" class="modal">
 
-<button onclick="closeGoal()">
-إلغاء
-</button>
+    <div class="updateBox">
+
+        <div class="updateIcon">
+            🔄
+        </div>
+
+        <h3>
+            تحديث جديد متاح
+        </h3>
+
+        <p>
+            فيه نسخة أحدث من SAYKØ FITNESS.
+            حدّث التطبيق عشان تستخدم آخر التعديلات والميزات.
+        </p>
+
+        <div class="updateActions">
+
+            <button id="updateNowBtn">
+                تحديث الآن
+            </button>
+
+            <button id="updateLaterBtn">
+                لاحقًا
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
+<!-- Scroll Buttons -->
+
+<div class="scrollControls">
+
+    <button
+        class="scrollBtn"
+        onclick="scrollToTop()"
+        title="أعلى"
+    >
+        ↑
+    </button>
+
+    <button
+        class="scrollBtn"
+        onclick="scrollToBottom()"
+        title="أسفل"
+    >
+        ↓
+    </button>
 
 </div>
-
 
 <script>
 
-/* FOOD DATABASE */
+/* =========================
+   FOOD DATABASE
+========================= */
 
-const foods = [
+const foods=[
 
-{name:"أرز أبيض مطبوخ",calories:130,carbs:28,protein:2.7,fat:.3},
-{name:"أرز بني",calories:123,carbs:26,protein:2.7,fat:1},
-{name:"أرز بسمتي",calories:121,carbs:25,protein:3,fat:.4},
-{name:"أرز أصفر",calories:150,carbs:30,protein:3,fat:2},
-{name:"مكرونة مسلوقة",calories:158,carbs:31,protein:6,fat:.9},
-{name:"مكرونة جافة",calories:371,carbs:75,protein:13,fat:1.5},
-{name:"مكرونة قمح كامل",calories:149,carbs:30,protein:6,fat:1.5},
-{name:"فريك",calories:115,carbs:22,protein:4.5,fat:.7},
-{name:"برغل",calories:83,carbs:19,protein:3,fat:.2},
-{name:"كسكسي",calories:112,carbs:23,protein:3.8,fat:.2},
-{name:"كينوا مطبوخة",calories:120,carbs:21,protein:4.4,fat:1.9},
-{name:"شوفان",calories:389,carbs:66,protein:17,fat:7},
-{name:"شوفان مطبوخ",calories:71,carbs:12,protein:2.5,fat:1.5},
-{name:"ذرة",calories:96,carbs:21,protein:3.4,fat:1.5},
-{name:"فشار بدون زيت",calories:387,carbs:78,protein:13,fat:4.5},
+/* Grains */
 
-{name:"عيش بلدي",calories:250,carbs:50,protein:8.9,fat:1.6},
-{name:"عيش سن",calories:230,carbs:44,protein:9,fat:2},
-{name:"عيش شامي",calories:170,carbs:35,protein:6,fat:1},
-{name:"عيش أبيض",calories:266,carbs:49,protein:9,fat:3.2},
-{name:"توست أبيض",calories:264,carbs:48,protein:9.2,fat:3.2},
-{name:"توست أسمر",calories:267,carbs:43,protein:13,fat:4},
-{name:"توست حبوب كاملة",calories:250,carbs:43,protein:13,fat:4},
-{name:"فينو",calories:276,carbs:51,protein:8.9,fat:2},
-{name:"بقسماط",calories:410,carbs:72,protein:11,fat:9},
+{name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
+{name:"أرز بني",calories:123,protein:2.7,carbs:26,fat:1},
+{name:"أرز بسمتي",calories:121,protein:3,carbs:25,fat:.4},
+{name:"أرز أصفر",calories:150,protein:3,carbs:30,fat:2},
 
-{name:"بطاطس مسلوقة",calories:87,carbs:20,protein:2,fat:.1},
-{name:"بطاطس بالفرن",calories:120,carbs:22,protein:2.5,fat:3},
-{name:"بطاطس مقلية",calories:312,carbs:41,protein:3.4,fat:15},
-{name:"بطاطس مهروسة",calories:113,carbs:17,protein:2,fat:4},
-{name:"بطاطا حلوة",calories:90,carbs:21,protein:2,fat:.1},
+{name:"مكرونة مسلوقة",calories:158,protein:6,carbs:31,fat:.9},
+{name:"مكرونة جافة",calories:371,protein:13,carbs:75,fat:1.5},
+{name:"مكرونة قمح كامل",calories:149,protein:6,carbs:30,fat:1.5},
 
-{name:"بيض",calories:143,carbs:.8,protein:12.6,fat:9.5},
-{name:"بيض مسلوق",calories:143,carbs:.8,protein:12.6,fat:9.5},
-{name:"بيض مقلي",calories:190,carbs:1,protein:13,fat:15},
-{name:"بياض البيض",calories:52,carbs:.7,protein:10.9,fat:.2},
-{name:"صفار البيض",calories:324,carbs:3.5,protein:15.9,fat:26.5},
+{name:"فريك",calories:115,protein:4.5,carbs:22,fat:.7},
+{name:"برغل",calories:83,protein:3,carbs:19,fat:.2},
+{name:"كسكسي",calories:112,protein:3.8,carbs:23,fat:.2},
+{name:"كينوا مطبوخة",calories:120,protein:4.4,carbs:21,fat:1.9},
 
-{name:"صدر فراخ",calories:120,carbs:0,protein:22.5,fat:2.6},
-{name:"صدر فراخ مشوي",calories:165,carbs:0,protein:31,fat:3.6},
-{name:"فراخ",calories:130,carbs:0,protein:19,fat:6},
-{name:"ورك فراخ",calories:130,carbs:0,protein:19,fat:6},
-{name:"دبوس فراخ",calories:120,carbs:0,protein:20,fat:4},
-{name:"فراخ بانيه",calories:220,carbs:15,protein:20,fat:9},
-{name:"فراخ بانيه مقلية",calories:270,carbs:18,protein:20,fat:14},
-{name:"شاورما فراخ",calories:150,carbs:3,protein:16,fat:8},
-{name:"شيش طاووق",calories:150,carbs:3,protein:23,fat:5},
-{name:"كفتة فراخ",calories:180,carbs:5,protein:20,fat:9},
+{name:"شوفان",calories:389,protein:17,carbs:66,fat:7},
+{name:"شوفان مطبوخ",calories:71,protein:2.5,carbs:12,fat:1.5},
 
-{name:"لحمة بقري",calories:150,carbs:0,protein:21,fat:7},
-{name:"لحمة مفرومة قليلة الدهن",calories:137,carbs:0,protein:21,fat:5},
-{name:"لحمة مفرومة",calories:215,carbs:0,protein:18,fat:15},
-{name:"لحمة ضاني",calories:150,carbs:0,protein:20,fat:8},
-{name:"كبدة",calories:135,carbs:3.9,protein:20,fat:3.6},
-{name:"كبدة إسكندراني",calories:190,carbs:5,protein:20,fat:10},
-{name:"كفتة",calories:220,carbs:4,protein:18,fat:15},
-{name:"حواوشي",calories:250,carbs:25,protein:12,fat:12},
-{name:"ستيك",calories:271,carbs:0,protein:25,fat:19},
+{name:"ذرة",calories:96,protein:3.4,carbs:21,fat:1.5},
+{name:"فشار بدون زيت",calories:387,protein:13,carbs:78,fat:4.5},
 
-{name:"سمك بلطي",calories:96,carbs:0,protein:20,fat:1.7},
-{name:"سمك قاروص",calories:97,carbs:0,protein:18,fat:2},
-{name:"سلمون",calories:208,carbs:0,protein:20,fat:13},
-{name:"ماكريل",calories:205,carbs:0,protein:19,fat:14},
-{name:"تونة",calories:116,carbs:0,protein:26,fat:1},
-{name:"تونة بالماء",calories:116,carbs:0,protein:26,fat:1},
-{name:"تونة بالزيت",calories:190,carbs:0,protein:25,fat:9},
-{name:"جمبري",calories:85,carbs:1,protein:20,fat:.5},
-{name:"سردين",calories:208,carbs:0,protein:25,fat:11},
-{name:"سمك مقلي",calories:220,carbs:10,protein:20,fat:11},
+/* Bread */
 
-{name:"فول",calories:110,carbs:20,protein:8,fat:.4},
-{name:"فول بالزيت",calories:150,carbs:20,protein:7,fat:6},
-{name:"فول بالبيض",calories:170,carbs:15,protein:10,fat:8},
-{name:"عدس",calories:116,carbs:20,protein:9,fat:.4},
-{name:"شوربة عدس",calories:90,carbs:14,protein:5,fat:2},
-{name:"فاصوليا بيضاء",calories:140,carbs:25,protein:9,fat:.6},
-{name:"فاصوليا حمراء",calories:127,carbs:23,protein:9,fat:.5},
-{name:"لوبيا",calories:116,carbs:21,protein:8,fat:.5},
-{name:"حمص",calories:164,carbs:27,protein:9,fat:2.6},
-{name:"بازلاء",calories:84,carbs:16,protein:5,fat:.4},
-{name:"طعمية",calories:333,carbs:32,protein:13,fat:18},
+{name:"عيش بلدي",calories:250,protein:8.9,carbs:50,fat:1.6},
+{name:"عيش سن",calories:230,protein:9,carbs:44,fat:2},
+{name:"عيش شامي",calories:170,protein:6,carbs:35,fat:1},
+{name:"عيش أبيض",calories:266,protein:9,carbs:49,fat:3.2},
 
-{name:"لبن كامل الدسم",calories:61,carbs:4.8,protein:3.2,fat:3.3},
-{name:"لبن خالي الدسم",calories:34,carbs:5,protein:3.4,fat:.1},
-{name:"لبن نصف دسم",calories:45,carbs:5,protein:3.4,fat:1.5},
-{name:"زبادي",calories:61,carbs:4.7,protein:3.5,fat:3.3},
-{name:"زبادي لايت",calories:50,carbs:6,protein:4,fat:1},
-{name:"زبادي يوناني",calories:73,carbs:4,protein:9,fat:2},
-{name:"زبادي يوناني لايت",calories:59,carbs:3.6,protein:10,fat:.4},
-{name:"جبنة قريش",calories:98,carbs:3.4,protein:11,fat:4.3},
-{name:"جبنة بيضاء",calories:280,carbs:2,protein:17,fat:23},
-{name:"جبنة بيضاء لايت",calories:180,carbs:3,protein:16,fat:11},
-{name:"جبنة رومي",calories:380,carbs:2,protein:25,fat:30},
-{name:"موتزاريلا",calories:254,carbs:3,protein:24,fat:16},
+{name:"توست أبيض",calories:264,protein:9.2,carbs:48,fat:3.2},
+{name:"توست أسمر",calories:267,protein:13,carbs:43,fat:4},
+{name:"توست حبوب كاملة",calories:250,protein:13,carbs:43,fat:4},
 
-{name:"طماطم",calories:18,carbs:3.9,protein:.9,fat:.2},
-{name:"خيار",calories:15,carbs:3.6,protein:.7,fat:.1},
-{name:"بصل",calories:40,carbs:9,protein:1.1,fat:.1},
-{name:"جزر",calories:41,carbs:10,protein:.9,fat:.2},
-{name:"فلفل أخضر",calories:20,carbs:4.6,protein:.9,fat:.3},
-{name:"فلفل أحمر",calories:31,carbs:6,protein:1,fat:.3},
-{name:"بروكلي",calories:34,carbs:7,protein:2.8,fat:.4},
-{name:"قرنبيط",calories:25,carbs:5,protein:1.9,fat:.3},
-{name:"كوسة",calories:17,carbs:3.1,protein:1.2,fat:.3},
-{name:"باذنجان",calories:25,carbs:6,protein:1,fat:.2},
-{name:"سبانخ",calories:23,carbs:3.6,protein:2.9,fat:.4},
-{name:"ملوخية",calories:40,carbs:5,protein:4.5,fat:.5},
-{name:"فاصوليا خضراء",calories:31,carbs:7,protein:1.8,fat:.2},
-{name:"بامية",calories:33,carbs:7,protein:1.9,fat:.2},
-{name:"خس",calories:15,carbs:2.9,protein:1.4,fat:.2},
-{name:"جرجير",calories:25,carbs:3.7,protein:2.6,fat:.7},
-{name:"كرنب",calories:25,carbs:6,protein:1.3,fat:.1},
-{name:"بنجر",calories:43,carbs:10,protein:1.6,fat:.2},
-{name:"مشروم",calories:22,carbs:3.3,protein:3.1,fat:.3},
+{name:"فينو",calories:276,protein:8.9,carbs:51,fat:2},
+{name:"بقسماط",calories:410,protein:11,carbs:72,fat:9},
 
-{name:"موز",calories:89,carbs:23,protein:1.1,fat:.3},
-{name:"تفاح",calories:52,carbs:14,protein:.3,fat:.2},
-{name:"برتقال",calories:47,carbs:12,protein:.9,fat:.1},
-{name:"فراولة",calories:32,carbs:8,protein:.7,fat:.3},
-{name:"مانجا",calories:60,carbs:15,protein:.8,fat:.4},
-{name:"عنب",calories:69,carbs:18,protein:.7,fat:.2},
-{name:"بطيخ",calories:30,carbs:8,protein:.6,fat:.2},
-{name:"شمام",calories:34,carbs:8,protein:.8,fat:.2},
-{name:"جوافة",calories:68,carbs:14,protein:2.6,fat:1},
-{name:"رمان",calories:83,carbs:19,protein:1.7,fat:1.2},
-{name:"كيوي",calories:61,carbs:15,protein:1.1,fat:.5},
-{name:"خوخ",calories:39,carbs:10,protein:.9,fat:.3},
-{name:"برقوق",calories:46,carbs:11,protein:.7,fat:.3},
-{name:"مشمش",calories:48,carbs:11,protein:1.4,fat:.4},
-{name:"أناناس",calories:50,carbs:13,protein:.5,fat:.1},
+/* Potatoes */
 
-{name:"زيت زيتون",calories:884,carbs:0,protein:0,fat:100},
-{name:"زبدة",calories:717,carbs:.1,protein:.9,fat:81},
-{name:"سمنة",calories:900,carbs:0,protein:0,fat:100},
-{name:"طحينة",calories:593,carbs:21,protein:17,fat:53},
-{name:"زبدة فول سوداني",calories:588,carbs:20,protein:25,fat:50},
-{name:"فول سوداني",calories:567,carbs:16.1,protein:25.8,fat:49.2},
-{name:"لوز",calories:579,carbs:22,protein:21,fat:50},
-{name:"عين جمل",calories:654,carbs:14,protein:15,fat:65},
-{name:"كاجو",calories:553,carbs:30,protein:18,fat:44},
-{name:"فستق",calories:562,carbs:28,protein:20,fat:45},
-{name:"بندق",calories:628,carbs:17,protein:15,fat:61},
-{name:"بذور دوار الشمس",calories:584,carbs:20,protein:21,fat:51},
+{name:"بطاطس مسلوقة",calories:87,protein:2,carbs:20,fat:.1},
+{name:"بطاطس بالفرن",calories:120,protein:2.5,carbs:22,fat:3},
+{name:"بطاطس مقلية",calories:312,protein:3.4,carbs:41,fat:15},
+{name:"بطاطس مهروسة",calories:113,protein:2,carbs:17,fat:4},
+{name:"بطاطا حلوة",calories:90,protein:2,carbs:21,fat:.1},
 
-{name:"شكشوكة",calories:120,carbs:5,protein:7,fat:8},
-{name:"كشري",calories:170,carbs:28,protein:6,fat:4},
-{name:"محشي كرنب",calories:160,carbs:25,protein:4,fat:5},
-{name:"محشي ورق عنب",calories:170,carbs:27,protein:4,fat:5},
-{name:"محشي كوسة",calories:150,carbs:23,protein:4,fat:5},
-{name:"محشي باذنجان",calories:155,carbs:24,protein:4,fat:5},
-{name:"مسقعة",calories:130,carbs:10,protein:4,fat:8},
-{name:"مكرونة بالبشاميل",calories:210,carbs:22,protein:9,fat:10},
-{name:"فتة",calories:180,carbs:20,protein:8,fat:8},
-{name:"جلاش",calories:280,carbs:35,protein:7,fat:12},
-{name:"جلاش باللحمة",calories:300,carbs:30,protein:12,fat:16},
-{name:"جلاش بالجبنة",calories:290,carbs:30,protein:10,fat:15},
-{name:"أم علي",calories:250,carbs:30,protein:7,fat:12},
-{name:"رز بلبن",calories:130,carbs:22,protein:3,fat:4},
-{name:"مهلبية",calories:120,carbs:20,protein:3,fat:3},
-{name:"بسبوسة",calories:350,carbs:50,protein:5,fat:15},
-{name:"كنافة",calories:400,carbs:55,protein:6,fat:18},
-{name:"قطايف",calories:260,carbs:42,protein:5,fat:9},
+/* Eggs */
 
-{name:"سكر أبيض",calories:387,carbs:100,protein:0,fat:0},
-{name:"كاكاو خام",calories:228,carbs:57.9,protein:19.6,fat:13.7},
-{name:"عسل",calories:304,carbs:82,protein:.3,fat:0},
-{name:"مربى",calories:250,carbs:65,protein:.4,fat:.1},
-{name:"نوتيلا",calories:539,carbs:57.5,protein:6.3,fat:30.9},
-{name:"مايونيز",calories:680,carbs:1,protein:1,fat:75},
-{name:"كاتشب",calories:112,carbs:26,protein:1.3,fat:.2},
-{name:"صوص باربكيو",calories:172,carbs:40,protein:1,fat:.5},
+{name:"بيض",calories:143,protein:12.6,carbs:.8,fat:9.5},
+{name:"بيض مسلوق",calories:143,protein:12.6,carbs:.8,fat:9.5},
+{name:"بيض مقلي",calories:190,protein:13,carbs:1,fat:15},
+{name:"بياض البيض",calories:52,protein:10.9,carbs:.7,fat:.2},
+{name:"صفار البيض",calories:324,protein:15.9,carbs:3.5,fat:26.5},
 
-{name:"شيبسي بطاطس",calories:536,carbs:53,protein:7,fat:34},
-{name:"شيبسي بالجبنة",calories:530,carbs:52,protein:7,fat:34},
-{name:"شيبسي حار",calories:530,carbs:52,protein:7,fat:34},
-{name:"شيبسي خل وملح",calories:530,carbs:53,protein:7,fat:33},
-{name:"شيتوس",calories:540,carbs:55,protein:7,fat:32},
-{name:"دوريتوس",calories:500,carbs:57,protein:7,fat:27},
-{name:"تايجر",calories:520,carbs:55,protein:6,fat:30},
-{name:"نايتي",calories:470,carbs:62,protein:6,fat:21},
-{name:"بسكويت سادة",calories:450,carbs:70,protein:7,fat:16},
-{name:"بسكويت شوكولاتة",calories:490,carbs:65,protein:6,fat:23},
-{name:"بسكويت محشو",calories:480,carbs:68,protein:5,fat:21},
-{name:"بسكويت ويفر",calories:510,carbs:62,protein:6,fat:27},
-{name:"ويفر شوكولاتة",calories:520,carbs:61,protein:6,fat:28},
-{name:"ويفر فانيليا",calories:510,carbs:65,protein:6,fat:25},
-{name:"كراكر",calories:480,carbs:68,protein:9,fat:19},
-{name:"بريتزل",calories:380,carbs:80,protein:10,fat:3},
-{name:"فشار بالزبدة",calories:500,carbs:58,protein:8,fat:28},
-{name:"جرانولا",calories:450,carbs:64,protein:10,fat:17},
-{name:"بار بروتين",calories:350,carbs:35,protein:20,fat:14},
+/* Chicken */
 
-{name:"شوكولاتة بالحليب",calories:535,carbs:59,protein:8,fat:30},
-{name:"شوكولاتة دارك",calories:600,carbs:46,protein:8,fat:43},
-{name:"مارشميلو",calories:318,carbs:81,protein:2,fat:.2},
-{name:"دونات",calories:400,carbs:50,protein:5,fat:21},
-{name:"كيك شوكولاتة",calories:370,carbs:50,protein:5,fat:17},
-{name:"كيك فانيليا",calories:350,carbs:52,protein:5,fat:14},
-{name:"براونيز",calories:466,carbs:64,protein:6,fat:22},
-{name:"كوكيز",calories:480,carbs:64,protein:6,fat:22},
-{name:"آيس كريم",calories:207,carbs:24,protein:3.5,fat:11},
+{name:"صدر فراخ",calories:120,protein:22.5,carbs:0,fat:2.6},
+{name:"صدر فراخ مشوي",calories:165,protein:31,carbs:0,fat:3.6},
+{name:"فراخ",calories:130,protein:19,carbs:0,fat:6},
+{name:"ورك فراخ",calories:130,protein:19,carbs:0,fat:6},
+{name:"دبوس فراخ",calories:120,protein:20,carbs:0,fat:4},
+{name:"بانيه",calories:220,protein:20,carbs:15,fat:9},
+{name:"بانيه مقلية",calories:270,protein:20,carbs:18,fat:14},
+{name:"شاورما فراخ",calories:150,protein:16,carbs:3,fat:8},
+{name:"شيش طاووق",calories:150,protein:23,carbs:3,fat:5},
+{name:"كفتة فراخ",calories:180,protein:20,carbs:5,fat:9},
 
-{name:"عصير برتقال",calories:45,carbs:10,protein:.7,fat:.2},
-{name:"عصير مانجا",calories:60,carbs:15,protein:.5,fat:.2},
-{name:"عصير فراولة",calories:45,carbs:11,protein:.5,fat:.1},
-{name:"كوكاكولا",calories:42,carbs:10.6,protein:0,fat:0},
-{name:"بيبسي",calories:42,carbs:11,protein:0,fat:0},
-{name:"مشروب غازي دايت",calories:1,carbs:0,protein:0,fat:0},
-{name:"قهوة سادة",calories:2,carbs:.3,protein:.1,fat:0},
-{name:"شاي",calories:1,carbs:0,protein:0,fat:0},
-{name:"نسكافيه",calories:3,carbs:.5,protein:.1,fat:0},
-{name:"لبن بالكاكاو",calories:80,carbs:10,protein:4,fat:3},
+/* Beef */
 
-{name:"هوهوز",weight:60,calories:259,carbs:40.8,protein:2.4,fat:9.6},
-{name:"توينكيز",weight:38,calories:160,carbs:27,protein:2,fat:5},
-{name:"كيك رول",weight:45,calories:190,carbs:27,protein:3,fat:8},
-{name:"ويفر صغير",weight:25,calories:130,carbs:16,protein:2,fat:7},
-{name:"بسكويت ساندوتش صغير",weight:30,calories:145,carbs:20,protein:2,fat:7}
+{name:"لحمة بقري",calories:150,protein:21,carbs:0,fat:7},
+{name:"لحمة مفرومة قليلة الدهن",calories:137,protein:21,carbs:0,fat:5},
+{name:"لحمة مفرومة",calories:215,protein:18,carbs:0,fat:15},
+{name:"لحمة ضاني",calories:150,protein:20,carbs:0,fat:8},
+{name:"كبدة",calories:135,protein:20,carbs:3.9,fat:3.6},
+{name:"كبدة إسكندراني",calories:190,protein:20,carbs:5,fat:10},
+{name:"كفتة",calories:220,protein:18,carbs:4,fat:15},
+{name:"حواوشي",calories:250,protein:12,carbs:25,fat:12},
+{name:"ستيك",calories:271,protein:25,carbs:0,fat:19},
+
+/* Fish */
+
+{name:"بلطي",calories:96,protein:20,carbs:0,fat:1.7},
+{name:"قاروص",calories:97,protein:18,carbs:0,fat:2},
+{name:"سلمون",calories:208,protein:20,carbs:0,fat:13},
+{name:"ماكريل",calories:205,protein:19,carbs:0,fat:14},
+{name:"تونة",calories:116,protein:26,carbs:0,fat:1},
+{name:"تونة بالماء",calories:116,protein:26,carbs:0,fat:1},
+{name:"تونة بالزيت",calories:190,protein:25,carbs:0,fat:9},
+{name:"جمبري",calories:85,protein:20,carbs:1,fat:.5},
+{name:"سردين",calories:208,protein:25,carbs:0,fat:11},
+{name:"سمك مقلي",calories:220,protein:20,carbs:10,fat:11},
+
+/* Legumes */
+
+{name:"فول",calories:110,protein:8,carbs:20,fat:.4},
+{name:"فول بالزيت",calories:150,protein:7,carbs:20,fat:6},
+{name:"فول بالبيض",calories:170,protein:10,carbs:15,fat:8},
+{name:"عدس",calories:116,protein:9,carbs:20,fat:.4},
+{name:"شوربة عدس",calories:90,protein:5,carbs:14,fat:2},
+{name:"فاصوليا بيضاء",calories:140,protein:9,carbs:25,fat:.6},
+{name:"فاصوليا حمراء",calories:127,protein:9,carbs:23,fat:.5},
+{name:"لوبيا",calories:116,protein:8,carbs:21,fat:.5},
+{name:"حمص",calories:164,protein:9,carbs:27,fat:2.6},
+{name:"بازلاء",calories:84,protein:5,carbs:16,fat:.4},
+{name:"طعمية",calories:333,protein:13,carbs:32,fat:18},
+
+/* Dairy */
+
+{name:"لبن كامل الدسم",calories:61,protein:3.2,carbs:4.8,fat:3.3},
+{name:"لبن خالي الدسم",calories:34,protein:5,carbs:3.4,fat:.1},
+{name:"لبن نصف دسم",calories:45,protein:5,carbs:3.4,fat:1.5},
+
+{name:"زبادي",calories:61,protein:3.5,carbs:4.7,fat:3.3},
+{name:"زبادي لايت",calories:50,protein:6,carbs:4,fat:1},
+{name:"زبادي يوناني",calories:73,protein:9,carbs:4,fat:2},
+{name:"زبادي يوناني لايت",calories:59,protein:10,carbs:3.6,fat:.4},
+
+{name:"جبنة قريش",calories:98,protein:11,carbs:3.4,fat:4.3},
+{name:"جبنة بيضاء",calories:280,protein:17,carbs:2,fat:23},
+{name:"جبنة بيضاء لايت",calories:180,protein:16,carbs:3,fat:11},
+{name:"جبنة رومي",calories:380,protein:25,carbs:2,fat:30},
+{name:"موتزاريلا",calories:254,protein:24,carbs:3,fat:16},
+
+/* Vegetables */
+
+{name:"طماطم",calories:18,protein:.9,carbs:3.9,fat:.2},
+{name:"خيار",calories:15,protein:.7,carbs:3.6,fat:.1},
+{name:"بصل",calories:40,protein:1.1,carbs:9,fat:.1},
+{name:"جزر",calories:41,protein:.9,carbs:10,fat:.2},
+{name:"فلفل أخضر",calories:20,protein:.9,carbs:4.6,fat:.3},
+{name:"فلفل أحمر",calories:31,protein:1,carbs:6,fat:.3},
+{name:"بروكلي",calories:34,protein:2.8,carbs:7,fat:.4},
+{name:"قرنبيط",calories:25,protein:1.9,carbs:5,fat:.3},
+{name:"كوسة",calories:17,protein:1.2,carbs:3.1,fat:.3},
+{name:"باذنجان",calories:25,protein:1,carbs:6,fat:.2},
+{name:"سبانخ",calories:23,protein:2.9,carbs:3.6,fat:.4},
+{name:"ملوخية",calories:40,protein:4.5,carbs:5,fat:.5},
+{name:"فاصوليا خضراء",calories:31,protein:1.8,carbs:7,fat:.2},
+{name:"بامية",calories:33,protein:1.9,carbs:7,fat:.2},
+{name:"خس",calories:15,protein:1.4,carbs:2.9,fat:.2},
+{name:"جرجير",calories:25,protein:2.6,carbs:3.7,fat:.7},
+{name:"كرنب",calories:25,protein:1.3,carbs:6,fat:.1},
+{name:"بنجر",calories:43,protein:1.6,carbs:10,fat:.2},
+{name:"مشروم",calories:22,protein:3.1,carbs:3.3,fat:.3},
+
+/* Fruits */
+
+{name:"موز",calories:89,protein:1.1,carbs:23,fat:.3},
+{name:"تفاح",calories:52,protein:.3,carbs:14,fat:.2},
+{name:"برتقال",calories:47,protein:.9,carbs:12,fat:.1},
+{name:"فراولة",calories:32,protein:.7,carbs:8,fat:.3},
+{name:"مانجا",calories:60,protein:.8,carbs:15,fat:.4},
+{name:"عنب",calories:69,protein:.7,carbs:18,fat:.2},
+{name:"بطيخ",calories:30,protein:.6,carbs:8,fat:.2},
+{name:"شمام",calories:34,protein:.8,carbs:8,fat:.2},
+{name:"جوافة",calories:68,protein:2.6,carbs:14,fat:1},
+{name:"رمان",calories:83,protein:1.7,carbs:19,fat:1.2},
+{name:"كيوي",calories:61,protein:1.1,carbs:15,fat:.5},
+{name:"خوخ",calories:39,protein:.9,carbs:10,fat:.3},
+{name:"برقوق",calories:46,protein:.7,carbs:11,fat:.3},
+{name:"مشمش",calories:48,protein:1.4,carbs:11,fat:.4},
+{name:"أناناس",calories:50,protein:.5,carbs:13,fat:.1},
+
+/* Fats & Nuts */
+
+{name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
+{name:"زبدة",calories:717,protein:.1,carbs:.9,fat:81},
+{name:"سمنة",calories:900,protein:0,carbs:0,fat:100},
+{name:"طحينة",calories:593,protein:21,carbs:17,fat:53},
+{name:"زبدة فول سوداني",calories:588,protein:20,carbs:25,fat:50},
+{name:"فول سوداني",calories:567,protein:16.1,carbs:25.8,fat:49.2},
+{name:"لوز",calories:579,protein:22,carbs:21,fat:50},
+{name:"عين جمل",calories:654,protein:14,carbs:15,fat:65},
+{name:"كاجو",calories:553,protein:30,carbs:18,fat:44},
+{name:"فستق",calories:562,protein:28,carbs:20,fat:45},
+{name:"بندق",calories:628,protein:17,carbs:15,fat:61},
+{name:"بذور دوار الشمس",calories:584,protein:20,carbs:21,fat:51},
+
+/* Egyptian Dishes */
+
+{name:"شكشوكة",calories:120,protein:7,carbs:5,fat:8},
+{name:"كشري",calories:170,protein:6,carbs:28,fat:4},
+{name:"محشي كرنب",calories:160,protein:4,carbs:25,fat:5},
+{name:"ورق عنب",calories:170,protein:4,carbs:27,fat:5},
+{name:"محشي كوسة",calories:150,protein:4,carbs:23,fat:5},
+{name:"محشي باذنجان",calories:155,protein:4,carbs:24,fat:5},
+{name:"مسقعة",calories:130,protein:4,carbs:10,fat:8},
+{name:"مكرونة بالبشاميل",calories:210,protein:9,carbs:22,fat:10},
+{name:"فتة",calories:180,protein:8,carbs:20,fat:8},
+{name:"جلاش",calories:280,protein:7,carbs:35,fat:12},
+{name:"جلاش باللحمة",calories:300,protein:12,carbs:30,fat:16},
+{name:"جلاش بالجبنة",calories:290,protein:10,carbs:30,fat:15},
+{name:"أم علي",calories:250,protein:7,carbs:30,fat:12},
+{name:"رز بلبن",calories:130,protein:3,carbs:22,fat:4},
+{name:"مهلبية",calories:120,protein:3,carbs:20,fat:3},
+{name:"بسبوسة",calories:350,protein:5,carbs:50,fat:15},
+{name:"كنافة",calories:400,protein:6,carbs:55,fat:18},
+{name:"قطايف",calories:260,protein:5,carbs:42,fat:9},
+
+/* Additions */
+
+{name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
+{name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
+{name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
+{name:"مربى",calories:250,protein:.4,carbs:65,fat:.1},
+{name:"نوتيلا",calories:539,protein:6.3,carbs:57.5,fat:30.9},
+{name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
+{name:"كاتشب",calories:112,protein:1.3,carbs:26,fat:.2},
+{name:"صوص باربكيو",calories:172,protein:1,carbs:40,fat:.5},
+
+/* Snacks */
+
+{name:"شيبسي بطاطس",calories:536,protein:7,carbs:53,fat:34},
+{name:"شيبسي بالجبنة",calories:530,protein:7,carbs:52,fat:34},
+{name:"شيبسي حار",calories:530,protein:7,carbs:52,fat:34},
+{name:"شيبسي خل وملح",calories:530,protein:7,carbs:53,fat:33},
+{name:"شيتوس",calories:540,protein:7,carbs:55,fat:32},
+{name:"دوريتوس",calories:500,protein:7,carbs:57,fat:27},
+{name:"تايجر",calories:520,protein:6,carbs:55,fat:30},
+{name:"نايتي",calories:470,protein:6,carbs:62,fat:21},
+{name:"بسكويت سادة",calories:450,protein:7,carbs:70,fat:16},
+{name:"شوكولاتة",calories:490,protein:6,carbs:65,fat:23},
+{name:"بسكويت محشو",calories:480,protein:5,carbs:68,fat:21},
+{name:"ويفر",calories:510,protein:6,carbs:62,fat:27},
+{name:"ويفر شوكولاتة",calories:520,protein:6,carbs:61,fat:28},
+{name:"ويفر فانيليا",calories:510,protein:6,carbs:65,fat:25},
+{name:"كراكر",calories:480,protein:9,carbs:68,fat:19},
+{name:"بريتزل",calories:380,protein:10,carbs:80,fat:3},
+{name:"فشار بالزبدة",calories:500,protein:8,carbs:58,fat:28},
+{name:"جرانولا",calories:450,protein:10,carbs:64,fat:17},
+{name:"بار بروتين",calories:350,protein:20,carbs:35,fat:14},
+
+/* Sweets */
+
+{name:"شوكولاتة بالحليب",calories:535,protein:8,carbs:59,fat:30},
+{name:"شوكولاتة دارك",calories:600,protein:8,carbs:46,fat:43},
+{name:"مارشميلو",calories:318,protein:2,carbs:81,fat:.2},
+{name:"دونات",calories:400,protein:5,carbs:50,fat:21},
+{name:"كيك شوكولاتة",calories:370,protein:5,carbs:50,fat:17},
+{name:"كيك فانيليا",calories:350,protein:5,carbs:52,fat:14},
+{name:"براونيز",calories:466,protein:6,carbs:64,fat:22},
+{name:"كوكيز",calories:480,protein:6,carbs:64,fat:22},
+{name:"آيس كريم",calories:207,protein:3.5,carbs:24,fat:11},
+
+/* Drinks */
+
+{name:"عصير برتقال",calories:45,protein:.7,carbs:10,fat:.2},
+{name:"عصير مانجا",calories:60,protein:.5,carbs:15,fat:.2},
+{name:"عصير فراولة",calories:45,protein:.5,carbs:11,fat:.1},
+{name:"كوكاكولا",calories:42,protein:0,carbs:10.6,fat:0},
+{name:"بيبسي",calories:42,protein:0,carbs:11,fat:0},
+{name:"مشروب غازي دايت",calories:1,protein:0,carbs:0,fat:0},
+{name:"قهوة سادة",calories:2,protein:.3,carbs:.1,fat:0},
+{name:"شاي",calories:1,protein:0,carbs:0,fat:0},
+{name:"نسكافيه",calories:3,protein:.5,carbs:.1,fat:0},
+{name:"لبن بالكاكاو",calories:80,protein:4,carbs:10,fat:3},
+
+/* Packaged */
+
+{
+    name:"هوهوز",
+    weight:60,
+    calories:259,
+    protein:2.4,
+    carbs:40.8,
+    fat:9.6
+},
+
+{
+    name:"توينكيز",
+    weight:38,
+    calories:160,
+    protein:2,
+    carbs:27,
+    fat:5
+},
+
+{
+    name:"كيك رول",
+    weight:45,
+    calories:190,
+    protein:3,
+    carbs:27,
+    fat:8
+},
+
+{
+    name:"ويفر صغير",
+    weight:25,
+    calories:130,
+    protein:2,
+    carbs:16,
+    fat:7
+},
+
+{
+    name:"بسكويت ساندوتش صغير",
+    weight:30,
+    calories:145,
+    protein:2,
+    carbs:20,
+    fat:7
+}
 
 ];
 
 
-/* SPOON WEIGHTS */
+/* =========================
+   SPOON WEIGHTS
+========================= */
 
 const spoonWeights={
+
 "أرز أبيض مطبوخ":15,
 "أرز بني":15,
 "أرز بسمتي":15,
 "أرز أصفر":15,
+
 "مكرونة مسلوقة":12,
 "فريك":12,
 "برغل":12,
 "كسكسي":12,
+
 "شوفان":10,
 "شوفان مطبوخ":15,
+
 "سكر أبيض":12.5,
 "كاكاو خام":5,
 "عسل":21,
 "مربى":20,
 "نوتيلا":19,
+
 "زيت زيتون":14,
 "زبدة":14,
 "سمنة":14,
 "طحينة":15,
 "زبدة فول سوداني":16,
+
 "فول سوداني":9,
 "لوز":9,
 "عين جمل":8,
 "كاجو":9,
 "فستق":9,
 "بندق":9,
+
 "جبنة قريش":15,
 "جبنة بيضاء":15,
 "زبادي":15,
 "لبن كامل الدسم":15,
+
 "كاتشب":17,
 "مايونيز":14,
 "صوص باربكيو":17,
+
 "فول":20,
 "عدس":18,
 "حمص":18,
+
 "فشار بدون زيت":3,
 "جرانولا":10,
 "شوربة عدس":15
+
 };
 
 
-/* VARIABLES */
+/* =========================
+   APP LOGIC
+========================= */
 
 let selectedFood=null;
 let selectedUnit="grams";
@@ -1130,10 +1220,10 @@ let dailyGoal=
 JSON.parse(
 localStorage.getItem("novarDailyGoals") || "null"
 ) || {
-calories:2500,
-protein:150,
-carbs:300,
-fat:80
+    calories:2500,
+    protein:150,
+    carbs:300,
+    fat:80
 };
 
 let goalType="build";
@@ -1141,701 +1231,885 @@ let goalType="build";
 const $=id=>document.getElementById(id);
 
 
-/* SPOON */
+/* =========================
+   FOOD FUNCTIONS
+========================= */
 
 function getSpoonWeight(food){
-return spoonWeights[food.name] || 10;
+
+    return spoonWeights[food.name] || 10;
+
 }
 
-
-/* RENDER FOODS */
 
 function renderFoods(list=foods){
 
-$("foodGrid").innerHTML=
+    $("foodGrid").innerHTML=
+    list.map(food=>`
 
-list.map(food=>`
+        <div
+            class="food"
+            onclick="openFood(${foods.indexOf(food)})"
+        >
 
-<div
-class="food"
-onclick="openFood(${foods.indexOf(food)})">
+            <b>${food.name}</b>
 
-<b>${food.name}</b>
+            <small>
+                ${food.calories} kcal / 100g
+            </small>
 
-<small>
-${food.calories} kcal / 100g
-</small>
+        </div>
 
-</div>
-
-`).join("");
+    `).join("");
 
 }
 
-
-/* OPEN FOOD */
 
 function openFood(index){
 
-selectedFood=foods[index];
+    selectedFood=foods[index];
 
-$("foodTitle").textContent=
-selectedFood.name;
+    $("foodTitle").textContent=
+        selectedFood.name;
 
-if(selectedFood.weight){
+    if(selectedFood.weight){
 
-selectedUnit="piece";
+        selectedUnit="piece";
 
-$("pieceBtn").style.display="block";
-$("gramsBtn").style.display="none";
-$("spoonBtn").style.display="none";
+        $("pieceBtn").style.display="block";
+        $("gramsBtn").style.display="none";
+        $("spoonBtn").style.display="none";
 
-}else{
+    }else{
 
-selectedUnit="grams";
+        selectedUnit="grams";
 
-$("pieceBtn").style.display="none";
-$("gramsBtn").style.display="block";
-$("spoonBtn").style.display="block";
+        $("pieceBtn").style.display="none";
+        $("gramsBtn").style.display="block";
+        $("spoonBtn").style.display="block";
+
+    }
+
+    $("quantity").value=
+        selectedUnit==="piece" ? 1 : 100;
+
+    selectUnit(selectedUnit);
+
+    updatePreview();
+
+    $("foodModal").style.display="flex";
 
 }
 
-$("quantity").value=
-selectedUnit==="piece" ? 1 : 100;
-
-selectUnit(selectedUnit);
-
-updatePreview();
-
-$("foodModal").style.display="flex";
-
-}
-
-
-/* SELECT UNIT */
 
 function selectUnit(unit){
 
-selectedUnit=unit;
+    selectedUnit=unit;
 
-$("gramsBtn").classList.toggle(
-"active",
-unit==="grams"
-);
+    $("gramsBtn")
+        .classList.toggle("active",unit==="grams");
 
-$("spoonBtn").classList.toggle(
-"active",
-unit==="spoon"
-);
+    $("spoonBtn")
+        .classList.toggle("active",unit==="spoon");
 
-$("pieceBtn").classList.toggle(
-"active",
-unit==="piece"
-);
+    $("pieceBtn")
+        .classList.toggle("active",unit==="piece");
 
-$("quantity").value=
-unit==="piece" ? 1 : 100;
+    $("quantity").value=
+        unit==="piece" ? 1 : 100;
 
-updatePreview();
+    updatePreview();
 
 }
 
-
-/* PREVIEW */
 
 function updatePreview(){
 
-if(!selectedFood)return;
+    if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
+    let q=
+        parseFloat($("quantity").value)||0;
 
-let grams=q;
-let label="جم";
+    let grams=q;
 
-if(selectedUnit==="spoon"){
+    let label="جم";
 
-grams=q*getSpoonWeight(selectedFood);
-label="معلقة";
+    if(selectedUnit==="spoon"){
+
+        grams=
+            q*getSpoonWeight(selectedFood);
+
+        label="معلقة";
+
+    }
+
+    if(selectedUnit==="piece"){
+
+        grams=
+            q*(selectedFood.weight||100);
+
+        label="قطعة";
+
+    }
+
+    if(selectedUnit==="spoon"){
+
+        $("quantityHint").textContent=
+            `المعلقة الكبيرة من ${selectedFood.name} ≈ ${getSpoonWeight(selectedFood)} جم`;
+
+    }else if(selectedUnit==="piece"){
+
+        $("quantityHint").textContent=
+            `القطعة ≈ ${selectedFood.weight} جم`;
+
+    }else{
+
+        $("quantityHint").textContent=
+            "القيمة محسوبة حسب الوزن بالجرام";
+
+    }
+
+    let factor=grams/100;
+
+    $("preview").innerHTML=`
+
+        الكمية:
+        <b>${q} ${label}</b>
+
+        ≈
+
+        <b>${grams.toFixed(1)} جم</b>
+
+        <br>
+
+        السعرات:
+        <b>${(selectedFood.calories*factor).toFixed(0)}</b>
+        kcal
+
+        <br>
+
+        البروتين:
+        <b>${(selectedFood.protein*factor).toFixed(1)}g</b>
+
+        &nbsp; | &nbsp;
+
+        الكارب:
+        <b>${(selectedFood.carbs*factor).toFixed(1)}g</b>
+
+        &nbsp; | &nbsp;
+
+        الدهون:
+        <b>${(selectedFood.fat*factor).toFixed(1)}g</b>
+
+    `;
 
 }
 
-if(selectedUnit==="piece"){
-
-grams=q*(selectedFood.weight||100);
-label="قطعة";
-
-}
-
-if(selectedUnit==="spoon"){
-
-$("quantityHint").textContent=
-`المعلقة الكبيرة من ${selectedFood.name} ≈ ${getSpoonWeight(selectedFood)} جم`;
-
-}else if(selectedUnit==="piece"){
-
-$("quantityHint").textContent=
-`القطعة ≈ ${selectedFood.weight} جم`;
-
-}else{
-
-$("quantityHint").textContent=
-"القيمة محسوبة حسب الوزن بالجرام";
-
-}
-
-let factor=grams/100;
-
-$("preview").innerHTML=`
-
-الكمية:
-<b>${q} ${label}</b>
-≈
-<b>${grams.toFixed(1)} جم</b>
-
-<br>
-
-السعرات:
-<b>${(selectedFood.calories*factor).toFixed(0)}</b>
-kcal
-
-<br>
-
-البروتين:
-<b>${(selectedFood.protein*factor).toFixed(1)}g</b>
-
-&nbsp; | &nbsp;
-
-الكارب:
-<b>${(selectedFood.carbs*factor).toFixed(1)}g</b>
-
-&nbsp; | &nbsp;
-
-الدهون:
-<b>${(selectedFood.fat*factor).toFixed(1)}g</b>
-`;
-
-}
-
-
-/* CONFIRM FOOD */
 
 function confirmFood(){
 
-if(!selectedFood)return;
+    if(!selectedFood)return;
 
-let q=
-parseFloat($("quantity").value)||0;
+    let q=
+        parseFloat($("quantity").value)||0;
 
-if(q<=0)return;
+    if(q<=0)return;
 
-let grams;
+    let grams;
 
-if(selectedUnit==="spoon"){
+    if(selectedUnit==="spoon"){
 
-grams=q*getSpoonWeight(selectedFood);
+        grams=
+            q*getSpoonWeight(selectedFood);
 
-}else if(selectedUnit==="piece"){
+    }else if(selectedUnit==="piece"){
 
-grams=q*(selectedFood.weight||100);
+        grams=
+            q*(selectedFood.weight||100);
 
-}else{
+    }else{
 
-grams=q;
+        grams=q;
+
+    }
+
+    let factor=grams/100;
+
+    selectedFoods.push({
+
+        name:selectedFood.name,
+
+        grams:grams,
+
+        calories:selectedFood.calories*factor,
+
+        protein:selectedFood.protein*factor,
+
+        carbs:selectedFood.carbs*factor,
+
+        fat:selectedFood.fat*factor,
+
+        display:
+            `${q} ${
+                selectedUnit==="spoon"
+                ? "معلقة"
+                : selectedUnit==="piece"
+                ? "قطعة"
+                : "جم"
+            }`
+
+    });
+
+    saveData();
+
+    closeFood();
+
+    renderSelected();
 
 }
 
-let factor=grams/100;
-
-selectedFoods.push({
-
-name:selectedFood.name,
-grams:grams,
-calories:selectedFood.calories*factor,
-protein:selectedFood.protein*factor,
-carbs:selectedFood.carbs*factor,
-fat:selectedFood.fat*factor,
-
-display:
-`${q} ${
-selectedUnit==="spoon"
-? "معلقة"
-: selectedUnit==="piece"
-? "قطعة"
-: "جم"
-}`
-
-});
-
-saveData();
-closeFood();
-renderSelected();
-
-}
-
-
-/* CLOSE FOOD */
 
 function closeFood(){
-$("foodModal").style.display="none";
+
+    $("foodModal").style.display="none";
+
 }
 
-
-/* RENDER SELECTED */
 
 function renderSelected(){
 
-if(!selectedFoods.length){
+    if(!selectedFoods.length){
 
-$("selected").innerHTML=
-`<div class="empty">
-لم تضف أي طعام بعد
-</div>`;
+        $("selected").innerHTML=
+            `<div class="empty">لم تضف أي طعام بعد</div>`;
 
-updateStats();
+        updateStats();
 
-return;
+        return;
+
+    }
+
+    $("selected").innerHTML=
+
+    selectedFoods.map((food,index)=>`
+
+        <div class="foodRow">
+
+            <div class="foodInfo">
+
+                <b>${food.name}</b>
+
+                <small>
+
+                    ${food.display}
+
+                    ≈
+
+                    ${food.grams.toFixed(1)} جم
+
+                    •
+
+                    ${food.calories.toFixed(0)} kcal
+
+                    •
+
+                    بروتين ${food.protein.toFixed(1)}g
+
+                    •
+
+                    كارب ${food.carbs.toFixed(1)}g
+
+                    •
+
+                    دهون ${food.fat.toFixed(1)}g
+
+                </small>
+
+            </div>
+
+            <button
+                class="deleteBtn"
+                onclick="removeFood(${index})"
+            >
+                حذف
+            </button>
+
+        </div>
+
+    `).join("");
+
+    updateStats();
 
 }
 
-$("selected").innerHTML=
-
-selectedFoods.map((food,index)=>`
-
-<div class="foodRow">
-
-<div class="foodInfo">
-
-<b>${food.name}</b>
-
-<small>
-
-${food.display}
-≈ ${food.grams.toFixed(1)} جم
-•
-${food.calories.toFixed(0)} kcal
-•
-بروتين ${food.protein.toFixed(1)}g
-•
-كارب ${food.carbs.toFixed(1)}g
-•
-دهون ${food.fat.toFixed(1)}g
-
-</small>
-
-</div>
-
-<button
-class="deleteBtn"
-onclick="removeFood(${index})">
-حذف
-</button>
-
-</div>
-
-`).join("");
-
-updateStats();
-
-}
-
-
-/* REMOVE */
 
 function removeFood(index){
 
-selectedFoods.splice(index,1);
+    selectedFoods.splice(index,1);
 
-saveData();
+    saveData();
 
-renderSelected();
+    renderSelected();
 
 }
 
-
-/* CLEAR ALL */
 
 function clearAll(){
 
-selectedFoods=[];
+    selectedFoods=[];
 
-saveData();
+    saveData();
 
-renderSelected();
+    renderSelected();
 
 }
 
-
-/* SAVE */
 
 function saveData(){
 
-localStorage.setItem(
-"novarSelectedFoods",
-JSON.stringify(selectedFoods)
-);
+    localStorage.setItem(
+        "novarSelectedFoods",
+        JSON.stringify(selectedFoods)
+    );
 
-localStorage.setItem(
-"novarDailyGoals",
-JSON.stringify(dailyGoal)
-);
+    localStorage.setItem(
+        "novarDailyGoals",
+        JSON.stringify(dailyGoal)
+    );
 
 }
 
 
-/* UPDATE STATS */
+/* =========================
+   DAILY STATS
+========================= */
 
 function updateStats(){
 
-let total=
-selectedFoods.reduce(
+    let total=
+        selectedFoods.reduce(
 
-(total,food)=>({
+            (total,food)=>({
 
-cal:total.cal+food.calories,
-pro:total.pro+food.protein,
-carb:total.carb+food.carbs,
-fat:total.fat+food.fat
+                cal:total.cal+food.calories,
 
-}),
+                pro:total.pro+food.protein,
 
-{
-cal:0,
-pro:0,
-carb:0,
-fat:0
+                carb:total.carb+food.carbs,
+
+                fat:total.fat+food.fat
+
+            }),
+
+            {
+                cal:0,
+                pro:0,
+                carb:0,
+                fat:0
+            }
+
+        );
+
+
+    $("goalCalories").textContent=
+        `${dailyGoal.calories} kcal`;
+
+
+    $("calTotal").textContent=
+        `${total.cal.toFixed(0)} / ${dailyGoal.calories} kcal`;
+
+
+    $("proTotal").textContent=
+        `${total.pro.toFixed(1)} / ${dailyGoal.protein} g`;
+
+
+    $("carbTotal").textContent=
+        `${total.carb.toFixed(1)} / ${dailyGoal.carbs} g`;
+
+
+    $("fatTotal").textContent=
+        `${total.fat.toFixed(1)} / ${dailyGoal.fat} g`;
+
+
+    $("calBar").style.width=
+        Math.min(
+            100,
+            dailyGoal.calories
+            ? total.cal/dailyGoal.calories*100
+            : 0
+        )+"%";
+
+
+    $("proBar").style.width=
+        Math.min(
+            100,
+            dailyGoal.protein
+            ? total.pro/dailyGoal.protein*100
+            : 0
+        )+"%";
+
+
+    $("carbBar").style.width=
+        Math.min(
+            100,
+            dailyGoal.carbs
+            ? total.carb/dailyGoal.carbs*100
+            : 0
+        )+"%";
+
+
+    $("fatBar").style.width=
+        Math.min(
+            100,
+            dailyGoal.fat
+            ? total.fat/dailyGoal.fat*100
+            : 0
+        )+"%";
+
 }
 
-);
 
-$("goalCalories").textContent=
-`${dailyGoal.calories} kcal`;
-
-$("calTotal").textContent=
-`${total.cal.toFixed(0)} / ${dailyGoal.calories} kcal`;
-
-$("proTotal").textContent=
-`${total.pro.toFixed(1)} / ${dailyGoal.protein} g`;
-
-$("carbTotal").textContent=
-`${total.carb.toFixed(1)} / ${dailyGoal.carbs} g`;
-
-$("fatTotal").textContent=
-`${total.fat.toFixed(1)} / ${dailyGoal.fat} g`;
-
-$("calBar").style.width=
-Math.min(
-100,
-dailyGoal.calories
-? total.cal/dailyGoal.calories*100
-:0
-)+"%";
-
-$("proBar").style.width=
-Math.min(
-100,
-dailyGoal.protein
-? total.pro/dailyGoal.protein*100
-:0
-)+"%";
-
-$("carbBar").style.width=
-Math.min(
-100,
-dailyGoal.carbs
-? total.carb/dailyGoal.carbs*100
-:0
-)+"%";
-
-$("fatBar").style.width=
-Math.min(
-100,
-dailyGoal.fat
-? total.fat/dailyGoal.fat*100
-:0
-)+"%";
-
-}
-
-
-/* SEARCH */
+/* =========================
+   SEARCH
+========================= */
 
 $("search").addEventListener(
-"input",
-function(){
+    "input",
+    function(){
 
-let query=
-this.value.trim().toLowerCase();
+        let query=
+            this.value.trim().toLowerCase();
 
-if(!query){
+        if(!query){
 
-renderFoods(foods);
-return;
+            renderFoods(foods);
 
-}
+            return;
 
-renderFoods(
+        }
 
-foods.filter(food=>
-food.name.toLowerCase().includes(query)
-)
+        renderFoods(
+            foods.filter(
+                food =>
+                    food.name
+                    .toLowerCase()
+                    .includes(query)
+            )
+        );
 
+    }
 );
 
-});
 
-
-/* OPEN GOAL */
+/* =========================
+   GOAL
+========================= */
 
 function openGoal(){
 
-$("weight").value=
-localStorage.getItem("saykoWeight") || "";
+    $("weight").value=
+        localStorage.getItem("saykoWeight")||"";
 
-$("height").value=
-localStorage.getItem("saykoHeight") || "";
+    $("height").value=
+        localStorage.getItem("saykoHeight")||"";
 
-$("age").value=
-localStorage.getItem("saykoAge") || "";
+    $("age").value=
+        localStorage.getItem("saykoAge")||"";
 
-$("goalModal").style.display="flex";
+    $("goalModal").style.display="flex";
 
 }
 
-
-/* CLOSE GOAL */
 
 function closeGoal(){
 
-$("goalModal").style.display="none";
+    $("goalModal").style.display="none";
 
 }
 
-
-/* GOAL TYPE */
 
 function setGoalType(button){
 
-goalType=
-button.dataset.goal;
+    goalType=
+        button.dataset.goal;
 
-document
-.querySelectorAll(".goalOption")
-.forEach(button=>
-button.classList.remove("active")
-);
+    document
+        .querySelectorAll(".goalOption")
+        .forEach(
+            button =>
+                button.classList.remove("active")
+        );
 
-button.classList.add("active");
+    button.classList.add("active");
 
 }
 
-
-/* CALCULATE GOAL */
 
 function calculateGoal(){
 
-let weight=
-parseFloat($("weight").value);
+    let weight=
+        parseFloat($("weight").value);
 
-let height=
-parseFloat($("height").value);
+    let height=
+        parseFloat($("height").value);
 
-let age=
-parseFloat($("age").value);
+    let age=
+        parseFloat($("age").value);
 
-let gender=
-$("gender").value;
+    let gender=
+        $("gender").value;
 
-let activity=
-parseFloat($("activity").value);
+    let activity=
+        parseFloat($("activity").value);
 
-if(!weight||!height||!age){
 
-alert("اكتب الوزن والطول والعمر");
+    if(!weight || !height || !age){
 
-return;
+        alert("اكتب الوزن والطول والعمر");
+
+        return;
+
+    }
+
+
+    let bmr;
+
+
+    if(gender==="male"){
+
+        bmr=
+            10*weight
+            +6.25*height
+            -5*age
+            +5;
+
+    }else{
+
+        bmr=
+            10*weight
+            +6.25*height
+            -5*age
+            -161;
+
+    }
+
+
+    let calories=
+        bmr*activity;
+
+
+    if(goalType==="lose"){
+        calories-=250;
+    }
+
+    if(goalType==="gain"){
+        calories+=250;
+    }
+
+
+    let protein=
+        weight*1.8;
+
+    let fat=
+        weight*.8;
+
+    let carbs=
+        Math.max(
+            0,
+            (calories-protein*4-fat*9)/4
+        );
+
+
+    dailyGoal={
+
+        calories:Math.round(calories),
+
+        protein:Math.round(protein),
+
+        carbs:Math.round(carbs),
+
+        fat:Math.round(fat)
+
+    };
+
+
+    localStorage.setItem(
+        "saykoWeight",
+        weight
+    );
+
+    localStorage.setItem(
+        "saykoHeight",
+        height
+    );
+
+    localStorage.setItem(
+        "saykoAge",
+        age
+    );
+
+
+    saveData();
+
+    updateStats();
+
+    closeGoal();
 
 }
 
-let bmr;
 
-if(gender==="male"){
-
-bmr=
-10*weight+
-6.25*height-
-5*age+
-5;
-
-}else{
-
-bmr=
-10*weight+
-6.25*height-
-5*age-
-161;
-
-}
-
-let calories=
-bmr*activity;
-
-if(goalType==="lose"){
-calories-=250;
-}
-
-if(goalType==="gain"){
-calories+=250;
-}
-
-let protein=
-weight*1.8;
-
-let fat=
-weight*.8;
-
-let carbs=
-Math.max(
-0,
-(calories-protein*4-fat*9)/4
-);
-
-dailyGoal={
-
-calories:Math.round(calories),
-protein:Math.round(protein),
-carbs:Math.round(carbs),
-fat:Math.round(fat)
-
-};
-
-localStorage.setItem(
-"saykoWeight",
-weight
-);
-
-localStorage.setItem(
-"saykoHeight",
-height
-);
-
-localStorage.setItem(
-"saykoAge",
-age
-);
-
-saveData();
-
-updateStats();
-
-closeGoal();
-
-}
-
-
-/* SCROLL */
+/* =========================
+   SCROLL
+========================= */
 
 function scrollToTop(){
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
+
 
 function scrollToBottom(){
 
-window.scrollTo({
-top:document.documentElement.scrollHeight,
-behavior:"smooth"
-});
+    window.scrollTo({
+        top:document.documentElement.scrollHeight,
+        behavior:"smooth"
+    });
 
 }
 
 
-/* START */
+/* =========================
+   INITIAL LOAD
+========================= */
 
 renderFoods();
+
 renderSelected();
+
 updateStats();
 
 
-/* PWA */
+/* =========================
+   PWA INSTALL
+========================= */
 
 let deferredInstallPrompt=null;
 
 const installButton=
-$("installButton");
+    $("installButton");
+
 
 window.addEventListener(
-"beforeinstallprompt",
-function(event){
+    "beforeinstallprompt",
+    function(event){
 
-event.preventDefault();
+        event.preventDefault();
 
-deferredInstallPrompt=event;
+        deferredInstallPrompt=
+            event;
 
-installButton.style.display="block";
+        installButton.style.display=
+            "block";
 
-});
+    }
+);
+
 
 installButton.addEventListener(
-"click",
-async function(){
+    "click",
+    async function(){
 
-if(!deferredInstallPrompt){
-return;
-}
+        if(!deferredInstallPrompt){
+            return;
+        }
 
-deferredInstallPrompt.prompt();
+        deferredInstallPrompt.prompt();
 
-await deferredInstallPrompt.userChoice;
+        await deferredInstallPrompt.userChoice;
 
-deferredInstallPrompt=null;
+        deferredInstallPrompt=null;
 
-installButton.style.display="none";
+        installButton.style.display=
+            "none";
 
-});
+    }
+);
+
 
 window.addEventListener(
-"appinstalled",
-function(){
+    "appinstalled",
+    function(){
 
-installButton.style.display="none";
+        installButton.style.display=
+            "none";
 
-});
+    }
+);
 
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+   UPDATE SYSTEM
+========================= */
+
+let newWorker=null;
+
+function showUpdateMessage(worker){
+
+    newWorker=worker;
+
+    $("updateModal").style.display=
+        "flex";
+
+}
+
+
+/* تسجيل Service Worker */
 
 if("serviceWorker" in navigator){
 
-window.addEventListener(
-"load",
-function(){
+    window.addEventListener(
+        "load",
+        function(){
 
-navigator.serviceWorker
-.register("./service-worker.js")
-.then(function(){
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(function(registration){
 
-console.log(
-"SAYKØ FITNESS PWA Ready"
-);
+                    console.log(
+                        "SAYKØ FITNESS PWA Ready"
+                    );
 
-})
-.catch(function(error){
 
-console.log(
-"Service Worker Error:",
-error
-);
+                    /* لو فيه نسخة جديدة بالفعل */
 
-});
+                    if(registration.waiting){
 
-});
+                        showUpdateMessage(
+                            registration.waiting
+                        );
+
+                    }
+
+
+                    /* عند اكتشاف نسخة جديدة */
+
+                    registration.addEventListener(
+                        "updatefound",
+                        function(){
+
+                            const installingWorker=
+                                registration.installing;
+
+                            if(!installingWorker){
+                                return;
+                            }
+
+
+                            installingWorker.addEventListener(
+                                "statechange",
+                                function(){
+
+                                    if(
+                                        installingWorker.state
+                                        ==="installed"
+                                    ){
+
+                                        if(
+                                            navigator
+                                            .serviceWorker
+                                            .controller
+                                        ){
+
+                                            showUpdateMessage(
+                                                installingWorker
+                                            );
+
+                                        }
+
+                                    }
+
+                                }
+                            );
+
+                        }
+                    );
+
+                })
+                .catch(function(error){
+
+                    console.log(
+                        "Service Worker Error:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+
+    /*
+       لما الـService Worker الجديد
+       يبقى هو المتحكم في الصفحة،
+       نعمل Reload للنسخة الجديدة.
+    */
+
+    navigator.serviceWorker.addEventListener(
+        "controllerchange",
+        function(){
+
+            if(window.__saykoRefreshing){
+                return;
+            }
+
+            window.__saykoRefreshing=true;
+
+            window.location.reload();
+
+        }
+    );
 
 }
+
+
+/* زر تحديث الآن */
+
+$("updateNowBtn").addEventListener(
+    "click",
+    function(){
+
+        if(!newWorker){
+
+            window.location.reload();
+
+            return;
+
+        }
+
+        newWorker.postMessage(
+            "SKIP_WAITING"
+        );
+
+    }
+);
+
+
+/* زر لاحقًا */
+
+$("updateLaterBtn").addEventListener(
+    "click",
+    function(){
+
+        $("updateModal").style.display=
+            "none";
+
+    }
+);
 
 </script>
 
