@@ -1,4 +1,4 @@
-const CACHE_NAME = "sayko-fitness-v5";
+const CACHE_NAME = "sayko-fitness-v6";
 
 const APP_FILES = [
   "./",
@@ -7,6 +7,7 @@ const APP_FILES = [
   "./1790471069347.jpg"
 ];
 
+/* تثبيت النسخة الجديدة */
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -15,6 +16,7 @@ self.addEventListener("install", event => {
   );
 });
 
+/* حذف الكاش القديم */
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -27,6 +29,7 @@ self.addEventListener("activate", event => {
   );
 });
 
+/* تحميل الملفات من الإنترنت أولاً */
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
@@ -41,8 +44,13 @@ self.addEventListener("fetch", event => {
 
         return response;
       })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
+});
+
+/* استقبال أمر التحديث من البرنامج */
+self.addEventListener("message", event => {
+  if (event.data === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
