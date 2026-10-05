@@ -1,138 +1,179 @@
-const CACHE_NAME = "sayko-fitness-v8";
+const CACHE_NAME = "sayko-fitness-v9";
 
-const APP_FILES = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./1790471069347.jpg"
+const FILES_TO_CACHE = [
+    "./",
+    "./index.html",
+    "./manifest.json",
+    "./1790471069347.jpg"
 ];
 
 
-/* ================================
-   تثبيت النسخة الجديدة
-================================ */
+/* ================= INSTALL ================= */
 
 self.addEventListener("install", event => {
 
-  event.waitUntil(
+    /*
+     * لا نستخدم skipWaiting هنا.
+     * نخلي النسخة الجديدة تنتظر حتى يضغط المستخدم
+     * على "تحديث الآن".
+     */
 
-    caches.open(CACHE_NAME)
+    event.waitUntil(
 
-      .then(cache => {
+        caches.open(CACHE_NAME)
+            .then(cache => {
 
-        return cache.addAll(APP_FILES);
+                return cache.addAll(FILES_TO_CACHE);
 
-      })
+            })
 
-  );
+    );
 
 });
 
 
-/* ================================
-   تفعيل النسخة الجديدة
-================================ */
+/* ================= ACTIVATE ================= */
 
 self.addEventListener("activate", event => {
 
-  event.waitUntil(
+    event.waitUntil(
 
-    caches.keys()
+        caches.keys()
+            .then(keys => {
 
-      .then(keys => {
+                return Promise.all(
 
-        return Promise.all(
+                    keys.map(key => {
 
-          keys
-            .filter(key => key !== CACHE_NAME)
-            .map(key => caches.delete(key))
+                        if(key !== CACHE_NAME){
 
-        );
+                            return caches.delete(key);
 
-      })
+                        }
 
-      .then(() => {
+                    })
 
-        return self.clients.claim();
+                );
 
-      })
+            })
 
-  );
+            .then(() => {
+
+                return self.clients.claim();
+
+            })
+
+    );
 
 });
 
 
-/* ================================
-   تحميل الملفات
-   الإنترنت أولاً
-================================ */
+/* ================= FETCH ================= */
 
 self.addEventListener("fetch", event => {
 
-  if (event.request.method !== "GET") {
+    /*
+     * للصفحات HTML:
+     * نطلب النسخة الجديدة من الإنترنت أولًا
+     * حتى يستطيع Service Worker اكتشاف التحديثات.
+     */
 
-    return;
+    if(
+        event.request.mode === "navigate" ||
+        event.request.destination === "document"
+    ){
 
-  }
+        event.respondWith(
 
+            fetch(event.request)
+                .then(response => {
 
-  event.respondWith(
+                    const copy=response.clone();
 
-    fetch(event.request)
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
 
-      .then(response => {
+                            cache.put(
+                                event.request,
+                                copy
+                            );
 
-        if (
-          response &&
-          response.status === 200 &&
-          response.type !== "opaque"
-        ) {
+                        });
 
-          const copy = response.clone();
+                    return response;
 
-          caches.open(CACHE_NAME)
+                })
+                .catch(() => {
 
-            .then(cache => {
+                    return caches.match(event.request);
 
-              cache.put(
-                event.request,
-                copy
-              );
+                })
 
-            });
-
-        }
-
-        return response;
-
-      })
-
-      .catch(() => {
-
-        return caches.match(
-          event.request
         );
 
-      })
+        return;
 
-  );
+    }
+
+
+    /*
+     * الملفات الأخرى:
+     * نحاول الكاش أولًا، ثم الإنترنت.
+     */
+
+    event.respondWith(
+
+        caches.match(event.request)
+            .then(cached => {
+
+                if(cached){
+
+                    return cached;
+
+                }
+
+                return fetch(event.request)
+                    .then(response => {
+
+                        if(
+                            response &&
+                            response.status === 200 &&
+                            response.type === "basic"
+                        ){
+
+                            const copy=response.clone();
+
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+
+                                    cache.put(
+                                        event.request,
+                                        copy
+                                    );
+
+                                });
+
+                        }
+
+                        return response;
+
+                    });
+
+            })
+
+    );
 
 });
 
 
-/* ================================
-   استقبال أمر تحديث البرنامج
-================================ */
+/* ================= UPDATE NOW ================= */
 
 self.addEventListener("message", event => {
 
-  if (
-    event.data ===
-    "SKIP_WAITING"
-  ) {
+    if(event.data === "SKIP_WAITING"){
 
-    self.skipWaiting();
+        self.skipWaiting();
 
-  }
+    }
 
 });
