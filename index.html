@@ -41,7 +41,12 @@ button{
     font-family:inherit;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header{
+    position:relative;
     padding:25px 18px 18px;
     text-align:center;
     background:#080808;
@@ -64,6 +69,123 @@ header{
     font-size:13px;
 }
 
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menuButton{
+    position:absolute;
+    top:18px;
+    right:15px;
+    width:43px;
+    height:43px;
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:10px;
+    color:#fff;
+    font-size:24px;
+    line-height:43px;
+    z-index:2100;
+}
+
+.menuButton:active{
+    transform:scale(.94);
+}
+
+/* =========================
+   SIDE MENU
+========================= */
+
+.menuOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    z-index:1900;
+}
+
+.sideMenu{
+    position:fixed;
+    top:0;
+    right:-290px;
+    width:280px;
+    height:100vh;
+    background:#111;
+    border-left:1px solid #303030;
+    padding:25px 15px;
+    transition:.25s ease;
+    z-index:2000;
+    box-shadow:-10px 0 30px rgba(0,0,0,.35);
+}
+
+.sideMenu.open{
+    right:0;
+}
+
+.menuTitle{
+    font-size:21px;
+    font-weight:bold;
+    padding:5px 5px 18px;
+    border-bottom:1px solid #292929;
+    margin-bottom:12px;
+}
+
+.menuItem{
+    width:100%;
+    background:#191919;
+    color:#fff;
+    border:1px solid #292929;
+    border-radius:11px;
+    padding:14px;
+    margin-bottom:9px;
+    text-align:right;
+    font-size:15px;
+}
+
+.menuItem:active{
+    background:#e50914;
+}
+
+/* =========================
+   REFERENCES
+========================= */
+
+.referencesBox{
+    background:#181818;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:13px;
+}
+
+.reference{
+    padding:12px 0;
+    border-bottom:1px solid #292929;
+}
+
+.reference:last-child{
+    border-bottom:none;
+}
+
+.reference b{
+    display:block;
+    margin-bottom:5px;
+}
+
+.reference small{
+    color:#aaa;
+    line-height:1.7;
+}
+
+.reference a{
+    color:#e50914;
+    text-decoration:none;
+    word-break:break-word;
+}
+
+/* =========================
+   INSTALL
+========================= */
+
 #installButton{
     display:none;
     margin:15px auto 0;
@@ -73,6 +195,10 @@ header{
     border-radius:10px;
     font-weight:bold;
 }
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
     width:100%;
@@ -99,6 +225,10 @@ header{
 .searchBox input:focus{
     border-color:#e50914;
 }
+
+/* =========================
+   GOAL
+========================= */
 
 .goalCard{
     background:linear-gradient(145deg,#151515,#0d0d0d);
@@ -169,6 +299,10 @@ header{
     border-radius:20px;
     transition:.3s;
 }
+
+/* =========================
+   FOOD
+========================= */
 
 .sectionTitle{
     display:flex;
@@ -272,6 +406,10 @@ header{
     text-align:center;
     color:#777;
 }
+
+/* =========================
+   MODALS
+========================= */
 
 .modal{
     position:fixed;
@@ -384,6 +522,10 @@ header{
     font-size:15px;
 }
 
+/* =========================
+   UPDATE
+========================= */
+
 .updateBox{
     width:100%;
     max-width:400px;
@@ -434,6 +576,10 @@ header{
     color:#fff;
 }
 
+/* =========================
+   SCROLL
+========================= */
+
 .scrollControls{
     position:fixed;
     left:15px;
@@ -478,120 +624,150 @@ footer{
 
 <header>
 
-    <div class="logo">
-        SAYKØ <span>FITNESS</span>
-    </div>
+<button class="menuButton" onclick="openMenu()">☰</button>
 
-    <div class="subtitle">
-        Nutrition • Calories • Progress
-    </div>
+<div class="logo">
+    SAYKØ <span>FITNESS</span>
+</div>
 
-    <button id="installButton">
-        تثبيت التطبيق
-    </button>
+<div class="subtitle">
+    Nutrition • Calories • Progress
+</div>
+
+<button id="installButton">
+    تثبيت التطبيق
+</button>
 
 </header>
 
+<!-- =========================
+     SIDE MENU
+========================= -->
+
+<div id="menuOverlay"
+     class="menuOverlay"
+     onclick="closeMenu()">
+</div>
+
+<div id="sideMenu" class="sideMenu">
+
+    <div class="menuTitle">
+        القائمة
+    </div>
+
+    <button class="menuItem"
+            onclick="openReferences()">
+        📚 المراجع
+    </button>
+
+</div>
+
+<!-- =========================
+     MAIN
+========================= -->
+
 <div class="container">
 
-    <div class="searchBox">
-        <input
-            id="search"
-            type="text"
-            placeholder="ابحث عن أكلة..."
-        >
+<div class="searchBox">
+
+    <input
+        id="search"
+        type="text"
+        placeholder="ابحث عن أكلة..."
+    >
+
+</div>
+
+<section class="goalCard">
+
+    <div class="goalHead">
+
+        <b>
+            هدفك اليومي
+            <span id="goalCalories">2500 kcal</span>
+        </b>
+
+        <button onclick="openGoal()">
+            تعديل
+        </button>
+
     </div>
 
-    <section class="goalCard">
+    <div class="goalStat">
 
-        <div class="goalHead">
-
-            <b>
-                هدفك اليومي
-                <span id="goalCalories">2500 kcal</span>
-            </b>
-
-            <button onclick="openGoal()">
-                تعديل
-            </button>
-
+        <div class="statTop">
+            <span>السعرات</span>
+            <span id="calTotal">0 / 2500 kcal</span>
         </div>
 
-        <div class="goalStat">
-
-            <div class="statTop">
-                <span>السعرات</span>
-                <span id="calTotal">0 / 2500 kcal</span>
-            </div>
-
-            <div class="progress">
-                <div id="calBar" class="progressBar"></div>
-            </div>
-
+        <div class="progress">
+            <div id="calBar" class="progressBar"></div>
         </div>
 
-        <div class="goalStat">
+    </div>
 
-            <div class="statTop">
-                <span>البروتين</span>
-                <span id="proTotal">0 / 150 g</span>
-            </div>
+    <div class="goalStat">
 
-            <div class="progress">
-                <div id="proBar" class="progressBar"></div>
-            </div>
-
+        <div class="statTop">
+            <span>البروتين</span>
+            <span id="proTotal">0 / 150 g</span>
         </div>
 
-        <div class="goalStat">
-
-            <div class="statTop">
-                <span>الكارب</span>
-                <span id="carbTotal">0 / 300 g</span>
-            </div>
-
-            <div class="progress">
-                <div id="carbBar" class="progressBar"></div>
-            </div>
-
+        <div class="progress">
+            <div id="proBar" class="progressBar"></div>
         </div>
 
-        <div class="goalStat">
+    </div>
 
-            <div class="statTop">
-                <span>الدهون</span>
-                <span id="fatTotal">0 / 80 g</span>
-            </div>
+    <div class="goalStat">
 
-            <div class="progress">
-                <div id="fatBar" class="progressBar"></div>
-            </div>
-
+        <div class="statTop">
+            <span>الكارب</span>
+            <span id="carbTotal">0 / 300 g</span>
         </div>
 
-    </section>
+        <div class="progress">
+            <div id="carbBar" class="progressBar"></div>
+        </div>
+
+    </div>
+
+    <div class="goalStat">
+
+        <div class="statTop">
+            <span>الدهون</span>
+            <span id="fatTotal">0 / 80 g</span>
+        </div>
+
+        <div class="progress">
+            <div id="fatBar" class="progressBar"></div>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="sectionTitle">
+    <h2>الأطعمة</h2>
+</div>
+
+<div id="foodGrid" class="foodGrid"></div>
+
+<section class="selectedBox">
 
     <div class="sectionTitle">
-        <h2>الأطعمة</h2>
+
+        <h2>الأطعمة المختارة</h2>
+
+        <button class="clearBtn" onclick="clearAll()">
+            مسح الكل
+        </button>
+
     </div>
 
-    <div id="foodGrid" class="foodGrid"></div>
+    <div id="selected" class="selected"></div>
 
-    <section class="selectedBox">
-
-        <div class="sectionTitle">
-
-            <h2>الأطعمة المختارة</h2>
-
-            <button class="clearBtn" onclick="clearAll()">
-                مسح الكل
-            </button>
-
-        </div>
-
-        <div id="selected" class="selected"></div>
-
-    </section>
+</section>
 
 </div>
 
@@ -599,241 +775,380 @@ footer{
     SAYKØ FITNESS
 </footer>
 
-<!-- Food Modal -->
+<!-- =========================
+     FOOD MODAL
+========================= -->
 
 <div id="foodModal" class="modal">
 
-    <div class="modalBox">
+<div class="modalBox">
 
-        <h3 id="foodTitle">الطعام</h3>
+    <h3 id="foodTitle">الطعام</h3>
 
-        <div class="unitButtons">
-
-            <button
-                id="gramsBtn"
-                onclick="selectUnit('grams')"
-            >
-                جرام
-            </button>
-
-            <button
-                id="spoonBtn"
-                onclick="selectUnit('spoon')"
-            >
-                معلقة
-            </button>
-
-            <button
-                id="pieceBtn"
-                onclick="selectUnit('piece')"
-                style="display:none"
-            >
-                قطعة
-            </button>
-
-        </div>
-
-        <input
-            id="quantity"
-            class="quantityInput"
-            type="number"
-            min="0"
-            step="0.1"
-            value="100"
-            oninput="updatePreview()"
-        >
-
-        <div id="quantityHint"></div>
-
-        <div id="preview" class="preview"></div>
+    <div class="unitButtons">
 
         <button
-            class="primaryBtn"
-            onclick="confirmFood()"
-        >
-            إضافة
+            id="gramsBtn"
+            onclick="selectUnit('grams')">
+            جرام
         </button>
 
         <button
-            class="closeBtn"
-            onclick="closeFood()"
-        >
-            إلغاء
+            id="spoonBtn"
+            onclick="selectUnit('spoon')">
+            معلقة
+        </button>
+
+        <button
+            id="pieceBtn"
+            onclick="selectUnit('piece')"
+            style="display:none">
+            قطعة
         </button>
 
     </div>
 
+    <input
+        id="quantity"
+        class="quantityInput"
+        type="number"
+        min="0"
+        step="0.1"
+        value="100"
+        oninput="updatePreview()"
+    >
+
+    <div id="quantityHint"></div>
+
+    <div id="preview" class="preview"></div>
+
+    <button
+        class="primaryBtn"
+        onclick="confirmFood()">
+        إضافة
+    </button>
+
+    <button
+        class="closeBtn"
+        onclick="closeFood()">
+        إلغاء
+    </button>
+
 </div>
 
-<!-- Goal Modal -->
+</div>
+
+<!-- =========================
+     GOAL MODAL
+========================= -->
 
 <div id="goalModal" class="modal">
 
-    <div class="modalBox">
+<div class="modalBox">
 
-        <h3>احسب احتياجك اليومي</h3>
+    <h3>احسب احتياجك اليومي</h3>
 
-        <input
-            id="weight"
-            class="goalInput"
-            type="number"
-            placeholder="الوزن بالكيلو"
-        >
+    <input
+        id="weight"
+        class="goalInput"
+        type="number"
+        placeholder="الوزن بالكيلو"
+    >
 
-        <input
-            id="height"
-            class="goalInput"
-            type="number"
-            placeholder="الطول بالسنتيمتر"
-        >
+    <input
+        id="height"
+        class="goalInput"
+        type="number"
+        placeholder="الطول بالسنتيمتر"
+    >
 
-        <input
-            id="age"
-            class="goalInput"
-            type="number"
-            placeholder="العمر"
-        >
+    <input
+        id="age"
+        class="goalInput"
+        type="number"
+        placeholder="العمر"
+    >
 
-        <select id="gender" class="goalInput">
+    <select id="gender" class="goalInput">
 
-            <option value="male">
-                ذكر
-            </option>
+        <option value="male">
+            ذكر
+        </option>
 
-            <option value="female">
-                أنثى
-            </option>
+        <option value="female">
+            أنثى
+        </option>
 
-        </select>
+    </select>
 
-        <select id="activity" class="goalInput">
+    <select id="activity" class="goalInput">
 
-            <option value="1.2">
-                قليل الحركة
-            </option>
+        <option value="1.2">
+            قليل الحركة
+        </option>
 
-            <option value="1.375">
-                نشاط خفيف
-            </option>
+        <option value="1.375">
+            نشاط خفيف
+        </option>
 
-            <option value="1.55" selected>
-                نشاط متوسط
-            </option>
+        <option value="1.55" selected>
+            نشاط متوسط
+        </option>
 
-            <option value="1.725">
-                نشاط عالي
-            </option>
+        <option value="1.725">
+            نشاط عالي
+        </option>
 
-        </select>
+    </select>
 
-        <button
-            class="goalOption active"
-            data-goal="build"
-            onclick="setGoalType(this)"
-        >
-            ضبط الدهون وبناء العضلات
-        </button>
+    <button
+        class="goalOption active"
+        data-goal="build"
+        onclick="setGoalType(this)">
+        ضبط الدهون وبناء العضلات
+    </button>
 
-        <button
-            class="goalOption"
-            data-goal="maintain"
-            onclick="setGoalType(this)"
-        >
-            تثبيت الوزن
-        </button>
+    <button
+        class="goalOption"
+        data-goal="maintain"
+        onclick="setGoalType(this)">
+        تثبيت الوزن
+    </button>
 
-        <button
-            class="goalOption"
-            data-goal="lose"
-            onclick="setGoalType(this)"
-        >
-            خسارة وزن تدريجية
-        </button>
+    <button
+        class="goalOption"
+        data-goal="lose"
+        onclick="setGoalType(this)">
+        خسارة وزن تدريجية
+    </button>
 
-        <button
-            class="goalOption"
-            data-goal="gain"
-            onclick="setGoalType(this)"
-        >
-            زيادة الوزن
-        </button>
+    <button
+        class="goalOption"
+        data-goal="gain"
+        onclick="setGoalType(this)">
+        زيادة الوزن
+    </button>
 
-        <button
-            class="primaryBtn"
-            onclick="calculateGoal()"
-        >
-            حساب الاحتياج
-        </button>
+    <button
+        class="primaryBtn"
+        onclick="calculateGoal()">
+        حساب الاحتياج
+    </button>
 
-        <button
-            class="closeBtn"
-            onclick="closeGoal()"
-        >
-            إلغاء
-        </button>
-
-    </div>
+    <button
+        class="closeBtn"
+        onclick="closeGoal()">
+        إلغاء
+    </button>
 
 </div>
 
-<!-- Update Modal -->
+</div>
+
+<!-- =========================
+     REFERENCES MODAL
+========================= -->
+
+<div id="referencesModal" class="modal">
+
+<div class="modalBox">
+
+    <h3>📚 المراجع</h3>
+
+    <div class="referencesBox">
+
+        <div class="reference">
+
+            <b>1. USDA FoodData Central</b>
+
+            <small>
+                قاعدة بيانات غذائية تحتوي على معلومات
+                عن السعرات والعناصر الغذائية للأطعمة.
+            </small>
+
+            <br>
+
+            <a
+                href="https://fdc.nal.usda.gov/"
+                target="_blank"
+                rel="noopener">
+                fdc.nal.usda.gov
+            </a>
+
+        </div>
+
+        <div class="reference">
+
+            <b>2. National Institutes of Health — NIH</b>
+
+            <small>
+                مصدر علمي ومعلوماتي عام عن التغذية
+                والصحة والأبحاث الطبية.
+            </small>
+
+            <br>
+
+            <a
+                href="https://www.nih.gov/"
+                target="_blank"
+                rel="noopener">
+                nih.gov
+            </a>
+
+        </div>
+
+        <div class="reference">
+
+            <b>3. NIDDK</b>
+
+            <small>
+                معلومات علمية عن الوزن والتغذية
+                والتمثيل الغذائي.
+            </small>
+
+            <br>
+
+            <a
+                href="https://www.niddk.nih.gov/"
+                target="_blank"
+                rel="noopener">
+                niddk.nih.gov
+            </a>
+
+        </div>
+
+        <div class="reference">
+
+            <b>4. Mifflin–St Jeor Equation</b>
+
+            <small>
+                معادلة مستخدمة لتقدير معدل الأيض الأساسي
+                BMR، ثم يمكن تقدير الاحتياج اليومي
+                باستخدام مستوى النشاط.
+            </small>
+
+        </div>
+
+        <div class="reference">
+
+            <b>5. بيانات المنتجات الغذائية</b>
+
+            <small>
+                بعض المنتجات المعلبة والأطعمة الجاهزة
+                تعتمد على القيم الغذائية المكتوبة على
+                عبوة المنتج أو قيم تقديرية، لذلك قد تختلف
+                القيم حسب الشركة والمنتج.
+            </small>
+
+        </div>
+
+    </div>
+
+    <button
+        class="closeBtn"
+        onclick="closeReferences()">
+        إغلاق
+    </button>
+
+</div>
+
+</div>
+
+<!-- =========================
+     UPDATE MODAL
+========================= -->
 
 <div id="updateModal" class="modal">
 
-    <div class="updateBox">
+<div class="updateBox">
 
-        <div class="updateIcon">
-            🔄
-        </div>
+    <div class="updateIcon">
+        🔄
+    </div>
 
-        <h3>
-            تحديث جديد متاح
-        </h3>
+    <h3>
+        تحديث جديد متاح
+    </h3>
 
-        <p>
-            فيه نسخة أحدث من SAYKØ FITNESS.
-            حدّث التطبيق عشان تستخدم آخر التعديلات والميزات.
-        </p>
+    <p>
+        فيه نسخة أحدث من SAYKØ FITNESS.
+        حدّث التطبيق عشان تستخدم آخر التعديلات والميزات.
+    </p>
 
-        <div class="updateActions">
+    <div class="updateActions">
 
-            <button id="updateNowBtn">
-                تحديث الآن
-            </button>
+        <button id="updateNowBtn">
+            تحديث الآن
+        </button>
 
-            <button id="updateLaterBtn">
-                لاحقًا
-            </button>
-
-        </div>
+        <button id="updateLaterBtn">
+            لاحقًا
+        </button>
 
     </div>
 
 </div>
 
-<!-- Scroll Buttons -->
+</div>
+
+<!-- =========================
+     SCROLL BUTTONS
+========================= -->
 
 <div class="scrollControls">
 
-    <button
-        class="scrollBtn"
-        onclick="scrollToTop()"
-        title="أعلى"
-    >
-        ↑
-    </button>
+<button
+    class="scrollBtn"
+    onclick="scrollToTop()"
+    title="أعلى">
+    ↑
+</button>
 
-    <button
-        class="scrollBtn"
-        onclick="scrollToBottom()"
-        title="أسفل"
-    >
-        ↓
-    </button>
+<button
+    class="scrollBtn"
+    onclick="scrollToBottom()"
+    title="أسفل">
+    ↓
+</button>
 
 </div>
 
 <script>
+
+/* =========================
+   MENU
+========================= */
+
+function openMenu(){
+
+    $("sideMenu").classList.add("open");
+
+    $("menuOverlay").style.display="block";
+
+}
+
+function closeMenu(){
+
+    $("sideMenu").classList.remove("open");
+
+    $("menuOverlay").style.display="none";
+
+}
+
+function openReferences(){
+
+    closeMenu();
+
+    $("referencesModal").style.display="flex";
+
+}
+
+function closeReferences(){
+
+    $("referencesModal").style.display="none";
+
+}
+
 
 /* =========================
    FOOD DATABASE
@@ -1145,7 +1460,6 @@ const foods=[
 
 ];
 
-
 /* =========================
    SPOON WEIGHTS
 ========================= */
@@ -1203,7 +1517,6 @@ const spoonWeights={
 
 };
 
-
 /* =========================
    APP LOGIC
 ========================= */
@@ -1230,7 +1543,6 @@ let goalType="build";
 
 const $=id=>document.getElementById(id);
 
-
 /* =========================
    FOOD FUNCTIONS
 ========================= */
@@ -1240,7 +1552,6 @@ function getSpoonWeight(food){
     return spoonWeights[food.name] || 10;
 
 }
-
 
 function renderFoods(list=foods){
 
@@ -1263,7 +1574,6 @@ function renderFoods(list=foods){
     `).join("");
 
 }
-
 
 function openFood(index){
 
@@ -1301,7 +1611,6 @@ function openFood(index){
 
 }
 
-
 function selectUnit(unit){
 
     selectedUnit=unit;
@@ -1321,7 +1630,6 @@ function selectUnit(unit){
     updatePreview();
 
 }
-
 
 function updatePreview(){
 
@@ -1405,7 +1713,6 @@ function updatePreview(){
 
 }
 
-
 function confirmFood(){
 
     if(!selectedFood)return;
@@ -1468,13 +1775,11 @@ function confirmFood(){
 
 }
 
-
 function closeFood(){
 
     $("foodModal").style.display="none";
 
 }
-
 
 function renderSelected(){
 
@@ -1529,8 +1834,7 @@ function renderSelected(){
 
             <button
                 class="deleteBtn"
-                onclick="removeFood(${index})"
-            >
+                onclick="removeFood(${index})">
                 حذف
             </button>
 
@@ -1542,7 +1846,6 @@ function renderSelected(){
 
 }
 
-
 function removeFood(index){
 
     selectedFoods.splice(index,1);
@@ -1553,7 +1856,6 @@ function removeFood(index){
 
 }
 
-
 function clearAll(){
 
     selectedFoods=[];
@@ -1563,7 +1865,6 @@ function clearAll(){
     renderSelected();
 
 }
-
 
 function saveData(){
 
@@ -1578,7 +1879,6 @@ function saveData(){
     );
 
 }
-
 
 /* =========================
    DAILY STATS
@@ -1610,26 +1910,20 @@ function updateStats(){
 
         );
 
-
     $("goalCalories").textContent=
         `${dailyGoal.calories} kcal`;
-
 
     $("calTotal").textContent=
         `${total.cal.toFixed(0)} / ${dailyGoal.calories} kcal`;
 
-
     $("proTotal").textContent=
         `${total.pro.toFixed(1)} / ${dailyGoal.protein} g`;
-
 
     $("carbTotal").textContent=
         `${total.carb.toFixed(1)} / ${dailyGoal.carbs} g`;
 
-
     $("fatTotal").textContent=
         `${total.fat.toFixed(1)} / ${dailyGoal.fat} g`;
-
 
     $("calBar").style.width=
         Math.min(
@@ -1639,7 +1933,6 @@ function updateStats(){
             : 0
         )+"%";
 
-
     $("proBar").style.width=
         Math.min(
             100,
@@ -1648,7 +1941,6 @@ function updateStats(){
             : 0
         )+"%";
 
-
     $("carbBar").style.width=
         Math.min(
             100,
@@ -1656,7 +1948,6 @@ function updateStats(){
             ? total.carb/dailyGoal.carbs*100
             : 0
         )+"%";
-
 
     $("fatBar").style.width=
         Math.min(
@@ -1667,7 +1958,6 @@ function updateStats(){
         )+"%";
 
 }
-
 
 /* =========================
    SEARCH
@@ -1700,7 +1990,6 @@ $("search").addEventListener(
     }
 );
 
-
 /* =========================
    GOAL
 ========================= */
@@ -1720,13 +2009,11 @@ function openGoal(){
 
 }
 
-
 function closeGoal(){
 
     $("goalModal").style.display="none";
 
 }
-
 
 function setGoalType(button){
 
@@ -1743,7 +2030,6 @@ function setGoalType(button){
     button.classList.add("active");
 
 }
-
 
 function calculateGoal(){
 
@@ -1762,7 +2048,6 @@ function calculateGoal(){
     let activity=
         parseFloat($("activity").value);
 
-
     if(!weight || !height || !age){
 
         alert("اكتب الوزن والطول والعمر");
@@ -1771,9 +2056,7 @@ function calculateGoal(){
 
     }
 
-
     let bmr;
-
 
     if(gender==="male"){
 
@@ -1793,10 +2076,8 @@ function calculateGoal(){
 
     }
 
-
     let calories=
         bmr*activity;
-
 
     if(goalType==="lose"){
         calories-=250;
@@ -1805,7 +2086,6 @@ function calculateGoal(){
     if(goalType==="gain"){
         calories+=250;
     }
-
 
     let protein=
         weight*1.8;
@@ -1819,7 +2099,6 @@ function calculateGoal(){
             (calories-protein*4-fat*9)/4
         );
 
-
     dailyGoal={
 
         calories:Math.round(calories),
@@ -1831,7 +2110,6 @@ function calculateGoal(){
         fat:Math.round(fat)
 
     };
-
 
     localStorage.setItem(
         "saykoWeight",
@@ -1848,7 +2126,6 @@ function calculateGoal(){
         age
     );
 
-
     saveData();
 
     updateStats();
@@ -1856,7 +2133,6 @@ function calculateGoal(){
     closeGoal();
 
 }
-
 
 /* =========================
    SCROLL
@@ -1871,7 +2147,6 @@ function scrollToTop(){
 
 }
 
-
 function scrollToBottom(){
 
     window.scrollTo({
@@ -1880,7 +2155,6 @@ function scrollToBottom(){
     });
 
 }
-
 
 /* =========================
    INITIAL LOAD
@@ -1892,7 +2166,6 @@ renderSelected();
 
 updateStats();
 
-
 /* =========================
    PWA INSTALL
 ========================= */
@@ -1901,7 +2174,6 @@ let deferredInstallPrompt=null;
 
 const installButton=
     $("installButton");
-
 
 window.addEventListener(
     "beforeinstallprompt",
@@ -1917,7 +2189,6 @@ window.addEventListener(
 
     }
 );
-
 
 installButton.addEventListener(
     "click",
@@ -1939,7 +2210,6 @@ installButton.addEventListener(
     }
 );
 
-
 window.addEventListener(
     "appinstalled",
     function(){
@@ -1950,10 +2220,8 @@ window.addEventListener(
     }
 );
 
-
 /* =========================
    SERVICE WORKER
-   UPDATE SYSTEM
 ========================= */
 
 let newWorker=null;
@@ -1966,9 +2234,6 @@ function showUpdateMessage(worker){
         "flex";
 
 }
-
-
-/* تسجيل Service Worker */
 
 if("serviceWorker" in navigator){
 
@@ -1984,9 +2249,6 @@ if("serviceWorker" in navigator){
                         "SAYKØ FITNESS PWA Ready"
                     );
 
-
-                    /* لو فيه نسخة جديدة بالفعل */
-
                     if(registration.waiting){
 
                         showUpdateMessage(
@@ -1994,9 +2256,6 @@ if("serviceWorker" in navigator){
                         );
 
                     }
-
-
-                    /* عند اكتشاف نسخة جديدة */
 
                     registration.addEventListener(
                         "updatefound",
@@ -2008,7 +2267,6 @@ if("serviceWorker" in navigator){
                             if(!installingWorker){
                                 return;
                             }
-
 
                             installingWorker.addEventListener(
                                 "statechange",
@@ -2052,13 +2310,6 @@ if("serviceWorker" in navigator){
         }
     );
 
-
-    /*
-       لما الـService Worker الجديد
-       يبقى هو المتحكم في الصفحة،
-       نعمل Reload للنسخة الجديدة.
-    */
-
     navigator.serviceWorker.addEventListener(
         "controllerchange",
         function(){
@@ -2076,8 +2327,9 @@ if("serviceWorker" in navigator){
 
 }
 
-
-/* زر تحديث الآن */
+/* =========================
+   UPDATE BUTTONS
+========================= */
 
 $("updateNowBtn").addEventListener(
     "click",
@@ -2098,9 +2350,6 @@ $("updateNowBtn").addEventListener(
     }
 );
 
-
-/* زر لاحقًا */
-
 $("updateLaterBtn").addEventListener(
     "click",
     function(){
@@ -2114,4 +2363,879 @@ $("updateLaterBtn").addEventListener(
 </script>
 
 </body>
-    </html>
+</html>
+/* ========================= APP LOGIC ========================= */
+
+const $ = id => document.getElementById(id);
+
+let selectedFoods = JSON.parse(
+    localStorage.getItem("novarSelectedFoods") || "[]"
+);
+
+let dailyGoals = JSON.parse(
+    localStorage.getItem("novarDailyGoals") || "null"
+);
+
+let currentFood = null;
+let currentFoodIndex = null;
+
+/* ========================= MENU ========================= */
+
+function openMenu(){
+    $("sideMenu").classList.add("open");
+    $("menuOverlay").classList.add("show");
+}
+
+function closeMenu(){
+    $("sideMenu").classList.remove("open");
+    $("menuOverlay").classList.remove("show");
+}
+
+function openReferences(){
+    closeMenu();
+    $("referencesModal").style.display = "flex";
+}
+
+function closeReferences(){
+    $("referencesModal").style.display = "none";
+}
+
+/* ========================= STORAGE ========================= */
+
+function saveFoods(){
+    localStorage.setItem(
+        "novarSelectedFoods",
+        JSON.stringify(selectedFoods)
+    );
+}
+
+function saveGoals(){
+    localStorage.setItem(
+        "novarDailyGoals",
+        JSON.stringify(dailyGoals)
+    );
+}
+
+/* ========================= FOOD CALCULATION ========================= */
+
+function calculateFood(food, grams){
+
+    grams = Number(grams) || 0;
+
+    return {
+        calories: (food.calories * grams) / 100,
+        protein: (food.protein * grams) / 100,
+        carbs: (food.carbs * grams) / 100,
+        fat: (food.fat * grams) / 100
+    };
+}
+
+/* ========================= ADD FOOD ========================= */
+
+function addFood(food, grams){
+
+    grams = Number(grams);
+
+    if(!grams || grams <= 0){
+        alert("من فضلك أدخل الكمية");
+        return;
+    }
+
+    const nutrition = calculateFood(food, grams);
+
+    selectedFoods.push({
+        name: food.name,
+        grams: grams,
+        calories: nutrition.calories,
+        protein: nutrition.protein,
+        carbs: nutrition.carbs,
+        fat: nutrition.fat
+    });
+
+    saveFoods();
+
+    closeFoodModal();
+    renderSelectedFoods();
+    updateTotals();
+
+    showUpdateMessage("تمت إضافة الطعام ✓");
+}
+
+/* ========================= REMOVE FOOD ========================= */
+
+function removeFood(index){
+
+    selectedFoods.splice(index, 1);
+
+    saveFoods();
+
+    renderSelectedFoods();
+    updateTotals();
+}
+
+/* ========================= CLEAR ALL ========================= */
+
+function clearAllFoods(){
+
+    if(selectedFoods.length === 0) return;
+
+    if(!confirm("هل تريد مسح كل الأطعمة المختارة؟")) return;
+
+    selectedFoods = [];
+
+    saveFoods();
+
+    renderSelectedFoods();
+    updateTotals();
+}
+
+/* ========================= RENDER SELECTED FOODS ========================= */
+
+function renderSelectedFoods(){
+
+    const container = $("selectedFoods");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    if(selectedFoods.length === 0){
+
+        container.innerHTML = `
+            <div class="emptyFoods">
+                لم تتم إضافة أي أطعمة بعد
+            </div>
+        `;
+
+        return;
+    }
+
+    selectedFoods.forEach((food,index)=>{
+
+        const item = document.createElement("div");
+
+        item.className = "selectedFood";
+
+        item.innerHTML = `
+            <div class="selectedFoodInfo">
+                <strong>${food.name}</strong>
+                <span>${food.grams} جم</span>
+            </div>
+
+            <div class="selectedFoodNutrition">
+                <span>${food.calories.toFixed(0)} kcal</span>
+                <span>P ${food.protein.toFixed(1)}g</span>
+                <span>C ${food.carbs.toFixed(1)}g</span>
+                <span>F ${food.fat.toFixed(1)}g</span>
+            </div>
+
+            <button
+                class="deleteFood"
+                onclick="removeFood(${index})"
+            >
+                ×
+            </button>
+        `;
+
+        container.appendChild(item);
+    });
+}
+
+/* ========================= TOTALS ========================= */
+
+function getTotals(){
+
+    return selectedFoods.reduce(
+        (total,food)=>{
+
+            total.calories += Number(food.calories) || 0;
+            total.protein += Number(food.protein) || 0;
+            total.carbs += Number(food.carbs) || 0;
+            total.fat += Number(food.fat) || 0;
+
+            return total;
+
+        },
+        {
+            calories:0,
+            protein:0,
+            carbs:0,
+            fat:0
+        }
+    );
+}
+
+function updateTotals(){
+
+    const totals = getTotals();
+
+    const calorieEl = $("totalCalories");
+    const proteinEl = $("totalProtein");
+    const carbsEl = $("totalCarbs");
+    const fatEl = $("totalFat");
+
+    if(calorieEl)
+        calorieEl.textContent = Math.round(totals.calories);
+
+    if(proteinEl)
+        proteinEl.textContent = totals.protein.toFixed(1) + " g";
+
+    if(carbsEl)
+        carbsEl.textContent = totals.carbs.toFixed(1) + " g";
+
+    if(fatEl)
+        fatEl.textContent = totals.fat.toFixed(1) + " g";
+
+    updateProgressBars(totals);
+}
+
+/* ========================= PROGRESS ========================= */
+
+function updateProgressBars(totals){
+
+    if(!dailyGoals) return;
+
+    const values = [
+        ["calories",totals.calories,dailyGoals.calories],
+        ["protein",totals.protein,dailyGoals.protein],
+        ["carbs",totals.carbs,dailyGoals.carbs],
+        ["fat",totals.fat,dailyGoals.fat]
+    ];
+
+    values.forEach(([type,current,target])=>{
+
+        const percent = target > 0
+            ? Math.min((current / target) * 100,100)
+            : 0;
+
+        const bar = $("progress-" + type);
+
+        if(bar){
+            bar.style.width = percent + "%";
+        }
+
+        const percentText = $("percent-" + type);
+
+        if(percentText){
+            percentText.textContent =
+                Math.round(percent) + "%";
+        }
+    });
+}
+
+/* ========================= FOOD MODAL ========================= */
+
+function openFoodModal(food){
+
+    currentFood = food;
+
+    $("foodModal").style.display = "flex";
+
+    $("foodModalTitle").textContent = food.name;
+
+    $("foodQuantity").value = "";
+
+    const info = $("foodModalInfo");
+
+    if(info){
+
+        info.innerHTML = `
+            <div>السعرات: ${food.calories} kcal / 100g</div>
+            <div>البروتين: ${food.protein} g</div>
+            <div>الكربوهيدرات: ${food.carbs} g</div>
+            <div>الدهون: ${food.fat} g</div>
+        `;
+    }
+}
+
+function closeFoodModal(){
+
+    $("foodModal").style.display = "none";
+
+    currentFood = null;
+}
+
+function confirmFood(){
+
+    if(!currentFood) return;
+
+    const quantity =
+        Number($("foodQuantity").value);
+
+    addFood(currentFood,quantity);
+}
+
+/* ========================= GOAL CALCULATOR ========================= */
+
+function openGoalModal(){
+
+    $("goalModal").style.display = "flex";
+
+    if(dailyGoals){
+
+        if($("weight"))
+            $("weight").value = dailyGoals.weight || "";
+
+        if($("height"))
+            $("height").value = dailyGoals.height || "";
+
+        if($("age"))
+            $("age").value = dailyGoals.age || "";
+
+        if($("gender"))
+            $("gender").value = dailyGoals.gender || "male";
+
+        if($("activity"))
+            $("activity").value = dailyGoals.activity || "1.55";
+
+        if($("goal"))
+            $("goal").value = dailyGoals.goal || "build";
+    }
+}
+
+function closeGoalModal(){
+
+    $("goalModal").style.display = "none";
+}
+
+/* ========================= DAILY NEEDS ========================= */
+
+function calculateDailyNeeds(){
+
+    const weight =
+        Number($("weight").value);
+
+    const height =
+        Number($("height").value);
+
+    const age =
+        Number($("age").value);
+
+    const gender =
+        $("gender").value;
+
+    const activity =
+        Number($("activity").value);
+
+    const goal =
+        $("goal").value;
+
+    if(
+        !weight ||
+        !height ||
+        !age ||
+        weight <= 0 ||
+        height <= 0 ||
+        age <= 0
+    ){
+
+        alert("من فضلك أدخل بيانات صحيحة");
+        return;
+    }
+
+    let bmr;
+
+    if(gender === "female"){
+
+        bmr =
+            (10 * weight) +
+            (6.25 * height) -
+            (5 * age) -
+            161;
+
+    }else{
+
+        bmr =
+            (10 * weight) +
+            (6.25 * height) -
+            (5 * age) +
+            5;
+    }
+
+    let calories =
+        bmr * activity;
+
+    if(goal === "lose"){
+
+        calories -= 250;
+
+    }else if(goal === "gain"){
+
+        calories += 250;
+    }
+
+    calories = Math.max(1200,calories);
+
+    const protein =
+        weight * 1.8;
+
+    const fat =
+        weight * 0.8;
+
+    const carbs =
+        Math.max(
+            0,
+            (calories - (protein * 4) - (fat * 9)) / 4
+        );
+
+    dailyGoals = {
+
+        weight,
+        height,
+        age,
+        gender,
+        activity,
+        goal,
+
+        calories,
+        protein,
+        carbs,
+        fat
+    };
+
+    saveGoals();
+
+    renderGoals();
+
+    closeGoalModal();
+
+    showUpdateMessage("تم تحديث هدفك اليومي ✓");
+}
+
+/* ========================= GOAL DISPLAY ========================= */
+
+function renderGoals(){
+
+    if(!dailyGoals) return;
+
+    const calorieGoal =
+        $("goalCalories");
+
+    const proteinGoal =
+        $("goalProtein");
+
+    const carbsGoal =
+        $("goalCarbs");
+
+    const fatGoal =
+        $("goalFat");
+
+    if(calorieGoal){
+
+        calorieGoal.textContent =
+            Math.round(dailyGoals.calories);
+    }
+
+    if(proteinGoal){
+
+        proteinGoal.textContent =
+            dailyGoals.protein.toFixed(1) + " g";
+    }
+
+    if(carbsGoal){
+
+        carbsGoal.textContent =
+            dailyGoals.carbs.toFixed(1) + " g";
+    }
+
+    if(fatGoal){
+
+        fatGoal.textContent =
+            dailyGoals.fat.toFixed(1) + " g";
+    }
+
+    updateProgressBars(getTotals());
+}
+
+/* ========================= SEARCH ========================= */
+
+function searchFoods(){
+
+    const input =
+        $("foodSearch");
+
+    const value =
+        input.value.trim().toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".foodCard");
+
+    cards.forEach(card=>{
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        if(name.includes(value)){
+
+            card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+        }
+    });
+}
+
+/* ========================= FOOD RENDER ========================= */
+
+function renderFoodDatabase(list = foods){
+
+    const container =
+        $("foodGrid");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    list.forEach((food,index)=>{
+
+        const card =
+            document.createElement("button");
+
+        card.className = "foodCard";
+
+        card.dataset.name =
+            food.name;
+
+        card.innerHTML = `
+            <strong>${food.name}</strong>
+
+            <span>
+                ${food.calories} kcal
+            </span>
+
+            <small>
+                P ${food.protein}g
+                • C ${food.carbs}g
+                • F ${food.fat}g
+            </small>
+        `;
+
+        card.onclick = () =>
+            openFoodModal(food);
+
+        container.appendChild(card);
+    });
+}
+
+/* ========================= UPDATE MESSAGE ========================= */
+
+function showUpdateMessage(message){
+
+    const box =
+        $("updateMessage");
+
+    if(!box) return;
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+    setTimeout(()=>{
+
+        box.classList.remove("show");
+
+    },2500);
+}
+
+/* ========================= SERVICE WORKER ========================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        ()=>{
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(registration=>{
+
+                    registration.addEventListener(
+                        "updatefound",
+                        ()=>{
+
+                            const newWorker =
+                                registration.installing;
+
+                            if(!newWorker) return;
+
+                            newWorker.addEventListener(
+                                "statechange",
+                                ()=>{
+
+                                    if(
+                                        newWorker.state ===
+                                        "installed"
+                                        &&
+                                        navigator.serviceWorker.controller
+                                    ){
+
+                                        $("updateModal").style.display =
+                                            "flex";
+                                    }
+                                }
+                            );
+                        }
+                    );
+
+                })
+                .catch(error=>{
+
+                    console.log(
+                        "Service Worker error:",
+                        error
+                    );
+                });
+        }
+    );
+}
+
+/* ========================= APPLY UPDATE ========================= */
+
+function updateApp(){
+
+    if(
+        navigator.serviceWorker.controller
+    ){
+
+        navigator.serviceWorker.controller.postMessage({
+            type:"SKIP_WAITING"
+        });
+    }
+
+    location.reload();
+}
+
+function closeUpdate(){
+
+    $("updateModal").style.display =
+        "none";
+}
+
+/* ========================= INSTALL APP ========================= */
+
+let deferredPrompt = null;
+
+window.addEventListener(
+    "beforeinstallprompt",
+    event=>{
+
+        event.preventDefault();
+
+        deferredPrompt = event;
+
+        const installButton =
+            $("installButton");
+
+        if(installButton){
+
+            installButton.style.display =
+                "block";
+        }
+    }
+);
+
+async function installApp(){
+
+    if(!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    const result =
+        await deferredPrompt.userChoice;
+
+    console.log(
+        "Install result:",
+        result.outcome
+    );
+
+    deferredPrompt = null;
+
+    const installButton =
+        $("installButton");
+
+    if(installButton){
+
+        installButton.style.display =
+            "none";
+    }
+}
+
+window.addEventListener(
+    "appinstalled",
+    ()=>{
+
+        deferredPrompt = null;
+
+        const installButton =
+            $("installButton");
+
+        if(installButton){
+
+            installButton.style.display =
+                "none";
+        }
+    }
+);
+
+/* ========================= SCROLL BUTTONS ========================= */
+
+function scrollToTop(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+function scrollToBottom(){
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+}
+
+/* ========================= MODAL CLOSE ========================= */
+
+window.addEventListener(
+    "click",
+    event=>{
+
+        const foodModal =
+            $("foodModal");
+
+        const goalModal =
+            $("goalModal");
+
+        const referencesModal =
+            $("referencesModal");
+
+        if(
+            event.target === foodModal
+        ){
+
+            closeFoodModal();
+        }
+
+        if(
+            event.target === goalModal
+        ){
+
+            closeGoalModal();
+        }
+
+        if(
+            event.target === referencesModal
+        ){
+
+            closeReferences();
+        }
+    }
+);
+
+/* ========================= KEYBOARD ========================= */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key === "Escape"){
+
+            closeMenu();
+            closeFoodModal();
+            closeGoalModal();
+            closeReferences();
+            closeUpdate();
+        }
+    }
+);
+
+/* ========================= INITIALIZATION ========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        renderFoodDatabase();
+
+        renderSelectedFoods();
+
+        updateTotals();
+
+        renderGoals();
+
+        const search =
+            $("foodSearch");
+
+        if(search){
+
+            search.addEventListener(
+                "input",
+                searchFoods
+            );
+        }
+
+        const clearButton =
+            $("clearAllButton");
+
+        if(clearButton){
+
+            clearButton.addEventListener(
+                "click",
+                clearAllFoods
+            );
+        }
+
+        const goalButton =
+            $("goalButton");
+
+        if(goalButton){
+
+            goalButton.addEventListener(
+                "click",
+                openGoalModal
+            );
+        }
+
+        const calculateButton =
+            $("calculateGoalButton");
+
+        if(calculateButton){
+
+            calculateButton.addEventListener(
+                "click",
+                calculateDailyNeeds
+            );
+        }
+
+        const confirmButton =
+            $("confirmFoodButton");
+
+        if(confirmButton){
+
+            confirmButton.addEventListener(
+                "click",
+                confirmFood
+            );
+        }
+
+        const installButton =
+            $("installButton");
+
+        if(installButton){
+
+            installButton.addEventListener(
+                "click",
+                installApp
+            );
+        }
+    }
+);
+
+/* ========================= END ========================= */
+
+</script>
+
+</body>
+        </html>
