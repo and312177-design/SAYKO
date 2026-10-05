@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>SAYKØ FITNESS</title>
 
@@ -158,8 +158,6 @@ header{
 .menuItems{
     padding:15px 10px;
 }
-
-/* كل عناصر القائمة ناحية اليمين */
 
 .menuItem{
     width:100%;
@@ -334,8 +332,6 @@ main{
     font-size:13px;
     margin-top:6px;
 }
-
-/* الوضع الفاتح */
 
 body.light .foodName{
     color:#000;
@@ -676,9 +672,6 @@ body.light .selectedName{
 
 </header>
 
-
-<!-- ================= SIDE MENU ================= -->
-
 <div id="sideOverlay"
      class="sideOverlay"
      onclick="closeMenu()">
@@ -703,40 +696,25 @@ body.light .selectedName{
 
         <button class="menuItem"
                 onclick="openReferences()">
-
             <span class="icon">📚</span>
-
-            <span>
-                المراجع
-            </span>
-
+            <span>المراجع</span>
         </button>
-
 
         <button class="menuItem"
                 onclick="openTheme()">
-
             <span class="icon">🎨</span>
-
-            <span>
-                المظهر
-            </span>
-
+            <span>المظهر</span>
         </button>
 
     </div>
 
 </div>
 
-
-<!-- ================= MAIN ================= -->
-
 <main>
 
     <div class="subtitle">
         Nutrition • Calories • Progress
     </div>
-
 
     <section class="goalCard">
 
@@ -753,19 +731,15 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="totalCalories">
             <span id="goalCalories">2500</span> kcal
         </div>
-
 
         <div class="progressItem">
 
             <div class="progressInfo">
 
-                <span>
-                    السعرات
-                </span>
+                <span>السعرات</span>
 
                 <span>
                     <span id="currentCalories">0</span> /
@@ -782,14 +756,11 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="progressItem">
 
             <div class="progressInfo">
 
-                <span>
-                    البروتين
-                </span>
+                <span>البروتين</span>
 
                 <span>
                     <span id="currentProtein">0</span> /
@@ -806,14 +777,11 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="progressItem">
 
             <div class="progressInfo">
 
-                <span>
-                    الكربوهيدرات
-                </span>
+                <span>الكربوهيدرات</span>
 
                 <span>
                     <span id="currentCarbs">0</span> /
@@ -830,14 +798,11 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="progressItem">
 
             <div class="progressInfo">
 
-                <span>
-                    الدهون
-                </span>
+                <span>الدهون</span>
 
                 <span>
                     <span id="currentFat">0</span> /
@@ -856,9 +821,6 @@ body.light .selectedName{
 
     </section>
 
-
-    <!-- SEARCH -->
-
     <div class="searchBox">
 
         <input
@@ -869,7 +831,6 @@ body.light .selectedName{
 
     </div>
 
-
     <div class="sectionTitle">
         الأطعمة
     </div>
@@ -877,9 +838,6 @@ body.light .selectedName{
     <div id="foodGrid"
          class="foodGrid">
     </div>
-
-
-    <!-- SELECTED -->
 
     <section class="selectedSection">
 
@@ -902,9 +860,6 @@ body.light .selectedName{
 
 </main>
 
-
-<!-- ================= SCROLL ================= -->
-
 <button id="scrollTop"
         class="scrollBtn"
         onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -916,9 +871,6 @@ body.light .selectedName{
         onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
     ↓
 </button>
-
-
-<!-- ================= FOOD MODAL ================= -->
 
 <div id="foodModal"
      class="modalOverlay">
@@ -938,7 +890,6 @@ body.light .selectedName{
             </button>
 
         </div>
-
 
         <div class="unitButtons">
 
@@ -962,7 +913,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="inputGroup">
 
             <label id="quantityLabel">
@@ -977,7 +927,6 @@ body.light .selectedName{
 
         </div>
 
-
         <button class="primaryBtn"
                 onclick="addFood()">
             إضافة
@@ -986,9 +935,6 @@ body.light .selectedName{
     </div>
 
 </div>
-
-
-<!-- ================= GOAL MODAL ================= -->
 
 <div id="goalModal"
      class="modalOverlay">
@@ -1008,7 +954,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="inputGroup">
 
             <label>
@@ -1020,7 +965,6 @@ body.light .selectedName{
                    placeholder="مثال: 65">
 
         </div>
-
 
         <div class="inputGroup">
 
@@ -1034,7 +978,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="inputGroup">
 
             <label>
@@ -1046,7 +989,6 @@ body.light .selectedName{
                    placeholder="مثال: 17">
 
         </div>
-
 
         <div class="inputGroup">
 
@@ -1067,7 +1009,6 @@ body.light .selectedName{
             </select>
 
         </div>
-
 
         <div class="inputGroup">
 
@@ -1098,7 +1039,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="inputGroup">
 
             <label>
@@ -1128,7 +1068,6 @@ body.light .selectedName{
 
         </div>
 
-
         <button class="primaryBtn"
                 onclick="calculateGoal()">
             احسب
@@ -1137,9 +1076,6 @@ body.light .selectedName{
     </div>
 
 </div>
-
-
-<!-- ================= REFERENCES ================= -->
 
 <div id="referencesModal"
      class="modalOverlay">
@@ -1159,7 +1095,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="reference">
 
             <strong>
@@ -1171,7 +1106,6 @@ body.light .selectedName{
             </span>
 
         </div>
-
 
         <div class="reference">
 
@@ -1185,7 +1119,6 @@ body.light .selectedName{
 
         </div>
 
-
         <div class="reference">
 
             <strong>
@@ -1197,7 +1130,6 @@ body.light .selectedName{
             </span>
 
         </div>
-
 
         <div class="reference">
 
@@ -1214,9 +1146,6 @@ body.light .selectedName{
     </div>
 
 </div>
-
-
-<!-- ================= THEME ================= -->
 
 <div id="themeModal"
      class="modalOverlay">
@@ -1236,7 +1165,6 @@ body.light .selectedName{
 
         </div>
 
-
         <button class="menuItem"
                 onclick="setTheme('dark')">
 
@@ -1249,7 +1177,6 @@ body.light .selectedName{
             </span>
 
         </button>
-
 
         <button class="menuItem"
                 onclick="setTheme('light')">
@@ -1267,9 +1194,6 @@ body.light .selectedName{
     </div>
 
 </div>
-
-
-<!-- ================= UPDATE ================= -->
 
 <div id="updateModal"
      class="modalOverlay">
@@ -1306,9 +1230,6 @@ body.light .selectedName{
 
 </div>
 
-
-<!-- ================= ERROR ================= -->
-
 <div id="errorOverlay"
      class="errorOverlay">
 
@@ -1329,7 +1250,6 @@ body.light .selectedName{
     </div>
 
 </div>
-
 
 <script>
 
@@ -1533,7 +1453,6 @@ const foods = [
 
 ];
 
-
 /* ================= VARIABLES ================= */
 
 let selectedFoods =
@@ -1550,7 +1469,6 @@ let goals =
         carbs:300,
         fat:70
     };
-
 
 /* ================= MENU ================= */
 
@@ -1575,7 +1493,6 @@ function closeMenu(){
 
     document.body.style.overflow="";
 }
-
 
 /* ================= FOODS ================= */
 
@@ -1623,9 +1540,7 @@ function renderFoods(list=foods){
         grid.appendChild(card);
 
     });
-
 }
-
 
 /* ================= SEARCH ================= */
 
@@ -1644,7 +1559,6 @@ function searchFoods(){
 
     renderFoods(filtered);
 }
-
 
 /* ================= FOOD MODAL ================= */
 
@@ -1707,7 +1621,6 @@ function setUnit(unit){
         input.placeholder="عدد القطع";
 
     }
-
 }
 
 function updateUnitButtons(){
@@ -1725,7 +1638,6 @@ function updateUnitButtons(){
     if(currentUnit==="piece")
         document.getElementById("unitPiece").classList.add("active");
 }
-
 
 /* ================= ADD FOOD ================= */
 
@@ -1777,7 +1689,6 @@ function addFood(){
 
     closeFood();
 }
-
 
 /* ================= SELECTED ================= */
 
@@ -1847,9 +1758,7 @@ function renderSelectedFoods(){
         container.appendChild(div);
 
     });
-
 }
-
 
 /* ================= REMOVE ================= */
 
@@ -1865,7 +1774,6 @@ function removeFood(id){
     updateProgress();
 }
 
-
 /* ================= CLEAR ================= */
 
 function clearAll(){
@@ -1878,7 +1786,6 @@ function clearAll(){
 
     updateProgress();
 }
-
 
 /* ================= PROGRESS ================= */
 
@@ -1958,7 +1865,6 @@ function setProgress(id,current,goal){
     document.getElementById(id)
         .style.width=percent+"%";
 }
-
 
 /* ================= GOAL ================= */
 
@@ -2056,7 +1962,6 @@ function calculateGoal(){
     closeGoal();
 }
 
-
 /* ================= THEME ================= */
 
 function openTheme(){
@@ -2110,7 +2015,6 @@ function loadTheme(){
     }
 }
 
-
 /* ================= REFERENCES ================= */
 
 function openReferences(){
@@ -2126,7 +2030,6 @@ function closeReferences(){
     document.getElementById("referencesModal")
         .classList.remove("show");
 }
-
 
 /* ================= UPDATE ================= */
 
@@ -2156,7 +2059,6 @@ function closeUpdate(){
         .classList.remove("show");
 }
 
-
 /* ================= ERROR ================= */
 
 function showError(message){
@@ -2174,7 +2076,6 @@ function closeError(){
         .classList.remove("show");
 }
 
-
 /* ================= STORAGE ================= */
 
 function saveFoods(){
@@ -2185,7 +2086,6 @@ function saveFoods(){
     );
 }
 
-
 /* ================= FORMAT ================= */
 
 function formatNumber(number){
@@ -2194,7 +2094,6 @@ function formatNumber(number){
         .toFixed(1)
         .replace(".0","");
 }
-
 
 /* ================= CLOSE MODALS ================= */
 
@@ -2212,7 +2111,6 @@ document.querySelectorAll(".modalOverlay")
     });
 
 });
-
 
 /* ================= SERVICE WORKER ================= */
 
@@ -2236,7 +2134,6 @@ if("serviceWorker" in navigator){
     });
 
 }
-
 
 /* ================= INIT ================= */
 
