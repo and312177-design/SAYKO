@@ -1,4 +1,4 @@
-const CACHE_NAME = "sayko-fitness-v7";
+const CACHE_NAME = "sayko-fitness-v8";
 
 const APP_FILES = [
   "./",
@@ -6,6 +6,7 @@ const APP_FILES = [
   "./manifest.json",
   "./1790471069347.jpg"
 ];
+
 
 /* ================================
    تثبيت النسخة الجديدة
@@ -22,13 +23,6 @@ self.addEventListener("install", event => {
         return cache.addAll(APP_FILES);
 
       })
-
-      /*
-       * مهم:
-       * لا نستخدم self.skipWaiting() هنا
-       * حتى يفضل التحديث منتظرًا
-       * إلى أن يضغط المستخدم "تحديث الآن".
-       */
 
   );
 
@@ -50,9 +44,7 @@ self.addEventListener("activate", event => {
         return Promise.all(
 
           keys
-
             .filter(key => key !== CACHE_NAME)
-
             .map(key => caches.delete(key))
 
         );
@@ -78,19 +70,17 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
 
   if (event.request.method !== "GET") {
+
     return;
+
   }
+
 
   event.respondWith(
 
     fetch(event.request)
 
       .then(response => {
-
-        /*
-         * نتأكد أن الاستجابة صالحة
-         * قبل حفظها في الكاش.
-         */
 
         if (
           response &&
@@ -104,7 +94,10 @@ self.addEventListener("fetch", event => {
 
             .then(cache => {
 
-              cache.put(event.request, copy);
+              cache.put(
+                event.request,
+                copy
+              );
 
             });
 
@@ -116,12 +109,9 @@ self.addEventListener("fetch", event => {
 
       .catch(() => {
 
-        /*
-         * لو الإنترنت غير متاح،
-         * نستخدم النسخة الموجودة في الكاش.
-         */
-
-        return caches.match(event.request);
+        return caches.match(
+          event.request
+        );
 
       })
 
@@ -131,17 +121,15 @@ self.addEventListener("fetch", event => {
 
 
 /* ================================
-   استقبال أوامر البرنامج
+   استقبال أمر تحديث البرنامج
 ================================ */
 
 self.addEventListener("message", event => {
 
-  /*
-   * عند الضغط على:
-   * "تحديث الآن"
-   */
-
-  if (event.data === "SKIP_WAITING") {
+  if (
+    event.data ===
+    "SKIP_WAITING"
+  ) {
 
     self.skipWaiting();
 
