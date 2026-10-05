@@ -16,8 +16,6 @@
 
 <style>
 
-/* ================= GLOBAL ================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -39,7 +37,7 @@ body{
     min-height:100vh;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 header{
     position:relative;
@@ -64,7 +62,7 @@ header{
     margin-top:4px;
 }
 
-/* ================= HEADER BUTTONS ================= */
+/* HEADER BUTTONS */
 
 .headerButtons{
     position:absolute;
@@ -122,7 +120,7 @@ header{
     display:block;
 }
 
-/* ================= INSTALL ================= */
+/* INSTALL */
 
 #installButton{
     display:none;
@@ -135,7 +133,7 @@ header{
     cursor:pointer;
 }
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 
 .searchBox{
     padding:15px;
@@ -152,7 +150,7 @@ header{
     font-size:15px;
 }
 
-/* ================= GOAL ================= */
+/* GOAL */
 
 .goalCard{
     margin:0 15px 15px;
@@ -208,7 +206,7 @@ header{
     transition:.3s;
 }
 
-/* ================= FOOD GRID ================= */
+/* FOOD GRID */
 
 .foodGrid{
     display:grid;
@@ -235,12 +233,13 @@ header{
 }
 
 .foodCalories{
-    color:#777;
+    color:var(--sayko-red);
     font-size:10px;
     margin-top:5px;
+    font-weight:bold;
 }
 
-/* ================= SELECTED ================= */
+/* SELECTED */
 
 .selectedSection{
     padding:0 15px 30px;
@@ -302,7 +301,7 @@ header{
     color:#666;
 }
 
-/* ================= MODALS ================= */
+/* MODALS */
 
 .modal{
     position:fixed;
@@ -354,7 +353,7 @@ header{
     cursor:pointer;
 }
 
-/* ================= UNIT BUTTONS ================= */
+/* UNIT BUTTONS */
 
 .unitButtons{
     display:flex;
@@ -404,7 +403,7 @@ header{
     margin-bottom:10px;
 }
 
-/* ================= GOAL OPTIONS ================= */
+/* GOAL OPTIONS */
 
 .goalOptions{
     display:grid;
@@ -448,7 +447,7 @@ header{
     border-color:var(--sayko-red);
 }
 
-/* ================= UPDATE ================= */
+/* UPDATE */
 
 .updateBox{
     border-color:var(--sayko-red);
@@ -460,7 +459,7 @@ header{
     line-height:1.8;
 }
 
-/* ================= SIDE MENU ================= */
+/* SIDE MENU */
 
 .menuOverlay{
     position:fixed;
@@ -507,7 +506,7 @@ header{
     font-size:16px;
 }
 
-/* ================= THEME ================= */
+/* THEME */
 
 .themeOption{
     width:100%;
@@ -525,7 +524,7 @@ header{
     border-color:var(--sayko-red);
 }
 
-/* ================= REFERENCES ================= */
+/* REFERENCES */
 
 .referenceText{
     color:#aaa;
@@ -533,7 +532,7 @@ header{
     line-height:1.9;
 }
 
-/* ================= SCROLL ================= */
+/* SCROLL */
 
 .scrollButtons{
     position:fixed;
@@ -562,7 +561,7 @@ header{
     color:#fff;
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer{
     text-align:center;
@@ -571,7 +570,7 @@ footer{
     font-size:12px;
 }
 
-/* ================= LIGHT THEME ================= */
+/* LIGHT THEME */
 
 body.lightTheme{
     background:#fff;
@@ -666,7 +665,7 @@ body.lightTheme footer{
     color:#777;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:350px){
 
@@ -695,8 +694,6 @@ body.lightTheme footer{
 </head>
 
 <body>
-
-<!-- ================= HEADER ================= -->
 
 <header>
 
@@ -748,8 +745,6 @@ Nutrition • Calories • Progress
 </header>
 
 
-<!-- ================= MENU ================= -->
-
 <div
 id="menuOverlay"
 class="menuOverlay"
@@ -779,20 +774,16 @@ onclick="openThemeMenu()">
 </div>
 
 
-<!-- ================= SEARCH ================= -->
-
 <div class="searchBox">
 
 <input
 id="searchInput"
 type="text"
 placeholder="ابحث عن أكلة..."
-oninput="searchFoods()">
+oninput="searchFoods">
 
 </div>
 
-
-<!-- ================= GOAL CARD ================= -->
 
 <div class="goalCard">
 
@@ -908,15 +899,11 @@ class="progressBar">
 </div>
 
 
-<!-- ================= FOOD GRID ================= -->
-
 <div
 id="foodGrid"
 class="foodGrid">
 </div>
 
-
-<!-- ================= SELECTED ================= -->
 
 <section class="selectedSection">
 
@@ -938,8 +925,6 @@ onclick="clearSelectedFoods()">
 
 </section>
 
-
-<!-- ================= FOOD MODAL ================= -->
 
 <div
 id="foodModal"
@@ -1008,8 +993,6 @@ onclick="closeFoodModal()">
 </div>
 </div>
 
-
-<!-- ================= GOAL MODAL ================= -->
 
 <div
 id="goalModal"
@@ -1124,8 +1107,6 @@ onclick="closeGoalModal()">
 </div>
 
 
-<!-- ================= UPDATE MODAL ================= -->
-
 <div
 id="updateModal"
 class="modal">
@@ -1158,8 +1139,6 @@ onclick="updateLater()">
 </div>
 </div>
 
-
-<!-- ================= REFERENCES ================= -->
 
 <div
 id="referencesModal"
@@ -1196,8 +1175,6 @@ onclick="closeReferences()">
 </div>
 
 
-<!-- ================= THEME ================= -->
-
 <div
 id="themeModal"
 class="modal">
@@ -1232,8 +1209,6 @@ onclick="closeThemeMenu()">
 </div>
 
 
-<!-- ================= SCROLL ================= -->
-
 <div class="scrollButtons">
 
 <button onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -1254,18 +1229,12 @@ SAYKØ FITNESS
 
 <script>
 
-/* =========================================
-   HELPER
-========================================= */
-
 function $(id){
     return document.getElementById(id);
 }
 
 
-/* =========================================
-   FOOD DATABASE
-========================================= */
+/* FOOD DATABASE */
 
 const foods=[
 
@@ -1530,9 +1499,7 @@ const foods=[
 ];
 
 
-/* =========================================
-   SPOON WEIGHTS
-========================================= */
+/* SPOON WEIGHTS */
 
 const spoonWeights={
 
@@ -1579,9 +1546,7 @@ const spoonWeights={
 };
 
 
-/* =========================================
-   PIECE WEIGHTS
-========================================= */
+/* PIECE WEIGHTS */
 
 const pieceWeights={
 
@@ -1614,9 +1579,7 @@ const pieceWeights={
 };
 
 
-/* =========================================
-   PIECE LABELS
-========================================= */
+/* PIECE LABELS */
 
 const pieceLabels={
 
@@ -1649,9 +1612,7 @@ const pieceLabels={
 };
 
 
-/* =========================================
-   STATE
-========================================= */
+/* STATE */
 
 let selectedFood=null;
 let selectedUnit="grams";
@@ -1675,9 +1636,7 @@ let goalType="build";
 let gender="male";
 
 
-/* =========================================
-   RENDER FOODS
-========================================= */
+/* RENDER FOODS */
 
 function renderFoods(list=foods){
 
@@ -1702,7 +1661,7 @@ function renderFoods(list=foods){
             </div>
 
             <div class="foodCalories">
-                ${food.calories} kcal
+                100g • ${food.calories} kcal
             </div>
 
         `;
@@ -1714,9 +1673,7 @@ function renderFoods(list=foods){
 }
 
 
-/* =========================================
-   SEARCH
-========================================= */
+/* SEARCH */
 
 function searchFoods(){
 
@@ -1745,9 +1702,7 @@ function searchFoods(){
 }
 
 
-/* =========================================
-   OPEN FOOD
-========================================= */
+/* OPEN FOOD */
 
 function openFood(index){
 
@@ -1772,9 +1727,7 @@ function openFood(index){
 }
 
 
-/* =========================================
-   CLOSE FOOD
-========================================= */
+/* CLOSE FOOD */
 
 function closeFoodModal(){
 
@@ -1785,9 +1738,7 @@ function closeFoodModal(){
 }
 
 
-/* =========================================
-   SET UNIT
-========================================= */
+/* SET UNIT */
 
 function setUnit(unit){
 
@@ -1844,9 +1795,7 @@ function setUnit(unit){
 }
 
 
-/* =========================================
-   CALCULATE FOOD
-========================================= */
+/* CALCULATE FOOD */
 
 function calculateFood(){
 
@@ -1912,9 +1861,7 @@ function calculateFood(){
 }
 
 
-/* =========================================
-   PREVIEW
-========================================= */
+/* PREVIEW */
 
 function updatePreview(){
 
@@ -1954,9 +1901,7 @@ function updatePreview(){
 }
 
 
-/* =========================================
-   ADD FOOD
-========================================= */
+/* ADD FOOD */
 
 function addFood(){
 
@@ -2018,9 +1963,7 @@ function addFood(){
 }
 
 
-/* =========================================
-   SAVE
-========================================= */
+/* SAVE */
 
 function saveSelectedFoods(){
 
@@ -2032,9 +1975,7 @@ function saveSelectedFoods(){
 }
 
 
-/* =========================================
-   RENDER SELECTED
-========================================= */
+/* RENDER SELECTED */
 
 function renderSelectedFoods(){
 
@@ -2118,9 +2059,7 @@ function renderSelectedFoods(){
 }
 
 
-/* =========================================
-   CLEAR
-========================================= */
+/* CLEAR */
 
 function clearSelectedFoods(){
 
@@ -2147,9 +2086,7 @@ function clearSelectedFoods(){
 }
 
 
-/* =========================================
-   UPDATE STATS
-========================================= */
+/* UPDATE STATS */
 
 function updateStats(){
 
@@ -2206,9 +2143,7 @@ function updateStats(){
 }
 
 
-/* =========================================
-   GOAL MODAL
-========================================= */
+/* GOAL MODAL */
 
 function openGoalModal(){
 
@@ -2265,9 +2200,7 @@ function selectGoal(value){
 }
 
 
-/* =========================================
-   DAILY GOAL CALCULATION
-========================================= */
+/* DAILY GOAL */
 
 function calculateGoal(){
 
@@ -2364,9 +2297,7 @@ function calculateGoal(){
 }
 
 
-/* =========================================
-   MENU
-========================================= */
+/* MENU */
 
 function openMenu(){
 
@@ -2389,9 +2320,7 @@ function closeMenu(){
 }
 
 
-/* =========================================
-   REFERENCES
-========================================= */
+/* REFERENCES */
 
 function openReferences(){
 
@@ -2410,9 +2339,7 @@ function closeReferences(){
 }
 
 
-/* =========================================
-   THEME
-========================================= */
+/* THEME */
 
 function openThemeMenu(){
 
@@ -2509,9 +2436,7 @@ if(savedTheme==="light"){
 }
 
 
-/* =========================================
-   INSTALL APP
-========================================= */
+/* INSTALL */
 
 let deferredInstallPrompt=null;
 
@@ -2565,14 +2490,10 @@ window.addEventListener(
 );
 
 
-/* =========================================
-   UPDATE SYSTEM
-========================================= */
+/* UPDATE SYSTEM */
 
 let newWorker=null;
-
 let updateAvailable=false;
-
 let appRegistration=null;
 
 
@@ -2583,9 +2504,7 @@ function showUpdateIndicator(){
     const bell=$("bellButton");
 
     if(bell){
-
         bell.classList.add("hasUpdate");
-
     }
 
 }
@@ -2618,15 +2537,13 @@ function updateNow(){
             "SKIP_WAITING"
         );
 
-    }else{
+        return;
 
-        if(appRegistration){
+    }
 
-            appRegistration.update();
+    if(appRegistration){
 
-        }
-
-        window.location.reload();
+        appRegistration.update();
 
     }
 
@@ -2644,9 +2561,7 @@ function updateLater(){
 function watchInstallingWorker(worker){
 
     if(!worker){
-
         return;
-
     }
 
     worker.addEventListener(
@@ -2656,9 +2571,7 @@ function watchInstallingWorker(worker){
             if(worker.state==="installed"){
 
                 if(
-                    navigator
-                    .serviceWorker
-                    .controller
+                    navigator.serviceWorker.controller
                 ){
 
                     newWorker=
@@ -2686,9 +2599,7 @@ if("serviceWorker" in navigator){
             try{
 
                 appRegistration=
-                    await navigator
-                    .serviceWorker
-                    .register(
+                    await navigator.serviceWorker.register(
                         "./service-worker.js",
                         {
                             updateViaCache:"none"
@@ -2696,9 +2607,7 @@ if("serviceWorker" in navigator){
                     );
 
 
-                if(
-                    appRegistration.waiting
-                ){
+                if(appRegistration.waiting){
 
                     newWorker=
                         appRegistration.waiting;
@@ -2712,9 +2621,10 @@ if("serviceWorker" in navigator){
                     "updatefound",
                     function(){
 
-                        watchInstallingWorker(
-                            appRegistration.installing
-                        );
+                        const worker=
+                            appRegistration.installing;
+
+                        watchInstallingWorker(worker);
 
                     }
                 );
@@ -2789,9 +2699,7 @@ if("serviceWorker" in navigator){
         function(){
 
             if(refreshing){
-
                 return;
-
             }
 
             refreshing=true;
@@ -2804,9 +2712,7 @@ if("serviceWorker" in navigator){
 }
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
+/* INITIALIZE */
 
 renderFoods();
 
@@ -2817,4 +2723,4 @@ updateStats();
 </script>
 
 </body>
-    </html>
+</html>
