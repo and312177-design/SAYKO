@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -15,11 +16,17 @@
 
 <style>
 
+/* ================= GLOBAL ================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
     font-family:Arial,Tahoma,sans-serif;
+}
+
+:root{
+    --sayko-red:#ff0000;
 }
 
 html{
@@ -48,7 +55,7 @@ header{
 }
 
 .logo span{
-    color:#e50914;
+    color:var(--sayko-red);
 }
 
 .subtitle{
@@ -105,7 +112,7 @@ header{
     right:5px;
     width:9px;
     height:9px;
-    background:#e50914;
+    background:var(--sayko-red);
     border-radius:50%;
     border:2px solid #151515;
     display:none;
@@ -120,7 +127,7 @@ header{
 #installButton{
     display:none;
     margin:12px auto 0;
-    background:#e50914;
+    background:var(--sayko-red);
     color:#fff;
     border:0;
     border-radius:8px;
@@ -167,7 +174,7 @@ header{
 }
 
 .editGoal{
-    background:#222;
+    background:var(--sayko-red);
     color:#fff;
     border:0;
     border-radius:7px;
@@ -195,7 +202,7 @@ header{
 
 .progressBar{
     height:100%;
-    background:#e50914;
+    background:var(--sayko-red);
     width:0%;
     border-radius:20px;
     transition:.3s;
@@ -338,7 +345,7 @@ header{
 .addBtn,
 #updateNowBtn{
     width:100%;
-    background:#e50914;
+    background:var(--sayko-red);
     color:#fff;
     border:0;
     border-radius:8px;
@@ -366,8 +373,8 @@ header{
 }
 
 .unitButtons button.active{
-    background:#e50914;
-    border-color:#e50914;
+    background:var(--sayko-red);
+    border-color:var(--sayko-red);
 }
 
 .quantityInput,
@@ -397,7 +404,7 @@ header{
     margin-bottom:10px;
 }
 
-/* ================= GOAL ================= */
+/* ================= GOAL OPTIONS ================= */
 
 .goalOptions{
     display:grid;
@@ -417,8 +424,8 @@ header{
 }
 
 .goalOption.active{
-    background:#e50914;
-    border-color:#e50914;
+    background:var(--sayko-red);
+    border-color:var(--sayko-red);
 }
 
 .genderButtons{
@@ -437,14 +444,14 @@ header{
 }
 
 .genderButtons button.active{
-    background:#e50914;
-    border-color:#e50914;
+    background:var(--sayko-red);
+    border-color:var(--sayko-red);
 }
 
 /* ================= UPDATE ================= */
 
 .updateBox{
-    border-color:#e50914;
+    border-color:var(--sayko-red);
     text-align:center;
 }
 
@@ -514,8 +521,8 @@ header{
 }
 
 .themeOption.active{
-    background:#e50914;
-    border-color:#e50914;
+    background:var(--sayko-red);
+    border-color:var(--sayko-red);
 }
 
 /* ================= REFERENCES ================= */
@@ -542,10 +549,17 @@ header{
     width:38px;
     height:38px;
     background:#151515;
-    color:#fff;
-    border:1px solid #292929;
+    color:var(--sayko-red);
+    border:1px solid var(--sayko-red);
     border-radius:9px;
     cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.scrollButtons button:active{
+    background:var(--sayko-red);
+    color:#fff;
 }
 
 /* ================= FOOTER ================= */
@@ -733,6 +747,7 @@ Nutrition • Calories • Progress
 
 </header>
 
+
 <!-- ================= MENU ================= -->
 
 <div
@@ -763,6 +778,7 @@ onclick="openThemeMenu()">
 
 </div>
 
+
 <!-- ================= SEARCH ================= -->
 
 <div class="searchBox">
@@ -774,6 +790,7 @@ placeholder="ابحث عن أكلة..."
 oninput="searchFoods()">
 
 </div>
+
 
 <!-- ================= GOAL CARD ================= -->
 
@@ -796,60 +813,108 @@ onclick="openGoalModal()">
 <div class="stat">
 
 <div class="statHead">
+
 <span>السعرات</span>
-<span id="calorieText">0 / 2500 kcal</span>
+
+<span id="calorieText">
+0 / 2500 kcal
+</span>
+
 </div>
 
 <div class="progress">
-<div id="calorieBar" class="progressBar"></div>
+
+<div
+id="calorieBar"
+class="progressBar">
 </div>
 
 </div>
+
+</div>
+
 
 <div class="stat">
 
 <div class="statHead">
+
 <span>البروتين</span>
-<span id="proteinText">0 / 150 g</span>
+
+<span id="proteinText">
+0 / 150 g
+</span>
+
 </div>
 
 <div class="progress">
-<div id="proteinBar" class="progressBar"></div>
+
+<div
+id="proteinBar"
+class="progressBar">
 </div>
 
 </div>
+
+</div>
+
 
 <div class="stat">
 
 <div class="statHead">
+
 <span>الكربوهيدرات</span>
-<span id="carbsText">0 / 300 g</span>
+
+<span id="carbsText">
+0 / 300 g
+</span>
+
 </div>
 
 <div class="progress">
-<div id="carbsBar" class="progressBar"></div>
+
+<div
+id="carbsBar"
+class="progressBar">
 </div>
 
 </div>
+
+</div>
+
 
 <div class="stat">
 
 <div class="statHead">
+
 <span>الدهون</span>
-<span id="fatText">0 / 80 g</span>
+
+<span id="fatText">
+0 / 80 g
+</span>
+
 </div>
 
 <div class="progress">
-<div id="fatBar" class="progressBar"></div>
+
+<div
+id="fatBar"
+class="progressBar">
 </div>
 
 </div>
 
 </div>
+
+</div>
+
 
 <!-- ================= FOOD GRID ================= -->
 
-<div id="foodGrid" class="foodGrid"></div>
+<div
+id="foodGrid"
+class="foodGrid">
+</div>
+
 
 <!-- ================= SELECTED ================= -->
 
@@ -873,9 +938,12 @@ onclick="clearSelectedFoods()">
 
 </section>
 
+
 <!-- ================= FOOD MODAL ================= -->
 
-<div id="foodModal" class="modal">
+<div
+id="foodModal"
+class="modal">
 
 <div class="modalBox">
 
@@ -919,7 +987,9 @@ oninput="updatePreview()">
 اكتب الكمية بالجرام
 </div>
 
-<div id="preview" class="preview">
+<div
+id="preview"
+class="preview">
 أدخل الكمية لعرض القيم الغذائية.
 </div>
 
@@ -938,9 +1008,12 @@ onclick="closeFoodModal()">
 </div>
 </div>
 
+
 <!-- ================= GOAL MODAL ================= -->
 
-<div id="goalModal" class="modal">
+<div
+id="goalModal"
+class="modal">
 
 <div class="modalBox">
 
@@ -1050,9 +1123,12 @@ onclick="closeGoalModal()">
 </div>
 </div>
 
+
 <!-- ================= UPDATE MODAL ================= -->
 
-<div id="updateModal" class="modal">
+<div
+id="updateModal"
+class="modal">
 
 <div class="updateBox">
 
@@ -1082,9 +1158,12 @@ onclick="updateLater()">
 </div>
 </div>
 
+
 <!-- ================= REFERENCES ================= -->
 
-<div id="referencesModal" class="modal">
+<div
+id="referencesModal"
+class="modal">
 
 <div class="modalBox">
 
@@ -1116,9 +1195,12 @@ onclick="closeReferences()">
 </div>
 </div>
 
+
 <!-- ================= THEME ================= -->
 
-<div id="themeModal" class="modal">
+<div
+id="themeModal"
+class="modal">
 
 <div class="modalBox">
 
@@ -1149,6 +1231,7 @@ onclick="closeThemeMenu()">
 </div>
 </div>
 
+
 <!-- ================= SCROLL ================= -->
 
 <div class="scrollButtons">
@@ -1163,9 +1246,11 @@ onclick="closeThemeMenu()">
 
 </div>
 
+
 <footer>
 SAYKØ FITNESS
 </footer>
+
 
 <script>
 
@@ -1184,8 +1269,6 @@ function $(id){
 
 const foods=[
 
-/* Grains */
-
 {name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
 {name:"أرز بني",calories:123,protein:2.7,carbs:26,fat:1},
 {name:"أرز بسمتي",calories:121,protein:3,carbs:25,fat:.4},
@@ -1202,8 +1285,6 @@ const foods=[
 {name:"ذرة",calories:96,protein:3.4,carbs:21,fat:1.5},
 {name:"فشار بدون زيت",calories:387,protein:13,carbs:78,fat:4.5},
 
-/* Bread */
-
 {name:"عيش بلدي",calories:250,protein:8.9,carbs:50,fat:1.6},
 {name:"عيش سن",calories:230,protein:9,carbs:44,fat:2},
 {name:"عيش شامي",calories:170,protein:6,carbs:35,fat:1},
@@ -1214,23 +1295,17 @@ const foods=[
 {name:"فينو",calories:276,protein:8.9,carbs:51,fat:2},
 {name:"بقسماط",calories:410,protein:11,carbs:72,fat:9},
 
-/* Potatoes */
-
 {name:"بطاطس مسلوقة",calories:87,protein:2,carbs:20,fat:.1},
 {name:"بطاطس بالفرن",calories:120,protein:2.5,carbs:22,fat:3},
 {name:"بطاطس مقلية",calories:312,protein:3.4,carbs:41,fat:15},
 {name:"بطاطس مهروسة",calories:113,protein:2,carbs:17,fat:4},
 {name:"بطاطا حلوة",calories:90,protein:2,carbs:21,fat:.1},
 
-/* Eggs */
-
 {name:"بيض",calories:143,protein:12.6,carbs:.8,fat:9.5},
 {name:"بيض مسلوق",calories:143,protein:12.6,carbs:.8,fat:9.5},
 {name:"بيض مقلي",calories:190,protein:13,carbs:1,fat:15},
 {name:"بياض البيض",calories:52,protein:10.9,carbs:.7,fat:.2},
 {name:"صفار البيض",calories:324,protein:15.9,carbs:3.5,fat:26.5},
-
-/* Chicken */
 
 {name:"صدر فراخ",calories:120,protein:22.5,carbs:0,fat:2.6},
 {name:"صدر فراخ مشوي",calories:165,protein:31,carbs:0,fat:3.6},
@@ -1243,8 +1318,6 @@ const foods=[
 {name:"شيش طاووق",calories:150,protein:23,carbs:3,fat:5},
 {name:"كفتة فراخ",calories:180,protein:20,carbs:5,fat:9},
 
-/* Beef */
-
 {name:"لحمة بقري",calories:150,protein:21,carbs:0,fat:7},
 {name:"لحمة مفرومة قليلة الدهن",calories:137,protein:21,carbs:0,fat:5},
 {name:"لحمة مفرومة",calories:215,protein:18,carbs:0,fat:15},
@@ -1254,8 +1327,6 @@ const foods=[
 {name:"كفتة",calories:220,protein:18,carbs:4,fat:15},
 {name:"حواوشي",calories:250,protein:12,carbs:25,fat:12},
 {name:"ستيك",calories:271,protein:25,carbs:0,fat:19},
-
-/* Fish */
 
 {name:"بلطي",calories:96,protein:20,carbs:0,fat:1.7},
 {name:"قاروص",calories:97,protein:18,carbs:0,fat:2},
@@ -1267,8 +1338,6 @@ const foods=[
 {name:"جمبري",calories:85,protein:20,carbs:1,fat:.5},
 {name:"سردين",calories:208,protein:25,carbs:0,fat:11},
 {name:"سمك مقلي",calories:220,protein:20,carbs:10,fat:11},
-
-/* Legumes */
 
 {name:"فول",calories:110,protein:8,carbs:20,fat:.4},
 {name:"فول بالزيت",calories:150,protein:7,carbs:20,fat:6},
@@ -1282,8 +1351,6 @@ const foods=[
 {name:"بازلاء",calories:84,protein:5,carbs:16,fat:.4},
 {name:"طعمية",calories:333,protein:13,carbs:32,fat:18},
 
-/* Dairy */
-
 {name:"لبن كامل الدسم",calories:61,protein:3.2,carbs:4.8,fat:3.3},
 {name:"لبن خالي الدسم",calories:34,protein:5,carbs:3.4,fat:.1},
 {name:"لبن نصف دسم",calories:45,protein:5,carbs:3.4,fat:1.5},
@@ -1296,8 +1363,6 @@ const foods=[
 {name:"جبنة بيضاء لايت",calories:180,protein:16,carbs:3,fat:11},
 {name:"جبنة رومي",calories:380,protein:25,carbs:2,fat:30},
 {name:"موتزاريلا",calories:254,protein:24,carbs:3,fat:16},
-
-/* Vegetables */
 
 {name:"طماطم",calories:18,protein:.9,carbs:3.9,fat:.2},
 {name:"خيار",calories:15,protein:.7,carbs:3.6,fat:.1},
@@ -1319,8 +1384,6 @@ const foods=[
 {name:"بنجر",calories:43,protein:1.6,carbs:10,fat:.2},
 {name:"مشروم",calories:22,protein:3.1,carbs:3.3,fat:.3},
 
-/* Fruits */
-
 {name:"موز",calories:89,protein:1.1,carbs:23,fat:.3},
 {name:"تفاح",calories:52,protein:.3,carbs:14,fat:.2},
 {name:"برتقال",calories:47,protein:.9,carbs:12,fat:.1},
@@ -1337,8 +1400,6 @@ const foods=[
 {name:"مشمش",calories:48,protein:1.4,carbs:11,fat:.4},
 {name:"أناناس",calories:50,protein:.5,carbs:13,fat:.1},
 
-/* Fats & Nuts */
-
 {name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
 {name:"زبدة",calories:717,protein:.1,carbs:.9,fat:81},
 {name:"سمنة",calories:900,protein:0,carbs:0,fat:100},
@@ -1351,8 +1412,6 @@ const foods=[
 {name:"فستق",calories:562,protein:28,carbs:20,fat:45},
 {name:"بندق",calories:628,protein:17,carbs:15,fat:61},
 {name:"بذور دوار الشمس",calories:584,protein:20,carbs:21,fat:51},
-
-/* Egyptian Dishes */
 
 {name:"شكشوكة",calories:120,protein:7,carbs:5,fat:8},
 {name:"كشري",calories:170,protein:6,carbs:28,fat:4},
@@ -1373,8 +1432,6 @@ const foods=[
 {name:"كنافة",calories:400,protein:6,carbs:55,fat:18},
 {name:"قطايف",calories:260,protein:5,carbs:42,fat:9},
 
-/* Additions */
-
 {name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
 {name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
 {name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
@@ -1383,8 +1440,6 @@ const foods=[
 {name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
 {name:"كاتشب",calories:112,protein:1.3,carbs:26,fat:.2},
 {name:"صوص باربكيو",calories:172,protein:1,carbs:40,fat:.5},
-
-/* Snacks */
 
 {name:"شيبسي بطاطس",calories:536,protein:7,carbs:53,fat:34},
 {name:"شيبسي بالجبنة",calories:530,protein:7,carbs:52,fat:34},
@@ -1406,8 +1461,6 @@ const foods=[
 {name:"جرانولا",calories:450,protein:10,carbs:64,fat:17},
 {name:"بار بروتين",calories:350,protein:20,carbs:35,fat:14},
 
-/* Sweets */
-
 {name:"شوكولاتة بالحليب",calories:535,protein:8,carbs:59,fat:30},
 {name:"شوكولاتة دارك",calories:600,protein:8,carbs:46,fat:43},
 {name:"مارشميلو",calories:318,protein:2,carbs:81,fat:.2},
@@ -1417,8 +1470,6 @@ const foods=[
 {name:"براونيز",calories:466,protein:6,carbs:64,fat:22},
 {name:"كوكيز",calories:480,protein:6,carbs:64,fat:22},
 {name:"آيس كريم",calories:207,protein:3.5,carbs:24,fat:11},
-
-/* Drinks */
 
 {name:"عصير برتقال",calories:45,protein:.7,carbs:10,fat:.2},
 {name:"عصير مانجا",calories:60,protein:.5,carbs:15,fat:.2},
@@ -1430,8 +1481,6 @@ const foods=[
 {name:"شاي",calories:1,protein:0,carbs:0,fat:0},
 {name:"نسكافيه",calories:3,protein:.5,carbs:.1,fat:0},
 {name:"لبن بالكاكاو",calories:80,protein:4,carbs:10,fat:3},
-
-/* Packaged */
 
 {
     name:"هوهوز",
@@ -2518,7 +2567,6 @@ window.addEventListener(
 
 /* =========================================
    UPDATE SYSTEM
-   نظام التحديث الجديد
 ========================================= */
 
 let newWorker=null;
@@ -2527,8 +2575,6 @@ let updateAvailable=false;
 
 let appRegistration=null;
 
-
-/* ---------- SHOW UPDATE ---------- */
 
 function showUpdateIndicator(){
 
@@ -2544,8 +2590,6 @@ function showUpdateIndicator(){
 
 }
 
-
-/* ---------- OPEN UPDATE ---------- */
 
 function openUpdateNotification(){
 
@@ -2565,8 +2609,6 @@ function openUpdateNotification(){
 
 }
 
-
-/* ---------- UPDATE NOW ---------- */
 
 function updateNow(){
 
@@ -2591,8 +2633,6 @@ function updateNow(){
 }
 
 
-/* ---------- UPDATE LATER ---------- */
-
 function updateLater(){
 
     $("updateModal")
@@ -2600,8 +2640,6 @@ function updateLater(){
 
 }
 
-
-/* ---------- WATCH WORKER ---------- */
 
 function watchInstallingWorker(worker){
 
@@ -2639,8 +2677,6 @@ function watchInstallingWorker(worker){
 }
 
 
-/* ---------- SERVICE WORKER ---------- */
-
 if("serviceWorker" in navigator){
 
     window.addEventListener(
@@ -2660,10 +2696,6 @@ if("serviceWorker" in navigator){
                     );
 
 
-                /* ==========================
-                   تحديث موجود بالفعل
-                ========================== */
-
                 if(
                     appRegistration.waiting
                 ){
@@ -2676,10 +2708,6 @@ if("serviceWorker" in navigator){
                 }
 
 
-                /* ==========================
-                   اكتشاف نسخة جديدة
-                ========================== */
-
                 appRegistration.addEventListener(
                     "updatefound",
                     function(){
@@ -2691,10 +2719,6 @@ if("serviceWorker" in navigator){
                     }
                 );
 
-
-                /* ==========================
-                   فحص تلقائي كل 10 ثواني
-                ========================== */
 
                 setInterval(
                     function(){
@@ -2709,10 +2733,6 @@ if("serviceWorker" in navigator){
                     10000
                 );
 
-
-                /* ==========================
-                   فحص عند الرجوع للتطبيق
-                ========================== */
 
                 window.addEventListener(
                     "focus",
@@ -2761,10 +2781,6 @@ if("serviceWorker" in navigator){
         }
     );
 
-
-    /* ==========================
-       إعادة تحميل بعد التحديث
-    ========================== */
 
     let refreshing=false;
 
