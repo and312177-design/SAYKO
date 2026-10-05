@@ -872,6 +872,8 @@ body.light .selectedName{
     ↓
 </button>
 
+<!-- ================= FOOD MODAL ================= -->
+
 <div id="foodModal"
      class="modalOverlay">
 
@@ -936,6 +938,8 @@ body.light .selectedName{
 
 </div>
 
+<!-- ================= GOAL MODAL ================= -->
+
 <div id="goalModal"
      class="modalOverlay">
 
@@ -956,9 +960,7 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                الوزن بالكيلو
-            </label>
+            <label>الوزن بالكيلو</label>
 
             <input id="weight"
                    type="number"
@@ -968,9 +970,7 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                الطول بالسنتيمتر
-            </label>
+            <label>الطول بالسنتيمتر</label>
 
             <input id="height"
                    type="number"
@@ -980,9 +980,7 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                العمر
-            </label>
+            <label>العمر</label>
 
             <input id="age"
                    type="number"
@@ -992,19 +990,12 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                الجنس
-            </label>
+            <label>الجنس</label>
 
             <select id="gender">
 
-                <option value="male">
-                    ذكر
-                </option>
-
-                <option value="female">
-                    أنثى
-                </option>
+                <option value="male">ذكر</option>
+                <option value="female">أنثى</option>
 
             </select>
 
@@ -1012,19 +1003,12 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                النشاط
-            </label>
+            <label>النشاط</label>
 
             <select id="activity">
 
-                <option value="1.2">
-                    قليل الحركة
-                </option>
-
-                <option value="1.375">
-                    نشاط خفيف
-                </option>
+                <option value="1.2">قليل الحركة</option>
+                <option value="1.375">نشاط خفيف</option>
 
                 <option value="1.55"
                         selected>
@@ -1041,9 +1025,7 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>
-                الهدف
-            </label>
+            <label>الهدف</label>
 
             <select id="goal">
 
@@ -1077,6 +1059,8 @@ body.light .selectedName{
 
 </div>
 
+<!-- ================= REFERENCES ================= -->
+
 <div id="referencesModal"
      class="modalOverlay">
 
@@ -1096,56 +1080,38 @@ body.light .selectedName{
         </div>
 
         <div class="reference">
-
-            <strong>
-                USDA FoodData Central
-            </strong>
-
+            <strong>USDA FoodData Central</strong>
             <span>
                 قاعدة بيانات غذائية للمعلومات والقيم الغذائية.
             </span>
-
         </div>
 
         <div class="reference">
-
-            <strong>
-                Mifflin–St Jeor
-            </strong>
-
+            <strong>Mifflin–St Jeor</strong>
             <span>
                 معادلة شائعة لتقدير معدل الأيض الأساسي.
             </span>
-
         </div>
 
         <div class="reference">
-
-            <strong>
-                NIH / NIDDK
-            </strong>
-
+            <strong>NIH / NIDDK</strong>
             <span>
                 مصادر ومعلومات تعليمية عن التغذية والوزن.
             </span>
-
         </div>
 
         <div class="reference">
-
-            <strong>
-                Nutrition Facts Label
-            </strong>
-
+            <strong>Nutrition Facts Label</strong>
             <span>
                 معلومات الملصقات الغذائية وحساب العناصر الغذائية.
             </span>
-
         </div>
 
     </div>
 
 </div>
+
+<!-- ================= THEME ================= -->
 
 <div id="themeModal"
      class="modalOverlay">
@@ -1168,32 +1134,24 @@ body.light .selectedName{
         <button class="menuItem"
                 onclick="setTheme('dark')">
 
-            <span class="icon">
-                🌙
-            </span>
-
-            <span>
-                الوضع الداكن
-            </span>
+            <span class="icon">🌙</span>
+            <span>الوضع الداكن</span>
 
         </button>
 
         <button class="menuItem"
                 onclick="setTheme('light')">
 
-            <span class="icon">
-                ☀️
-            </span>
-
-            <span>
-                الوضع الفاتح
-            </span>
+            <span class="icon">☀️</span>
+            <span>الوضع الفاتح</span>
 
         </button>
 
     </div>
 
 </div>
+
+<!-- ================= UPDATE ================= -->
 
 <div id="updateModal"
      class="modalOverlay">
@@ -1213,16 +1171,17 @@ body.light .selectedName{
 
         </div>
 
-        <p style="
-            color:var(--muted);
-            line-height:1.7;
-            margin-bottom:20px;
-        ">
-            يتم التحقق من وجود نسخة جديدة من البرنامج.
+        <p id="updateText"
+           style="
+                color:var(--muted);
+                line-height:1.7;
+                margin-bottom:20px;
+           ">
+            يتوفر تحديث جديد لـ SAYKØ FITNESS.
         </p>
 
         <button class="primaryBtn"
-                onclick="location.reload()">
+                onclick="applyUpdate()">
             تحديث الآن
         </button>
 
@@ -1230,14 +1189,14 @@ body.light .selectedName{
 
 </div>
 
+<!-- ================= ERROR ================= -->
+
 <div id="errorOverlay"
      class="errorOverlay">
 
     <div class="errorBox">
 
-        <h3>
-            حدث خطأ
-        </h3>
+        <h3>حدث خطأ</h3>
 
         <p id="errorText">
             حدث خطأ غير متوقع.
@@ -1682,9 +1641,7 @@ function addFood(){
     selectedFoods.push(item);
 
     saveFoods();
-
     renderSelectedFoods();
-
     updateProgress();
 
     closeFood();
@@ -1768,9 +1725,7 @@ function removeFood(id){
         selectedFoods.filter(food=>food.id!==id);
 
     saveFoods();
-
     renderSelectedFoods();
-
     updateProgress();
 }
 
@@ -1781,9 +1736,7 @@ function clearAll(){
     selectedFoods=[];
 
     saveFoods();
-
     renderSelectedFoods();
-
     updateProgress();
 }
 
@@ -1832,32 +1785,18 @@ function updateProgress(){
     document.getElementById("goalFat")
         .textContent=formatNumber(goals.fat);
 
-    setProgress(
-        "calorieProgress",
-        calories,
-        goals.calories
-    );
-
-    setProgress(
-        "proteinProgress",
-        protein,
-        goals.protein
-    );
-
-    setProgress(
-        "carbsProgress",
-        carbs,
-        goals.carbs
-    );
-
-    setProgress(
-        "fatProgress",
-        fat,
-        goals.fat
-    );
+    setProgress("calorieProgress",calories,goals.calories);
+    setProgress("proteinProgress",protein,goals.protein);
+    setProgress("carbsProgress",carbs,goals.carbs);
+    setProgress("fatProgress",fat,goals.fat);
 }
 
 function setProgress(id,current,goal){
+
+    if(!goal || goal<=0){
+        document.getElementById(id).style.width="0%";
+        return;
+    }
 
     const percent =
         Math.min((current/goal)*100,100);
@@ -1902,10 +1841,7 @@ function calculateGoal(){
 
     if(!weight || !height || !age){
 
-        showError(
-            "من فضلك أدخل الوزن والطول والعمر."
-        );
-
+        showError("من فضلك أدخل الوزن والطول والعمر.");
         return;
     }
 
@@ -1928,8 +1864,7 @@ function calculateGoal(){
             -161;
     }
 
-    let calories =
-        bmr*activity;
+    let calories=bmr*activity;
 
     if(goal==="lose"){
         calories-=250;
@@ -1958,7 +1893,6 @@ function calculateGoal(){
     );
 
     updateProgress();
-
     closeGoal();
 }
 
@@ -1981,19 +1915,12 @@ function closeTheme(){
 function setTheme(theme){
 
     if(theme==="light"){
-
         document.body.classList.add("light");
-
     }else{
-
         document.body.classList.remove("light");
-
     }
 
-    localStorage.setItem(
-        "saykoTheme",
-        theme
-    );
+    localStorage.setItem("saykoTheme",theme);
 
     closeTheme();
 }
@@ -2005,13 +1932,9 @@ function loadTheme(){
         || "dark";
 
     if(theme==="light"){
-
         document.body.classList.add("light");
-
     }else{
-
         document.body.classList.remove("light");
-
     }
 }
 
@@ -2031,25 +1954,148 @@ function closeReferences(){
         .classList.remove("show");
 }
 
-/* ================= UPDATE ================= */
+/* ================= UPDATE SYSTEM ================= */
 
-function checkForUpdate(){
+let updateRegistration = null;
+let updateChecking = false;
+
+function showUpdate(){
+
+    document.getElementById("updateText")
+        .textContent =
+        "يتوفر تحديث جديد لـ SAYKØ FITNESS.";
 
     document.getElementById("updateModal")
         .classList.add("show");
+}
 
-    if("serviceWorker" in navigator){
+async function checkForUpdate(){
 
-        navigator.serviceWorker
-            .getRegistration()
-            .then(reg=>{
+    if(updateChecking){
+        return;
+    }
 
-                if(reg){
-                    reg.update();
-                }
+    if(!("serviceWorker" in navigator)){
+        return;
+    }
 
-            })
-            .catch(()=>{});
+    updateChecking=true;
+
+    try{
+
+        const reg =
+            await navigator.serviceWorker.getRegistration();
+
+        if(!reg){
+            updateChecking=false;
+            return;
+        }
+
+        updateRegistration=reg;
+
+        /* لو فيه تحديث منتظر بالفعل */
+        if(reg.waiting){
+
+            showUpdate();
+            updateChecking=false;
+            return;
+        }
+
+        /* مراقبة أي نسخة جديدة */
+        const updateFound =
+            new Promise(resolve=>{
+
+                let finished=false;
+
+                const finish=(value)=>{
+
+                    if(finished) return;
+
+                    finished=true;
+                    resolve(value);
+
+                };
+
+                const timeout =
+                    setTimeout(()=>{
+                        finish(false);
+                    },5000);
+
+                reg.addEventListener(
+                    "updatefound",
+                    ()=>{
+
+                        clearTimeout(timeout);
+
+                        const newWorker =
+                            reg.installing;
+
+                        if(!newWorker){
+                            finish(false);
+                            return;
+                        }
+
+                        newWorker.addEventListener(
+                            "statechange",
+                            ()=>{
+
+                                if(
+                                    newWorker.state==="installed"
+                                ){
+
+                                    /*
+                                     * لو فيه Service Worker
+                                     * قديم شغال بالفعل،
+                                     * يبقى ده تحديث حقيقي.
+                                     */
+                                    if(
+                                        navigator.serviceWorker.controller
+                                    ){
+
+                                        finish(true);
+
+                                    }else{
+
+                                        finish(false);
+
+                                    }
+                                }
+
+                            }
+                        );
+
+                    },
+                    {once:true}
+                );
+
+                reg.update()
+                    .catch(()=>{
+                        clearTimeout(timeout);
+                        finish(false);
+                    });
+
+            });
+
+        const hasUpdate =
+            await updateFound;
+
+        if(hasUpdate){
+
+            showUpdate();
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Update check failed:",
+            error
+        );
+
+    }finally{
+
+        updateChecking=false;
+
     }
 }
 
@@ -2057,6 +2103,54 @@ function closeUpdate(){
 
     document.getElementById("updateModal")
         .classList.remove("show");
+}
+
+async function applyUpdate(){
+
+    try{
+
+        const reg =
+            updateRegistration
+            || await navigator.serviceWorker.getRegistration();
+
+        if(reg && reg.waiting){
+
+            const waitingWorker=reg.waiting;
+
+            waitingWorker.postMessage({
+                type:"SKIP_WAITING"
+            });
+
+            waitingWorker.addEventListener(
+                "statechange",
+                ()=>{
+
+                    if(
+                        waitingWorker.state==="activated"
+                    ){
+
+                        location.reload();
+
+                    }
+
+                }
+            );
+
+            setTimeout(()=>{
+                location.reload();
+            },3000);
+
+        }else{
+
+            location.reload();
+
+        }
+
+    }catch(error){
+
+        location.reload();
+
+    }
 }
 
 /* ================= ERROR ================= */
@@ -2100,15 +2194,18 @@ function formatNumber(number){
 document.querySelectorAll(".modalOverlay")
 .forEach(overlay=>{
 
-    overlay.addEventListener("click",function(e){
+    overlay.addEventListener(
+        "click",
+        function(e){
 
-        if(e.target===overlay){
+            if(e.target===overlay){
 
-            overlay.classList.remove("show");
+                overlay.classList.remove("show");
+
+            }
 
         }
-
-    });
+    );
 
 });
 
@@ -2122,14 +2219,63 @@ if("serviceWorker" in navigator){
             .register("sw.js")
             .then(reg=>{
 
+                updateRegistration=reg;
+
+                /*
+                 * فحص تلقائي في الخلفية.
+                 * لا يفتح أي نافذة للمستخدم.
+                 */
                 setInterval(()=>{
 
                     reg.update();
 
                 },10000);
 
+                /*
+                 * لو ظهر تحديث أثناء استخدام الموقع،
+                 * نجهز الرسالة فقط.
+                 */
+                reg.addEventListener(
+                    "updatefound",
+                    ()=>{
+
+                        const newWorker =
+                            reg.installing;
+
+                        if(!newWorker) return;
+
+                        newWorker.addEventListener(
+                            "statechange",
+                            ()=>{
+
+                                if(
+                                    newWorker.state==="installed"
+                                    &&
+                                    navigator.serviceWorker.controller
+                                ){
+
+                                    /*
+                                     * لا نفتح النافذة تلقائياً.
+                                     * الجرس هو الذي يعرضها.
+                                     */
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
             })
-            .catch(()=>{});
+            .catch(error=>{
+
+                console.log(
+                    "Service Worker registration failed:",
+                    error
+                );
+
+            });
 
     });
 
@@ -2148,4 +2294,4 @@ updateProgress();
 </script>
 
 </body>
-    </html>
+</html>
