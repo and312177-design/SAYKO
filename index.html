@@ -562,6 +562,50 @@ line-height:1.7;
 font-size:13px;
 }
 
+
+/* =========================
+   SCROLL ARROWS
+========================= */
+
+.scroll-arrows{
+position:fixed;
+left:15px;
+bottom:18px;
+display:flex;
+flex-direction:column;
+gap:8px;
+z-index:1500;
+}
+
+.scroll-btn{
+width:42px;
+height:42px;
+border-radius:12px;
+border:1px solid var(--border);
+background:var(--card);
+color:var(--text);
+font-size:23px;
+font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 4px 15px rgba(0,0,0,.35);
+transition:.2s;
+}
+
+.scroll-btn:active{
+transform:scale(.92);
+background:var(--red);
+border-color:var(--red);
+color:#fff;
+}
+
+.scroll-btn:hover{
+border-color:var(--red);
+color:var(--red);
+}
+
+
 @media(max-width:650px){
 
 .food-grid{
@@ -589,6 +633,17 @@ font-size:10px;
 .nutrition-grid{
 grid-template-columns:repeat(2,1fr);
 gap:12px;
+}
+
+.scroll-arrows{
+left:10px;
+bottom:12px;
+}
+
+.scroll-btn{
+width:38px;
+height:38px;
+font-size:20px;
 }
 
 }
@@ -798,6 +853,25 @@ oninput="searchFoods()"
 <div class="selected-list" id="selectedList"></div>
 
 </main>
+
+
+<!-- SCROLL ARROWS -->
+
+<div class="scroll-arrows">
+
+<button class="scroll-btn"
+onclick="scrollToTop()"
+aria-label="أعلى">
+↑
+</button>
+
+<button class="scroll-btn"
+onclick="scrollToBottom()"
+aria-label="أسفل">
+↓
+</button>
+
+</div>
 
 
 <!-- FOOD MODAL -->
@@ -1129,7 +1203,9 @@ Nutrition Facts Label
 قم بالتحديث الآن للحصول على آخر نسخة من البرنامج.
 </p>
 
-<button class="primary-btn" id="updateNowBtn" onclick="applyUpdate()">
+<button class="primary-btn"
+id="updateNowBtn"
+onclick="applyUpdate()">
 تحديث الآن
 </button>
 
@@ -1158,7 +1234,9 @@ Nutrition Facts Label
 
 </div>
 
-<div class="error-message" id="errorMessage"></div>
+<div class="error-message"
+id="errorMessage">
+</div>
 
 </div>
 
@@ -1297,7 +1375,7 @@ const foods = [
 {name:"ماكريل",calories:205,protein:19,carbs:0,fat:14},
 {name:"تونة",calories:132,protein:29,carbs:0,fat:1},
 {name:"تونة مصفاة",calories:116,protein:26,carbs:0,fat:1},
-{name:"جمبري",calories:99,protein:24,carbs:0.2,fat:.3},
+{name:"جمبري",calories:99,protein:24,carbs:.2,fat:.3},
 {name:"جمبري مشوي",calories:110,protein:24,carbs:1,fat:1},
 {name:"كاليماري",calories:92,protein:15.6,carbs:3,fat:1.4},
 {name:"سمك فيليه",calories:140,protein:22,carbs:5,fat:4},
@@ -1420,8 +1498,8 @@ const foods = [
 {name:"كاجو",calories:553,protein:18.2,carbs:30.2,fat:43.8},
 {name:"فستق",calories:562,protein:20.2,carbs:27.2,fat:45.3},
 {name:"بندق",calories:628,protein:15,carbs:17,fat:61},
-{name:"لب أبيض",calories:559,protein:30,fat:11,fat:49},
-{name:"لب سوري",calories:584,protein:20,fat:51,carbs:20},
+{name:"لب أبيض",calories:559,protein:30,carbs:11,fat:49},
+{name:"لب سوري",calories:584,protein:20,carbs:20,fat:51},
 
 /* زيوت */
 
@@ -1749,14 +1827,9 @@ return;
 }
 
 
-/* alias */
-
 const aliasName=aliases[value];
 
 let result=[];
-
-
-/* البحث في الاسم الأساسي */
 
 result=foods.filter(food=>{
 
@@ -1766,8 +1839,6 @@ return name.includes(value);
 
 });
 
-
-/* لو فيه اسم بديل */
 
 if(aliasName){
 
@@ -1781,8 +1852,6 @@ result=[...aliasResults,...result];
 
 }
 
-
-/* إزالة التكرار */
 
 const seen=new Set();
 
@@ -1948,8 +2017,6 @@ return quantity*15;
 }
 
 if(currentUnit==="piece"){
-
-/* وزن تقريبي للقطعة */
 
 if(selectedFood.name==="بيض مسلوق" ||
 selectedFood.name==="بيض مقلي"){
@@ -2258,10 +2325,6 @@ bmr=
 let calories=bmr*activity;
 
 
-/*
-هذه القيم تقديرية وليست وصفة غذائية.
-*/
-
 if(goal==="lose"){
 
 calories-=250;
@@ -2408,16 +2471,6 @@ document.getElementById("referencesModal").classList.remove("show");
 let refreshing=false;
 
 
-/*
-الفكرة:
-
-لو Service Worker جديد دخل مرحلة waiting
-=> نعرض "مطلوب تحديث" فورًا.
-
-مش لازم المستخدم يضغط على زر الجرس.
-*/
-
-
 function showUpdate(){
 
 document.getElementById("updateModal").classList.add("show");
@@ -2456,8 +2509,6 @@ return;
 }
 
 
-/* لو فيه نسخة جديدة بالفعل */
-
 if(updateRegistration.waiting){
 
 showUpdate();
@@ -2467,12 +2518,8 @@ return;
 }
 
 
-/* اطلب من المتصفح البحث عن نسخة جديدة */
-
 await updateRegistration.update();
 
-
-/* لو النسخة الجديدة ظهرت أثناء الفحص */
 
 if(updateRegistration.waiting){
 
@@ -2488,10 +2535,6 @@ console.log("Update check:",error);
 
 }
 
-
-/*
-تطبيق التحديث
-*/
 
 function applyUpdate(){
 
@@ -2510,10 +2553,6 @@ btn.textContent="جاري التحديث...";
 btn.disabled=true;
 
 
-/*
-نطلب من SW الجديد استلام التحكم
-*/
-
 if(updateRegistration.waiting){
 
 updateRegistration.waiting.postMessage({
@@ -2522,11 +2561,6 @@ type:"SKIP_WAITING"
 
 }
 
-
-/*
-عندما يصبح SW الجديد هو المتحكم
-نقوم بعمل Reload
-*/
 
 navigator.serviceWorker.addEventListener(
 "controllerchange",
@@ -2541,10 +2575,6 @@ location.reload();
 }
 );
 
-
-/*
-احتياطًا لو controllerchange لم يحدث
-*/
 
 setTimeout(()=>{
 
@@ -2582,21 +2612,12 @@ await navigator.serviceWorker.register(
 updateRegistration=registration;
 
 
-/*
-لو فيه تحديث منتظر بالفعل
-اظهر الرسالة فورًا
-*/
-
 if(registration.waiting){
 
 showUpdate();
 
 }
 
-
-/*
-لو بدأ تحميل Service Worker جديد
-*/
 
 registration.addEventListener(
 "updatefound",
@@ -2624,21 +2645,12 @@ showUpdate();
 });
 
 
-
-/*
-فحص عند فتح الصفحة
-*/
-
 setTimeout(()=>{
 
 checkForUpdate();
 
 },1000);
 
-
-/*
-فحص دوري
-*/
 
 setInterval(()=>{
 
@@ -2702,6 +2714,29 @@ const n=Number(number)||0;
 return n
 .toFixed(1)
 .replace(/\.0$/,"");
+
+}
+
+
+/* =========================================================
+   SCROLL ARROWS
+========================================================= */
+
+function scrollToTop(){
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+function scrollToBottom(){
+
+window.scrollTo({
+top:document.documentElement.scrollHeight,
+behavior:"smooth"
+});
 
 }
 
