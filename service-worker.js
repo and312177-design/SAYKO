@@ -7,76 +7,53 @@ const FILES_TO_CACHE = [
     "./1790471069347.jpg"
 ];
 
-
-/* ================= INSTALL ================= */
-
 self.addEventListener("install", event => {
-
-    /*
-     * لا نستخدم skipWaiting هنا.
-     * نخلي النسخة الجديدة تنتظر حتى يضغط المستخدم
-     * على "تحديث الآن".
-     */
 
     event.waitUntil(
 
-        caches.open(CACHE_NAME)
-            .then(cache => {
-
-                return cache.addAll(FILES_TO_CACHE);
-
-            })
+        caches
+        .open(CACHE_NAME)
+        .then(cache =>
+            cache.addAll(FILES_TO_CACHE)
+        )
 
     );
 
 });
 
-
-/* ================= ACTIVATE ================= */
 
 self.addEventListener("activate", event => {
 
     event.waitUntil(
 
         caches.keys()
-            .then(keys => {
+        .then(keys =>
 
-                return Promise.all(
+            Promise.all(
 
-                    keys.map(key => {
+                keys.map(key => {
 
-                        if(key !== CACHE_NAME){
+                    if(key !== CACHE_NAME){
 
-                            return caches.delete(key);
+                        return caches.delete(key);
 
-                        }
+                    }
 
-                    })
+                })
 
-                );
+            )
 
-            })
-
-            .then(() => {
-
-                return self.clients.claim();
-
-            })
+        )
+        .then(() =>
+            self.clients.claim()
+        )
 
     );
 
 });
 
 
-/* ================= FETCH ================= */
-
 self.addEventListener("fetch", event => {
-
-    /*
-     * للصفحات HTML:
-     * نطلب النسخة الجديدة من الإنترنت أولًا
-     * حتى يستطيع Service Worker اكتشاف التحديثات.
-     */
 
     if(
         event.request.mode === "navigate" ||
@@ -86,28 +63,30 @@ self.addEventListener("fetch", event => {
         event.respondWith(
 
             fetch(event.request)
-                .then(response => {
 
-                    const copy=response.clone();
+            .then(response => {
 
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
+                const copy=
+                response.clone();
 
-                            cache.put(
-                                event.request,
-                                copy
-                            );
+                caches
+                .open(CACHE_NAME)
+                .then(cache =>
+                    cache.put(
+                        event.request,
+                        copy
+                    )
+                );
 
-                        });
+                return response;
 
-                    return response;
+            })
 
-                })
-                .catch(() => {
-
-                    return caches.match(event.request);
-
-                })
+            .catch(() =>
+                caches.match(
+                    event.request
+                )
+            )
 
         );
 
@@ -116,64 +95,63 @@ self.addEventListener("fetch", event => {
     }
 
 
-    /*
-     * الملفات الأخرى:
-     * نحاول الكاش أولًا، ثم الإنترنت.
-     */
-
     event.respondWith(
 
-        caches.match(event.request)
-            .then(cached => {
+        caches
+        .match(event.request)
 
-                if(cached){
+        .then(cached => {
 
-                    return cached;
+            if(cached)
+                return cached;
+
+            return fetch(event.request)
+
+            .then(response => {
+
+                if(
+                    response &&
+                    response.status===200 &&
+                    response.type==="basic"
+                ){
+
+                    const copy=
+                    response.clone();
+
+                    caches
+                    .open(CACHE_NAME)
+                    .then(cache =>
+                        cache.put(
+                            event.request,
+                            copy
+                        )
+                    );
 
                 }
 
-                return fetch(event.request)
-                    .then(response => {
+                return response;
 
-                        if(
-                            response &&
-                            response.status === 200 &&
-                            response.type === "basic"
-                        ){
+            });
 
-                            const copy=response.clone();
-
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-
-                                    cache.put(
-                                        event.request,
-                                        copy
-                                    );
-
-                                });
-
-                        }
-
-                        return response;
-
-                    });
-
-            })
+        })
 
     );
 
 });
 
 
-/* ================= UPDATE NOW ================= */
+self.addEventListener(
+    "message",
+    event => {
 
-self.addEventListener("message", event => {
+        if(
+            event.data ===
+            "SKIP_WAITING"
+        ){
 
-    if(event.data === "SKIP_WAITING"){
+            self.skipWaiting();
 
-        self.skipWaiting();
+        }
 
     }
-
-});
+);
