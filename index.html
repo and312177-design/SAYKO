@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SAYKØ FITNESS</title>
 
@@ -77,8 +77,6 @@ header{
     gap:10px;
 }
 
-/* الثلاث شرط */
-
 .menuBtn{
     background:none;
     border:0;
@@ -91,8 +89,6 @@ header{
     align-items:center;
     justify-content:center;
 }
-
-/* زر التحديث */
 
 .updateBtn{
     width:42px;
@@ -119,8 +115,6 @@ header{
 
 /* ================= SIDE MENU ================= */
 
-/* الخلفية السوداء خلف القائمة */
-
 .sideOverlay{
     position:fixed;
     inset:0;
@@ -136,8 +130,6 @@ header{
     visibility:visible;
 }
 
-/* القائمة نفسها */
-
 .sideMenu{
     position:fixed;
     top:0;
@@ -148,10 +140,8 @@ header{
     background:var(--card);
     border-left:1px solid var(--border);
     z-index:2100;
-
     transform:translateX(100%);
     transition:transform .3s ease;
-
     box-shadow:-8px 0 30px rgba(0,0,0,.45);
 }
 
@@ -315,7 +305,7 @@ main{
     border-color:var(--red);
 }
 
-/* ================= FOOD GRID ================= */
+/* ================= FOOD ================= */
 
 .sectionTitle{
     font-size:20px;
@@ -357,6 +347,20 @@ main{
     color:var(--red);
     font-size:13px;
     margin-top:6px;
+}
+
+/* ================= LIGHT MODE FOOD ================= */
+
+body.light .foodName{
+    color:#000;
+}
+
+body.light .foodCard{
+    color:#000;
+}
+
+body.light .selectedName{
+    color:#000;
 }
 
 /* ================= SELECTED ================= */
@@ -426,7 +430,7 @@ main{
     font-size:18px;
 }
 
-/* ================= SCROLL BUTTONS ================= */
+/* ================= SCROLL ================= */
 
 .scrollBtn{
     position:fixed;
@@ -453,7 +457,7 @@ main{
     left:20px;
 }
 
-/* ================= MODAL ================= */
+/* ================= MODALS ================= */
 
 .modalOverlay{
     position:fixed;
@@ -535,7 +539,7 @@ main{
     font-size:15px;
 }
 
-/* ================= UNIT ================= */
+/* ================= UNITS ================= */
 
 .unitButtons{
     display:flex;
@@ -557,6 +561,28 @@ main{
     background:var(--red);
     color:#fff;
     border-color:var(--red);
+}
+
+/* ================= REFERENCES ================= */
+
+.reference{
+    padding:13px;
+    border-bottom:1px solid var(--border);
+}
+
+.reference:last-child{
+    border-bottom:0;
+}
+
+.reference strong{
+    color:var(--text);
+}
+
+.reference span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
 }
 
 /* ================= ERROR ================= */
@@ -605,28 +631,6 @@ main{
     border-radius:8px;
 }
 
-/* ================= REFERENCES ================= */
-
-.reference{
-    padding:13px;
-    border-bottom:1px solid var(--border);
-}
-
-.reference:last-child{
-    border-bottom:0;
-}
-
-.reference strong{
-    color:var(--text);
-}
-
-.reference span{
-    display:block;
-    color:var(--muted);
-    font-size:12px;
-    margin-top:4px;
-}
-
 /* ================= MOBILE ================= */
 
 @media(max-width:600px){
@@ -668,8 +672,6 @@ main{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
 
     <button class="menuBtn" onclick="openMenu()">☰</button>
@@ -690,7 +692,7 @@ main{
 </header>
 
 
-<!-- ================= SIDE MENU ================= -->
+<!-- SIDE MENU -->
 
 <div id="sideOverlay" class="sideOverlay" onclick="closeMenu()"></div>
 
@@ -730,16 +732,12 @@ main{
 </div>
 
 
-<!-- ================= MAIN ================= -->
-
 <main>
 
     <div class="subtitle">
         Nutrition • Calories • Progress
     </div>
 
-
-    <!-- GOAL -->
 
     <section class="goalCard">
 
@@ -764,10 +762,12 @@ main{
 
             <div class="progressInfo">
                 <span>السعرات</span>
+
                 <span>
                     <span id="currentCalories">0</span> /
                     <span id="goalCalories2">2500</span>
                 </span>
+
             </div>
 
             <div class="progressBar">
@@ -781,10 +781,12 @@ main{
 
             <div class="progressInfo">
                 <span>البروتين</span>
+
                 <span>
                     <span id="currentProtein">0</span> /
                     <span id="goalProtein">150</span> g
                 </span>
+
             </div>
 
             <div class="progressBar">
@@ -798,10 +800,12 @@ main{
 
             <div class="progressInfo">
                 <span>الكربوهيدرات</span>
+
                 <span>
                     <span id="currentCarbs">0</span> /
                     <span id="goalCarbs">300</span> g
                 </span>
+
             </div>
 
             <div class="progressBar">
@@ -815,10 +819,12 @@ main{
 
             <div class="progressInfo">
                 <span>الدهون</span>
+
                 <span>
                     <span id="currentFat">0</span> /
                     <span id="goalFat">70</span> g
                 </span>
+
             </div>
 
             <div class="progressBar">
@@ -829,8 +835,6 @@ main{
 
     </section>
 
-
-    <!-- SEARCH -->
 
     <div class="searchBox">
 
@@ -844,16 +848,12 @@ main{
     </div>
 
 
-    <!-- FOOD -->
-
     <div class="sectionTitle">
         الأطعمة
     </div>
 
     <div id="foodGrid" class="foodGrid"></div>
 
-
-    <!-- SELECTED -->
 
     <section class="selectedSection">
 
@@ -876,18 +876,24 @@ main{
 </main>
 
 
-<!-- ================= SCROLL ================= -->
+<!-- SCROLL -->
 
-<button id="scrollTop" class="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<button
+    id="scrollTop"
+    class="scrollBtn"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
     ↑
 </button>
 
-<button id="scrollBottom" class="scrollBtn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
+<button
+    id="scrollBottom"
+    class="scrollBtn"
+    onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
     ↓
 </button>
 
 
-<!-- ================= FOOD MODAL ================= -->
+<!-- FOOD MODAL -->
 
 <div id="foodModal" class="modalOverlay">
 
@@ -908,15 +914,24 @@ main{
 
         <div class="unitButtons">
 
-            <button id="unitGram" class="unitBtn active" onclick="setUnit('gram')">
+            <button
+                id="unitGram"
+                class="unitBtn active"
+                onclick="setUnit('gram')">
                 جرام
             </button>
 
-            <button id="unitSpoon" class="unitBtn" onclick="setUnit('spoon')">
+            <button
+                id="unitSpoon"
+                class="unitBtn"
+                onclick="setUnit('spoon')">
                 ملعقة
             </button>
 
-            <button id="unitPiece" class="unitBtn" onclick="setUnit('piece')">
+            <button
+                id="unitPiece"
+                class="unitBtn"
+                onclick="setUnit('piece')">
                 قطعة
             </button>
 
@@ -949,7 +964,7 @@ main{
 </div>
 
 
-<!-- ================= GOAL MODAL ================= -->
+<!-- GOAL MODAL -->
 
 <div id="goalModal" class="modalOverlay">
 
@@ -971,7 +986,6 @@ main{
         <div class="inputGroup">
 
             <label>الوزن بالكيلو</label>
-
             <input id="weight" type="number" placeholder="مثال: 65">
 
         </div>
@@ -980,7 +994,6 @@ main{
         <div class="inputGroup">
 
             <label>الطول بالسنتيمتر</label>
-
             <input id="height" type="number" placeholder="مثال: 170">
 
         </div>
@@ -989,7 +1002,6 @@ main{
         <div class="inputGroup">
 
             <label>العمر</label>
-
             <input id="age" type="number" placeholder="مثال: 17">
 
         </div>
@@ -1077,7 +1089,7 @@ main{
 </div>
 
 
-<!-- ================= REFERENCES ================= -->
+<!-- REFERENCES -->
 
 <div id="referencesModal" class="modalOverlay">
 
@@ -1097,23 +1109,54 @@ main{
 
 
         <div class="reference">
-            <strong>USDA FoodData Central</strong>
-            <span>قاعدة بيانات غذائية للمعلومات والقيم الغذائية.</span>
+
+            <strong>
+                USDA FoodData Central
+            </strong>
+
+            <span>
+                قاعدة بيانات غذائية للمعلومات والقيم الغذائية.
+            </span>
+
         </div>
 
-        <div class="reference">
-            <strong>Mifflin–St Jeor</strong>
-            <span>معادلة شائعة لتقدير معدل الأيض الأساسي.</span>
-        </div>
 
         <div class="reference">
-            <strong>NIH / NIDDK</strong>
-            <span>مصادر ومعلومات تعليمية عن التغذية والوزن.</span>
+
+            <strong>
+                Mifflin–St Jeor
+            </strong>
+
+            <span>
+                معادلة شائعة لتقدير معدل الأيض الأساسي.
+            </span>
+
         </div>
 
+
         <div class="reference">
-            <strong>Nutrition Facts Label</strong>
-            <span>معلومات الملصقات الغذائية وحساب العناصر الغذائية.</span>
+
+            <strong>
+                NIH / NIDDK
+            </strong>
+
+            <span>
+                مصادر ومعلومات تعليمية عن التغذية والوزن.
+            </span>
+
+        </div>
+
+
+        <div class="reference">
+
+            <strong>
+                Nutrition Facts Label
+            </strong>
+
+            <span>
+                معلومات الملصقات الغذائية وحساب العناصر الغذائية.
+            </span>
+
         </div>
 
     </div>
@@ -1121,7 +1164,7 @@ main{
 </div>
 
 
-<!-- ================= THEME ================= -->
+<!-- THEME -->
 
 <div id="themeModal" class="modalOverlay">
 
@@ -1141,14 +1184,28 @@ main{
 
 
         <button class="menuItem" onclick="setTheme('dark')">
-            <span class="icon">🌙</span>
-            <span>الوضع الداكن</span>
+
+            <span class="icon">
+                🌙
+            </span>
+
+            <span>
+                الوضع الداكن
+            </span>
+
         </button>
 
 
         <button class="menuItem" onclick="setTheme('light')">
-            <span class="icon">☀️</span>
-            <span>الوضع الفاتح</span>
+
+            <span class="icon">
+                ☀️
+            </span>
+
+            <span>
+                الوضع الفاتح
+            </span>
+
         </button>
 
     </div>
@@ -1156,7 +1213,7 @@ main{
 </div>
 
 
-<!-- ================= UPDATE ================= -->
+<!-- UPDATE -->
 
 <div id="updateModal" class="modalOverlay">
 
@@ -1174,11 +1231,17 @@ main{
 
         </div>
 
-        <p style="color:var(--muted);line-height:1.7;margin-bottom:20px;">
+        <p style="
+            color:var(--muted);
+            line-height:1.7;
+            margin-bottom:20px;
+        ">
             يتم التحقق من وجود نسخة جديدة من البرنامج.
         </p>
 
-        <button class="primaryBtn" onclick="location.reload()">
+        <button
+            class="primaryBtn"
+            onclick="location.reload()">
             تحديث الآن
         </button>
 
@@ -1187,7 +1250,7 @@ main{
 </div>
 
 
-<!-- ================= ERROR ================= -->
+<!-- ERROR -->
 
 <div id="errorOverlay" class="errorOverlay">
 
@@ -1216,199 +1279,199 @@ main{
 
 const foods = [
 
-    {name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
-    {name:"أرز بسمتي مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
-    {name:"أرز بني مطبوخ",calories:123,protein:2.7,carbs:25.6,fat:1},
-    {name:"أرز أصفر",calories:140,protein:3,carbs:30,fat:1},
-    {name:"شوفان",calories:389,protein:17,carbs:66,fat:7},
-    {name:"كينوا مطبوخة",calories:120,protein:4.4,carbs:21.3,fat:1.9},
-    {name:"برغل مطبوخ",calories:83,protein:3.1,carbs:18.6,fat:.2},
-    {name:"ذرة",calories:96,protein:3.4,carbs:21,fat:1.5},
-    {name:"فشار",calories:387,protein:13,carbs:78,fat:4.5},
+{name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
+{name:"أرز بسمتي مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
+{name:"أرز بني مطبوخ",calories:123,protein:2.7,carbs:25.6,fat:1},
+{name:"أرز أصفر",calories:140,protein:3,carbs:30,fat:1},
+{name:"شوفان",calories:389,protein:17,carbs:66,fat:7},
+{name:"كينوا مطبوخة",calories:120,protein:4.4,carbs:21.3,fat:1.9},
+{name:"برغل مطبوخ",calories:83,protein:3.1,carbs:18.6,fat:.2},
+{name:"ذرة",calories:96,protein:3.4,carbs:21,fat:1.5},
+{name:"فشار",calories:387,protein:13,carbs:78,fat:4.5},
 
-    {name:"مكرونة مطبوخة",calories:158,protein:5.8,carbs:31,fat:.9},
-    {name:"مكرونة قمح كامل",calories:149,protein:5.7,carbs:30,fat:1},
-    {name:"سباجيتي",calories:158,protein:5.8,carbs:31,fat:.9},
-    {name:"نودلز مطبوخة",calories:138,protein:4.5,carbs:25,fat:2.1},
-    {name:"خبز بلدي",calories:260,protein:9,carbs:55,fat:2},
-    {name:"خبز أبيض",calories:266,protein:8.9,carbs:49,fat:3.2},
-    {name:"خبز أسمر",calories:247,protein:13,carbs:41,fat:4.2},
-    {name:"توست",calories:265,protein:9,carbs:49,fat:3.2},
-    {name:"عيش شامي",calories:275,protein:9,carbs:56,fat:1.2},
-    {name:"كرواسون",calories:406,protein:8,carbs:45,fat:21},
-    {name:"بيتزا",calories:266,protein:11,carbs:33,fat:10},
-    {name:"العجينة",calories:318.3,protein:5.9,carbs:52,fat:9.1},
+{name:"مكرونة مطبوخة",calories:158,protein:5.8,carbs:31,fat:.9},
+{name:"مكرونة قمح كامل",calories:149,protein:5.7,carbs:30,fat:1},
+{name:"سباجيتي",calories:158,protein:5.8,carbs:31,fat:.9},
+{name:"نودلز مطبوخة",calories:138,protein:4.5,carbs:25,fat:2.1},
+{name:"خبز بلدي",calories:260,protein:9,carbs:55,fat:2},
+{name:"خبز أبيض",calories:266,protein:8.9,carbs:49,fat:3.2},
+{name:"خبز أسمر",calories:247,protein:13,carbs:41,fat:4.2},
+{name:"توست",calories:265,protein:9,carbs:49,fat:3.2},
+{name:"عيش شامي",calories:275,protein:9,carbs:56,fat:1.2},
+{name:"كرواسون",calories:406,protein:8,carbs:45,fat:21},
+{name:"بيتزا",calories:266,protein:11,carbs:33,fat:10},
+{name:"العجينة",calories:318.3,protein:5.9,carbs:52,fat:9.1},
 
-    {name:"بطاطس مسلوقة",calories:87,protein:1.9,carbs:20,fat:.1},
-    {name:"بطاطس مشوية",calories:93,protein:2.5,carbs:21,fat:.1},
-    {name:"بطاطس مقلية",calories:312,protein:3.4,carbs:41,fat:15},
-    {name:"بطاطا حلوة",calories:86,protein:1.6,carbs:20,fat:.1},
+{name:"بطاطس مسلوقة",calories:87,protein:1.9,carbs:20,fat:.1},
+{name:"بطاطس مشوية",calories:93,protein:2.5,carbs:21,fat:.1},
+{name:"بطاطس مقلية",calories:312,protein:3.4,carbs:41,fat:15},
+{name:"بطاطا حلوة",calories:86,protein:1.6,carbs:20,fat:.1},
 
-    {name:"صدر دجاج مطبوخ",calories:165,protein:31,carbs:0,fat:3.6},
-    {name:"فخذ دجاج",calories:209,protein:26,carbs:0,fat:11},
-    {name:"جناح دجاج",calories:203,protein:30,carbs:0,fat:8},
-    {name:"دجاج مشوي",calories:190,protein:29,carbs:0,fat:7},
-    {name:"دجاج مقلي",calories:246,protein:19,carbs:14,fat:13},
-    {name:"شيش طاووق",calories:170,protein:27,carbs:2,fat:6},
-    {name:"كبدة فراخ",calories:167,protein:24,fat:6,carbs:1},
+{name:"صدر دجاج مطبوخ",calories:165,protein:31,carbs:0,fat:3.6},
+{name:"فخذ دجاج",calories:209,protein:26,carbs:0,fat:11},
+{name:"جناح دجاج",calories:203,protein:30,carbs:0,fat:8},
+{name:"دجاج مشوي",calories:190,protein:29,carbs:0,fat:7},
+{name:"دجاج مقلي",calories:246,protein:19,carbs:14,fat:13},
+{name:"شيش طاووق",calories:170,protein:27,carbs:2,fat:6},
+{name:"كبدة فراخ",calories:167,protein:24,carbs:1,fat:6},
 
-    {name:"لحم بقري",calories:250,protein:26,carbs:0,fat:17},
-    {name:"لحم مفروم",calories:254,protein:26,carbs:0,fat:17},
-    {name:"ستيك لحم",calories:271,protein:26,carbs:0,fat:18},
-    {name:"لحم ضاني",calories:294,protein:25,carbs:0,fat:21},
-    {name:"كبدة بقري",calories:135,protein:20,fat:4,carbs:4},
-    {name:"كفتة",calories:250,protein:18,carbs:5,fat:17},
-    {name:"برجر لحم",calories:295,protein:17,carbs:10,fat:21},
-    {name:"سجق",calories:301,protein:12,carbs:2,fat:27},
-    {name:"بسطرمة",calories:147,protein:21,carbs:1,fat:6},
+{name:"لحم بقري",calories:250,protein:26,carbs:0,fat:17},
+{name:"لحم مفروم",calories:254,protein:26,carbs:0,fat:17},
+{name:"ستيك لحم",calories:271,protein:26,carbs:0,fat:18},
+{name:"لحم ضاني",calories:294,protein:25,carbs:0,fat:21},
+{name:"كبدة بقري",calories:135,protein:20,carbs:4,fat:4},
+{name:"كفتة",calories:250,protein:18,carbs:5,fat:17},
+{name:"برجر لحم",calories:295,protein:17,carbs:10,fat:21},
+{name:"سجق",calories:301,protein:12,carbs:2,fat:27},
+{name:"بسطرمة",calories:147,protein:21,carbs:1,fat:6},
 
-    {name:"تونة",calories:132,protein:29,carbs:0,fat:1},
-    {name:"تونة معلبة بالزيت",calories:198,protein:29,carbs:0,fat:8},
-    {name:"سلمون",calories:208,protein:20,carbs:0,fat:13},
-    {name:"سردين",calories:208,protein:25,carbs:0,fat:11},
-    {name:"ماكريل",calories:205,protein:19,carbs:0,fat:14},
-    {name:"بلطي",calories:128,protein:26,carbs:0,fat:2.7},
-    {name:"جمبري",calories:99,protein:24,carbs:.2,fat:.3},
-    {name:"كاليماري",calories:92,protein:15.6,carbs:3.1,fat:1.4},
-    {name:"كابوريا",calories:97,protein:19,carbs:0,fat:1.5},
-    {name:"فيليه سمك مقلي",calories:232,protein:15,carbs:12,fat:14},
+{name:"تونة",calories:132,protein:29,carbs:0,fat:1},
+{name:"تونة معلبة بالزيت",calories:198,protein:29,carbs:0,fat:8},
+{name:"سلمون",calories:208,protein:20,carbs:0,fat:13},
+{name:"سردين",calories:208,protein:25,carbs:0,fat:11},
+{name:"ماكريل",calories:205,protein:19,carbs:0,fat:14},
+{name:"بلطي",calories:128,protein:26,carbs:0,fat:2.7},
+{name:"جمبري",calories:99,protein:24,carbs:.2,fat:.3},
+{name:"كاليماري",calories:92,protein:15.6,carbs:3.1,fat:1.4},
+{name:"كابوريا",calories:97,protein:19,carbs:0,fat:1.5},
+{name:"فيليه سمك مقلي",calories:232,protein:15,carbs:12,fat:14},
 
-    {name:"بيض كامل",calories:143,protein:12.6,carbs:.7,fat:9.5},
-    {name:"بياض البيض",calories:52,protein:10.9,carbs:.7,fat:.2},
-    {name:"صفار البيض",calories:322,protein:15.9,carbs:3.6,fat:26.5},
-    {name:"أومليت",calories:154,protein:10,carbs:1.5,fat:12},
+{name:"بيض كامل",calories:143,protein:12.6,carbs:.7,fat:9.5},
+{name:"بياض البيض",calories:52,protein:10.9,carbs:.7,fat:.2},
+{name:"صفار البيض",calories:322,protein:15.9,carbs:3.6,fat:26.5},
+{name:"أومليت",calories:154,protein:10,carbs:1.5,fat:12},
 
-    {name:"لبن كامل الدسم",calories:61,protein:3.2,carbs:4.8,fat:3.3},
-    {name:"لبن خالي الدسم",calories:34,protein:3.4,carbs:5,fat:.1},
-    {name:"زبادي",calories:61,protein:3.5,carbs:4.7,fat:3.3},
-    {name:"زبادي يوناني",calories:97,protein:9,carbs:3.6,fat:5},
-    {name:"جبنة قريش",calories:98,protein:11.1,carbs:3.4,fat:4.3},
-    {name:"جبنة بيضاء",calories:264,protein:14,carbs:4,fat:21},
-    {name:"جبنة رومي",calories:387,protein:29,carbs:2,fat:30},
-    {name:"موزاريلا",calories:280,protein:28,carbs:3,fat:17},
-    {name:"شيدر",calories:403,protein:25,carbs:1.3,fat:33},
-    {name:"فيتا",calories:265,protein:14,carbs:4,fat:21},
-    {name:"لبنة",calories:220,protein:7,carbs:5,fat:20},
+{name:"لبن كامل الدسم",calories:61,protein:3.2,carbs:4.8,fat:3.3},
+{name:"لبن خالي الدسم",calories:34,protein:3.4,carbs:5,fat:.1},
+{name:"زبادي",calories:61,protein:3.5,carbs:4.7,fat:3.3},
+{name:"زبادي يوناني",calories:97,protein:9,carbs:3.6,fat:5},
+{name:"جبنة قريش",calories:98,protein:11.1,carbs:3.4,fat:4.3},
+{name:"جبنة بيضاء",calories:264,protein:14,carbs:4,fat:21},
+{name:"جبنة رومي",calories:387,protein:29,carbs:2,fat:30},
+{name:"موزاريلا",calories:280,protein:28,carbs:3,fat:17},
+{name:"شيدر",calories:403,protein:25,carbs:1.3,fat:33},
+{name:"فيتا",calories:265,protein:14,carbs:4,fat:21},
+{name:"لبنة",calories:220,protein:7,carbs:5,fat:20},
 
-    {name:"فول مطبوخ",calories:110,protein:7.6,carbs:20,fat:.4},
-    {name:"فول مدمس",calories:110,protein:7.6,carbs:20,fat:.4},
-    {name:"عدس مطبوخ",calories:116,protein:9,carbs:20,fat:.4},
-    {name:"حمص مطبوخ",calories:164,protein:8.9,carbs:27,fat:2.6},
-    {name:"فاصوليا بيضاء",calories:139,protein:9.7,carbs:25,fat:.4},
-    {name:"فاصوليا حمراء",calories:127,protein:8.7,carbs:23,fat:.5},
-    {name:"بازلاء",calories:81,protein:5.4,carbs:14,fat:.4},
+{name:"فول مطبوخ",calories:110,protein:7.6,carbs:20,fat:.4},
+{name:"فول مدمس",calories:110,protein:7.6,carbs:20,fat:.4},
+{name:"عدس مطبوخ",calories:116,protein:9,carbs:20,fat:.4},
+{name:"حمص مطبوخ",calories:164,protein:8.9,carbs:27,fat:2.6},
+{name:"فاصوليا بيضاء",calories:139,protein:9.7,carbs:25,fat:.4},
+{name:"فاصوليا حمراء",calories:127,protein:8.7,carbs:23,fat:.5},
+{name:"بازلاء",calories:81,protein:5.4,carbs:14,fat:.4},
 
-    {name:"زبدة الفول السوداني",calories:588,protein:25,carbs:20,fat:50},
-    {name:"فول سوداني",calories:567,protein:26,carbs:16,fat:49},
-    {name:"لوز",calories:579,protein:21,carbs:22,fat:50},
-    {name:"كاجو",calories:553,protein:18,carbs:30,fat:44},
-    {name:"فستق",calories:562,protein:20,carbs:28,fat:45},
-    {name:"عين جمل",calories:654,protein:15,carbs:14,fat:65},
-    {name:"بندق",calories:628,protein:15,carbs:17,fat:61},
-    {name:"مكسرات مشكلة",calories:607,protein:20,carbs:21,fat:54},
-    {name:"بذور عباد الشمس",calories:584,protein:21,carbs:20,fat:51},
-    {name:"بذور الشيا",calories:486,protein:17,carbs:42,fat:31},
+{name:"زبدة الفول السوداني",calories:588,protein:25,carbs:20,fat:50},
+{name:"فول سوداني",calories:567,protein:26,carbs:16,fat:49},
+{name:"لوز",calories:579,protein:21,carbs:22,fat:50},
+{name:"كاجو",calories:553,protein:18,carbs:30,fat:44},
+{name:"فستق",calories:562,protein:20,carbs:28,fat:45},
+{name:"عين جمل",calories:654,protein:15,carbs:14,fat:65},
+{name:"بندق",calories:628,protein:15,carbs:17,fat:61},
+{name:"مكسرات مشكلة",calories:607,protein:20,carbs:21,fat:54},
+{name:"بذور عباد الشمس",calories:584,protein:21,carbs:20,fat:51},
+{name:"بذور الشيا",calories:486,protein:17,carbs:42,fat:31},
 
-    {name:"موز",calories:89,protein:1.1,carbs:23,fat:.3},
-    {name:"تفاح",calories:52,protein:.3,carbs:14,fat:.2},
-    {name:"برتقال",calories:47,protein:.9,carbs:12,fat:.1},
-    {name:"يوسفي",calories:53,protein:.8,carbs:13,fat:.3},
-    {name:"فراولة",calories:32,protein:.7,carbs:7.7,fat:.3},
-    {name:"عنب",calories:69,protein:.7,carbs:18,fat:.2},
-    {name:"مانجو",calories:60,protein:.8,carbs:15,fat:.4},
-    {name:"أناناس",calories:50,protein:.5,carbs:13,fat:.1},
-    {name:"بطيخ",calories:30,protein:.6,carbs:7.6,fat:.2},
-    {name:"شمام",calories:34,protein:.8,carbs:8,fat:.2},
-    {name:"رمان",calories:83,protein:1.7,carbs:19,fat:1.2},
-    {name:"كيوي",calories:61,protein:1.1,carbs:15,fat:.5},
-    {name:"خوخ",calories:39,protein:.9,carbs:10,fat:.3},
-    {name:"مشمش",calories:48,protein:1.4,carbs:11,fat:.4},
-    {name:"برقوق",calories:46,protein:.7,carbs:11,fat:.3},
-    {name:"كمثرى",calories:57,protein:.4,carbs:15,fat:.1},
-    {name:"جوافة",calories:68,protein:2.6,carbs:14,fat:1},
-    {name:"تين طازج",calories:74,protein:.8,carbs:19,fat:.3},
-    {name:"تمر",calories:282,protein:2.5,carbs:75,fat:.4},
-    {name:"زبيب",calories:299,protein:3.1,carbs:79,fat:.5},
-    {name:"جوز هند",calories:354,protein:3.3,carbs:15,fat:33},
+{name:"موز",calories:89,protein:1.1,carbs:23,fat:.3},
+{name:"تفاح",calories:52,protein:.3,carbs:14,fat:.2},
+{name:"برتقال",calories:47,protein:.9,carbs:12,fat:.1},
+{name:"يوسفي",calories:53,protein:.8,carbs:13,fat:.3},
+{name:"فراولة",calories:32,protein:.7,carbs:7.7,fat:.3},
+{name:"عنب",calories:69,protein:.7,carbs:18,fat:.2},
+{name:"مانجو",calories:60,protein:.8,carbs:15,fat:.4},
+{name:"أناناس",calories:50,protein:.5,carbs:13,fat:.1},
+{name:"بطيخ",calories:30,protein:.6,carbs:7.6,fat:.2},
+{name:"شمام",calories:34,protein:.8,carbs:8,fat:.2},
+{name:"رمان",calories:83,protein:1.7,carbs:19,fat:1.2},
+{name:"كيوي",calories:61,protein:1.1,carbs:15,fat:.5},
+{name:"خوخ",calories:39,protein:.9,carbs:10,fat:.3},
+{name:"مشمش",calories:48,protein:1.4,carbs:11,fat:.4},
+{name:"برقوق",calories:46,protein:.7,carbs:11,fat:.3},
+{name:"كمثرى",calories:57,protein:.4,carbs:15,fat:.1},
+{name:"جوافة",calories:68,protein:2.6,carbs:14,fat:1},
+{name:"تين طازج",calories:74,protein:.8,carbs:19,fat:.3},
+{name:"تمر",calories:282,protein:2.5,carbs:75,fat:.4},
+{name:"زبيب",calories:299,protein:3.1,carbs:79,fat:.5},
+{name:"جوز هند",calories:354,protein:3.3,carbs:15,fat:33},
 
-    {name:"طماطم",calories:18,protein:.9,carbs:3.9,fat:.2},
-    {name:"خيار",calories:15,protein:.7,carbs:3.6,fat:.1},
-    {name:"خس",calories:15,protein:1.4,carbs:2.9,fat:.2},
-    {name:"جزر",calories:41,protein:.9,carbs:10,fat:.2},
-    {name:"بروكلي",calories:34,protein:2.8,carbs:7,fat:.4},
-    {name:"قرنبيط",calories:25,protein:1.9,carbs:5,fat:.3},
-    {name:"سبانخ",calories:23,protein:2.9,carbs:3.6,fat:.4},
-    {name:"كوسة",calories:17,protein:1.2,carbs:3.1,fat:.3},
-    {name:"باذنجان",calories:25,protein:1,carbs:6,fat:.2},
-    {name:"فلفل أخضر",calories:20,protein:.9,carbs:4.6,fat:.2},
-    {name:"فلفل أحمر",calories:31,protein:1,carbs:6,fat:.3},
-    {name:"بصل",calories:40,protein:1.1,carbs:9.3,fat:.1},
-    {name:"ثوم",calories:149,protein:6.4,carbs:33,fat:.5},
-    {name:"ملوخية",calories:45,protein:4.8,carbs:7,fat:.7},
-    {name:"بامية",calories:33,protein:1.9,carbs:7.5,fat:.2},
-    {name:"خرشوف",calories:47,protein:3.3,carbs:10,fat:.2},
-    {name:"بنجر",calories:43,protein:1.6,carbs:10,fat:.2},
-    {name:"فطر",calories:22,protein:3.1,carbs:3.3,fat:.3},
+{name:"طماطم",calories:18,protein:.9,carbs:3.9,fat:.2},
+{name:"خيار",calories:15,protein:.7,carbs:3.6,fat:.1},
+{name:"خس",calories:15,protein:1.4,carbs:2.9,fat:.2},
+{name:"جزر",calories:41,protein:.9,carbs:10,fat:.2},
+{name:"بروكلي",calories:34,protein:2.8,carbs:7,fat:.4},
+{name:"قرنبيط",calories:25,protein:1.9,carbs:5,fat:.3},
+{name:"سبانخ",calories:23,protein:2.9,carbs:3.6,fat:.4},
+{name:"كوسة",calories:17,protein:1.2,carbs:3.1,fat:.3},
+{name:"باذنجان",calories:25,protein:1,carbs:6,fat:.2},
+{name:"فلفل أخضر",calories:20,protein:.9,carbs:4.6,fat:.2},
+{name:"فلفل أحمر",calories:31,protein:1,carbs:6,fat:.3},
+{name:"بصل",calories:40,protein:1.1,carbs:9.3,fat:.1},
+{name:"ثوم",calories:149,protein:6.4,carbs:33,fat:.5},
+{name:"ملوخية",calories:45,protein:4.8,carbs:7,fat:.7},
+{name:"بامية",calories:33,protein:1.9,carbs:7.5,fat:.2},
+{name:"خرشوف",calories:47,protein:3.3,carbs:10,fat:.2},
+{name:"بنجر",calories:43,protein:1.6,carbs:10,fat:.2},
+{name:"فطر",calories:22,protein:3.1,carbs:3.3,fat:.3},
 
-    {name:"سلطة خضراء",calories:35,protein:1.5,carbs:7,fat:.3},
-    {name:"سلطة طحينة",calories:160,protein:4,carbs:7,fat:13},
-    {name:"كول سلو",calories:152,protein:1,carbs:15,fat:10},
+{name:"سلطة خضراء",calories:35,protein:1.5,carbs:7,fat:.3},
+{name:"سلطة طحينة",calories:160,protein:4,carbs:7,fat:13},
+{name:"كول سلو",calories:152,protein:1,carbs:15,fat:10},
 
-    {name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
-    {name:"زيت عباد الشمس",calories:884,protein:0,carbs:0,fat:100},
-    {name:"طحينة",calories:595,protein:17,carbs:21,fat:53},
-    {name:"كاتشب",calories:112,protein:1.3,carbs:26,fat:.2},
-    {name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
-    {name:"مستردة",calories:66,protein:4,carbs:6,fat:4},
+{name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
+{name:"زيت عباد الشمس",calories:884,protein:0,carbs:0,fat:100},
+{name:"طحينة",calories:595,protein:17,carbs:21,fat:53},
+{name:"كاتشب",calories:112,protein:1.3,carbs:26,fat:.2},
+{name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
+{name:"مستردة",calories:66,protein:4,carbs:6,fat:4},
 
-    {name:"شوكولاتة",calories:546,protein:4.9,carbs:61,fat:31},
-    {name:"شوكولاتة داكنة",calories:598,protein:7.8,carbs:46,fat:43},
-    {name:"شوكولاتة بالحليب",calories:535,protein:7.6,carbs:59,fat:30},
-    {name:"بسكويت",calories:480,protein:6,carbs:68,fat:20},
-    {name:"بسكويت شوفان",calories:450,protein:7,carbs:65,fat:18},
-    {name:"كيك",calories:350,protein:5,carbs:50,fat:15},
-    {name:"تشيز كيك",calories:321,protein:5.5,carbs:25,fat:23},
-    {name:"دونات",calories:452,protein:5,carbs:51,fat:25},
-    {name:"آيس كريم",calories:207,protein:3.5,carbs:24,fat:11},
-    {name:"بقلاوة",calories:428,protein:6,carbs:46,fat:24},
-    {name:"كنافة",calories:350,protein:6,carbs:50,fat:15},
-    {name:"بسبوسة",calories:350,protein:5,carbs:50,fat:14},
-    {name:"أرز باللبن",calories:118,protein:3.1,carbs:20,fat:3},
-    {name:"مهلبية",calories:120,protein:3,carbs:18,fat:4},
+{name:"شوكولاتة",calories:546,protein:4.9,carbs:61,fat:31},
+{name:"شوكولاتة داكنة",calories:598,protein:7.8,carbs:46,fat:43},
+{name:"شوكولاتة بالحليب",calories:535,protein:7.6,carbs:59,fat:30},
+{name:"بسكويت",calories:480,protein:6,carbs:68,fat:20},
+{name:"بسكويت شوفان",calories:450,protein:7,carbs:65,fat:18},
+{name:"كيك",calories:350,protein:5,carbs:50,fat:15},
+{name:"تشيز كيك",calories:321,protein:5.5,carbs:25,fat:23},
+{name:"دونات",calories:452,protein:5,carbs:51,fat:25},
+{name:"آيس كريم",calories:207,protein:3.5,carbs:24,fat:11},
+{name:"بقلاوة",calories:428,protein:6,carbs:46,fat:24},
+{name:"كنافة",calories:350,protein:6,carbs:50,fat:15},
+{name:"بسبوسة",calories:350,protein:5,carbs:50,fat:14},
+{name:"أرز باللبن",calories:118,protein:3.1,carbs:20,fat:3},
+{name:"مهلبية",calories:120,protein:3,carbs:18,fat:4},
 
-    {name:"شيبسي بطاطس",calories:536,protein:7,carbs:53,fat:34},
-    {name:"فشار بدون زيت",calories:375,protein:12,carbs:74,fat:4.5},
-    {name:"ناجتس دجاج",calories:296,protein:15,carbs:18,fat:19},
-    {name:"بسكويت ويفر",calories:530,protein:7,carbs:60,fat:29},
-    {name:"كورن فليكس",calories:357,protein:7.5,carbs:84,fat:.4},
-    {name:"جرانولا",calories:471,protein:10,carbs:64,fat:20},
+{name:"شيبسي بطاطس",calories:536,protein:7,carbs:53,fat:34},
+{name:"فشار بدون زيت",calories:375,protein:12,carbs:74,fat:4.5},
+{name:"ناجتس دجاج",calories:296,protein:15,carbs:18,fat:19},
+{name:"بسكويت ويفر",calories:530,protein:7,carbs:60,fat:29},
+{name:"كورن فليكس",calories:357,protein:7.5,carbs:84,fat:.4},
+{name:"جرانولا",calories:471,protein:10,carbs:64,fat:20},
 
-    {name:"كشري",calories:160,protein:6,carbs:29,fat:3},
-    {name:"فول بالطماطم",calories:110,protein:7,carbs:18,fat:2},
-    {name:"طعمية",calories:333,protein:13,carbs:32,fat:18},
-    {name:"مسقعة",calories:120,protein:3,carbs:10,fat:8},
-    {name:"محشي كرنب",calories:145,protein:3,carbs:23,fat:5},
-    {name:"محشي ورق عنب",calories:150,protein:3,carbs:24,fat:5},
-    {name:"ملوخية مطبوخة",calories:45,protein:4,carbs:7,fat:1},
-    {name:"فتة",calories:180,protein:7,carbs:25,fat:6},
-    {name:"شاورما دجاج",calories:220,protein:22,carbs:8,fat:11},
-    {name:"شاورما لحم",calories:250,protein:20,carbs:8,fat:15},
-    {name:"حمص بالطحينة",calories:166,protein:8,carbs:14,fat:9},
-    {name:"فلافل",calories:333,protein:13,carbs:32,fat:18},
-    {name:"تبولة",calories:100,protein:3,carbs:12,fat:5},
-    {name:"فتوش",calories:120,protein:3,carbs:15,fat:6},
+{name:"كشري",calories:160,protein:6,carbs:29,fat:3},
+{name:"فول بالطماطم",calories:110,protein:7,carbs:18,fat:2},
+{name:"طعمية",calories:333,protein:13,carbs:32,fat:18},
+{name:"مسقعة",calories:120,protein:3,carbs:10,fat:8},
+{name:"محشي كرنب",calories:145,protein:3,carbs:23,fat:5},
+{name:"محشي ورق عنب",calories:150,protein:3,carbs:24,fat:5},
+{name:"ملوخية مطبوخة",calories:45,protein:4,carbs:7,fat:1},
+{name:"فتة",calories:180,protein:7,carbs:25,fat:6},
+{name:"شاورما دجاج",calories:220,protein:22,carbs:8,fat:11},
+{name:"شاورما لحم",calories:250,protein:20,carbs:8,fat:15},
+{name:"حمص بالطحينة",calories:166,protein:8,carbs:14,fat:9},
+{name:"فلافل",calories:333,protein:13,carbs:32,fat:18},
+{name:"تبولة",calories:100,protein:3,carbs:12,fat:5},
+{name:"فتوش",calories:120,protein:3,carbs:15,fat:6},
 
-    {name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
-    {name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
-    {name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
-    {name:"مربى",calories:250,protein:.4,carbs:65,fat:.1},
+{name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
+{name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
+{name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
+{name:"مربى",calories:250,protein:.4,carbs:65,fat:.1},
 
-    {name:"عصير برتقال",calories:45,protein:.7,carbs:10,fat:.2},
-    {name:"عصير تفاح",calories:46,protein:.1,carbs:11,fat:.1},
-    {name:"عصير مانجو",calories:60,protein:.5,carbs:15,fat:.1},
-    {name:"مشروب غازي",calories:42,protein:0,carbs:10.6,fat:0},
-    {name:"قهوة سوداء",calories:2,protein:.3,carbs:0,fat:0},
-    {name:"شاي",calories:1,protein:0,carbs:.2,fat:0}
+{name:"عصير برتقال",calories:45,protein:.7,carbs:10,fat:.2},
+{name:"عصير تفاح",calories:46,protein:.1,carbs:11,fat:.1},
+{name:"عصير مانجو",calories:60,protein:.5,carbs:15,fat:.1},
+{name:"مشروب غازي",calories:42,protein:0,carbs:10.6,fat:0},
+{name:"قهوة سوداء",calories:2,protein:.3,carbs:0,fat:0},
+{name:"شاي",calories:1,protein:0,carbs:.2,fat:0}
 
 ];
 
@@ -1431,7 +1494,7 @@ let goals =
     };
 
 
-/* ================= SIDE MENU ================= */
+/* ================= MENU ================= */
 
 function openMenu(){
 
@@ -1710,8 +1773,7 @@ function renderSelectedFoods(){
 
                 <button
                     class="removeBtn"
-                    onclick="removeFood(${food.id})"
-                >
+                    onclick="removeFood(${food.id})">
                     ×
                 </button>
 
@@ -1809,29 +1871,10 @@ function updateProgress(){
         .textContent=formatNumber(goals.fat);
 
 
-    setProgress(
-        "calorieProgress",
-        calories,
-        goals.calories
-    );
-
-    setProgress(
-        "proteinProgress",
-        protein,
-        goals.protein
-    );
-
-    setProgress(
-        "carbsProgress",
-        carbs,
-        goals.carbs
-    );
-
-    setProgress(
-        "fatProgress",
-        fat,
-        goals.fat
-    );
+    setProgress("calorieProgress",calories,goals.calories);
+    setProgress("proteinProgress",protein,goals.protein);
+    setProgress("carbsProgress",carbs,goals.carbs);
+    setProgress("fatProgress",fat,goals.fat);
 
 }
 
@@ -1858,7 +1901,6 @@ function closeGoal(){
     document.getElementById("goalModal")
         .classList.remove("show");
 }
-
 
 function calculateGoal(){
 
@@ -2036,9 +2078,7 @@ function checkForUpdate(){
             .then(reg=>{
 
                 if(reg){
-
                     reg.update();
-
                 }
 
             })
@@ -2087,11 +2127,13 @@ function saveFoods(){
 
 function formatNumber(number){
 
-    return Number(number).toFixed(1).replace(".0","");
+    return Number(number)
+        .toFixed(1)
+        .replace(".0","");
 }
 
 
-/* ================= CLOSE MODALS OUTSIDE ================= */
+/* ================= CLOSE MODALS ================= */
 
 document.querySelectorAll(".modalOverlay")
 .forEach(overlay=>{
@@ -2144,7 +2186,7 @@ renderSelectedFoods();
 updateProgress();
 
 
-/* ================= CHECK UPDATE ================= */
+/* ================= UPDATE CHECK ================= */
 
 window.addEventListener("focus",()=>{
 
@@ -2168,4 +2210,4 @@ window.addEventListener("focus",()=>{
 </script>
 
 </body>
-</html>
+    </html>
