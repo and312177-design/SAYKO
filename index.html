@@ -95,7 +95,10 @@ header{
     align-items:center;
 }
 
+/* ================= UPDATE BELL ================= */
+
 .updateBtn{
+    position:relative;
     width:42px;
     height:42px;
     border-radius:50%;
@@ -104,6 +107,36 @@ header{
     color:#fff;
     cursor:pointer;
     font-size:18px;
+}
+
+.updateDot{
+    position:absolute;
+    top:1px;
+    right:1px;
+    width:11px;
+    height:11px;
+    background:#fff;
+    border:2px solid var(--red);
+    border-radius:50%;
+    display:none;
+    box-shadow:0 0 0 2px rgba(255,255,255,.15);
+}
+
+.updateDot.show{
+    display:block;
+    animation:updateDotPulse 1.2s infinite;
+}
+
+@keyframes updateDotPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.25);
+    }
+
 }
 
 /* ================= SIDE MENU ================= */
@@ -735,8 +768,15 @@ body.light .selectedName{
 <div class="headerLeft">
 
 <button class="updateBtn"
-        onclick="checkForUpdate()">
+        id="updateBell"
+        onclick="checkForUpdate()"
+        aria-label="التحديثات">
+
     🔔
+
+    <span id="updateDot"
+          class="updateDot"></span>
+
 </button>
 
 </div>
@@ -918,7 +958,7 @@ body.light .selectedName{
 id="searchInput"
 type="text"
 placeholder="ابحث عن أكلة..."
-oninput="searchFoods">
+oninput="searchFoods()">
 
 </div>
 
@@ -1029,8 +1069,6 @@ oninput="searchFoods">
 
 </div>
 
-
-<!-- القيم الغذائية المباشرة -->
 
 <div class="liveNutrition">
 
@@ -1367,7 +1405,7 @@ oninput="searchFoods">
 <div class="modalHeader">
 
 <div class="modalTitle">
-    تحديث SAYKØ FITNESS
+    🔔 تحديث SAYKØ FITNESS
 </div>
 
 <button class="closeBtn"
@@ -1820,6 +1858,7 @@ JSON.parse(localStorage.getItem("saykoGoals") || "null")
 
 let updateRegistration = null;
 let updateChecking = false;
+let updateRefreshing = false;
 
 
 /* ================= MENU ================= */
@@ -1945,12 +1984,6 @@ function closeFood(){
 
 /* ================= UNIT CONTROL ================= */
 
-/*
-    الجرام متاح دائمًا.
-    الملعقة متاحة لكل الأكلات.
-    القطعة تظهر فقط للأكلات التي يمكن عدّها.
-*/
-
 const pieceFoods = new Set([
 
     "بيض كامل",
@@ -2014,21 +2047,12 @@ const pieceFoods = new Set([
 
 /* ================= UNIT CONTROL ================= */
 
-/*
-   الملعقة متاحة لكل الأكلات.
-   1 ملعقة = 15 جرام تقريبًا في النظام الحالي.
-*/
-
 function configureUnits(){
 
     const spoonBtn=document.getElementById("unitSpoon");
     const pieceBtn=document.getElementById("unitPiece");
 
-    /* الملعقة دائمًا موجودة */
-
     spoonBtn.style.display="block";
-
-    /* القطعة فقط للأكلات الموجودة بالقائمة */
 
     const allowPiece=
         pieceFoods.has(selectedFood.name);
@@ -2159,17 +2183,6 @@ function getCurrentGrams(){
     }
 
     let grams=quantity;
-
-    /*
-       الجرام:
-       1 = 1 جرام
-
-       الملعقة:
-       1 ملعقة = 15 جرام تقريبًا
-
-       القطعة:
-       1 قطعة = 50 جرام تقريبًا
-    */
 
     if(currentUnit==="spoon"){
 
@@ -2734,21 +2747,80 @@ function closeReferences(){
 }
 
 
-/* ================= UPDATE ================= */
+/* =========================================================
+   UPDATE SYSTEM
+========================================================= */
 
-function showUpdate(){
 
-    document
-        .getElementById("updateText")
-        .textContent=
-        "يتوفر تحديث جديد لـ SAYKØ FITNESS.";
+/* ================= UPDATE DOT ================= */
 
-    document
-        .getElementById("updateModal")
-        .classList.add("show");
+function showUpdateDot(){
+
+    const dot =
+        document.getElementById("updateDot");
+
+    if(dot){
+
+        dot.classList.add("show");
+
+    }
 
 }
 
+
+function hideUpdateDot(){
+
+    const dot =
+        document.getElementById("updateDot");
+
+    if(dot){
+
+        dot.classList.remove("show");
+
+    }
+
+}
+
+
+/* ================= SHOW UPDATE ALERT ================= */
+
+function showUpdate(){
+
+    /*
+       نقطة على الجرس
+    */
+
+    showUpdateDot();
+
+
+    /*
+       فتح التنبيه تلقائيًا
+    */
+
+    const text =
+        document.getElementById("updateText");
+
+    if(text){
+
+        text.textContent =
+            "يوجد تحديث جديد لـ SAYKØ FITNESS. قم بتحديث البرنامج الآن للحصول على آخر التعديلات.";
+
+    }
+
+
+    const modal =
+        document.getElementById("updateModal");
+
+    if(modal){
+
+        modal.classList.add("show");
+
+    }
+
+}
+
+
+/* ================= CHECK UPDATE ================= */
 
 async function checkForUpdate(){
 
@@ -2768,10 +2840,17 @@ async function checkForUpdate(){
 
     try{
 
-        const reg=
-            await navigator
-            .serviceWorker
-            .getRegistration();
+        let reg =
+            updateRegistration;
+
+        if(!reg){
+
+            reg =
+                await navigator
+                .serviceWorker
+                .getRegistration();
+
+        }
 
         if(!reg){
 
@@ -2783,6 +2862,11 @@ async function checkForUpdate(){
 
         updateRegistration=reg;
 
+
+        /*
+           لو فيه تحديث جاهز بالفعل
+        */
+
         if(reg.waiting){
 
             showUpdate();
@@ -2793,91 +2877,19 @@ async function checkForUpdate(){
 
         }
 
-        const updateFound=
-            new Promise(resolve=>{
 
-                let finished=false;
+        /*
+           فحص sw.js الآن
+        */
 
-                const finish=value=>{
+        await reg.update();
 
-                    if(finished) return;
 
-                    finished=true;
+        /*
+           بعد الفحص لو أصبح التحديث جاهز
+        */
 
-                    resolve(value);
-
-                };
-
-                const timeout=
-                    setTimeout(()=>{
-
-                        finish(false);
-
-                    },6000);
-
-                reg.addEventListener(
-                    "updatefound",
-                    ()=>{
-
-                        clearTimeout(timeout);
-
-                        const newWorker=
-                            reg.installing;
-
-                        if(!newWorker){
-
-                            finish(false);
-
-                            return;
-
-                        }
-
-                        newWorker.addEventListener(
-                            "statechange",
-                            ()=>{
-
-                                if(
-                                    newWorker.state===
-                                    "installed"
-                                ){
-
-                                    if(
-                                        navigator
-                                        .serviceWorker
-                                        .controller
-                                    ){
-
-                                        finish(true);
-
-                                    }else{
-
-                                        finish(false);
-
-                                    }
-
-                                }
-
-                            }
-                        );
-
-                    },
-                    {once:true}
-                );
-
-                reg.update().catch(()=>{
-
-                    clearTimeout(timeout);
-
-                    finish(false);
-
-                });
-
-            });
-
-        const hasUpdate=
-            await updateFound;
-
-        if(hasUpdate){
+        if(reg.waiting){
 
             showUpdate();
 
@@ -2899,61 +2911,123 @@ async function checkForUpdate(){
 }
 
 
+/* ================= CLOSE UPDATE ================= */
+
 function closeUpdate(){
 
     document
         .getElementById("updateModal")
         .classList.remove("show");
 
+    /*
+       النقطة تظل موجودة حتى يتم تثبيت التحديث.
+    */
+
 }
 
+
+/* ================= APPLY UPDATE ================= */
 
 async function applyUpdate(){
 
     try{
 
-        const reg=
+        const reg =
             updateRegistration
             ||
             await navigator
             .serviceWorker
             .getRegistration();
 
+
         if(
             reg &&
             reg.waiting
         ){
 
-            const waitingWorker=
+            const waitingWorker =
                 reg.waiting;
+
+
+            /*
+               نمنع تكرار إعادة التحميل
+            */
+
+            if(updateRefreshing){
+
+                return;
+
+            }
+
+            updateRefreshing=true;
+
+
+            /*
+               إرسال أمر للتحديث
+            */
 
             waitingWorker.postMessage({
                 type:"SKIP_WAITING"
             });
+
+
+            /*
+               عند استلام النسخة الجديدة
+            */
 
             navigator
                 .serviceWorker
                 .addEventListener(
                     "controllerchange",
                     ()=>{
+
+                        hideUpdateDot();
+
                         location.reload();
+
                     },
                     {once:true}
                 );
 
+
+            /*
+               حماية في حالة عدم وصول
+               controllerchange
+            */
+
             setTimeout(()=>{
 
-                location.reload();
+                if(updateRefreshing){
 
-            },4000);
+                    hideUpdateDot();
+
+                    location.reload();
+
+                }
+
+            },5000);
 
         }else{
+
+            /*
+               لا يوجد waiting worker
+               لذلك نعيد تحميل الصفحة
+            */
+
+            hideUpdateDot();
 
             location.reload();
 
         }
 
     }catch(error){
+
+        console.log(
+            "Apply update failed:",
+            error
+        );
+
+        hideUpdateDot();
 
         location.reload();
 
@@ -3031,68 +3105,149 @@ document
     });
 
 
-/* ================= SERVICE WORKER ================= */
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
 
 if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
-        ()=>{
+        async ()=>{
 
-            navigator
-                .serviceWorker
-                .register("sw.js")
-                .then(reg=>{
+            try{
 
-                    updateRegistration=reg;
+                /*
+                   تسجيل Service Worker
+                   مع منع استخدام نسخة قديمة
+                   من sw.js
+                */
 
-                    setInterval(()=>{
-
-                        reg.update();
-
-                    },10000);
-
-                    reg.addEventListener(
-                        "updatefound",
-                        ()=>{
-
-                            const newWorker=
-                                reg.installing;
-
-                            if(!newWorker) return;
-
-                            newWorker.addEventListener(
-                                "statechange",
-                                ()=>{
-
-                                    if(
-                                        newWorker.state===
-                                        "installed"
-                                        &&
-                                        navigator
-                                        .serviceWorker
-                                        .controller
-                                    ){
-
-                                        /* لا تفتح نافذة تلقائيًا */
-
-                                    }
-
-                                }
-                            );
-
+                const reg =
+                    await navigator
+                    .serviceWorker
+                    .register(
+                        "sw.js",
+                        {
+                            updateViaCache:"none"
                         }
                     );
 
-                })
-                .catch(error=>{
 
-                    console.log(
-                        "Service Worker registration failed:",
-                        error
-                    );
+                updateRegistration=reg;
 
-                });
+
+                /*
+                   لو كان هناك تحديث
+                   جاهز قبل فتح الصفحة
+                */
+
+                if(reg.waiting){
+
+                    showUpdate();
+
+                }
+
+
+                /*
+                   اكتشاف أي نسخة جديدة
+                */
+
+                reg.addEventListener(
+                    "updatefound",
+                    ()=>{
+
+                        const newWorker =
+                            reg.installing;
+
+                        if(!newWorker){
+
+                            return;
+
+                        }
+
+
+                        newWorker.addEventListener(
+                            "statechange",
+                            ()=>{
+
+                                /*
+                                   installed + controller
+                                   = تحديث جديد للتطبيق
+                                */
+
+                                if(
+                                    newWorker.state ===
+                                    "installed"
+                                    &&
+                                    navigator
+                                    .serviceWorker
+                                    .controller
+                                ){
+
+                                    showUpdate();
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                /*
+                   فحص أول بعد فتح الموقع
+                */
+
+                setTimeout(()=>{
+
+                    checkForUpdate();
+
+                },1000);
+
+
+                /*
+                   فحص تلقائي كل 5 ثواني
+                */
+
+                setInterval(()=>{
+
+                    checkForUpdate();
+
+                },5000);
+
+
+            }catch(error){
+
+                console.log(
+                    "Service Worker registration failed:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+       عند رجوع المستخدم للتطبيق
+       يتم فحص التحديث فورًا
+    */
+
+    document.addEventListener(
+        "visibilitychange",
+        ()=>{
+
+            if(
+                document.visibilityState ===
+                "visible"
+            ){
+
+                checkForUpdate();
+
+            }
 
         }
     );
@@ -3113,4 +3268,4 @@ updateProgress();
 </script>
 
 </body>
-   </html>
+</html>
