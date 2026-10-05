@@ -1,4 +1,4 @@
-const CACHE_NAME = "sayko-fitness-v9";
+const CACHE_NAME = "sayko-fitness-v10";
 
 const FILES_TO_CACHE = [
     "./",
@@ -7,27 +7,46 @@ const FILES_TO_CACHE = [
     "./1790471069347.jpg"
 ];
 
+
+/* ================================
+   INSTALL
+================================ */
+
 self.addEventListener("install", event => {
 
     event.waitUntil(
 
         caches.open(CACHE_NAME)
-        .then(cache =>
-            cache.addAll(FILES_TO_CACHE)
-        )
+        .then(cache => {
+
+            return cache.addAll(FILES_TO_CACHE);
+
+        })
 
     );
 
+    /*
+       مهم:
+       لا نستخدم skipWaiting هنا.
+       النسخة الجديدة ستنتظر حتى يضغط
+       المستخدم على "تحديث الآن".
+    */
+
 });
+
+
+/* ================================
+   ACTIVATE
+================================ */
 
 self.addEventListener("activate", event => {
 
     event.waitUntil(
 
         caches.keys()
-        .then(keys =>
+        .then(keys => {
 
-            Promise.all(
+            return Promise.all(
 
                 keys.map(key => {
 
@@ -37,20 +56,34 @@ self.addEventListener("activate", event => {
 
                     }
 
+                    return null;
+
                 })
 
-            )
+            );
 
-        )
-        .then(() =>
-            self.clients.claim()
-        )
+        })
+        .then(() => {
+
+            return self.clients.claim();
+
+        })
 
     );
 
 });
 
+
+/* ================================
+   FETCH
+================================ */
+
 self.addEventListener("fetch", event => {
+
+    /*
+       صفحات HTML:
+       نحاول الحصول على أحدث نسخة من السيرفر أولاً.
+    */
 
     if(
         event.request.mode === "navigate" ||
@@ -59,26 +92,35 @@ self.addEventListener("fetch", event => {
 
         event.respondWith(
 
-            fetch(event.request)
+            fetch(event.request, {
+                cache: "no-store"
+            })
+
             .then(response => {
 
-                const copy =
-                    response.clone();
+                const copy = response.clone();
 
                 caches.open(CACHE_NAME)
-                .then(cache =>
+                .then(cache => {
+
                     cache.put(
                         event.request,
                         copy
-                    )
-                );
+                    );
+
+                });
 
                 return response;
 
             })
-            .catch(() =>
-                caches.match(event.request)
-            )
+
+            .catch(() => {
+
+                return caches.match(
+                    event.request
+                );
+
+            })
 
         );
 
@@ -86,15 +128,26 @@ self.addEventListener("fetch", event => {
 
     }
 
+
+    /*
+       باقي الملفات:
+       Cache First
+    */
+
     event.respondWith(
 
         caches.match(event.request)
+
         .then(cached => {
 
-            if(cached)
+            if(cached){
+
                 return cached;
 
+            }
+
             return fetch(event.request)
+
             .then(response => {
 
                 if(
@@ -107,12 +160,14 @@ self.addEventListener("fetch", event => {
                         response.clone();
 
                     caches.open(CACHE_NAME)
-                    .then(cache =>
+                    .then(cache => {
+
                         cache.put(
                             event.request,
                             copy
-                        )
-                    );
+                        );
+
+                    });
 
                 }
 
@@ -126,10 +181,19 @@ self.addEventListener("fetch", event => {
 
 });
 
+
+/* ================================
+   UPDATE BUTTON
+================================ */
+
 self.addEventListener("message", event => {
 
     if(
-        event.data === "SKIP_WAITING"
+        event.data === "SKIP_WAITING" ||
+        (
+            event.data &&
+            event.data.type === "SKIP_WAITING"
+        )
     ){
 
         self.skipWaiting();
