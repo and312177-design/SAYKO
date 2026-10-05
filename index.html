@@ -10,8 +10,6 @@
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#080808">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 
 <style>
 
@@ -71,12 +69,6 @@ header{
     color:var(--red);
 }
 
-.headerLeft{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
 .menuBtn{
     background:none;
     border:0;
@@ -85,9 +77,11 @@ header{
     cursor:pointer;
     width:45px;
     height:45px;
+}
+
+.headerLeft{
     display:flex;
     align-items:center;
-    justify-content:center;
 }
 
 .updateBtn{
@@ -99,18 +93,6 @@ header{
     color:#fff;
     cursor:pointer;
     font-size:18px;
-    position:relative;
-}
-
-.updateDot{
-    position:absolute;
-    width:9px;
-    height:9px;
-    background:#00ff55;
-    border-radius:50%;
-    top:3px;
-    right:3px;
-    display:none;
 }
 
 /* ================= SIDE MENU ================= */
@@ -177,6 +159,8 @@ header{
     padding:15px 10px;
 }
 
+/* كل عناصر القائمة ناحية اليمين */
+
 .menuItem{
     width:100%;
     background:none;
@@ -189,6 +173,7 @@ header{
     border-radius:10px;
     display:flex;
     align-items:center;
+    justify-content:flex-start;
     gap:12px;
     direction:rtl;
 }
@@ -200,6 +185,7 @@ header{
 .menuItem .icon{
     width:25px;
     text-align:center;
+    flex-shrink:0;
 }
 
 /* ================= MAIN ================= */
@@ -349,17 +335,13 @@ main{
     margin-top:6px;
 }
 
-/* ================= LIGHT MODE FOOD ================= */
+/* الوضع الفاتح */
 
 body.light .foodName{
     color:#000;
 }
 
 body.light .foodCard{
-    color:#000;
-}
-
-body.light .selectedName{
     color:#000;
 }
 
@@ -403,6 +385,10 @@ body.light .selectedName{
     color:var(--text);
     font-size:16px;
     font-weight:bold;
+}
+
+body.light .selectedName{
+    color:#000;
 }
 
 .selectedCalories{
@@ -684,7 +670,6 @@ body.light .selectedName{
 
         <button class="updateBtn" onclick="checkForUpdate()">
             🔔
-            <span id="updateDot" class="updateDot"></span>
         </button>
 
     </div>
@@ -692,9 +677,12 @@ body.light .selectedName{
 </header>
 
 
-<!-- SIDE MENU -->
+<!-- ================= SIDE MENU ================= -->
 
-<div id="sideOverlay" class="sideOverlay" onclick="closeMenu()"></div>
+<div id="sideOverlay"
+     class="sideOverlay"
+     onclick="closeMenu()">
+</div>
 
 <div id="sideMenu" class="sideMenu">
 
@@ -704,7 +692,8 @@ body.light .selectedName{
             SAYKØ FITNESS
         </div>
 
-        <button class="closeMenu" onclick="closeMenu()">
+        <button class="closeMenu"
+                onclick="closeMenu()">
             ×
         </button>
 
@@ -712,25 +701,35 @@ body.light .selectedName{
 
     <div class="menuItems">
 
-        <button class="menuItem" onclick="openReferences()">
+        <button class="menuItem"
+                onclick="openReferences()">
+
             <span class="icon">📚</span>
-            <span>المراجع</span>
+
+            <span>
+                المراجع
+            </span>
+
         </button>
 
-        <button class="menuItem" onclick="openTheme()">
+
+        <button class="menuItem"
+                onclick="openTheme()">
+
             <span class="icon">🎨</span>
-            <span>المظهر</span>
-        </button>
 
-        <button class="menuItem" onclick="checkForUpdate()">
-            <span class="icon">🔄</span>
-            <span>التحقق من التحديث</span>
+            <span>
+                المظهر
+            </span>
+
         </button>
 
     </div>
 
 </div>
 
+
+<!-- ================= MAIN ================= -->
 
 <main>
 
@@ -747,11 +746,13 @@ body.light .selectedName{
                 هدفك اليومي
             </div>
 
-            <button class="editBtn" onclick="openGoal()">
+            <button class="editBtn"
+                    onclick="openGoal()">
                 تعديل
             </button>
 
         </div>
+
 
         <div class="totalCalories">
             <span id="goalCalories">2500</span> kcal
@@ -761,7 +762,10 @@ body.light .selectedName{
         <div class="progressItem">
 
             <div class="progressInfo">
-                <span>السعرات</span>
+
+                <span>
+                    السعرات
+                </span>
 
                 <span>
                     <span id="currentCalories">0</span> /
@@ -771,7 +775,9 @@ body.light .selectedName{
             </div>
 
             <div class="progressBar">
-                <div id="calorieProgress" class="progressFill"></div>
+                <div id="calorieProgress"
+                     class="progressFill">
+                </div>
             </div>
 
         </div>
@@ -780,7 +786,10 @@ body.light .selectedName{
         <div class="progressItem">
 
             <div class="progressInfo">
-                <span>البروتين</span>
+
+                <span>
+                    البروتين
+                </span>
 
                 <span>
                     <span id="currentProtein">0</span> /
@@ -790,7 +799,9 @@ body.light .selectedName{
             </div>
 
             <div class="progressBar">
-                <div id="proteinProgress" class="progressFill"></div>
+                <div id="proteinProgress"
+                     class="progressFill">
+                </div>
             </div>
 
         </div>
@@ -799,7 +810,10 @@ body.light .selectedName{
         <div class="progressItem">
 
             <div class="progressInfo">
-                <span>الكربوهيدرات</span>
+
+                <span>
+                    الكربوهيدرات
+                </span>
 
                 <span>
                     <span id="currentCarbs">0</span> /
@@ -809,7 +823,9 @@ body.light .selectedName{
             </div>
 
             <div class="progressBar">
-                <div id="carbsProgress" class="progressFill"></div>
+                <div id="carbsProgress"
+                     class="progressFill">
+                </div>
             </div>
 
         </div>
@@ -818,7 +834,10 @@ body.light .selectedName{
         <div class="progressItem">
 
             <div class="progressInfo">
-                <span>الدهون</span>
+
+                <span>
+                    الدهون
+                </span>
 
                 <span>
                     <span id="currentFat">0</span> /
@@ -828,7 +847,9 @@ body.light .selectedName{
             </div>
 
             <div class="progressBar">
-                <div id="fatProgress" class="progressFill"></div>
+                <div id="fatProgress"
+                     class="progressFill">
+                </div>
             </div>
 
         </div>
@@ -836,14 +857,15 @@ body.light .selectedName{
     </section>
 
 
+    <!-- SEARCH -->
+
     <div class="searchBox">
 
         <input
             id="searchInput"
             type="text"
             placeholder="ابحث عن أكلة..."
-            oninput="searchFoods()"
-        >
+            oninput="searchFoods()">
 
     </div>
 
@@ -852,8 +874,12 @@ body.light .selectedName{
         الأطعمة
     </div>
 
-    <div id="foodGrid" class="foodGrid"></div>
+    <div id="foodGrid"
+         class="foodGrid">
+    </div>
 
+
+    <!-- SELECTED -->
 
     <section class="selectedSection">
 
@@ -863,7 +889,8 @@ body.light .selectedName{
                 الأطعمة المختارة
             </div>
 
-            <button class="clearBtn" onclick="clearAll()">
+            <button class="clearBtn"
+                    onclick="clearAll()">
                 مسح الكل
             </button>
 
@@ -876,36 +903,37 @@ body.light .selectedName{
 </main>
 
 
-<!-- SCROLL -->
+<!-- ================= SCROLL ================= -->
 
-<button
-    id="scrollTop"
-    class="scrollBtn"
-    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<button id="scrollTop"
+        class="scrollBtn"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
     ↑
 </button>
 
-<button
-    id="scrollBottom"
-    class="scrollBtn"
-    onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
+<button id="scrollBottom"
+        class="scrollBtn"
+        onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
     ↓
 </button>
 
 
-<!-- FOOD MODAL -->
+<!-- ================= FOOD MODAL ================= -->
 
-<div id="foodModal" class="modalOverlay">
+<div id="foodModal"
+     class="modalOverlay">
 
     <div class="modal">
 
         <div class="modalHeader">
 
-            <div id="foodModalTitle" class="modalTitle">
+            <div id="foodModalTitle"
+                 class="modalTitle">
                 الطعام
             </div>
 
-            <button class="closeBtn" onclick="closeFood()">
+            <button class="closeBtn"
+                    onclick="closeFood()">
                 ×
             </button>
 
@@ -914,24 +942,21 @@ body.light .selectedName{
 
         <div class="unitButtons">
 
-            <button
-                id="unitGram"
-                class="unitBtn active"
-                onclick="setUnit('gram')">
+            <button id="unitGram"
+                    class="unitBtn active"
+                    onclick="setUnit('gram')">
                 جرام
             </button>
 
-            <button
-                id="unitSpoon"
-                class="unitBtn"
-                onclick="setUnit('spoon')">
+            <button id="unitSpoon"
+                    class="unitBtn"
+                    onclick="setUnit('spoon')">
                 ملعقة
             </button>
 
-            <button
-                id="unitPiece"
-                class="unitBtn"
-                onclick="setUnit('piece')">
+            <button id="unitPiece"
+                    class="unitBtn"
+                    onclick="setUnit('piece')">
                 قطعة
             </button>
 
@@ -944,18 +969,17 @@ body.light .selectedName{
                 الكمية بالجرام
             </label>
 
-            <input
-                id="foodQuantity"
-                type="number"
-                min="1"
-                value="100"
-                placeholder="الكمية بالجرام"
-            >
+            <input id="foodQuantity"
+                   type="number"
+                   min="1"
+                   value="100"
+                   placeholder="الكمية بالجرام">
 
         </div>
 
 
-        <button class="primaryBtn" onclick="addFood()">
+        <button class="primaryBtn"
+                onclick="addFood()">
             إضافة
         </button>
 
@@ -964,9 +988,10 @@ body.light .selectedName{
 </div>
 
 
-<!-- GOAL MODAL -->
+<!-- ================= GOAL MODAL ================= -->
 
-<div id="goalModal" class="modalOverlay">
+<div id="goalModal"
+     class="modalOverlay">
 
     <div class="modal">
 
@@ -976,7 +1001,8 @@ body.light .selectedName{
                 احسب احتياجك اليومي
             </div>
 
-            <button class="closeBtn" onclick="closeGoal()">
+            <button class="closeBtn"
+                    onclick="closeGoal()">
                 ×
             </button>
 
@@ -985,31 +1011,48 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>الوزن بالكيلو</label>
-            <input id="weight" type="number" placeholder="مثال: 65">
+            <label>
+                الوزن بالكيلو
+            </label>
+
+            <input id="weight"
+                   type="number"
+                   placeholder="مثال: 65">
 
         </div>
 
 
         <div class="inputGroup">
 
-            <label>الطول بالسنتيمتر</label>
-            <input id="height" type="number" placeholder="مثال: 170">
+            <label>
+                الطول بالسنتيمتر
+            </label>
+
+            <input id="height"
+                   type="number"
+                   placeholder="مثال: 170">
 
         </div>
 
 
         <div class="inputGroup">
 
-            <label>العمر</label>
-            <input id="age" type="number" placeholder="مثال: 17">
+            <label>
+                العمر
+            </label>
+
+            <input id="age"
+                   type="number"
+                   placeholder="مثال: 17">
 
         </div>
 
 
         <div class="inputGroup">
 
-            <label>الجنس</label>
+            <label>
+                الجنس
+            </label>
 
             <select id="gender">
 
@@ -1028,7 +1071,9 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>النشاط</label>
+            <label>
+                النشاط
+            </label>
 
             <select id="activity">
 
@@ -1040,7 +1085,8 @@ body.light .selectedName{
                     نشاط خفيف
                 </option>
 
-                <option value="1.55" selected>
+                <option value="1.55"
+                        selected>
                     نشاط متوسط
                 </option>
 
@@ -1055,7 +1101,9 @@ body.light .selectedName{
 
         <div class="inputGroup">
 
-            <label>الهدف</label>
+            <label>
+                الهدف
+            </label>
 
             <select id="goal">
 
@@ -1063,7 +1111,8 @@ body.light .selectedName{
                     تثبيت الوزن
                 </option>
 
-                <option value="build" selected>
+                <option value="build"
+                        selected>
                     ضبط الدهون وبناء العضلات
                 </option>
 
@@ -1080,7 +1129,8 @@ body.light .selectedName{
         </div>
 
 
-        <button class="primaryBtn" onclick="calculateGoal()">
+        <button class="primaryBtn"
+                onclick="calculateGoal()">
             احسب
         </button>
 
@@ -1089,9 +1139,10 @@ body.light .selectedName{
 </div>
 
 
-<!-- REFERENCES -->
+<!-- ================= REFERENCES ================= -->
 
-<div id="referencesModal" class="modalOverlay">
+<div id="referencesModal"
+     class="modalOverlay">
 
     <div class="modal">
 
@@ -1101,7 +1152,8 @@ body.light .selectedName{
                 المراجع
             </div>
 
-            <button class="closeBtn" onclick="closeReferences()">
+            <button class="closeBtn"
+                    onclick="closeReferences()">
                 ×
             </button>
 
@@ -1164,9 +1216,10 @@ body.light .selectedName{
 </div>
 
 
-<!-- THEME -->
+<!-- ================= THEME ================= -->
 
-<div id="themeModal" class="modalOverlay">
+<div id="themeModal"
+     class="modalOverlay">
 
     <div class="modal">
 
@@ -1176,14 +1229,16 @@ body.light .selectedName{
                 المظهر
             </div>
 
-            <button class="closeBtn" onclick="closeTheme()">
+            <button class="closeBtn"
+                    onclick="closeTheme()">
                 ×
             </button>
 
         </div>
 
 
-        <button class="menuItem" onclick="setTheme('dark')">
+        <button class="menuItem"
+                onclick="setTheme('dark')">
 
             <span class="icon">
                 🌙
@@ -1196,7 +1251,8 @@ body.light .selectedName{
         </button>
 
 
-        <button class="menuItem" onclick="setTheme('light')">
+        <button class="menuItem"
+                onclick="setTheme('light')">
 
             <span class="icon">
                 ☀️
@@ -1213,9 +1269,10 @@ body.light .selectedName{
 </div>
 
 
-<!-- UPDATE -->
+<!-- ================= UPDATE ================= -->
 
-<div id="updateModal" class="modalOverlay">
+<div id="updateModal"
+     class="modalOverlay">
 
     <div class="modal">
 
@@ -1225,7 +1282,8 @@ body.light .selectedName{
                 تحديث SAYKØ FITNESS
             </div>
 
-            <button class="closeBtn" onclick="closeUpdate()">
+            <button class="closeBtn"
+                    onclick="closeUpdate()">
                 ×
             </button>
 
@@ -1239,9 +1297,8 @@ body.light .selectedName{
             يتم التحقق من وجود نسخة جديدة من البرنامج.
         </p>
 
-        <button
-            class="primaryBtn"
-            onclick="location.reload()">
+        <button class="primaryBtn"
+                onclick="location.reload()">
             تحديث الآن
         </button>
 
@@ -1250,9 +1307,10 @@ body.light .selectedName{
 </div>
 
 
-<!-- ERROR -->
+<!-- ================= ERROR ================= -->
 
-<div id="errorOverlay" class="errorOverlay">
+<div id="errorOverlay"
+     class="errorOverlay">
 
     <div class="errorBox">
 
@@ -1784,7 +1842,6 @@ function renderSelectedFoods(){
                 • كربوهيدرات ${formatNumber(food.carbs)}g
                 • دهون ${formatNumber(food.fat)}g
             </div>
-
         `;
 
         container.appendChild(div);
@@ -1841,7 +1898,6 @@ function updateProgress(){
 
     });
 
-
     document.getElementById("currentCalories")
         .textContent=formatNumber(calories);
 
@@ -1853,7 +1909,6 @@ function updateProgress(){
 
     document.getElementById("currentFat")
         .textContent=formatNumber(fat);
-
 
     document.getElementById("goalCalories")
         .textContent=formatNumber(goals.calories);
@@ -1870,12 +1925,29 @@ function updateProgress(){
     document.getElementById("goalFat")
         .textContent=formatNumber(goals.fat);
 
+    setProgress(
+        "calorieProgress",
+        calories,
+        goals.calories
+    );
 
-    setProgress("calorieProgress",calories,goals.calories);
-    setProgress("proteinProgress",protein,goals.protein);
-    setProgress("carbsProgress",carbs,goals.carbs);
-    setProgress("fatProgress",fat,goals.fat);
+    setProgress(
+        "proteinProgress",
+        protein,
+        goals.protein
+    );
 
+    setProgress(
+        "carbsProgress",
+        carbs,
+        goals.carbs
+    );
+
+    setProgress(
+        "fatProgress",
+        fat,
+        goals.fat
+    );
 }
 
 function setProgress(id,current,goal){
@@ -1904,38 +1976,38 @@ function closeGoal(){
 
 function calculateGoal(){
 
-    const weight=
+    const weight =
         parseFloat(document.getElementById("weight").value);
 
-    const height=
+    const height =
         parseFloat(document.getElementById("height").value);
 
-    const age=
+    const age =
         parseFloat(document.getElementById("age").value);
 
-    const gender=
+    const gender =
         document.getElementById("gender").value;
 
-    const activity=
+    const activity =
         parseFloat(document.getElementById("activity").value);
 
-    const goal=
+    const goal =
         document.getElementById("goal").value;
-
 
     if(!weight || !height || !age){
 
-        showError("من فضلك أدخل الوزن والطول والعمر.");
+        showError(
+            "من فضلك أدخل الوزن والطول والعمر."
+        );
 
         return;
     }
-
 
     let bmr;
 
     if(gender==="male"){
 
-        bmr=
+        bmr =
             (10*weight)
             +(6.25*height)
             -(5*age)
@@ -1943,17 +2015,15 @@ function calculateGoal(){
 
     }else{
 
-        bmr=
+        bmr =
             (10*weight)
             +(6.25*height)
             -(5*age)
             -161;
-
     }
 
-
-    let calories=bmr*activity;
-
+    let calories =
+        bmr*activity;
 
     if(goal==="lose"){
         calories-=250;
@@ -1967,9 +2037,7 @@ function calculateGoal(){
         calories+=100;
     }
 
-
     calories=Math.round(calories);
-
 
     goals={
         calories:calories,
@@ -1978,12 +2046,10 @@ function calculateGoal(){
         fat:Math.round((calories*.25)/9)
     };
 
-
     localStorage.setItem(
         "saykoGoals",
         JSON.stringify(goals)
     );
-
 
     updateProgress();
 
@@ -2029,9 +2095,9 @@ function setTheme(theme){
 
 function loadTheme(){
 
-    const theme=
+    const theme =
         localStorage.getItem("saykoTheme")
-        ||"dark";
+        || "dark";
 
     if(theme==="light"){
 
@@ -2066,8 +2132,6 @@ function closeReferences(){
 
 function checkForUpdate(){
 
-    closeMenu();
-
     document.getElementById("updateModal")
         .classList.add("show");
 
@@ -2083,7 +2147,6 @@ function checkForUpdate(){
 
             })
             .catch(()=>{});
-
     }
 }
 
@@ -2184,28 +2247,6 @@ renderFoods();
 renderSelectedFoods();
 
 updateProgress();
-
-
-/* ================= UPDATE CHECK ================= */
-
-window.addEventListener("focus",()=>{
-
-    if("serviceWorker" in navigator){
-
-        navigator.serviceWorker
-            .getRegistration()
-            .then(reg=>{
-
-                if(reg){
-                    reg.update();
-                }
-
-            })
-            .catch(()=>{});
-
-    }
-
-});
 
 </script>
 
