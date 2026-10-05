@@ -1,20 +1,14 @@
 {
   "name": "SAYKØ FITNESS",
   "short_name": "SAYKØ",
-  "description": "SAYKØ FITNESS - Nutrition, Calories & Progress",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080808",
-  "theme_color": "#e50914",
+  "theme_color": "#080808",
   "orientation": "portrait",
   "lang": "ar",
   "dir": "rtl",
   "icons": [
-    {
-      "src": "1790471069347.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg"
-    },
     {
       "src": "1790471069347.jpg",
       "sizes": "512x512",
