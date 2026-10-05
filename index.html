@@ -20,6 +20,12 @@
 <meta name="theme-color"
       content="#080808">
 
+<!-- Arabic Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
 <style>
 
 /* ================= RESET ================= */
@@ -28,7 +34,13 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Arial,Tahoma,sans-serif;
+
+    font-family:
+        "Noto Sans Arabic",
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
 }
 
 :root{
@@ -53,6 +65,43 @@ body{
     color:var(--text);
     min-height:100vh;
     transition:.25s;
+}
+
+/* ================= ARABIC TEXT ================= */
+
+.sideMenu,
+.sideMenu *,
+.themeModal,
+.themeModal *,
+.modal,
+.modal *{
+    font-family:
+        "Noto Sans Arabic",
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    font-feature-settings:
+        "liga" 1,
+        "calt" 1;
+
+    font-variant-ligatures:
+        common-ligatures;
+
+    text-rendering:optimizeLegibility;
+}
+
+.sideMenu,
+.sideMenu *{
+    direction:rtl;
+}
+
+.sideTitle,
+.menuItem,
+.menuItem span,
+.closeMenu{
+    unicode-bidi:plaintext;
 }
 
 /* ================= HEADER ================= */
@@ -149,11 +198,14 @@ header{
     justify-content:space-between;
     padding:0 20px;
     border-bottom:1px solid var(--border);
+    direction:rtl;
 }
 
 .sideTitle{
     font-size:21px;
     font-weight:bold;
+    direction:rtl;
+    text-align:right;
 }
 
 .closeMenu{
@@ -168,6 +220,7 @@ header{
 
 .menuItems{
     padding:15px 10px;
+    direction:rtl;
 }
 
 .menuItem{
@@ -185,6 +238,7 @@ header{
     justify-content:flex-start;
     gap:12px;
     direction:rtl;
+    unicode-bidi:plaintext;
 }
 
 .menuItem:hover{
@@ -195,6 +249,7 @@ header{
     width:25px;
     text-align:center;
     flex-shrink:0;
+    direction:ltr;
 }
 
 /* ================= MAIN ================= */
@@ -918,7 +973,7 @@ body.light .selectedName{
 id="searchInput"
 type="text"
 placeholder="ابحث عن أكلة..."
-oninput="searchFoods">
+oninput="searchFoods()">
 
 </div>
 
@@ -1029,8 +1084,6 @@ oninput="searchFoods">
 
 </div>
 
-
-<!-- القيم الغذائية المباشرة -->
 
 <div class="liveNutrition">
 
@@ -1321,7 +1374,7 @@ oninput="searchFoods">
 <div id="themeModal"
      class="modalOverlay">
 
-<div class="modal">
+<div class="modal themeModal">
 
 <div class="modalHeader">
 
@@ -1945,12 +1998,6 @@ function closeFood(){
 
 /* ================= UNIT CONTROL ================= */
 
-/*
-    الجرام متاح دائمًا.
-    الملعقة متاحة لكل الأكلات.
-    القطعة تظهر فقط للأكلات التي يمكن عدّها.
-*/
-
 const pieceFoods = new Set([
 
     "بيض كامل",
@@ -2014,21 +2061,12 @@ const pieceFoods = new Set([
 
 /* ================= UNIT CONTROL ================= */
 
-/*
-   الملعقة متاحة لكل الأكلات.
-   1 ملعقة = 15 جرام تقريبًا في النظام الحالي.
-*/
-
 function configureUnits(){
 
     const spoonBtn=document.getElementById("unitSpoon");
     const pieceBtn=document.getElementById("unitPiece");
 
-    /* الملعقة دائمًا موجودة */
-
     spoonBtn.style.display="block";
-
-    /* القطعة فقط للأكلات الموجودة بالقائمة */
 
     const allowPiece=
         pieceFoods.has(selectedFood.name);
@@ -2159,17 +2197,6 @@ function getCurrentGrams(){
     }
 
     let grams=quantity;
-
-    /*
-       الجرام:
-       1 = 1 جرام
-
-       الملعقة:
-       1 ملعقة = 15 جرام تقريبًا
-
-       القطعة:
-       1 قطعة = 50 جرام تقريبًا
-    */
 
     if(currentUnit==="spoon"){
 
