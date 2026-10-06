@@ -1551,6 +1551,1133 @@ body.light .selectedName{
 
 </div>
 
+      /* =========================================================
+   EXERCISE DETAILS + WORKOUT PLAN
+========================================================= */
+
+/*
+   تفاصيل إضافية للتمارين
+   يمكن لاحقاً استبدال الصور بروابط صور حقيقية
+*/
+
+const exerciseDetails = {
+
+    "ضغط صدر بالبار":{
+        description:"استلقِ على البنش وثبّت القدمين جيداً، ثم اخفض البار بتحكم وادفعه للأعلى.",
+        target:"الصدر، الترايسبس، الكتف الأمامي",
+        tips:"حافظ على التحكم في الحركة ولا تستخدم سرعة زائدة."
+    },
+
+    "ضغط صدر بالدمبل":{
+        description:"ادفع الدمبلز للأعلى من مستوى الصدر ثم اخفضهما ببطء.",
+        target:"الصدر، الترايسبس، الكتف الأمامي",
+        tips:"حافظ على ثبات الكتفين أثناء الحركة."
+    },
+
+    "ضغط صدر مائل بالدمبل":{
+        description:"نفّذ ضغط الدمبل على بنش مائل لاستهداف الجزء العلوي من الصدر.",
+        target:"الصدر العلوي، الكتف الأمامي، الترايسبس",
+        tips:"لا تجعل زاوية البنش عالية جداً."
+    },
+
+    "تفتيح صدر":{
+        description:"حرّك الذراعين إلى الداخل مع الحفاظ على انحناء بسيط في الكوع.",
+        target:"عضلات الصدر",
+        tips:"ركّز على ضم الصدر وليس على تحريك الوزن فقط."
+    },
+
+    "سحب أمامي واسع":{
+        description:"اسحب البار باتجاه أعلى الصدر مع إبقاء الظهر ثابتاً.",
+        target:"الظهر، اللاتس، البايسبس",
+        tips:"لا تسحب البار خلف الرقبة."
+    },
+
+    "تجديف بالكابل":{
+        description:"اسحب المقبض باتجاه البطن مع إبقاء الصدر مرفوعاً.",
+        target:"منتصف الظهر، اللاتس، البايسبس",
+        tips:"تجنب تحريك الجسم للأمام والخلف بشكل مبالغ."
+    },
+
+    "تجديف بالبار":{
+        description:"انحنِ للأمام مع ثبات الظهر واسحب البار باتجاه البطن.",
+        target:"الظهر، الترابيس، البايسبس",
+        tips:"حافظ على وضع الظهر ثابتاً."
+    },
+
+    "Face Pull":{
+        description:"اسحب الحبل باتجاه الوجه مع فتح الكوعين للخارج.",
+        target:"الكتف الخلفي، أعلى الظهر",
+        tips:"استخدم وزناً يمكنك التحكم فيه."
+    },
+
+    "ضغط كتف بالدمبل":{
+        description:"ابدأ بالدمبلز عند مستوى الكتف وادفعهما للأعلى.",
+        target:"الكتف، الترايسبس",
+        tips:"لا تقفل الكوع بقوة في أعلى الحركة."
+    },
+
+    "رفرفة جانبية":{
+        description:"ارفع الدمبلز جانبياً حتى مستوى مناسب مع التحكم في النزول.",
+        target:"الكتف الجانبي",
+        tips:"لا تستخدم التأرجح لرفع الوزن."
+    },
+
+    "بايسبس دمبل":{
+        description:"اثنِ الكوع وارفع الدمبل باتجاه الكتف مع تثبيت الذراع.",
+        target:"البايسبس",
+        tips:"حافظ على الكوع قريباً من الجسم."
+    },
+
+    "Hammer Curl":{
+        description:"ارفع الدمبلز مع إبقاء راحة اليدين متقابلتين.",
+        target:"البايسبس والساعد",
+        tips:"تحكم في مرحلة النزول."
+    },
+
+    "Triceps Pushdown":{
+        description:"ادفع الحبل أو المقبض للأسفل مع تثبيت الكوع.",
+        target:"الترايسبس",
+        tips:"لا تحرك الكتف أثناء الحركة."
+    },
+
+    "ترايسبس فوق الرأس":{
+        description:"ارفع الوزن فوق الرأس ثم اثنِ الكوع وأنزله خلف الرأس.",
+        target:"الترايسبس",
+        tips:"حافظ على ثبات الكوع قدر الإمكان."
+    },
+
+    "Squat":{
+        description:"انزل بالورك للخلف والأسفل ثم ادفع الأرض للعودة لوضع الوقوف.",
+        target:"الفخذ الأمامي، الخلفي، المؤخرة",
+        tips:"حافظ على ثبات القدمين والركبتين."
+    },
+
+    "Leg Press":{
+        description:"ادفع منصة الجهاز بالقدمين ثم ارجع ببطء إلى وضع البداية.",
+        target:"الفخذ الأمامي، الخلفي، المؤخرة",
+        tips:"لا تقفل الركبتين بقوة في أعلى الحركة."
+    },
+
+    "Leg Extension":{
+        description:"مد الركبتين للأمام من وضع الجلوس ثم ارجع ببطء.",
+        target:"الفخذ الأمامي",
+        tips:"تحكم في الوزن أثناء النزول."
+    },
+
+    "Leg Curl":{
+        description:"اثنِ الركبة واسحب الوسادة باتجاه الخلف ثم ارجع ببطء.",
+        target:"خلفية الفخذ",
+        tips:"تجنب الحركة السريعة."
+    },
+
+    "Standing Calf Raise":{
+        description:"ارفع الكعبين للأعلى ثم انزل ببطء إلى وضع البداية.",
+        target:"عضلات السمانة",
+        tips:"استخدم مدى حركة مريح وتحكم كامل."
+    },
+
+    "Cable Crunch":{
+        description:"اثنِ الجذع للأمام باستخدام عضلات البطن مع ثبات الجزء السفلي.",
+        target:"عضلات البطن",
+        tips:"لا تسحب بالحوض أو الذراعين فقط."
+    }
+
+};
+
+
+/* =========================================================
+   WORKOUT PLAN
+========================================================= */
+
+let workoutPlan = [];
+
+
+/* =========================================================
+   OPEN EXERCISE DETAILS
+========================================================= */
+
+function openExerciseDetails(exercise){
+
+    const details =
+        exerciseDetails[exercise.name] || {
+
+            description:"تفاصيل التمرين غير متوفرة حالياً.",
+
+            target:exercise.muscle,
+
+            tips:"نفذ الحركة بتحكم وبطريقة مناسبة لمستواك."
+
+        };
+
+
+    let modal =
+        $("exerciseDetailsModal");
+
+
+    if(!modal){
+
+        modal =
+            document.createElement("div");
+
+        modal.id =
+            "exerciseDetailsModal";
+
+        modal.className =
+            "modalOverlay";
+
+
+        document.body.appendChild(modal);
+
+    }
+
+
+    modal.innerHTML = `
+
+        <div class="modal">
+
+            <div class="modalHeader">
+
+                <div class="modalTitle">
+                    ${exercise.icon} ${exercise.name}
+                </div>
+
+                <button
+                    class="closeBtn"
+                    onclick="closeExerciseDetails()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div style="
+                background:var(--bg);
+                border:1px solid var(--border);
+                border-radius:14px;
+                padding:15px;
+                margin-bottom:12px;
+            ">
+
+                <div style="
+                    color:var(--red);
+                    font-weight:bold;
+                    margin-bottom:7px;
+                ">
+                    العضلة المستهدفة
+                </div>
+
+                <div style="
+                    color:var(--text);
+                    line-height:1.6;
+                ">
+                    ${details.target}
+                </div>
+
+            </div>
+
+
+            <div style="
+                background:var(--bg);
+                border:1px solid var(--border);
+                border-radius:14px;
+                padding:15px;
+                margin-bottom:12px;
+            ">
+
+                <div style="
+                    color:var(--red);
+                    font-weight:bold;
+                    margin-bottom:7px;
+                ">
+                    طريقة الأداء
+                </div>
+
+                <div style="
+                    color:var(--text);
+                    line-height:1.8;
+                    font-size:14px;
+                ">
+                    ${details.description}
+                </div>
+
+            </div>
+
+
+            <div style="
+                background:var(--bg);
+                border:1px solid var(--border);
+                border-radius:14px;
+                padding:15px;
+                margin-bottom:15px;
+            ">
+
+                <div style="
+                    color:var(--red);
+                    font-weight:bold;
+                    margin-bottom:7px;
+                ">
+                    ملاحظة
+                </div>
+
+                <div style="
+                    color:var(--text);
+                    line-height:1.8;
+                    font-size:14px;
+                ">
+                    ${details.tips}
+                </div>
+
+            </div>
+
+
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(3,1fr);
+                gap:7px;
+                margin-bottom:15px;
+            ">
+
+                <div style="
+                    background:var(--bg);
+                    border-radius:10px;
+                    padding:10px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        Sets
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:4px;
+                    ">
+                        ${exercise.sets}
+                    </strong>
+
+                </div>
+
+
+                <div style="
+                    background:var(--bg);
+                    border-radius:10px;
+                    padding:10px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        Reps
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:4px;
+                    ">
+                        ${exercise.reps}
+                    </strong>
+
+                </div>
+
+
+                <div style="
+                    background:var(--bg);
+                    border-radius:10px;
+                    padding:10px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        الراحة
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:4px;
+                        font-size:12px;
+                    ">
+                        ${exercise.rest}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="primaryBtn"
+                onclick='addExerciseToWorkout(${JSON.stringify(exercise.name)})'>
+                ＋ إضافة إلى جدول التمرين
+            </button>
+
+        </div>
+
+    `;
+
+
+    modal.classList.add("show");
+
+}
+
+
+function closeExerciseDetails(){
+
+    const modal =
+        $("exerciseDetailsModal");
+
+    if(modal)
+        modal.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   ADD EXERCISE TO WORKOUT
+========================================================= */
+
+function addExerciseToWorkout(name){
+
+    const exercise =
+        exercises.find(
+            item => item.name === name
+        );
+
+
+    if(!exercise)
+        return;
+
+
+    workoutPlan.push({
+
+        id:Date.now(),
+
+        name:exercise.name,
+
+        muscle:exercise.muscle,
+
+        sets:exercise.sets,
+
+        reps:exercise.reps,
+
+        rest:exercise.rest
+
+    });
+
+
+    saveWorkout();
+
+    closeExerciseDetails();
+
+    showWorkoutMessage(
+        "تمت إضافة التمرين إلى جدولك"
+    );
+
+}
+
+
+/* =========================================================
+   WORKOUT MESSAGE
+========================================================= */
+
+function showWorkoutMessage(message){
+
+    let box =
+        $("workoutMessage");
+
+
+    if(!box){
+
+        box =
+            document.createElement("div");
+
+        box.id =
+            "workoutMessage";
+
+        box.style.cssText = `
+            position:fixed;
+            bottom:25px;
+            right:50%;
+            transform:translateX(50%);
+            background:var(--red);
+            color:#fff;
+            padding:12px 18px;
+            border-radius:10px;
+            z-index:6000;
+            font-size:14px;
+            font-weight:bold;
+            box-shadow:0 5px 20px rgba(0,0,0,.3);
+        `;
+
+        document.body.appendChild(box);
+
+    }
+
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+
+
+    clearTimeout(
+        box._timer
+    );
+
+
+    box._timer =
+        setTimeout(
+            function(){
+
+                box.style.display =
+                    "none";
+
+            },
+            2200
+        );
+
+}
+
+
+/* =========================================================
+   WORKOUT STORAGE
+========================================================= */
+
+function saveWorkout(){
+
+    try{
+
+        localStorage.setItem(
+            "saykoWorkout",
+            JSON.stringify(workoutPlan)
+        );
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+
+function loadWorkout(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "saykoWorkout"
+            );
+
+
+        if(saved){
+
+            workoutPlan =
+                JSON.parse(saved);
+
+        }
+
+    }
+    catch(error){
+
+        workoutPlan = [];
+
+    }
+
+}
+
+
+/* =========================================================
+   WORKOUT MODAL
+========================================================= */
+
+function openWorkoutPlan(){
+
+    let modal =
+        $("workoutPlanModal");
+
+
+    if(!modal){
+
+        modal =
+            document.createElement("div");
+
+        modal.id =
+            "workoutPlanModal";
+
+        modal.className =
+            "modalOverlay";
+
+        document.body.appendChild(modal);
+
+    }
+
+
+    renderWorkoutPlan();
+
+    modal.classList.add("show");
+
+}
+
+
+function closeWorkoutPlan(){
+
+    const modal =
+        $("workoutPlanModal");
+
+    if(modal)
+        modal.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   RENDER WORKOUT PLAN
+========================================================= */
+
+function renderWorkoutPlan(){
+
+    const modal =
+        $("workoutPlanModal");
+
+    if(!modal)
+        return;
+
+
+    let content = "";
+
+
+    if(workoutPlan.length === 0){
+
+        content = `
+
+            <div style="
+                text-align:center;
+                color:var(--muted);
+                padding:25px 10px;
+            ">
+
+                لم تضف أي تمارين إلى جدولك بعد.
+
+            </div>
+
+        `;
+
+    }
+    else{
+
+        content =
+            workoutPlan.map(
+                (exercise,index)=>`
+
+                <div style="
+                    background:var(--bg);
+                    border:1px solid var(--border);
+                    border-radius:14px;
+                    padding:14px;
+                    margin-bottom:10px;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:flex-start;
+                        gap:10px;
+                    ">
+
+                        <div>
+
+                            <div style="
+                                font-weight:bold;
+                                font-size:16px;
+                            ">
+                                ${index + 1}.
+                                ${exercise.name}
+                            </div>
+
+                            <div style="
+                                color:var(--red);
+                                font-size:13px;
+                                margin-top:4px;
+                            ">
+                                ${exercise.muscle}
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            onclick="removeExerciseFromWorkout(${exercise.id})"
+                            style="
+                                background:none;
+                                border:0;
+                                color:var(--red);
+                                font-size:20px;
+                                cursor:pointer;
+                            ">
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:repeat(3,1fr);
+                        gap:6px;
+                        margin-top:12px;
+                    ">
+
+                        <div style="
+                            background:var(--card);
+                            border-radius:8px;
+                            padding:8px;
+                            text-align:center;
+                        ">
+                            <small style="
+                                color:var(--muted);
+                            ">
+                                Sets
+                            </small>
+
+                            <strong style="
+                                display:block;
+                                margin-top:3px;
+                            ">
+                                ${exercise.sets}
+                            </strong>
+                        </div>
+
+
+                        <div style="
+                            background:var(--card);
+                            border-radius:8px;
+                            padding:8px;
+                            text-align:center;
+                        ">
+                            <small style="
+                                color:var(--muted);
+                            ">
+                                Reps
+                            </small>
+
+                            <strong style="
+                                display:block;
+                                margin-top:3px;
+                            ">
+                                ${exercise.reps}
+                            </strong>
+                        </div>
+
+
+                        <div style="
+                            background:var(--card);
+                            border-radius:8px;
+                            padding:8px;
+                            text-align:center;
+                        ">
+                            <small style="
+                                color:var(--muted);
+                            ">
+                                الراحة
+                            </small>
+
+                            <strong style="
+                                display:block;
+                                margin-top:3px;
+                                font-size:11px;
+                            ">
+                                ${exercise.rest}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `
+            ).join("");
+
+    }
+
+
+    modal.innerHTML = `
+
+        <div class="modal">
+
+            <div class="modalHeader">
+
+                <div class="modalTitle">
+                    📋 جدول التمرين
+                </div>
+
+                <button
+                    class="closeBtn"
+                    onclick="closeWorkoutPlan()">
+                    ×
+                </button>
+
+            </div>
+
+
+            ${content}
+
+
+            ${
+                workoutPlan.length > 0
+                ?
+                `
+                <button
+                    class="primaryBtn"
+                    onclick="clearWorkoutPlan()"
+                    style="margin-top:5px;">
+                    مسح جدول التمرين
+                </button>
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+function removeExerciseFromWorkout(id){
+
+    workoutPlan =
+        workoutPlan.filter(
+            exercise =>
+            exercise.id !== id
+        );
+
+
+    saveWorkout();
+
+    renderWorkoutPlan();
+
+}
+
+
+function clearWorkoutPlan(){
+
+    workoutPlan = [];
+
+    saveWorkout();
+
+    renderWorkoutPlan();
+
+}
+
+
+/* =========================================================
+   UPDATE EXERCISE CARDS
+   الضغط على البطاقة يفتح التفاصيل
+========================================================= */
+
+const oldRenderExercises =
+    renderExercises;
+
+
+renderExercises = function(list){
+
+    const container =
+        $("exerciseList");
+
+    if(!container)
+        return;
+
+
+    container.innerHTML = "";
+
+
+    if(list.length === 0){
+
+        container.innerHTML = `
+            <div style="
+                text-align:center;
+                color:var(--muted);
+                padding:25px;
+            ">
+                لا يوجد تمرين مطابق
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(exercise=>{
+
+        const card =
+            document.createElement("div");
+
+
+        card.style.cssText = `
+            background:var(--bg);
+            border:1px solid var(--border);
+            border-radius:14px;
+            padding:14px;
+            margin-bottom:10px;
+            cursor:pointer;
+            transition:.2s;
+        `;
+
+
+        card.onmouseenter = function(){
+
+            card.style.borderColor =
+                "var(--red)";
+
+        };
+
+
+        card.onmouseleave = function(){
+
+            card.style.borderColor =
+                "var(--border)";
+
+        };
+
+
+        card.onclick = function(){
+
+            openExerciseDetails(
+                exercise
+            );
+
+        };
+
+
+        card.innerHTML = `
+
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+            ">
+
+                <div style="
+                    width:45px;
+                    height:45px;
+                    border-radius:11px;
+                    background:var(--card);
+                    border:1px solid var(--border);
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:23px;
+                    flex-shrink:0;
+                ">
+                    ${exercise.icon}
+                </div>
+
+
+                <div style="
+                    flex:1;
+                ">
+
+                    <div style="
+                        font-size:16px;
+                        font-weight:bold;
+                    ">
+                        ${exercise.name}
+                    </div>
+
+                    <div style="
+                        color:var(--red);
+                        font-size:13px;
+                        margin-top:3px;
+                    ">
+                        ${exercise.muscle}
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    color:var(--muted);
+                    font-size:20px;
+                ">
+                    ‹
+                </div>
+
+            </div>
+
+
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(3,1fr);
+                gap:6px;
+                margin-top:12px;
+            ">
+
+                <div style="
+                    background:var(--card);
+                    border-radius:8px;
+                    padding:8px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        Sets
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:3px;
+                    ">
+                        ${exercise.sets}
+                    </strong>
+
+                </div>
+
+
+                <div style="
+                    background:var(--card);
+                    border-radius:8px;
+                    padding:8px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        Reps
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:3px;
+                    ">
+                        ${exercise.reps}
+                    </strong>
+
+                </div>
+
+
+                <div style="
+                    background:var(--card);
+                    border-radius:8px;
+                    padding:8px;
+                    text-align:center;
+                ">
+
+                    <small style="
+                        color:var(--muted);
+                    ">
+                        الراحة
+                    </small>
+
+                    <strong style="
+                        display:block;
+                        margin-top:3px;
+                        font-size:11px;
+                    ">
+                        ${exercise.rest}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+};
+
+
+/* =========================================================
+   ADD WORKOUT BUTTON TO SIDE MENU
+========================================================= */
+
+function addWorkoutMenuButton(){
+
+    const menu =
+        document.querySelector(
+            ".menuItems"
+        );
+
+    if(!menu)
+        return;
+
+
+    if(
+        document.getElementById(
+            "workoutMenuButton"
+        )
+    )
+        return;
+
+
+    const button =
+        document.createElement("button");
+
+
+    button.id =
+        "workoutMenuButton";
+
+    button.className =
+        "menuItem";
+
+
+    button.innerHTML = `
+        <span class="icon">📋</span>
+        <span>جدول التمرين</span>
+    `;
+
+
+    button.onclick =
+        openWorkoutPlan;
+
+
+    menu.insertBefore(
+        button,
+        menu.firstChild
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE WORKOUT SYSTEM
+========================================================= */
+
+loadWorkout();
+
+addWorkoutMenuButton();
+
+
+/* =========================================================
+   AUTO SAVE BEFORE LEAVING
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        saveData();
+
+        saveWorkout();
+
+    }
+);
 
 <script>
 
