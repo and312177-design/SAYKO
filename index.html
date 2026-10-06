@@ -1551,1133 +1551,6 @@ body.light .selectedName{
 
 </div>
 
-      /* =========================================================
-   EXERCISE DETAILS + WORKOUT PLAN
-========================================================= */
-
-/*
-   تفاصيل إضافية للتمارين
-   يمكن لاحقاً استبدال الصور بروابط صور حقيقية
-*/
-
-const exerciseDetails = {
-
-    "ضغط صدر بالبار":{
-        description:"استلقِ على البنش وثبّت القدمين جيداً، ثم اخفض البار بتحكم وادفعه للأعلى.",
-        target:"الصدر، الترايسبس، الكتف الأمامي",
-        tips:"حافظ على التحكم في الحركة ولا تستخدم سرعة زائدة."
-    },
-
-    "ضغط صدر بالدمبل":{
-        description:"ادفع الدمبلز للأعلى من مستوى الصدر ثم اخفضهما ببطء.",
-        target:"الصدر، الترايسبس، الكتف الأمامي",
-        tips:"حافظ على ثبات الكتفين أثناء الحركة."
-    },
-
-    "ضغط صدر مائل بالدمبل":{
-        description:"نفّذ ضغط الدمبل على بنش مائل لاستهداف الجزء العلوي من الصدر.",
-        target:"الصدر العلوي، الكتف الأمامي، الترايسبس",
-        tips:"لا تجعل زاوية البنش عالية جداً."
-    },
-
-    "تفتيح صدر":{
-        description:"حرّك الذراعين إلى الداخل مع الحفاظ على انحناء بسيط في الكوع.",
-        target:"عضلات الصدر",
-        tips:"ركّز على ضم الصدر وليس على تحريك الوزن فقط."
-    },
-
-    "سحب أمامي واسع":{
-        description:"اسحب البار باتجاه أعلى الصدر مع إبقاء الظهر ثابتاً.",
-        target:"الظهر، اللاتس، البايسبس",
-        tips:"لا تسحب البار خلف الرقبة."
-    },
-
-    "تجديف بالكابل":{
-        description:"اسحب المقبض باتجاه البطن مع إبقاء الصدر مرفوعاً.",
-        target:"منتصف الظهر، اللاتس، البايسبس",
-        tips:"تجنب تحريك الجسم للأمام والخلف بشكل مبالغ."
-    },
-
-    "تجديف بالبار":{
-        description:"انحنِ للأمام مع ثبات الظهر واسحب البار باتجاه البطن.",
-        target:"الظهر، الترابيس، البايسبس",
-        tips:"حافظ على وضع الظهر ثابتاً."
-    },
-
-    "Face Pull":{
-        description:"اسحب الحبل باتجاه الوجه مع فتح الكوعين للخارج.",
-        target:"الكتف الخلفي، أعلى الظهر",
-        tips:"استخدم وزناً يمكنك التحكم فيه."
-    },
-
-    "ضغط كتف بالدمبل":{
-        description:"ابدأ بالدمبلز عند مستوى الكتف وادفعهما للأعلى.",
-        target:"الكتف، الترايسبس",
-        tips:"لا تقفل الكوع بقوة في أعلى الحركة."
-    },
-
-    "رفرفة جانبية":{
-        description:"ارفع الدمبلز جانبياً حتى مستوى مناسب مع التحكم في النزول.",
-        target:"الكتف الجانبي",
-        tips:"لا تستخدم التأرجح لرفع الوزن."
-    },
-
-    "بايسبس دمبل":{
-        description:"اثنِ الكوع وارفع الدمبل باتجاه الكتف مع تثبيت الذراع.",
-        target:"البايسبس",
-        tips:"حافظ على الكوع قريباً من الجسم."
-    },
-
-    "Hammer Curl":{
-        description:"ارفع الدمبلز مع إبقاء راحة اليدين متقابلتين.",
-        target:"البايسبس والساعد",
-        tips:"تحكم في مرحلة النزول."
-    },
-
-    "Triceps Pushdown":{
-        description:"ادفع الحبل أو المقبض للأسفل مع تثبيت الكوع.",
-        target:"الترايسبس",
-        tips:"لا تحرك الكتف أثناء الحركة."
-    },
-
-    "ترايسبس فوق الرأس":{
-        description:"ارفع الوزن فوق الرأس ثم اثنِ الكوع وأنزله خلف الرأس.",
-        target:"الترايسبس",
-        tips:"حافظ على ثبات الكوع قدر الإمكان."
-    },
-
-    "Squat":{
-        description:"انزل بالورك للخلف والأسفل ثم ادفع الأرض للعودة لوضع الوقوف.",
-        target:"الفخذ الأمامي، الخلفي، المؤخرة",
-        tips:"حافظ على ثبات القدمين والركبتين."
-    },
-
-    "Leg Press":{
-        description:"ادفع منصة الجهاز بالقدمين ثم ارجع ببطء إلى وضع البداية.",
-        target:"الفخذ الأمامي، الخلفي، المؤخرة",
-        tips:"لا تقفل الركبتين بقوة في أعلى الحركة."
-    },
-
-    "Leg Extension":{
-        description:"مد الركبتين للأمام من وضع الجلوس ثم ارجع ببطء.",
-        target:"الفخذ الأمامي",
-        tips:"تحكم في الوزن أثناء النزول."
-    },
-
-    "Leg Curl":{
-        description:"اثنِ الركبة واسحب الوسادة باتجاه الخلف ثم ارجع ببطء.",
-        target:"خلفية الفخذ",
-        tips:"تجنب الحركة السريعة."
-    },
-
-    "Standing Calf Raise":{
-        description:"ارفع الكعبين للأعلى ثم انزل ببطء إلى وضع البداية.",
-        target:"عضلات السمانة",
-        tips:"استخدم مدى حركة مريح وتحكم كامل."
-    },
-
-    "Cable Crunch":{
-        description:"اثنِ الجذع للأمام باستخدام عضلات البطن مع ثبات الجزء السفلي.",
-        target:"عضلات البطن",
-        tips:"لا تسحب بالحوض أو الذراعين فقط."
-    }
-
-};
-
-
-/* =========================================================
-   WORKOUT PLAN
-========================================================= */
-
-let workoutPlan = [];
-
-
-/* =========================================================
-   OPEN EXERCISE DETAILS
-========================================================= */
-
-function openExerciseDetails(exercise){
-
-    const details =
-        exerciseDetails[exercise.name] || {
-
-            description:"تفاصيل التمرين غير متوفرة حالياً.",
-
-            target:exercise.muscle,
-
-            tips:"نفذ الحركة بتحكم وبطريقة مناسبة لمستواك."
-
-        };
-
-
-    let modal =
-        $("exerciseDetailsModal");
-
-
-    if(!modal){
-
-        modal =
-            document.createElement("div");
-
-        modal.id =
-            "exerciseDetailsModal";
-
-        modal.className =
-            "modalOverlay";
-
-
-        document.body.appendChild(modal);
-
-    }
-
-
-    modal.innerHTML = `
-
-        <div class="modal">
-
-            <div class="modalHeader">
-
-                <div class="modalTitle">
-                    ${exercise.icon} ${exercise.name}
-                </div>
-
-                <button
-                    class="closeBtn"
-                    onclick="closeExerciseDetails()">
-                    ×
-                </button>
-
-            </div>
-
-
-            <div style="
-                background:var(--bg);
-                border:1px solid var(--border);
-                border-radius:14px;
-                padding:15px;
-                margin-bottom:12px;
-            ">
-
-                <div style="
-                    color:var(--red);
-                    font-weight:bold;
-                    margin-bottom:7px;
-                ">
-                    العضلة المستهدفة
-                </div>
-
-                <div style="
-                    color:var(--text);
-                    line-height:1.6;
-                ">
-                    ${details.target}
-                </div>
-
-            </div>
-
-
-            <div style="
-                background:var(--bg);
-                border:1px solid var(--border);
-                border-radius:14px;
-                padding:15px;
-                margin-bottom:12px;
-            ">
-
-                <div style="
-                    color:var(--red);
-                    font-weight:bold;
-                    margin-bottom:7px;
-                ">
-                    طريقة الأداء
-                </div>
-
-                <div style="
-                    color:var(--text);
-                    line-height:1.8;
-                    font-size:14px;
-                ">
-                    ${details.description}
-                </div>
-
-            </div>
-
-
-            <div style="
-                background:var(--bg);
-                border:1px solid var(--border);
-                border-radius:14px;
-                padding:15px;
-                margin-bottom:15px;
-            ">
-
-                <div style="
-                    color:var(--red);
-                    font-weight:bold;
-                    margin-bottom:7px;
-                ">
-                    ملاحظة
-                </div>
-
-                <div style="
-                    color:var(--text);
-                    line-height:1.8;
-                    font-size:14px;
-                ">
-                    ${details.tips}
-                </div>
-
-            </div>
-
-
-            <div style="
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:7px;
-                margin-bottom:15px;
-            ">
-
-                <div style="
-                    background:var(--bg);
-                    border-radius:10px;
-                    padding:10px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Sets
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:4px;
-                    ">
-                        ${exercise.sets}
-                    </strong>
-
-                </div>
-
-
-                <div style="
-                    background:var(--bg);
-                    border-radius:10px;
-                    padding:10px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Reps
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:4px;
-                    ">
-                        ${exercise.reps}
-                    </strong>
-
-                </div>
-
-
-                <div style="
-                    background:var(--bg);
-                    border-radius:10px;
-                    padding:10px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        الراحة
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:4px;
-                        font-size:12px;
-                    ">
-                        ${exercise.rest}
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="primaryBtn"
-                onclick='addExerciseToWorkout(${JSON.stringify(exercise.name)})'>
-                ＋ إضافة إلى جدول التمرين
-            </button>
-
-        </div>
-
-    `;
-
-
-    modal.classList.add("show");
-
-}
-
-
-function closeExerciseDetails(){
-
-    const modal =
-        $("exerciseDetailsModal");
-
-    if(modal)
-        modal.classList.remove("show");
-
-}
-
-
-/* =========================================================
-   ADD EXERCISE TO WORKOUT
-========================================================= */
-
-function addExerciseToWorkout(name){
-
-    const exercise =
-        exercises.find(
-            item => item.name === name
-        );
-
-
-    if(!exercise)
-        return;
-
-
-    workoutPlan.push({
-
-        id:Date.now(),
-
-        name:exercise.name,
-
-        muscle:exercise.muscle,
-
-        sets:exercise.sets,
-
-        reps:exercise.reps,
-
-        rest:exercise.rest
-
-    });
-
-
-    saveWorkout();
-
-    closeExerciseDetails();
-
-    showWorkoutMessage(
-        "تمت إضافة التمرين إلى جدولك"
-    );
-
-}
-
-
-/* =========================================================
-   WORKOUT MESSAGE
-========================================================= */
-
-function showWorkoutMessage(message){
-
-    let box =
-        $("workoutMessage");
-
-
-    if(!box){
-
-        box =
-            document.createElement("div");
-
-        box.id =
-            "workoutMessage";
-
-        box.style.cssText = `
-            position:fixed;
-            bottom:25px;
-            right:50%;
-            transform:translateX(50%);
-            background:var(--red);
-            color:#fff;
-            padding:12px 18px;
-            border-radius:10px;
-            z-index:6000;
-            font-size:14px;
-            font-weight:bold;
-            box-shadow:0 5px 20px rgba(0,0,0,.3);
-        `;
-
-        document.body.appendChild(box);
-
-    }
-
-
-    box.textContent =
-        message;
-
-    box.style.display =
-        "block";
-
-
-    clearTimeout(
-        box._timer
-    );
-
-
-    box._timer =
-        setTimeout(
-            function(){
-
-                box.style.display =
-                    "none";
-
-            },
-            2200
-        );
-
-}
-
-
-/* =========================================================
-   WORKOUT STORAGE
-========================================================= */
-
-function saveWorkout(){
-
-    try{
-
-        localStorage.setItem(
-            "saykoWorkout",
-            JSON.stringify(workoutPlan)
-        );
-
-    }
-    catch(error){
-
-        console.log(error);
-
-    }
-
-}
-
-
-function loadWorkout(){
-
-    try{
-
-        const saved =
-            localStorage.getItem(
-                "saykoWorkout"
-            );
-
-
-        if(saved){
-
-            workoutPlan =
-                JSON.parse(saved);
-
-        }
-
-    }
-    catch(error){
-
-        workoutPlan = [];
-
-    }
-
-}
-
-
-/* =========================================================
-   WORKOUT MODAL
-========================================================= */
-
-function openWorkoutPlan(){
-
-    let modal =
-        $("workoutPlanModal");
-
-
-    if(!modal){
-
-        modal =
-            document.createElement("div");
-
-        modal.id =
-            "workoutPlanModal";
-
-        modal.className =
-            "modalOverlay";
-
-        document.body.appendChild(modal);
-
-    }
-
-
-    renderWorkoutPlan();
-
-    modal.classList.add("show");
-
-}
-
-
-function closeWorkoutPlan(){
-
-    const modal =
-        $("workoutPlanModal");
-
-    if(modal)
-        modal.classList.remove("show");
-
-}
-
-
-/* =========================================================
-   RENDER WORKOUT PLAN
-========================================================= */
-
-function renderWorkoutPlan(){
-
-    const modal =
-        $("workoutPlanModal");
-
-    if(!modal)
-        return;
-
-
-    let content = "";
-
-
-    if(workoutPlan.length === 0){
-
-        content = `
-
-            <div style="
-                text-align:center;
-                color:var(--muted);
-                padding:25px 10px;
-            ">
-
-                لم تضف أي تمارين إلى جدولك بعد.
-
-            </div>
-
-        `;
-
-    }
-    else{
-
-        content =
-            workoutPlan.map(
-                (exercise,index)=>`
-
-                <div style="
-                    background:var(--bg);
-                    border:1px solid var(--border);
-                    border-radius:14px;
-                    padding:14px;
-                    margin-bottom:10px;
-                ">
-
-                    <div style="
-                        display:flex;
-                        justify-content:space-between;
-                        align-items:flex-start;
-                        gap:10px;
-                    ">
-
-                        <div>
-
-                            <div style="
-                                font-weight:bold;
-                                font-size:16px;
-                            ">
-                                ${index + 1}.
-                                ${exercise.name}
-                            </div>
-
-                            <div style="
-                                color:var(--red);
-                                font-size:13px;
-                                margin-top:4px;
-                            ">
-                                ${exercise.muscle}
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            onclick="removeExerciseFromWorkout(${exercise.id})"
-                            style="
-                                background:none;
-                                border:0;
-                                color:var(--red);
-                                font-size:20px;
-                                cursor:pointer;
-                            ">
-                            ×
-                        </button>
-
-                    </div>
-
-
-                    <div style="
-                        display:grid;
-                        grid-template-columns:repeat(3,1fr);
-                        gap:6px;
-                        margin-top:12px;
-                    ">
-
-                        <div style="
-                            background:var(--card);
-                            border-radius:8px;
-                            padding:8px;
-                            text-align:center;
-                        ">
-                            <small style="
-                                color:var(--muted);
-                            ">
-                                Sets
-                            </small>
-
-                            <strong style="
-                                display:block;
-                                margin-top:3px;
-                            ">
-                                ${exercise.sets}
-                            </strong>
-                        </div>
-
-
-                        <div style="
-                            background:var(--card);
-                            border-radius:8px;
-                            padding:8px;
-                            text-align:center;
-                        ">
-                            <small style="
-                                color:var(--muted);
-                            ">
-                                Reps
-                            </small>
-
-                            <strong style="
-                                display:block;
-                                margin-top:3px;
-                            ">
-                                ${exercise.reps}
-                            </strong>
-                        </div>
-
-
-                        <div style="
-                            background:var(--card);
-                            border-radius:8px;
-                            padding:8px;
-                            text-align:center;
-                        ">
-                            <small style="
-                                color:var(--muted);
-                            ">
-                                الراحة
-                            </small>
-
-                            <strong style="
-                                display:block;
-                                margin-top:3px;
-                                font-size:11px;
-                            ">
-                                ${exercise.rest}
-                            </strong>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `
-            ).join("");
-
-    }
-
-
-    modal.innerHTML = `
-
-        <div class="modal">
-
-            <div class="modalHeader">
-
-                <div class="modalTitle">
-                    📋 جدول التمرين
-                </div>
-
-                <button
-                    class="closeBtn"
-                    onclick="closeWorkoutPlan()">
-                    ×
-                </button>
-
-            </div>
-
-
-            ${content}
-
-
-            ${
-                workoutPlan.length > 0
-                ?
-                `
-                <button
-                    class="primaryBtn"
-                    onclick="clearWorkoutPlan()"
-                    style="margin-top:5px;">
-                    مسح جدول التمرين
-                </button>
-                `
-                :
-                ""
-            }
-
-        </div>
-
-    `;
-
-}
-
-
-function removeExerciseFromWorkout(id){
-
-    workoutPlan =
-        workoutPlan.filter(
-            exercise =>
-            exercise.id !== id
-        );
-
-
-    saveWorkout();
-
-    renderWorkoutPlan();
-
-}
-
-
-function clearWorkoutPlan(){
-
-    workoutPlan = [];
-
-    saveWorkout();
-
-    renderWorkoutPlan();
-
-}
-
-
-/* =========================================================
-   UPDATE EXERCISE CARDS
-   الضغط على البطاقة يفتح التفاصيل
-========================================================= */
-
-const oldRenderExercises =
-    renderExercises;
-
-
-renderExercises = function(list){
-
-    const container =
-        $("exerciseList");
-
-    if(!container)
-        return;
-
-
-    container.innerHTML = "";
-
-
-    if(list.length === 0){
-
-        container.innerHTML = `
-            <div style="
-                text-align:center;
-                color:var(--muted);
-                padding:25px;
-            ">
-                لا يوجد تمرين مطابق
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.forEach(exercise=>{
-
-        const card =
-            document.createElement("div");
-
-
-        card.style.cssText = `
-            background:var(--bg);
-            border:1px solid var(--border);
-            border-radius:14px;
-            padding:14px;
-            margin-bottom:10px;
-            cursor:pointer;
-            transition:.2s;
-        `;
-
-
-        card.onmouseenter = function(){
-
-            card.style.borderColor =
-                "var(--red)";
-
-        };
-
-
-        card.onmouseleave = function(){
-
-            card.style.borderColor =
-                "var(--border)";
-
-        };
-
-
-        card.onclick = function(){
-
-            openExerciseDetails(
-                exercise
-            );
-
-        };
-
-
-        card.innerHTML = `
-
-            <div style="
-                display:flex;
-                align-items:center;
-                gap:10px;
-            ">
-
-                <div style="
-                    width:45px;
-                    height:45px;
-                    border-radius:11px;
-                    background:var(--card);
-                    border:1px solid var(--border);
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:23px;
-                    flex-shrink:0;
-                ">
-                    ${exercise.icon}
-                </div>
-
-
-                <div style="
-                    flex:1;
-                ">
-
-                    <div style="
-                        font-size:16px;
-                        font-weight:bold;
-                    ">
-                        ${exercise.name}
-                    </div>
-
-                    <div style="
-                        color:var(--red);
-                        font-size:13px;
-                        margin-top:3px;
-                    ">
-                        ${exercise.muscle}
-                    </div>
-
-                </div>
-
-
-                <div style="
-                    color:var(--muted);
-                    font-size:20px;
-                ">
-                    ‹
-                </div>
-
-            </div>
-
-
-            <div style="
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:6px;
-                margin-top:12px;
-            ">
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Sets
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                    ">
-                        ${exercise.sets}
-                    </strong>
-
-                </div>
-
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Reps
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                    ">
-                        ${exercise.reps}
-                    </strong>
-
-                </div>
-
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        الراحة
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                        font-size:11px;
-                    ">
-                        ${exercise.rest}
-                    </strong>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
-
-};
-
-
-/* =========================================================
-   ADD WORKOUT BUTTON TO SIDE MENU
-========================================================= */
-
-function addWorkoutMenuButton(){
-
-    const menu =
-        document.querySelector(
-            ".menuItems"
-        );
-
-    if(!menu)
-        return;
-
-
-    if(
-        document.getElementById(
-            "workoutMenuButton"
-        )
-    )
-        return;
-
-
-    const button =
-        document.createElement("button");
-
-
-    button.id =
-        "workoutMenuButton";
-
-    button.className =
-        "menuItem";
-
-
-    button.innerHTML = `
-        <span class="icon">📋</span>
-        <span>جدول التمرين</span>
-    `;
-
-
-    button.onclick =
-        openWorkoutPlan;
-
-
-    menu.insertBefore(
-        button,
-        menu.firstChild
-    );
-
-}
-
-
-/* =========================================================
-   INITIALIZE WORKOUT SYSTEM
-========================================================= */
-
-loadWorkout();
-
-addWorkoutMenuButton();
-
-
-/* =========================================================
-   AUTO SAVE BEFORE LEAVING
-========================================================= */
-
-window.addEventListener(
-    "beforeunload",
-    function(){
-
-        saveData();
-
-        saveWorkout();
-
-    }
-);
 
 <script>
 
@@ -2910,144 +1783,240 @@ const foods = [
 {name:"تبولة",calories:100,protein:3,carbs:12,fat:5},
 {name:"فتوش",calories:120,protein:3,carbs:15,fat:6},
 {name:"سلطة تونة",calories:130,protein:18,carbs:4,fat:5},
-      /* =========================================================
-   تكملة قاعدة الأطعمة
-========================================================= */
-
-{name:"حمص بالطحينة",calories:166,protein:7.9,carbs:14.3,fat:9.6},
-{name:"بابا غنوج",calories:120,protein:2.5,carbs:8,fat:9},
-{name:"متبل باذنجان",calories:135,protein:3,carbs:9,fat:10},
-{name:"فول بالزيت",calories:150,protein:7,carbs:18,fat:6},
-{name:"فول بالطحينة",calories:170,protein:8,carbs:19,fat:7},
-{name:"شوربة عدس",calories:70,protein:4,carbs:11,fat:1.5},
-{name:"شوربة خضار",calories:45,protein:2,carbs:8,fat:.8},
-{name:"شوربة دجاج",calories:55,protein:7,carbs:3,fat:1.5},
-
-{name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
-{name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
-{name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
-{name:"مربى",calories:250,protein:.4,carbs:65,fat:.1},
-{name:"شوكولاتة داكنة",calories:598,protein:7.8,carbs:46,fat:43},
-{name:"شوكولاتة بالحليب",calories:535,protein:7.6,carbs:59,fat:30},
-{name:"نوتيلا",calories:539,protein:6.3,carbs:58,fat:30.9},
-{name:"بسكويت سادة",calories:480,protein:7,carbs:68,fat:20},
-{name:"بسكويت شوفان",calories:450,protein:8,carbs:65,fat:18},
-{name:"كيك",calories:350,protein:5,carbs:50,fat:14},
-{name:"دونات",calories:420,protein:5,carbs:50,fat:22},
 
 {name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
-{name:"زيت نباتي",calories:884,protein:0,carbs:0,fat:100},
+{name:"زيت عباد الشمس",calories:884,protein:0,carbs:0,fat:100},
+{name:"زيت ذرة",calories:884,protein:0,carbs:0,fat:100},
+{name:"زيت جوز الهند",calories:892,protein:0,carbs:0,fat:100},
 {name:"زبدة",calories:717,protein:.9,carbs:.1,fat:81},
 {name:"سمن",calories:900,protein:0,carbs:0,fat:100},
-{name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
 {name:"كاتشب",calories:112,protein:1.3,carbs:26,fat:.2},
-{name:"مستردة",calories:66,protein:4,carbs:5,fat:3.5},
+{name:"مايونيز",calories:680,protein:1,carbs:1,fat:75},
+{name:"مستردة",calories:66,protein:4,carbs:6,fat:4},
+{name:"صوص باربكيو",calories:172,protein:1,carbs:40,fat:.5},
+{name:"صوص حار",calories:25,protein:1,carbs:5,fat:.5},
+{name:"صوص ثوم",calories:500,protein:2,carbs:5,fat:52},
+
+{name:"شوكولاتة",calories:546,protein:4.9,carbs:61,fat:31},
+{name:"شوكولاتة داكنة",calories:598,protein:7.8,carbs:46,fat:43},
+{name:"شوكولاتة بالحليب",calories:535,protein:7.6,carbs:59,fat:30},
+{name:"بسكويت",calories:480,protein:6,carbs:68,fat:20},
+{name:"بسكويت شوفان",calories:450,protein:7,carbs:65,fat:18},
+{name:"بسكويت ويفر",calories:530,protein:7,carbs:60,fat:29},
+{name:"بسكويت سادة",calories:450,protein:7,carbs:68,fat:17},
+{name:"كيك",calories:350,protein:5,carbs:50,fat:15},
+{name:"كيك شوكولاتة",calories:371,protein:5,carbs:53,fat:17},
+{name:"تشيز كيك",calories:321,protein:5.5,carbs:25,fat:23},
+{name:"دونات",calories:452,protein:5,carbs:51,fat:25},
+{name:"آيس كريم",calories:207,protein:3.5,carbs:24,fat:11},
+{name:"بقلاوة",calories:428,protein:6,carbs:46,fat:24},
+{name:"كنافة",calories:350,protein:6,carbs:50,fat:15},
+{name:"بسبوسة",calories:350,protein:5,carbs:50,fat:14},
+{name:"أرز باللبن",calories:118,protein:3.1,carbs:20,fat:3},
+{name:"مهلبية",calories:120,protein:3,carbs:18,fat:4},
+{name:"مهلبية بالشوكولاتة",calories:145,protein:3,carbs:22,fat:5},
+{name:"قطايف",calories:250,protein:5,carbs:40,fat:8},
+{name:"بلح الشام",calories:400,protein:5,carbs:55,fat:18},
+{name:"لقمة القاضي",calories:380,protein:4,carbs:55,fat:16},
+{name:"بسبوسة بالقشطة",calories:390,protein:6,carbs:45,fat:21},
+
+{name:"شيبسي بطاطس",calories:536,protein:7,carbs:53,fat:34},
+{name:"شيبسي بالجبنة",calories:530,protein:7,carbs:52,fat:34},
+{name:"شيبسي حار",calories:530,protein:7,carbs:52,fat:34},
+{name:"جرانولا",calories:471,protein:10,carbs:64,fat:20},
+{name:"كورن فليكس",calories:357,protein:7.5,carbs:84,fat:.4},
+{name:"موسلي",calories:350,protein:10,carbs:65,fat:7},
+{name:"بار بروتين",calories:380,protein:20,carbs:40,fat:15},
+
+{name:"كشري",calories:160,protein:6,carbs:29,fat:3},
+{name:"طعمية",calories:333,protein:13,carbs:32,fat:18},
+{name:"فلافل",calories:333,protein:13,carbs:32,fat:18},
+{name:"مسقعة",calories:120,protein:3,carbs:10,fat:8},
+{name:"محشي كرنب",calories:145,protein:3,carbs:23,fat:5},
+{name:"محشي ورق عنب",calories:150,protein:3,carbs:24,fat:5},
+{name:"محشي فلفل",calories:145,protein:3,carbs:23,fat:5},
+{name:"محشي كوسة",calories:140,protein:3,carbs:22,fat:5},
+{name:"فتة",calories:180,protein:7,carbs:25,fat:6},
+{name:"فتة لحمة",calories:220,protein:12,carbs:24,fat:9},
+{name:"فتة دجاج",calories:190,protein:14,carbs:22,fat:6},
+{name:"شاورما دجاج",calories:220,protein:22,carbs:8,fat:11},
+{name:"شاورما لحم",calories:250,protein:20,carbs:8,fat:15},
+{name:"حمص بالطحينة",calories:166,protein:8,carbs:14,fat:9},
+{name:"بابا غنوج",calories:100,protein:2,carbs:8,fat:7},
+{name:"ورق عنب",calories:150,protein:3,carbs:24,fat:5},
+{name:"فاصوليا بالصلصة",calories:120,protein:6,carbs:18,fat:3},
+{name:"بامية بالصلصة",calories:80,protein:3,carbs:12,fat:2},
+{name:"ملوخية بالأرانب",calories:100,protein:8,carbs:6,fat:5},
+
+{name:"بيتزا",calories:266,protein:11,carbs:33,fat:10},
+{name:"بيتزا جبنة",calories:285,protein:12,carbs:36,fat:10},
+{name:"بيتزا خضار",calories:250,protein:10,carbs:35,fat:8},
+{name:"برجر لحم",calories:295,protein:17,carbs:10,fat:21},
+{name:"برجر دجاج",calories:230,protein:18,carbs:20,fat:9},
+{name:"هوت دوج",calories:290,protein:10,carbs:4,fat:26},
+{name:"ساندويتش تونة",calories:190,protein:16,carbs:20,fat:6},
+{name:"ساندويتش دجاج",calories:210,protein:18,carbs:20,fat:7},
+{name:"فاهيتا دجاج",calories:170,protein:18,carbs:8,fat:7},
+{name:"تاكو لحم",calories:200,protein:10,carbs:20,fat:9},
+{name:"لازانيا",calories:135,protein:7,carbs:15,fat:6},
+{name:"مكرونة بالبشاميل",calories:180,protein:8,carbs:20,fat:8},
+
+{name:"سكر أبيض",calories:387,protein:0,carbs:100,fat:0},
+{name:"سكر بني",calories:380,protein:0,carbs:98,fat:0},
+{name:"كاكاو خام",calories:228,protein:19.6,carbs:57.9,fat:13.7},
+{name:"عسل",calories:304,protein:.3,carbs:82,fat:0},
+{name:"مربى",calories:250,protein:.4,carbs:65,fat:.1},
+{name:"دبس تمر",calories:290,protein:1,carbs:75,fat:.2},
+{name:"زبدة لوز",calories:614,protein:21,carbs:19,fat:56},
 
 {name:"عصير برتقال",calories:45,protein:.7,carbs:10,fat:.2},
-{name:"عصير مانجو",calories:60,protein:.5,carbs:15,fat:.2},
 {name:"عصير تفاح",calories:46,protein:.1,carbs:11,fat:.1},
+{name:"عصير مانجو",calories:60,protein:.5,carbs:15,fat:.1},
+{name:"عصير جوافة",calories:56,protein:.3,carbs:14,fat:.1},
+{name:"عصير فراولة",calories:38,protein:.3,carbs:9,fat:.1},
+{name:"مشروب غازي",calories:42,protein:0,carbs:10.6,fat:0},
+{name:"مشروب غازي دايت",calories:1,protein:0,carbs:0,fat:0},
 {name:"قهوة سوداء",calories:2,protein:.3,carbs:0,fat:0},
+{name:"قهوة بالحليب",calories:35,protein:2,carbs:3,fat:2},
+{name:"كابتشينو",calories:50,protein:2,carbs:5,fat:2},
+{name:"لاتيه",calories:55,protein:3,carbs:5,fat:2},
 {name:"شاي",calories:1,protein:0,carbs:.2,fat:0},
+{name:"شاي بالحليب",calories:35,protein:2,carbs:3,fat:2},
+{name:"كاكاو بالحليب",calories:80,protein:4,carbs:10,fat:3},
+
+{name:"بروتين مصل اللبن",calories:400,protein:80,carbs:8,fat:6},
+{name:"مسحوق بروتين",calories:400,protein:75,carbs:10,fat:7},
+{name:"حليب بودرة",calories:496,protein:26,carbs:38,fat:27},
+
+{name:"أرنب مطبوخ",calories:173,protein:33,carbs:0,fat:3.5},
+{name:"ديك رومي",calories:135,protein:29,carbs:0,fat:1.8},
+{name:"لحم بط",calories:337,protein:19,carbs:0,fat:28},
+{name:"لحم أوز",calories:305,protein:25,carbs:0,fat:22},
+{name:"حمام مطبوخ",calories:200,protein:24,carbs:0,fat:11},
+{name:"سمان",calories:234,protein:22,carbs:0,fat:16},
+{name:"كبدة",calories:135,protein:20,carbs:4,fat:4},
+{name:"مخ",calories:143,protein:12,carbs:0,fat:10},
+{name:"لسان بقري",calories:284,protein:19,carbs:0,fat:22},
+{name:"مخ بقر",calories:143,protein:12,carbs:0,fat:10},
+{name:"مرق دجاج",calories:15,protein:2,carbs:1,fat:.5},
+{name:"شوربة عدس",calories:70,protein:4,carbs:10,fat:2},
+{name:"شوربة خضار",calories:40,protein:2,carbs:7,fat:1},
+{name:"شوربة دجاج",calories:45,protein:6,carbs:2,fat:1.5},
+{name:"شوربة مشروم",calories:70,protein:2,carbs:7,fat:4},
+{name:"شوربة طماطم",calories:40,protein:1.5,carbs:7,fat:1},
+
+{name:"تفاح أخضر",calories:52,protein:.3,carbs:14,fat:.2},
+{name:"موز صغير",calories:89,protein:1.1,carbs:23,fat:.3},
+{name:"برتقال أبو صرة",calories:47,protein:.9,carbs:12,fat:.1},
+{name:"ماندرين",calories:53,protein:.8,carbs:13,fat:.3},
+{name:"عنب أخضر",calories:69,protein:.7,carbs:18,fat:.2},
+{name:"عنب أحمر",calories:69,protein:.7,carbs:18,fat:.2},
+{name:"بطيخ أصفر",calories:34,protein:.8,carbs:8,fat:.2},
+{name:"تين",calories:74,protein:.8,carbs:19,fat:.3},
+{name:"تمر عجوة",calories:282,protein:2.5,carbs:75,fat:.4},
+
+{name:"فجل",calories:16,protein:.7,carbs:3.4,fat:.1},
+{name:"لفت",calories:28,protein:.9,carbs:6.4,fat:.1},
+{name:"بطاطا بنفسجية",calories:87,protein:1.6,carbs:20,fat:.1},
+{name:"قرع عسلي",calories:26,protein:1,carbs:7,fat:.1},
+{name:"كراث",calories:61,protein:1.5,carbs:14,fat:.3},
+
+{name:"سمبوسة لحم",calories:300,protein:10,carbs:25,fat:18},
+{name:"سمبوسة جبنة",calories:290,protein:8,carbs:25,fat:18},
+{name:"سمبوسة خضار",calories:260,protein:5,carbs:30,fat:13},
+{name:"رقاق باللحمة",calories:230,protein:12,carbs:20,fat:11},
+{name:"جلاش باللحمة",calories:270,protein:10,carbs:25,fat:14},
+{name:"جلاش بالجبنة",calories:280,protein:9,carbs:26,fat:15},
+{name:"فتير مشلتت",calories:400,protein:7,carbs:50,fat:20},
+{name:"فطير بالجبنة",calories:350,protein:10,carbs:40,fat:17},
+{name:"فطير بالعسل",calories:360,protein:6,carbs:60,fat:12}
 
 ];
 
 
-/* =========================================================
-   VARIABLES
-========================================================= */
+/* ================= VARIABLES ================= */
 
-let selectedFoods = [];
+let selectedFoods =
+JSON.parse(localStorage.getItem("saykoFoods") || "[]");
 
-let currentFood = null;
-
+let selectedFood = null;
 let currentUnit = "gram";
 
-let goals = {
+let goals =
+JSON.parse(localStorage.getItem("saykoGoals") || "null")
+||
+{
     calories:2500,
     protein:150,
     carbs:300,
     fat:70
 };
 
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function $(id){
-    return document.getElementById(id);
-}
+let updateRegistration = null;
+let updateChecking = false;
+let updateRefreshing = false;
 
 
-function showError(message){
+/* ================= MENU ================= */
 
-    $("errorText").textContent = message;
+function openMenu(){
 
-    $("errorOverlay").classList.add("show");
+    document.getElementById("sideMenu").classList.add("open");
+    document.getElementById("sideOverlay").classList.add("show");
+    document.body.style.overflow="hidden";
 
 }
 
+function closeMenu(){
 
-function closeError(){
-
-    $("errorOverlay").classList.remove("show");
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("sideOverlay").classList.remove("show");
+    document.body.style.overflow="";
 
 }
 
 
-/* =========================================================
-   FOOD DISPLAY
-========================================================= */
+/* ================= FOODS ================= */
 
-function renderFoods(list = foods){
+function renderFoods(list=foods){
 
-    const grid = $("foodGrid");
+    const grid=document.getElementById("foodGrid");
 
-    if(!grid) return;
+    grid.innerHTML="";
 
-    grid.innerHTML = "";
+    if(!list.length){
 
-    if(list.length === 0){
-
-        grid.innerHTML = `
-            <div style="
-                grid-column:1/-1;
-                text-align:center;
-                color:var(--muted);
-                padding:30px 10px;
-            ">
-                لا توجد أطعمة مطابقة للبحث
-            </div>
-        `;
+        grid.innerHTML=`
+        <div style="
+            grid-column:1/-1;
+            text-align:center;
+            color:var(--muted);
+            padding:30px;
+        ">
+            لا توجد أطعمة بهذا الاسم
+        </div>`;
 
         return;
     }
 
+    list.forEach(food=>{
 
-    list.forEach((food,index)=>{
+        const card=document.createElement("div");
 
-        const card = document.createElement("div");
+        card.className="foodCard";
 
-        card.className = "foodCard";
-
-        card.onclick = function(){
-
-            openFood(index);
-
+        card.onclick=()=>{
+            openFoodByName(food.name);
         };
 
+        card.innerHTML=`
+        <div class="foodName">
+            ${food.name}
+        </div>
 
-        card.innerHTML = `
-
-            <div class="foodName">
-                ${food.name}
-            </div>
-
-            <div class="foodCalories">
-                ${food.calories} kcal
-            </div>
-
-        `;
+        <div class="foodCalories">
+            ${food.calories} kcal
+        </div>`;
 
         grid.appendChild(card);
 
@@ -3056,19 +2025,37 @@ function renderFoods(list = foods){
 }
 
 
-/* =========================================================
-   SEARCH
-========================================================= */
+/* ================= SEARCH ================= */
+
+function normalizeArabic(text){
+
+    return text
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/[\u064B-\u065F\u0670]/g,"")
+        .replace(/[أإآٱ]/g,"ا")
+        .replace(/ى/g,"ي")
+        .replace(/ة/g,"ه")
+        .replace(/ؤ/g,"و")
+        .replace(/ئ/g,"ي")
+        .replace(/ـ/g,"")
+        .replace(/\s+/g," ");
+
+}
+
 
 function searchFoods(){
 
-    const input = $("searchInput");
+    const input =
+        document.getElementById("searchInput");
 
-    if(!input) return;
+    if(!input){
+        return;
+    }
 
-    const value = input.value
-        .trim()
-        .toLowerCase();
+    const value =
+        normalizeArabic(input.value);
 
     if(value === ""){
 
@@ -3078,104 +2065,191 @@ function searchFoods(){
 
     }
 
+    const filtered =
+        foods.filter(food=>{
 
-    const result = foods.filter(food =>
+            const foodName =
+                normalizeArabic(food.name);
 
-        food.name
-            .toLowerCase()
-            .includes(value)
+            return foodName.includes(value);
 
-    );
+        });
 
-
-    renderFoods(result);
+    renderFoods(filtered);
 
 }
 
 
-/* =========================================================
-   FOOD MODAL
-========================================================= */
+/* ================= FOOD MODAL ================= */
 
-function openFood(index){
+function openFoodByName(name){
 
-    currentFood = foods[index];
+    selectedFood=foods.find(
+        food=>food.name===name
+    );
 
-    if(!currentFood) return;
+    if(!selectedFood) return;
 
-    currentUnit = "gram";
+    document.getElementById("foodModalTitle").textContent=
+        selectedFood.name;
 
-    $("foodModalTitle").textContent =
-        currentFood.name;
+    document.getElementById("foodQuantity").value=100;
 
-    $("foodQuantity").value = 100;
+    currentUnit="gram";
 
-    $("quantityLabel").textContent =
-        "الكمية بالجرام";
+    configureUnits();
 
-    updateUnitButtons();
+    setUnit("gram");
 
     updateLiveNutrition();
 
-    $("foodModal").classList.add("show");
+    document.getElementById("foodModal").classList.add("show");
+
+}
+
+function closeFood(){
+
+    document.getElementById("foodModal").classList.remove("show");
 
 }
 
 
-function closeFood(){
+/* ================= UNIT CONTROL ================= */
 
-    $("foodModal").classList.remove("show");
+const pieceFoods = new Set([
 
-    currentFood = null;
+    "بيض كامل",
+    "بياض البيض",
+    "صفار البيض",
+    "بيض مسلوق",
+    "بيض مقلي",
+
+    "موز",
+    "موز صغير",
+    "تفاح",
+    "تفاح أخضر",
+    "برتقال",
+    "برتقال أبو صرة",
+    "يوسفي",
+    "ماندرين",
+    "ليمون",
+    "كيوي",
+    "خوخ",
+    "مشمش",
+    "برقوق",
+    "كمثرى",
+    "جوافة",
+    "تين",
+    "تين طازج",
+    "كرز",
+    "فراولة",
+
+    "خبز بلدي",
+    "خبز أبيض",
+    "خبز أسمر",
+    "توست أبيض",
+    "توست أسمر",
+    "عيش شامي",
+    "خبز لبناني",
+    "خبز تورتيلا",
+    "كرواسون",
+    "باجيت",
+
+    "بسكويت",
+    "بسكويت شوفان",
+    "بسكويت ويفر",
+    "بسكويت سادة",
+    "كيك",
+    "كيك شوكولاتة",
+    "تشيز كيك",
+    "دونات",
+    "قطايف",
+    "بلح الشام",
+    "لقمة القاضي",
+
+    "بار بروتين",
+
+    "سمبوسة لحم",
+    "سمبوسة جبنة",
+    "سمبوسة خضار",
+    "طعمية",
+    "فلافل"
+
+]);
+
+
+/* ================= UNIT CONTROL ================= */
+
+function configureUnits(){
+
+    const spoonBtn=document.getElementById("unitSpoon");
+    const pieceBtn=document.getElementById("unitPiece");
+
+    spoonBtn.style.display="block";
+
+    const allowPiece=
+        pieceFoods.has(selectedFood.name);
+
+    pieceBtn.style.display=
+        allowPiece ? "block" : "none";
+
+    if(
+        currentUnit==="piece" &&
+        !allowPiece
+    ){
+        currentUnit="gram";
+    }
 
 }
 
 
 function setUnit(unit){
 
-    if(!currentFood) return;
+    if(!selectedFood) return;
 
-    currentUnit = unit;
-
-    const quantity = $("foodQuantity");
-
-    if(unit === "gram"){
-
-        $("quantityLabel").textContent =
-            "الكمية بالجرام";
-
-        quantity.placeholder =
-            "الكمية بالجرام";
-
-        quantity.value = 100;
-
+    if(
+        unit==="piece" &&
+        !pieceFoods.has(selectedFood.name)
+    ){
+        unit="gram";
     }
 
-    else if(unit === "spoon"){
-
-        $("quantityLabel").textContent =
-            "عدد الملاعق";
-
-        quantity.placeholder =
-            "عدد الملاعق";
-
-        quantity.value = 1;
-
-    }
-
-    else if(unit === "piece"){
-
-        $("quantityLabel").textContent =
-            "عدد القطع";
-
-        quantity.placeholder =
-            "عدد القطع";
-
-        quantity.value = 1;
-
-    }
+    currentUnit=unit;
 
     updateUnitButtons();
+
+    const input=
+        document.getElementById("foodQuantity");
+
+    const label=
+        document.getElementById("quantityLabel");
+
+    if(unit==="gram"){
+
+        label.textContent="الكمية بالجرام";
+
+        input.placeholder=
+            "الكمية بالجرام";
+
+    }
+
+    if(unit==="spoon"){
+
+        label.textContent="عدد الملاعق";
+
+        input.placeholder=
+            "عدد الملاعق";
+
+    }
+
+    if(unit==="piece"){
+
+        label.textContent="عدد القطع";
+
+        input.placeholder=
+            "عدد القطع";
+
+    }
 
     updateLiveNutrition();
 
@@ -3184,632 +2258,604 @@ function setUnit(unit){
 
 function updateUnitButtons(){
 
-    $("unitGram").classList.remove("active");
-    $("unitSpoon").classList.remove("active");
-    $("unitPiece").classList.remove("active");
+    document
+        .querySelectorAll(".unitBtn")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
 
+    if(currentUnit==="gram"){
 
-    if(currentUnit === "gram")
-        $("unitGram").classList.add("active");
+        document
+            .getElementById("unitGram")
+            .classList.add("active");
 
-    if(currentUnit === "spoon")
-        $("unitSpoon").classList.add("active");
+    }
 
-    if(currentUnit === "piece")
-        $("unitPiece").classList.add("active");
+    if(currentUnit==="spoon"){
 
-}
+        document
+            .getElementById("unitSpoon")
+            .classList.add("active");
 
+    }
 
-/* =========================================================
-   NUTRITION CALCULATION
-========================================================= */
+    if(currentUnit==="piece"){
 
-function getFoodWeight(){
+        document
+            .getElementById("unitPiece")
+            .classList.add("active");
 
-    const quantity =
-        Number($("foodQuantity").value) || 0;
-
-
-    if(currentUnit === "gram")
-        return quantity;
-
-
-    if(currentUnit === "spoon")
-        return quantity * 15;
-
-
-    if(currentUnit === "piece")
-        return quantity * 50;
-
-
-    return quantity;
+    }
 
 }
 
 
-function calculateNutrition(food,weight){
+/* ================= LIVE NUTRITION ================= */
 
-    const factor = weight / 100;
+function getCurrentGrams(){
 
-    return {
+    if(!selectedFood){
+        return 0;
+    }
 
-        calories:
-            food.calories * factor,
+    const quantity=
+        parseFloat(
+            document.getElementById("foodQuantity").value
+        );
 
-        protein:
-            food.protein * factor,
+    if(
+        !quantity ||
+        quantity<=0
+    ){
+        return 0;
+    }
 
-        carbs:
-            food.carbs * factor,
+    let grams=quantity;
 
-        fat:
-            food.fat * factor
+    if(currentUnit==="spoon"){
+        grams=quantity*15;
+    }
 
-    };
+    if(currentUnit==="piece"){
+        grams=quantity*50;
+    }
+
+    return grams;
 
 }
 
-
-function roundNumber(value){
-
-    return Math.round(value * 10) / 10;
-
-}
-
-
-/* =========================================================
-   LIVE NUTRITION
-========================================================= */
 
 function updateLiveNutrition(){
 
-    if(!currentFood) return;
+    if(!selectedFood) return;
 
-    const weight = getFoodWeight();
+    const grams=
+        getCurrentGrams();
 
-    const nutrition =
-        calculateNutrition(currentFood,weight);
+    const ratio=
+        grams/100;
 
+    const calories=
+        selectedFood.calories*ratio;
 
-    $("liveCalories").textContent =
-        roundNumber(nutrition.calories);
+    const protein=
+        selectedFood.protein*ratio;
 
-    $("liveProtein").textContent =
-        roundNumber(nutrition.protein);
+    const carbs=
+        selectedFood.carbs*ratio;
 
-    $("liveCarbs").textContent =
-        roundNumber(nutrition.carbs);
+    const fat=
+        selectedFood.fat*ratio;
 
-    $("liveFat").textContent =
-        roundNumber(nutrition.fat);
+    document.getElementById("liveCalories")
+        .textContent=
+        formatNumber(calories);
+
+    document.getElementById("liveProtein")
+        .textContent=
+        formatNumber(protein);
+
+    document.getElementById("liveCarbs")
+        .textContent=
+        formatNumber(carbs);
+
+    document.getElementById("liveFat")
+        .textContent=
+        formatNumber(fat);
 
 }
 
 
-/* =========================================================
-   ADD FOOD
-========================================================= */
+/* ================= ADD FOOD ================= */
 
 function addFood(){
 
-    if(!currentFood){
+    if(!selectedFood) return;
 
-        showError("اختر طعاماً أولاً.");
+    const quantity=
+        parseFloat(
+            document
+            .getElementById("foodQuantity")
+            .value
+        );
+
+    if(
+        !quantity ||
+        quantity<=0
+    ){
+
+        showError(
+            "من فضلك أدخل كمية صحيحة."
+        );
 
         return;
-
     }
 
+    const grams=
+        getCurrentGrams();
 
-    const quantity =
-        Number($("foodQuantity").value);
+    const ratio=
+        grams/100;
 
-
-    if(!quantity || quantity <= 0){
-
-        showError("اكتب كمية صحيحة.");
-
-        return;
-
-    }
-
-
-    const weight = getFoodWeight();
-
-    const nutrition =
-        calculateNutrition(currentFood,weight);
-
-
-    selectedFoods.push({
+    const item={
 
         id:Date.now(),
 
-        name:currentFood.name,
+        name:selectedFood.name,
 
-        weight:weight,
+        grams:grams,
 
-        calories:nutrition.calories,
+        calories:
+            selectedFood.calories*ratio,
 
-        protein:nutrition.protein,
+        protein:
+            selectedFood.protein*ratio,
 
-        carbs:nutrition.carbs,
+        carbs:
+            selectedFood.carbs*ratio,
 
-        fat:nutrition.fat
+        fat:
+            selectedFood.fat*ratio
 
-    });
+    };
 
+    selectedFoods.push(item);
+
+    saveFoods();
 
     renderSelectedFoods();
 
     updateProgress();
-
-    saveData();
 
     closeFood();
 
 }
 
 
-/* =========================================================
-   SELECTED FOODS
-========================================================= */
+/* ================= SELECTED ================= */
 
 function renderSelectedFoods(){
 
-    const container =
-        $("selectedFoods");
+    const container=
+        document.getElementById("selectedFoods");
 
-    if(!container) return;
+    container.innerHTML="";
 
-    container.innerHTML = "";
+    if(!selectedFoods.length){
 
+        container.innerHTML=`
+        <div style="
+            text-align:center;
+            color:var(--muted);
+            padding:25px;
+        ">
+            لم تضف أي أطعمة بعد
+        </div>`;
 
-    if(selectedFoods.length === 0){
+        return;
+    }
 
-        container.innerHTML = `
-            <div style="
-                text-align:center;
-                color:var(--muted);
-                padding:20px;
-            ">
-                لم تتم إضافة أي أطعمة بعد
+    selectedFoods.forEach(food=>{
+
+        const div=
+            document.createElement("div");
+
+        div.className="selectedFood";
+
+        div.innerHTML=`
+
+        <div class="selectedTop">
+
+            <div>
+
+                <div class="selectedName">
+                    ${food.name}
+                </div>
+
+                <div class="selectedCalories">
+                    ${formatNumber(food.calories)} kcal
+                </div>
+
+                <div class="selectedWeight">
+                    ${formatNumber(food.grams)} g
+                </div>
+
             </div>
-        `;
+
+            <button
+                class="removeBtn"
+                onclick="removeFood(${food.id})">
+                ×
+            </button>
+
+        </div>
+
+        <div class="selectedMacros">
+
+            بروتين
+            ${formatNumber(food.protein)}g
+
+            • كربوهيدرات
+            ${formatNumber(food.carbs)}g
+
+            • دهون
+            ${formatNumber(food.fat)}g
+
+        </div>`;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* ================= REMOVE ================= */
+
+function removeFood(id){
+
+    selectedFoods=
+        selectedFoods.filter(
+            food=>food.id!==id
+        );
+
+    saveFoods();
+
+    renderSelectedFoods();
+
+    updateProgress();
+
+}
+
+
+/* ================= CLEAR ================= */
+
+function clearAll(){
+
+    selectedFoods=[];
+
+    saveFoods();
+
+    renderSelectedFoods();
+
+    updateProgress();
+
+}
+
+
+/* ================= PROGRESS ================= */
+
+function updateProgress(){
+
+    let calories=0;
+    let protein=0;
+    let carbs=0;
+    let fat=0;
+
+    selectedFoods.forEach(food=>{
+
+        calories+=food.calories;
+        protein+=food.protein;
+        carbs+=food.carbs;
+        fat+=food.fat;
+
+    });
+
+    document.getElementById("currentCalories")
+        .textContent=
+        formatNumber(calories);
+
+    document.getElementById("currentProtein")
+        .textContent=
+        formatNumber(protein);
+
+    document.getElementById("currentCarbs")
+        .textContent=
+        formatNumber(carbs);
+
+    document.getElementById("currentFat")
+        .textContent=
+        formatNumber(fat);
+
+    document.getElementById("goalCalories")
+        .textContent=
+        formatNumber(goals.calories);
+
+    document.getElementById("goalCalories2")
+        .textContent=
+        formatNumber(goals.calories);
+
+    document.getElementById("goalProtein")
+        .textContent=
+        formatNumber(goals.protein);
+
+    document.getElementById("goalCarbs")
+        .textContent=
+        formatNumber(goals.carbs);
+
+    document.getElementById("goalFat")
+        .textContent=
+        formatNumber(goals.fat);
+
+    setProgress(
+        "calorieProgress",
+        calories,
+        goals.calories
+    );
+
+    setProgress(
+        "proteinProgress",
+        protein,
+        goals.protein
+    );
+
+    setProgress(
+        "carbsProgress",
+        carbs,
+        goals.carbs
+    );
+
+    setProgress(
+        "fatProgress",
+        fat,
+        goals.fat
+    );
+
+}
+
+
+function setProgress(id,current,goal){
+
+    if(
+        !goal ||
+        goal<=0
+    ){
+
+        document
+            .getElementById(id)
+            .style.width="0%";
 
         return;
 
     }
 
-
-    selectedFoods.forEach(food=>{
-
-        const item =
-            document.createElement("div");
-
-        item.className = "selectedFood";
-
-
-        item.innerHTML = `
-
-            <div class="selectedTop">
-
-                <div>
-
-                    <div class="selectedName">
-                        ${food.name}
-                    </div>
-
-                    <div class="selectedWeight">
-                        ${roundNumber(food.weight)} g
-                    </div>
-
-                </div>
-
-                <button
-                    class="removeBtn"
-                    onclick="removeFood(${food.id})">
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="selectedCalories">
-                ${roundNumber(food.calories)} kcal
-            </div>
-
-
-            <div class="selectedMacros">
-
-                بروتين:
-                ${roundNumber(food.protein)}g
-
-                • كربوهيدرات:
-                ${roundNumber(food.carbs)}g
-
-                • دهون:
-                ${roundNumber(food.fat)}g
-
-            </div>
-
-        `;
-
-
-        container.appendChild(item);
-
-    });
-
-}
-
-
-function removeFood(id){
-
-    selectedFoods =
-        selectedFoods.filter(food =>
-            food.id !== id
+    const percent=
+        Math.min(
+            (current/goal)*100,
+            100
         );
 
-
-    renderSelectedFoods();
-
-    updateProgress();
-
-    saveData();
+    document
+        .getElementById(id)
+        .style.width=
+        percent+"%";
 
 }
 
 
-function clearAll(){
-
-    if(selectedFoods.length === 0)
-        return;
-
-
-    selectedFoods = [];
-
-    renderSelectedFoods();
-
-    updateProgress();
-
-    saveData();
-
-}
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-function updateProgress(){
-
-    let calories = 0;
-    let protein = 0;
-    let carbs = 0;
-    let fat = 0;
-
-
-    selectedFoods.forEach(food=>{
-
-        calories += food.calories;
-        protein += food.protein;
-        carbs += food.carbs;
-        fat += food.fat;
-
-    });
-
-
-    $("currentCalories").textContent =
-        roundNumber(calories);
-
-    $("currentProtein").textContent =
-        roundNumber(protein);
-
-    $("currentCarbs").textContent =
-        roundNumber(carbs);
-
-    $("currentFat").textContent =
-        roundNumber(fat);
-
-
-    $("goalCalories2").textContent =
-        goals.calories;
-
-
-    $("goalProtein").textContent =
-        goals.protein;
-
-
-    $("goalCarbs").textContent =
-        goals.carbs;
-
-
-    $("goalFat").textContent =
-        goals.fat;
-
-
-    $("calorieProgress").style.width =
-        Math.min(
-            calories / goals.calories * 100,
-            100
-        ) + "%";
-
-
-    $("proteinProgress").style.width =
-        Math.min(
-            protein / goals.protein * 100,
-            100
-        ) + "%";
-
-
-    $("carbsProgress").style.width =
-        Math.min(
-            carbs / goals.carbs * 100,
-            100
-        ) + "%";
-
-
-    $("fatProgress").style.width =
-        Math.min(
-            fat / goals.fat * 100,
-            100
-        ) + "%";
-
-}
-
-
-/* =========================================================
-   GOAL
-========================================================= */
+/* ================= GOAL ================= */
 
 function openGoal(){
 
-    $("goalModal").classList.add("show");
+    document
+        .getElementById("goalModal")
+        .classList.add("show");
 
 }
 
-
 function closeGoal(){
 
-    $("goalModal").classList.remove("show");
+    document
+        .getElementById("goalModal")
+        .classList.remove("show");
 
 }
 
 
 function calculateGoal(){
 
-    const weight =
-        Number($("weight").value);
+    const weight=
+        parseFloat(
+            document.getElementById("weight").value
+        );
 
-    const height =
-        Number($("height").value);
+    const height=
+        parseFloat(
+            document.getElementById("height").value
+        );
 
-    const age =
-        Number($("age").value);
+    const age=
+        parseFloat(
+            document.getElementById("age").value
+        );
 
-    const gender =
-        $("gender").value;
+    const gender=
+        document.getElementById("gender").value;
 
-    const activity =
-        Number($("activity").value);
+    const activity=
+        parseFloat(
+            document.getElementById("activity").value
+        );
 
-    const goal =
-        $("goal").value;
-
+    const goal=
+        document.getElementById("goal").value;
 
     if(
         !weight ||
         !height ||
-        !age ||
-        weight <= 0 ||
-        height <= 0 ||
-        age <= 0
+        !age
     ){
 
         showError(
-            "من فضلك أدخل الوزن والطول والعمر بشكل صحيح."
+            "من فضلك أدخل الوزن والطول والعمر."
         );
 
         return;
 
     }
 
-
     let bmr;
 
+    if(gender==="male"){
 
-    if(gender === "male"){
+        bmr=
+            (10*weight)
+            +(6.25*height)
+            -(5*age)
+            +5;
 
-        bmr =
-            (10 * weight) +
-            (6.25 * height) -
-            (5 * age) +
-            5;
+    }else{
 
-    }
-    else{
-
-        bmr =
-            (10 * weight) +
-            (6.25 * height) -
-            (5 * age) -
-            161;
+        bmr=
+            (10*weight)
+            +(6.25*height)
+            -(5*age)
+            -161;
 
     }
 
+    let calories=
+        bmr*activity;
 
-    let calories =
-        bmr * activity;
+    if(goal==="lose"){
+        calories-=250;
+    }
 
+    if(goal==="gain"){
+        calories+=250;
+    }
 
-    if(goal === "lose")
-        calories -= 300;
+    if(goal==="build"){
+        calories+=100;
+    }
 
-    if(goal === "build")
-        calories += 150;
+    calories=
+        Math.round(calories);
 
-    if(goal === "gain")
-        calories += 300;
-
-
-    calories =
-        Math.max(1200,Math.round(calories));
-
-
-    let protein =
-        Math.round(weight * 2);
-
-
-    let fat =
-        Math.round(
-            (calories * .25) / 9
-        );
-
-
-    let carbs =
-        Math.round(
-            (calories -
-            (protein * 4) -
-            (fat * 9)) / 4
-        );
-
-
-    goals = {
+    goals={
 
         calories:calories,
 
-        protein:protein,
+        protein:
+            Math.round(weight*1.6),
 
-        carbs:carbs,
+        carbs:
+            Math.round((calories*.45)/4),
 
-        fat:fat
+        fat:
+            Math.round((calories*.25)/9)
 
     };
 
-
-    $("goalCalories").textContent =
-        calories;
-
-
-    $("goalCalories2").textContent =
-        calories;
-
-
-    $("goalProtein").textContent =
-        protein;
-
-
-    $("goalCarbs").textContent =
-        carbs;
-
-
-    $("goalFat").textContent =
-        fat;
-
+    localStorage.setItem(
+        "saykoGoals",
+        JSON.stringify(goals)
+    );
 
     updateProgress();
-
-    saveData();
 
     closeGoal();
 
 }
 
 
-/* =========================================================
-   REFERENCES
-========================================================= */
-
-function openReferences(){
-
-    closeMenu();
-
-    $("referencesModal")
-        .classList.add("show");
-
-}
-
-
-function closeReferences(){
-
-    $("referencesModal")
-        .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   THEME
-========================================================= */
+/* ================= THEME ================= */
 
 function openTheme(){
 
     closeMenu();
 
-    $("themeModal")
+    document
+        .getElementById("themeModal")
         .classList.add("show");
 
 }
 
-
 function closeTheme(){
 
-    $("themeModal")
+    document
+        .getElementById("themeModal")
         .classList.remove("show");
 
 }
 
-
 function setTheme(theme){
 
-    if(theme === "light"){
+    if(theme==="light"){
 
         document.body.classList.add("light");
 
-        localStorage.setItem(
-            "saykoTheme",
-            "light"
-        );
-
-    }
-    else{
+    }else{
 
         document.body.classList.remove("light");
 
-        localStorage.setItem(
-            "saykoTheme",
-            "dark"
-        );
-
     }
 
+    localStorage.setItem(
+        "saykoTheme",
+        theme
+    );
 
     closeTheme();
 
 }
 
+function loadTheme(){
 
-/* =========================================================
-   SIDE MENU
-========================================================= */
+    const theme=
+        localStorage.getItem("saykoTheme")
+        ||"dark";
 
-function openMenu(){
+    if(theme==="light"){
 
-    $("sideMenu")
-        .classList.add("open");
+        document.body.classList.add("light");
 
-    $("sideOverlay")
-        .classList.add("show");
+    }else{
+
+        document.body.classList.remove("light");
+
+    }
 
 }
 
 
-function closeMenu(){
+/* ================= REFERENCES ================= */
 
-    $("sideMenu")
-        .classList.remove("open");
+function openReferences(){
 
-    $("sideOverlay")
+    closeMenu();
+
+    document
+        .getElementById("referencesModal")
+        .classList.add("show");
+
+}
+
+function closeReferences(){
+
+    document
+        .getElementById("referencesModal")
         .classList.remove("show");
 
 }
@@ -3819,819 +2865,373 @@ function closeMenu(){
    UPDATE SYSTEM
 ========================================================= */
 
-const SAYKO_VERSION = "2.0.0";
+function showUpdateDot(){
+
+    const dot =
+        document.getElementById("updateDot");
+
+    if(dot){
+        dot.classList.add("show");
+    }
+
+}
 
 
-function checkForUpdate(){
+function hideUpdateDot(){
 
-    $("updateText").textContent =
-        "SAYKØ FITNESS يعمل بأحدث نسخة حالياً.";
+    const dot =
+        document.getElementById("updateDot");
 
-    $("updateModal")
-        .classList.add("show");
+    if(dot){
+        dot.classList.remove("show");
+    }
+
+}
+
+
+function showUpdate(){
+
+    showUpdateDot();
+
+    const text =
+        document.getElementById("updateText");
+
+    if(text){
+
+        text.textContent =
+            "يوجد تحديث جديد لـ SAYKØ FITNESS. قم بتحديث البرنامج الآن للحصول على آخر التعديلات.";
+
+    }
+
+    const modal =
+        document.getElementById("updateModal");
+
+    if(modal){
+        modal.classList.add("show");
+    }
+
+}
+
+
+async function checkForUpdate(){
+
+    if(updateChecking){
+        return;
+    }
+
+    if(!("serviceWorker" in navigator)){
+        return;
+    }
+
+    updateChecking=true;
+
+    try{
+
+        let reg =
+            updateRegistration;
+
+        if(!reg){
+
+            reg =
+                await navigator
+                .serviceWorker
+                .getRegistration();
+
+        }
+
+        if(!reg){
+
+            updateChecking=false;
+            return;
+
+        }
+
+        updateRegistration=reg;
+
+        if(reg.waiting){
+
+            showUpdate();
+
+            updateChecking=false;
+            return;
+
+        }
+
+        await reg.update();
+
+        if(reg.waiting){
+            showUpdate();
+        }
+
+    }catch(error){
+
+        console.log(
+            "Update check failed:",
+            error
+        );
+
+    }finally{
+
+        updateChecking=false;
+
+    }
 
 }
 
 
 function closeUpdate(){
 
-    $("updateModal")
+    document
+        .getElementById("updateModal")
         .classList.remove("show");
 
 }
 
 
-function applyUpdate(){
-
-    localStorage.setItem(
-        "saykoVersion",
-        SAYKO_VERSION
-    );
-
-    closeUpdate();
-
-    location.reload(true);
-
-}
-
-
-/* =========================================================
-   STORAGE
-========================================================= */
-
-function saveData(){
+async function applyUpdate(){
 
     try{
 
-        localStorage.setItem(
-            "saykoFoods",
-            JSON.stringify(selectedFoods)
-        );
+        const reg =
+            updateRegistration
+            ||
+            await navigator
+            .serviceWorker
+            .getRegistration();
 
+        if(
+            reg &&
+            reg.waiting
+        ){
 
-        localStorage.setItem(
-            "saykoGoals",
-            JSON.stringify(goals)
-        );
+            const waitingWorker =
+                reg.waiting;
 
-    }
-    catch(error){
+            if(updateRefreshing){
+                return;
+            }
 
-        console.log(error);
+            updateRefreshing=true;
 
-    }
+            waitingWorker.postMessage({
+                type:"SKIP_WAITING"
+            });
 
-}
+            navigator
+                .serviceWorker
+                .addEventListener(
+                    "controllerchange",
+                    ()=>{
 
+                        hideUpdateDot();
 
-function loadData(){
+                        location.reload();
 
-    try{
+                    },
+                    {once:true}
+                );
 
-        const savedFoods =
-            localStorage.getItem("saykoFoods");
+            setTimeout(()=>{
 
+                if(updateRefreshing){
 
-        const savedGoals =
-            localStorage.getItem("saykoGoals");
+                    hideUpdateDot();
+                    location.reload();
 
+                }
 
-        if(savedFoods){
+            },5000);
 
-            selectedFoods =
-                JSON.parse(savedFoods);
+        }else{
+
+            hideUpdateDot();
+            location.reload();
 
         }
 
+    }catch(error){
 
-        if(savedGoals){
+        console.log(
+            "Apply update failed:",
+            error
+        );
 
-            goals =
-                JSON.parse(savedGoals);
-
-        }
-
-    }
-    catch(error){
-
-        selectedFoods = [];
+        hideUpdateDot();
+        location.reload();
 
     }
 
 }
 
 
-/* =========================================================
-   EXERCISES SECTION
-========================================================= */
+/* ================= ERROR ================= */
 
-const exercises = [
+function showError(message){
 
-    {
-        name:"ضغط صدر بالبار",
-        muscle:"صدر",
-        sets:"3–4",
-        reps:"8–12",
-        rest:"90–120 ثانية",
-        icon:"🏋️"
-    },
+    document
+        .getElementById("errorText")
+        .textContent=
+        message;
 
-    {
-        name:"ضغط صدر بالدمبل",
-        muscle:"صدر",
-        sets:"3–4",
-        reps:"8–12",
-        rest:"90 ثانية",
-        icon:"🏋️"
-    },
-
-    {
-        name:"ضغط صدر مائل بالدمبل",
-        muscle:"صدر علوي",
-        sets:"3",
-        reps:"8–12",
-        rest:"90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"تفتيح صدر",
-        muscle:"صدر",
-        sets:"3",
-        reps:"10–15",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"سحب أمامي واسع",
-        muscle:"ظهر",
-        sets:"3–4",
-        reps:"8–12",
-        rest:"90 ثانية",
-        icon:"🏋️"
-    },
-
-    {
-        name:"تجديف بالكابل",
-        muscle:"ظهر",
-        sets:"3–4",
-        reps:"8–12",
-        rest:"90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"تجديف بالبار",
-        muscle:"ظهر",
-        sets:"3",
-        reps:"6–10",
-        rest:"120 ثانية",
-        icon:"🏋️"
-    },
-
-    {
-        name:"Face Pull",
-        muscle:"كتف خلفي",
-        sets:"3",
-        reps:"12–15",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"ضغط كتف بالدمبل",
-        muscle:"كتف",
-        sets:"3",
-        reps:"8–12",
-        rest:"90 ثانية",
-        icon:"🏋️"
-    },
-
-    {
-        name:"رفرفة جانبية",
-        muscle:"كتف جانبي",
-        sets:"3–4",
-        reps:"12–15",
-        rest:"60 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"بايسبس دمبل",
-        muscle:"بايسبس",
-        sets:"3",
-        reps:"8–12",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"Hammer Curl",
-        muscle:"بايسبس",
-        sets:"3",
-        reps:"10–12",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"Triceps Pushdown",
-        muscle:"ترايسبس",
-        sets:"3",
-        reps:"10–15",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"ترايسبس فوق الرأس",
-        muscle:"ترايسبس",
-        sets:"3",
-        reps:"10–15",
-        rest:"60–90 ثانية",
-        icon:"💪"
-    },
-
-    {
-        name:"Squat",
-        muscle:"رجل",
-        sets:"3–4",
-        reps:"6–12",
-        rest:"120 ثانية",
-        icon:"🏋️"
-    },
-
-    {
-        name:"Leg Press",
-        muscle:"رجل",
-        sets:"3–4",
-        reps:"8–12",
-        rest:"90–120 ثانية",
-        icon:"🦵"
-    },
-
-    {
-        name:"Leg Extension",
-        muscle:"أمامية الرجل",
-        sets:"3",
-        reps:"10–15",
-        rest:"60–90 ثانية",
-        icon:"🦵"
-    },
-
-    {
-        name:"Leg Curl",
-        muscle:"خلفية الرجل",
-        sets:"3",
-        reps:"10–15",
-        rest:"60–90 ثانية",
-        icon:"🦵"
-    },
-
-    {
-        name:"Standing Calf Raise",
-        muscle:"سمانة",
-        sets:"3–4",
-        reps:"12–20",
-        rest:"60 ثانية",
-        icon:"🦵"
-    },
-
-    {
-        name:"Cable Crunch",
-        muscle:"بطن",
-        sets:"3",
-        reps:"12–15",
-        rest:"60 ثانية",
-        icon:"🔥"
-    }
-
-];
-
-
-/* =========================================================
-   ADD EXERCISE MENU BUTTON
-========================================================= */
-
-const menuItems =
-    document.querySelector(".menuItems");
-
-if(menuItems){
-
-    const exerciseButton =
-        document.createElement("button");
-
-    exerciseButton.className =
-        "menuItem";
-
-    exerciseButton.innerHTML = `
-        <span class="icon">🏋️</span>
-        <span>التمارين</span>
-    `;
-
-    exerciseButton.onclick =
-        openExercises;
-
-    menuItems.insertBefore(
-        exerciseButton,
-        menuItems.firstChild
-    );
-
-}
-
-
-/* =========================================================
-   EXERCISE MODAL
-========================================================= */
-
-function createExerciseModal(){
-
-    if($("exerciseModal"))
-        return;
-
-
-    const modal =
-        document.createElement("div");
-
-    modal.id = "exerciseModal";
-
-    modal.className =
-        "modalOverlay";
-
-
-    modal.innerHTML = `
-
-        <div class="modal">
-
-            <div class="modalHeader">
-
-                <div class="modalTitle">
-                    🏋️ التمارين
-                </div>
-
-                <button
-                    class="closeBtn"
-                    onclick="closeExercises()">
-                    ×
-                </button>
-
-            </div>
-
-
-            <div class="searchBox">
-
-                <input
-                    id="exerciseSearch"
-                    type="text"
-                    placeholder="ابحث عن تمرين..."
-                    oninput="searchExercises()">
-
-            </div>
-
-
-            <div
-                id="exerciseFilters"
-                style="
-                    display:flex;
-                    gap:6px;
-                    overflow-x:auto;
-                    padding-bottom:10px;
-                    margin-bottom:10px;
-                ">
-            </div>
-
-
-            <div id="exerciseList"></div>
-
-        </div>
-
-    `;
-
-
-    document.body.appendChild(modal);
-
-
-    renderExerciseFilters();
-
-    renderExercises(exercises);
-
-}
-
-
-function openExercises(){
-
-    closeMenu();
-
-    createExerciseModal();
-
-    $("exerciseModal")
+    document
+        .getElementById("errorOverlay")
         .classList.add("show");
 
 }
 
+function closeError(){
 
-function closeExercises(){
-
-    const modal =
-        $("exerciseModal");
-
-    if(modal){
-
-        modal.classList.remove("show");
-
-    }
+    document
+        .getElementById("errorOverlay")
+        .classList.remove("show");
 
 }
 
 
-/* =========================================================
-   EXERCISE FILTERS
-========================================================= */
+/* ================= STORAGE ================= */
 
-function renderExerciseFilters(){
+function saveFoods(){
 
-    const container =
-        $("exerciseFilters");
-
-    if(!container) return;
-
-
-    const muscles = [
-        "الكل",
-        "صدر",
-        "ظهر",
-        "كتف",
-        "بايسبس",
-        "ترايسبس",
-        "رجل",
-        "بطن"
-    ];
-
-
-    container.innerHTML = "";
-
-
-    muscles.forEach(muscle=>{
-
-        const button =
-            document.createElement("button");
-
-        button.textContent =
-            muscle;
-
-        button.style.cssText = `
-            flex-shrink:0;
-            border:1px solid var(--border);
-            background:var(--card);
-            color:var(--text);
-            border-radius:20px;
-            padding:8px 14px;
-            cursor:pointer;
-        `;
-
-
-        button.onclick = function(){
-
-            if(muscle === "الكل"){
-
-                renderExercises(exercises);
-
-            }
-            else{
-
-                const filtered =
-                    exercises.filter(
-                        exercise =>
-                        exercise.muscle
-                        .includes(muscle)
-                    );
-
-                renderExercises(filtered);
-
-            }
-
-        };
-
-
-        container.appendChild(button);
-
-    });
+    localStorage.setItem(
+        "saykoFoods",
+        JSON.stringify(selectedFoods)
+    );
 
 }
 
 
-/* =========================================================
-   EXERCISE SEARCH
-========================================================= */
+/* ================= FORMAT ================= */
 
-function searchExercises(){
+function formatNumber(number){
 
-    const value =
-        $("exerciseSearch")
-        .value
-        .trim()
-        .toLowerCase();
+    return Number(number)
+        .toFixed(1)
+        .replace(".0","");
+
+}
 
 
-    const result =
-        exercises.filter(exercise =>
+/* ================= CLOSE MODALS ================= */
 
-            exercise.name
-                .toLowerCase()
-                .includes(value)
+document
+    .querySelectorAll(".modalOverlay")
+    .forEach(overlay=>{
 
-            ||
+        overlay.addEventListener(
+            "click",
+            function(e){
 
-            exercise.muscle
-                .toLowerCase()
-                .includes(value)
+                if(e.target===overlay){
 
+                    overlay.classList.remove("show");
+
+                }
+
+            }
         );
 
-
-    renderExercises(result);
-
-}
-
-
-/* =========================================================
-   EXERCISE DISPLAY
-========================================================= */
-
-function renderExercises(list){
-
-    const container =
-        $("exerciseList");
-
-    if(!container) return;
-
-
-    container.innerHTML = "";
-
-
-    if(list.length === 0){
-
-        container.innerHTML = `
-            <div style="
-                text-align:center;
-                color:var(--muted);
-                padding:25px;
-            ">
-                لا يوجد تمرين مطابق
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.forEach(exercise=>{
-
-        const card =
-            document.createElement("div");
-
-
-        card.style.cssText = `
-            background:var(--bg);
-            border:1px solid var(--border);
-            border-radius:14px;
-            padding:14px;
-            margin-bottom:10px;
-        `;
-
-
-        card.innerHTML = `
-
-            <div style="
-                display:flex;
-                align-items:center;
-                gap:10px;
-                margin-bottom:10px;
-            ">
-
-                <div style="
-                    width:42px;
-                    height:42px;
-                    border-radius:10px;
-                    background:var(--card);
-                    border:1px solid var(--border);
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:22px;
-                ">
-                    ${exercise.icon}
-                </div>
-
-
-                <div>
-
-                    <div style="
-                        font-size:16px;
-                        font-weight:bold;
-                    ">
-                        ${exercise.name}
-                    </div>
-
-                    <div style="
-                        color:var(--red);
-                        font-size:13px;
-                        margin-top:3px;
-                    ">
-                        ${exercise.muscle}
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div style="
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:6px;
-            ">
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Sets
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                    ">
-                        ${exercise.sets}
-                    </strong>
-                </div>
-
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        Reps
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                    ">
-                        ${exercise.reps}
-                    </strong>
-                </div>
-
-
-                <div style="
-                    background:var(--card);
-                    border-radius:8px;
-                    padding:8px;
-                    text-align:center;
-                ">
-                    <small style="
-                        color:var(--muted);
-                    ">
-                        الراحة
-                    </small>
-
-                    <strong style="
-                        display:block;
-                        margin-top:3px;
-                        font-size:12px;
-                    ">
-                        ${exercise.rest}
-                    </strong>
-                </div>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
     });
-
-}
-
-
-/* =========================================================
-   CLOSE MODALS BY CLICKING OUTSIDE
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const modals =
-            document.querySelectorAll(
-                ".modalOverlay"
-            );
-
-
-        modals.forEach(modal=>{
-
-            if(
-                event.target === modal
-            ){
-
-                modal.classList.remove(
-                    "show"
-                );
-
-            }
-
-        });
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        loadData();
-
-
-        const savedTheme =
-            localStorage.getItem(
-                "saykoTheme"
-            );
-
-
-        if(savedTheme === "light"){
-
-            document.body.classList.add(
-                "light"
-            );
-
-        }
-
-
-        renderFoods();
-
-        renderSelectedFoods();
-
-        updateProgress();
-
-
-        /*
-         * تجهيز قسم التمارين
-         */
-        createExerciseModal();
-
-    }
-);
 
 
 /* =========================================================
    SERVICE WORKER
 ========================================================= */
 
-if(
-    "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
-        function(){
+        async ()=>{
 
-            navigator.serviceWorker
-                .register("sw.js")
-                .then(function(){
+            try{
 
-                    console.log(
-                        "SAYKØ FITNESS Service Worker registered"
+                const reg =
+                    await navigator
+                    .serviceWorker
+                    .register(
+                        "sw.js",
+                        {
+                            updateViaCache:"none"
+                        }
                     );
 
-                })
-                .catch(function(error){
+                updateRegistration=reg;
 
-                    console.log(
-                        "Service Worker error:",
-                        error
-                    );
+                if(reg.waiting){
+                    showUpdate();
+                }
 
-                });
+                reg.addEventListener(
+                    "updatefound",
+                    ()=>{
+
+                        const newWorker =
+                            reg.installing;
+
+                        if(!newWorker){
+                            return;
+                        }
+
+                        newWorker.addEventListener(
+                            "statechange",
+                            ()=>{
+
+                                if(
+                                    newWorker.state ===
+                                    "installed"
+                                    &&
+                                    navigator
+                                    .serviceWorker
+                                    .controller
+                                ){
+
+                                    showUpdate();
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+                setTimeout(()=>{
+
+                    checkForUpdate();
+
+                },1000);
+
+                setInterval(()=>{
+
+                    checkForUpdate();
+
+                },5000);
+
+            }catch(error){
+
+                console.log(
+                    "Service Worker registration failed:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "visibilitychange",
+        ()=>{
+
+            if(
+                document.visibilityState ===
+                "visible"
+            ){
+
+                checkForUpdate();
+
+            }
 
         }
     );
@@ -4639,36 +3239,17 @@ if(
 }
 
 
-/* =========================================================
-   KEYBOARD
-========================================================= */
+/* ================= INIT ================= */
 
-document.addEventListener(
-    "keydown",
-    function(event){
+loadTheme();
 
-        if(event.key === "Escape"){
+renderFoods();
 
-            closeFood();
+renderSelectedFoods();
 
-            closeGoal();
-
-            closeReferences();
-
-            closeTheme();
-
-            closeUpdate();
-
-            closeExercises();
-
-            closeMenu();
-
-        }
-
-    }
-);
+updateProgress();
 
 </script>
 
 </body>
-</html>
+                  </html>
