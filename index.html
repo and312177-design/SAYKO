@@ -90,36 +90,19 @@ header{
     height:45px;
 }
 
-.headerLeft{
-    display:flex;
-    align-items:center;
-}
-
 /* ================= UPDATE BELL ================= */
-
-.updateBtn{
-    position:relative;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:1px solid var(--red);
-    background:var(--red);
-    color:#fff;
-    cursor:pointer;
-    font-size:18px;
-}
 
 .updateDot{
     position:absolute;
-    top:1px;
-    right:1px;
-    width:11px;
-    height:11px;
-    background:#fff;
-    border:2px solid var(--red);
+    top:-5px;
+    right:-12px;
+    width:10px;
+    height:10px;
+    background:var(--red);
+    border:2px solid var(--card);
     border-radius:50%;
     display:none;
-    box-shadow:0 0 0 2px rgba(255,255,255,.15);
+    box-shadow:0 0 0 2px rgba(255,0,0,.15);
 }
 
 .updateDot.show{
@@ -765,22 +748,6 @@ body.light .selectedName{
     SAYKØ <span>FITNESS</span>
 </div>
 
-<div class="headerLeft">
-
-<button class="updateBtn"
-        id="updateBell"
-        onclick="checkForUpdate()"
-        aria-label="التحديثات">
-
-    🔔
-
-    <span id="updateDot"
-          class="updateDot"></span>
-
-</button>
-
-</div>
-
 </header>
 
 
@@ -808,6 +775,22 @@ body.light .selectedName{
 </div>
 
 <div class="menuItems">
+
+<button class="menuItem"
+        onclick="closeMenu(); checkForUpdate();">
+
+<span class="icon">🔔</span>
+
+<span style="position:relative;">
+
+    التحديثات
+
+    <span id="updateDot"
+          class="updateDot"></span>
+
+</span>
+
+</button>
 
 <button class="menuItem"
         onclick="openReferences()">
@@ -2805,9 +2788,6 @@ function closeReferences(){
    UPDATE SYSTEM
 ========================================================= */
 
-
-/* ================= UPDATE DOT ================= */
-
 function showUpdateDot(){
 
     const dot =
@@ -2836,8 +2816,6 @@ function hideUpdateDot(){
 }
 
 
-/* ================= SHOW UPDATE ALERT ================= */
-
 function showUpdate(){
 
     showUpdateDot();
@@ -2863,8 +2841,6 @@ function showUpdate(){
 
 }
 
-
-/* ================= CHECK UPDATE ================= */
 
 async function checkForUpdate(){
 
@@ -2940,8 +2916,6 @@ async function checkForUpdate(){
 }
 
 
-/* ================= CLOSE UPDATE ================= */
-
 function closeUpdate(){
 
     document
@@ -2950,8 +2924,6 @@ function closeUpdate(){
 
 }
 
-
-/* ================= APPLY UPDATE ================= */
 
 async function applyUpdate(){
 
