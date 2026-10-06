@@ -798,11 +798,347 @@ body.light .selectedName{
 
 }
 
+/* ================================
+   SAYKØ DIET SYSTEM
+================================ */
+
+.saykoDietScreen{
+    position:fixed;
+    inset:0;
+    z-index:4000;
+    background:var(--bg);
+    color:var(--text);
+    display:none;
+    overflow-y:auto;
+}
+
+.saykoDietScreen.show{
+    display:block;
+}
+
+.saykoDietHeader{
+    height:70px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.saykoDietBack{
+    position:absolute;
+    right:15px;
+    width:45px;
+    height:45px;
+    border:0;
+    background:none;
+    color:var(--text);
+    font-size:28px;
+    cursor:pointer;
+}
+
+.saykoDietTitle{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.saykoDietTitle span{
+    color:var(--red);
+}
+
+.saykoDietContainer{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:20px 15px 40px;
+}
+
+.saykoDietCard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.saykoDietCardTitle{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.saykoDietForm{
+    display:grid;
+    gap:12px;
+}
+
+.saykoDietInput{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    font-size:16px;
+    outline:none;
+}
+
+.saykoDietInput:focus{
+    border-color:var(--red);
+}
+
+.saykoDietButton{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:var(--red);
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.saykoDietButton:active{
+    transform:scale(.98);
+}
+
+.saykoDietHidden{
+    display:none;
+}
+
+.saykoDietNote{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+    margin-top:10px;
+}
+
+/* ================================
+   DIET FOOD SELECTOR
+================================ */
+
+.saykoDietFoodSelector{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:0;
+}
+
+.saykoDietFoodSelectorBox{
+    width:100%;
+    max-width:600px;
+    max-height:85vh;
+    overflow-y:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px 20px 0 0;
+    padding:18px 15px 25px;
+}
+
+.saykoDietFoodSelectorHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+    font-size:19px;
+}
+
+.saykoDietFoodSelectorHeader button{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:var(--bg);
+    color:var(--text);
+    font-size:25px;
+    cursor:pointer;
+}
+
+.saykoDietFoodResults{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:12px;
+}
+
+.saykoDietFoodItem{
+    width:100%;
+    min-height:55px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--text);
+    padding:10px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    text-align:right;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.saykoDietFoodItem:active{
+    transform:scale(.98);
+}
+
+.saykoDietFoodItem small{
+    color:var(--muted);
+    white-space:nowrap;
+    font-size:12px;
+}
+
+.saykoDietNoResults{
+    text-align:center;
+    color:var(--muted);
+    padding:25px 10px;
+}
+
+  /* ================================
+   DIET PROGRESS CIRCLES
+================================ */
+
+.saykoDietProgress{
+    text-align:center;
+}
+
+.saykoDietMainRing{
+    --progress:0%;
+    width:200px;
+    height:200px;
+    margin:10px auto 12px;
+    border-radius:50%;
+    background:
+        conic-gradient(
+            var(--red) var(--progress),
+            #292929 var(--progress)
+        );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.saykoDietRingInside{
+    width:166px;
+    height:166px;
+    border-radius:50%;
+    background:var(--card);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.saykoDietRingInside strong{
+    font-size:30px;
+}
+
+.saykoDietRingInside span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.saykoDietRemaining{
+    margin-bottom:20px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.saykoDietRemaining strong{
+    color:var(--red);
+}
+
+.saykoDietSmallRings{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.saykoDietSmallRing{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+}
+
+.saykoDietCircle{
+    --progress:0%;
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    background:
+        conic-gradient(
+            var(--red) var(--progress),
+            #292929 var(--progress)
+        );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.saykoDietCircle::before{
+    content:"";
+    position:absolute;
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:var(--card);
+}
+
+.saykoDietCircle span{
+    position:relative;
+    z-index:1;
+    font-size:11px;
+    color:var(--text);
+}
+
+.saykoDietCircle b{
+    font-size:11px;
+}
+
+.saykoDietSmallRing small{
+    color:var(--muted);
+    font-size:12px;
+}
+
+@media(max-width:380px){
+
+    .saykoDietMainRing{
+        width:175px;
+        height:175px;
+    }
+
+    .saykoDietRingInside{
+        width:145px;
+        height:145px;
+    }
+
+    .saykoDietCircle{
+        width:82px;
+        height:82px;
+    }
+
+    .saykoDietCircle::before{
+        width:64px;
+        height:64px;
+    }
+
+}
+  
 </style>
 </head>
 
 
-<body>
+<>
 
 
 <!-- ================= HEADER ================= -->
@@ -890,6 +1226,14 @@ body.light .selectedName{
 
         </button>
 
+<button class="menuItem"
+        onclick="openDietSystem()">
+
+    <span class="icon">🍽️</span>
+    <span>إنشاء نظام غذائي</span>
+
+</button>
+      
     </div>
 
 </div>
@@ -3248,7 +3592,662 @@ renderFoods();
 renderSelectedFoods();
 
 updateProgress();
-      
+
+/* ================================
+   SAYKØ DIET SYSTEM
+================================ */
+
+function openDietSystem(){
+
+    closeMenu();
+
+    const screen =
+        document.getElementById("saykoDietSystem");
+
+    if(!screen) return;
+
+    screen.classList.add("show");
+    screen.setAttribute("aria-hidden","false");
+
+    document.body.style.overflow="hidden";
+}
+
+
+function closeDietSystem(){
+
+    const screen =
+        document.getElementById("saykoDietSystem");
+
+    if(!screen) return;
+
+    screen.classList.remove("show");
+    screen.setAttribute("aria-hidden","true");
+
+    document.body.style.overflow="";
+} 
+
+/* ================================
+   UPDATE DIET FOOD QUANTITY
+================================ */
+
+function updateDietFoodGrams(
+    mealId,
+    foodId,
+    grams
+){
+
+    const meal =
+        saykoDietMeals.find(
+            m => m.id === mealId
+        );
+
+    if(!meal) return;
+
+
+    const item =
+        meal.foods.find(
+            f => f.id === foodId
+        );
+
+    if(!item) return;
+
+
+    const food =
+        foods.find(
+            f => f.name === item.name
+        );
+
+    if(!food) return;
+
+
+    grams =
+        parseFloat(grams);
+
+
+    if(!grams || grams <= 0){
+
+        grams = 1;
+
+    }
+
+
+    item.grams = grams;
+
+
+    item.calories =
+        food.calories * grams / 100;
+
+    item.protein =
+        food.protein * grams / 100;
+
+    item.carbs =
+        food.carbs * grams / 100;
+
+    item.fat =
+        food.fat * grams / 100;
+
+
+    renderDietMeals();
+
+}
+
+
+/* ================================
+   REMOVE DIET FOOD
+================================ */
+
+function removeDietFood(
+    mealId,
+    foodId
+){
+
+    const meal =
+        saykoDietMeals.find(
+            m => m.id === mealId
+        );
+
+    if(!meal) return;
+
+
+    meal.foods =
+        meal.foods.filter(
+            food => food.id !== foodId
+        );
+
+
+    renderDietMeals();
+
+}
+
+function calculateDietSystem(){
+
+    const age =
+        parseFloat(document.getElementById("dietAge").value);
+
+    const height =
+        parseFloat(document.getElementById("dietHeight").value);
+
+    const weight =
+        parseFloat(document.getElementById("dietWeight").value);
+
+    const gender =
+        document.getElementById("dietGender").value;
+
+    const activity =
+        parseFloat(document.getElementById("dietActivity").value);
+
+    const goal =
+        document.getElementById("dietGoal").value;
+
+
+    if(!age || !height || !weight){
+
+        showError(
+            "من فضلك أدخل العمر والطول والوزن."
+        );
+
+        return;
+
+    }
+
+
+    let bmr;
+
+
+    if(gender === "male"){
+
+        bmr =
+            (10 * weight) +
+            (6.25 * height) -
+            (5 * age) +
+            5;
+
+    }else{
+
+        bmr =
+            (10 * weight) +
+            (6.25 * height) -
+            (5 * age) -
+            161;
+
+    }
+
+
+    let calories =
+        bmr * activity;
+
+
+    if(goal === "build"){
+        calories += 100;
+    }
+
+
+    calories =
+        Math.round(calories);
+
+
+    const protein =
+        Math.round(weight * 1.6);
+
+    const carbs =
+        Math.round((calories * 0.45) / 4);
+
+    const fat =
+        Math.round((calories * 0.25) / 9);
+
+
+    saykoDietTargets = {
+
+        calories: calories,
+        protein: protein,
+        carbs: carbs,
+        fat: fat
+
+    };
+
+
+    document
+        .getElementById("dietSetup")
+        .classList
+        .add("saykoDietHidden");
+
+
+    document
+        .getElementById("dietDashboard")
+        .classList
+        .remove("saykoDietHidden");
+
+
+    updateDietProgress();
+
+}
+
+/* ================================
+   UPDATE DIET PROGRESS
+================================ */
+
+function updateDietProgress(){
+
+    let calories = 0;
+    let protein = 0;
+    let carbs = 0;
+    let fat = 0;
+
+
+    saykoDietMeals.forEach(meal => {
+
+        meal.foods.forEach(food => {
+
+            calories += Number(food.calories) || 0;
+            protein += Number(food.protein) || 0;
+            carbs += Number(food.carbs) || 0;
+            fat += Number(food.fat) || 0;
+
+        });
+
+    
+
+
+    updateDietCircle(
+        "dietProteinCircle",
+        "dietProteinCurrent",
+        "dietProteinTarget",
+        protein,
+        targetProtein
+    );
+
+
+    updateDietCircle(
+        "dietCarbsCircle",
+        "dietCarbsCurrent",
+        "dietCarbsTarget",
+        carbs,
+        targetCarbs
+    );
+
+
+    updateDietCircle(
+        "dietFatCircle",
+        "dietFatCurrent",
+        "dietFatTarget",
+        fat,
+        targetFat
+    );
+
+
+    const mainRing =
+        document.querySelector(
+            ".saykoDietMainRing"
+        );
+
+
+    if(mainRing){
+
+        const percent =
+            targetCalories > 0
+                ? Math.min(
+                    (calories / targetCalories) * 100,
+                    100
+                )
+                : 0;
+
+
+        mainRing.style.setProperty(
+            "--progress",
+            percent + "%"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   UPDATE SMALL CIRCLE
+================================ */
+
+function updateDietCircle(
+    circleId,
+    currentId,
+    targetId,
+    current,
+    target
+){
+
+    const circle =
+        document.getElementById(circleId);
+
+    const currentElement =
+        document.getElementById(currentId);
+
+    const targetElement =
+        document.getElementById(targetId);
+
+
+    if(currentElement){
+
+        currentElement.textContent =
+            formatNumber(current);
+
+    }
+
+
+    if(targetElement){
+
+        targetElement.textContent =
+            formatNumber(target);
+
+    }
+
+
+    if(circle){
+
+        const percent =
+            target > 0
+                ? Math.min(
+                    (current / target) * 100,
+                    100
+                )
+                : 0;
+
+
+        circle.style.setProperty(
+            "--progress",
+            percent + "%"
+        );
+
+    }
+
+}
+  
 </script>
+
+<!-- SAYKØ DIET SYSTEM -->
+
+<div id="saykoDietSystem"
+     class="saykoDietScreen"
+     aria-hidden="true">
+
+    <div class="saykoDietHeader">
+
+        <button class="saykoDietBack"
+                onclick="closeDietSystem()">
+            ←
+        </button>
+
+        <div class="saykoDietTitle">
+            إنشاء <span>نظام غذائي</span>
+        </div>
+
+    </div>
+
+
+    < class="saykoDietContainer">
+
+        <!-- بيانات الشخص -->
+
+        <div id="dietSetup"
+             class="saykoDietCard">
+
+            <div class="saykoDietCardTitle">
+                بياناتك
+            </div>
+
+            <div class="saykoDietForm">
+
+                <input
+                    id="dietAge"
+                    class="saykoDietInput"
+                    type="number"
+                    placeholder="العمر">
+
+                <input
+                    id="dietHeight"
+                    class="saykoDietInput"
+                    type="number"
+                    placeholder="الطول بالسنتيمتر">
+
+                <input
+                    id="dietWeight"
+                    class="saykoDietInput"
+                    type="number"
+                    placeholder="الوزن بالكيلو">
+
+                <select
+                    id="dietGender"
+                    class="saykoDietInput">
+
+                    <option value="male">
+                        ذكر
+                    </option>
+
+                    <option value="female">
+                        أنثى
+                    </option>
+
+                </select>
+
+                <select
+                    id="dietActivity"
+                    class="saykoDietInput">
+
+                    <option value="1.2">
+                        قليل الحركة
+                    </option>
+
+                    <option value="1.375">
+                        نشاط خفيف
+                    </option>
+
+                    <option value="1.55">
+                        نشاط متوسط
+                    </option>
+
+                    <option value="1.725">
+                        نشاط عالي
+                    </option>
+
+                </select>
+
+                <select
+                    id="dietGoal"
+                    class="saykoDietInput">
+
+                    <option value="maintain">
+                        تنظيم الاحتياج اليومي
+                    </option>
+
+                    <option value="build">
+                        دعم النشاط وبناء العضلات
+                    </option>
+
+                </select>
+
+                <button
+                    class="saykoDietButton"
+                    onclick="calculateDietSystem()">
+
+                    حساب الاحتياج
+
+                </button>
+
+            </div>
+
+            <div class="saykoDietNote">
+                يمكنك تعديل الاختيارات لاحقًا.
+            </div>
+
+        </div>
+
+<!-- لوحة النظام -->
+
+< id="dietDashboard"
+     class="saykoDietHidden">
+
+    <div class="saykoDietCard">
+
+        <div class="saykoDietCardTitle">
+            نظامك اليومي
+        </div>
+
+        <div id="dietTargetsText">
+
+            <div class="saykoDietProgress">
+
+                <div class="saykoDietMainRing">
+
+                    <div class="saykoDietRingInside">
+
+                        <strong id="dietCaloriesCurrent">
+                            0
+                        </strong>
+
+                        <span>
+                            /
+                            <span id="dietCaloriesTarget">
+                                0
+                            </span>
+                            kcal
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="saykoDietRemaining">
+
+                    المتبقي:
+
+                    <strong id="dietCaloriesRemaining">
+                        0
+                    </strong>
+
+                    kcal
+
+                </div>
+
+
+                <div class="saykoDietSmallRings">
+
+
+                    <div class="saykoDietSmallRing">
+
+                        <div class="saykoDietCircle"
+                             id="dietProteinCircle">
+
+                            <span>
+
+                                <b id="dietProteinCurrent">
+                                    0
+                                </b>
+
+                                /
+
+                                <b id="dietProteinTarget">
+                                    0
+                                </b>
+
+                                g
+
+                            </span>
+
+                        </div>
+
+                        <small>
+                            بروتين
+                        </small>
+
+                    </div>
+
+
+                    <div class="saykoDietSmallRing">
+
+                        <div class="saykoDietCircle"
+                             id="dietCarbsCircle">
+
+                            <span>
+
+                                <b id="dietCarbsCurrent">
+                                    0
+                                </b>
+
+                                /
+
+                                <b id="dietCarbsTarget">
+                                    0
+                                </b>
+
+                                g
+
+                            </span>
+
+                        </div>
+
+                        <small>
+                            كربوهيدرات
+                        </small>
+
+                    </div>
+
+
+                    <div class="saykoDietSmallRing">
+
+                        <div class="saykoDietCircle"
+                             id="dietFatCircle">
+
+                            <span>
+
+                                <b id="dietFatCurrent">
+                                    0
+                                </b>
+
+                                /
+
+                                <b id="dietFatTarget">
+                                    0
+                                </b>
+
+                                g
+
+                            </span>
+
+                        </div>
+
+                        <small>
+                            دهون
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="saykoDietCard">
+
+        <button
+            class="saykoDietButton"
+            onclick="createDietMeal()">
+
+            + إضافة وجبة
+
+        </button>
+
+    </div>
+
+
+    <div id="dietMeals"></div>
+
+
+  </div>
+  
 </body>
+
       </html>
