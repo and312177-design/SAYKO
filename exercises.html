@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>SAYKØ FITNESS • التمارين</title>
+
+<link rel="icon"
+      type="image/jpeg"
+      href="1790471069347.jpg">
+
+<link rel="stylesheet" href="exercises.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <button class="backBtn" onclick="goHome()">
+        ←
+    </button>
+
+    <div class="logo">
+        SAYKØ <span>FITNESS</span>
+    </div>
+
+    <button class="programHeaderBtn" onclick="showProgram()">
+        📋
+    </button>
+
+</header>
+
+
+<main>
+
+    <div class="pageTitle">
+        <h1>💪 التمارين</h1>
+        <p>اختر العضلة وشاهد التمارين والتفاصيل</p>
+    </div>
+
+
+    <!-- ================= TABS ================= -->
+
+    <div class="tabs">
+
+        <button id="exercisesTab"
+                class="tab active"
+                onclick="showExercises()">
+            💪 التمارين
+        </button>
+
+        <button id="programTab"
+                class="tab"
+                onclick="showProgram()">
+            📋 برنامجي
+        </button>
+
+    </div>
+
+
+    <!-- ================= EXERCISES PAGE ================= -->
+
+    <section id="exercisesPage">
+
+        <div class="sectionTitle">
+            اختر العضلة
+        </div>
+
+        <div id="muscleGrid"
+             class="muscleGrid">
+        </div>
+
+
+        <div id="exerciseSection"
+             class="exerciseSection hidden">
+
+            <div class="sectionHeader">
+
+                <div>
+                    <h2 id="selectedMuscleTitle">
+                        التمارين
+                    </h2>
+
+                    <p id="selectedMuscleSubtitle">
+                        اختر تمرينًا لمعرفة التفاصيل
+                    </p>
+                </div>
+
+                <button class="smallBtn"
+                        onclick="showAllExercises()">
+                    الكل
+                </button>
+
+            </div>
+
+
+            <div id="exerciseGrid"
+                 class="exerciseGrid">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROGRAM PAGE ================= -->
+
+    <section id="programPage"
+             class="hidden">
+
+        <div class="programTop">
+
+            <div>
+                <h2>📋 برنامجي</h2>
+                <p>التمارين التي اخترتها لبرنامجك</p>
+            </div>
+
+            <button class="clearProgramBtn"
+                    onclick="clearProgram()">
+                مسح الكل
+            </button>
+
+        </div>
+
+
+        <div id="programList"
+             class="programList">
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= EXERCISE MODAL ================= -->
+
+<div id="exerciseModal"
+     class="modalOverlay">
+
+    <div class="modal">
+
+        <div class="modalHeader">
+
+            <div>
+
+                <div id="modalMuscle"
+                     class="modalMuscle">
+                    الصدر
+                </div>
+
+                <h2 id="modalTitle">
+                    تمرين
+                </h2>
+
+            </div>
+
+            <button class="closeBtn"
+                    onclick="closeExercise()">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="exerciseIcon"
+             id="modalIcon">
+            🏋️
+        </div>
+
+
+        <div class="detailBox">
+
+            <div class="detailRow">
+
+                <span>🎯 العضلة الأساسية</span>
+
+                <strong id="modalPrimary">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="detailRow">
+
+                <span>💪 عضلات مساعدة</span>
+
+                <strong id="modalSecondary">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="detailRow">
+
+                <span>🏋️ نوع التمرين</span>
+
+                <strong id="modalType">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="infoTitle">
+            📖 طريقة الأداء
+        </div>
+
+        <div id="modalSteps"
+             class="steps">
+        </div>
+
+
+        <div class="infoTitle">
+            ⚠️ أخطاء شائعة
+        </div>
+
+        <div id="modalMistakes"
+             class="mistakes">
+        </div>
+
+
+        <div class="trainingSettings">
+
+            <div class="inputGroup">
+
+                <label>
+                    المجموعات
+                </label>
+
+                <input id="setsInput"
+                       type="number"
+                       min="1"
+                       max="20"
+                       value="3">
+
+            </div>
+
+
+            <div class="inputGroup">
+
+                <label>
+                    التكرارات
+                </label>
+
+                <input id="repsInput"
+                       type="text"
+                       value="8-12">
+
+            </div>
+
+
+            <div class="inputGroup">
+
+                <label>
+                    الراحة بالثواني
+                </label>
+
+                <input id="restInput"
+                       type="number"
+                       min="0"
+                       value="90">
+
+            </div>
+
+        </div>
+
+
+        <button id="addProgramBtn"
+                class="primaryBtn"
+                onclick="addCurrentToProgram()">
+            ⭐ أضف لبرنامجي
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PROGRAM EDIT MODAL ================= -->
+
+<div id="programEditModal"
+     class="modalOverlay">
+
+    <div class="modal">
+
+        <div class="modalHeader">
+
+            <h2>
+                تعديل التمرين
+            </h2>
+
+            <button class="closeBtn"
+                    onclick="closeProgramEdit()">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="inputGroup">
+
+            <label>
+                المجموعات
+            </label>
+
+            <input id="editSets"
+                   type="number"
+                   min="1"
+                   max="20">
+
+        </div>
+
+
+        <div class="inputGroup">
+
+            <label>
+                التكرارات
+            </label>
+
+            <input id="editReps"
+                   type="text">
+
+        </div>
+
+
+        <div class="inputGroup">
+
+            <label>
+                الراحة بالثواني
+            </label>
+
+            <input id="editRest"
+                   type="number"
+                   min="0">
+
+        </div>
+
+
+        <button class="primaryBtn"
+                onclick="saveProgramEdit()">
+            حفظ التعديل
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast"
+     class="toast">
+</div>
+
+
+<script src="exercises.js"></script>
+
+</body>
+                  </html>
