@@ -1,204 +1,200 @@
-const CACHE_NAME = "sayko-fitness-v18";
+const CACHE_NAME = "sayko-fitness-v17";
 
 const FILES_TO_CACHE = [
-    "./",
-    "./index.html",
-    "./manifest.json",
-    "./1790471069347.jpg"
+"./",
+"./index.html",
+"./manifest.json",
+"./1790471069347.jpg"
 ];
 
-
 /* ================================
-   INSTALL
+INSTALL
 ================================ */
 
 self.addEventListener("install", event => {
 
-    event.waitUntil(
+event.waitUntil(  
 
-        caches.open(CACHE_NAME)
-        .then(cache => {
+    caches.open(CACHE_NAME)  
+    .then(cache => {  
 
-            return cache.addAll(FILES_TO_CACHE);
+        return cache.addAll(FILES_TO_CACHE);  
 
-        })
+    })  
 
-    );
+);  
 
-    /*
-       لا نستخدم skipWaiting هنا.
-       النسخة الجديدة تنتظر حتى يضغط
-       المستخدم على "تحديث الآن".
-    */
+/*  
+   لا نستخدم skipWaiting هنا.  
+   النسخة الجديدة تنتظر حتى يضغط  
+   المستخدم على "تحديث الآن".  
+*/
 
 });
 
-
 /* ================================
-   ACTIVATE
+ACTIVATE
 ================================ */
 
 self.addEventListener("activate", event => {
 
-    event.waitUntil(
+event.waitUntil(  
 
-        caches.keys()
-        .then(keys => {
+    caches.keys()  
+    .then(keys => {  
 
-            return Promise.all(
+        return Promise.all(  
 
-                keys.map(key => {
+            keys.map(key => {  
 
-                    if(key !== CACHE_NAME){
+                if(key !== CACHE_NAME){  
 
-                        return caches.delete(key);
+                    return caches.delete(key);  
 
-                    }
+                }  
 
-                    return null;
+                return null;  
 
-                })
+            })  
 
-            );
+        );  
 
-        })
-        .then(() => {
+    })  
+    .then(() => {  
 
-            return self.clients.claim();
+        return self.clients.claim();  
 
-        })
+    })  
 
-    );
+);
 
 });
 
-
 /* ================================
-   FETCH
+FETCH
 ================================ */
 
 self.addEventListener("fetch", event => {
 
-    /*
-       صفحات HTML:
-       نحاول دائمًا الحصول على أحدث نسخة
-       من السيرفر أولًا.
-    */
+/*  
+   صفحات HTML:  
+   نحاول دائمًا الحصول على أحدث نسخة  
+   من السيرفر أولًا.  
+*/  
 
-    if(
-        event.request.mode === "navigate" ||
-        event.request.destination === "document"
-    ){
+if(  
+    event.request.mode === "navigate" ||  
+    event.request.destination === "document"  
+){  
 
-        event.respondWith(
+    event.respondWith(  
 
-            fetch(event.request, {
-                cache: "no-store"
-            })
+        fetch(event.request, {  
+            cache: "no-store"  
+        })  
 
-            .then(response => {
+        .then(response => {  
 
-                const copy = response.clone();
+            const copy = response.clone();  
 
-                caches.open(CACHE_NAME)
-                .then(cache => {
+            caches.open(CACHE_NAME)  
+            .then(cache => {  
 
-                    cache.put(
-                        event.request,
-                        copy
-                    );
+                cache.put(  
+                    event.request,  
+                    copy  
+                );  
 
-                });
+            });  
 
-                return response;
+            return response;  
 
-            })
+        })  
 
-            .catch(() => {
+        .catch(() => {  
 
-                return caches.match(
-                    event.request
-                );
+            return caches.match(  
+                event.request  
+            );  
 
-            })
+        })  
 
-        );
+    );  
 
-        return;
+    return;  
 
-    }
+}  
 
 
-    /*
-       باقي الملفات:
-       نستخدم الكاش أولًا،
-       وإذا لم نجد الملف نحاول تحميله من السيرفر.
-    */
+/*  
+   باقي الملفات:  
+   نستخدم الكاش أولًا،  
+   وإذا لم نجد الملف نحاول تحميله من السيرفر.  
+*/  
 
-    event.respondWith(
+event.respondWith(  
 
-        caches.match(event.request)
+    caches.match(event.request)  
 
-        .then(cached => {
+    .then(cached => {  
 
-            if(cached){
+        if(cached){  
 
-                return cached;
+            return cached;  
 
-            }
+        }  
 
-            return fetch(event.request)
+        return fetch(event.request)  
 
-            .then(response => {
+        .then(response => {  
 
-                if(
-                    response &&
-                    response.status === 200 &&
-                    response.type === "basic"
-                ){
+            if(  
+                response &&  
+                response.status === 200 &&  
+                response.type === "basic"  
+            ){  
 
-                    const copy =
-                        response.clone();
+                const copy =  
+                    response.clone();  
 
-                    caches.open(CACHE_NAME)
-                    .then(cache => {
+                caches.open(CACHE_NAME)  
+                .then(cache => {  
 
-                        cache.put(
-                            event.request,
-                            copy
-                        );
+                    cache.put(  
+                        event.request,  
+                        copy  
+                    );  
 
-                    });
+                });  
 
-                }
+            }  
 
-                return response;
+            return response;  
 
-            });
+        });  
 
-        })
+    })  
 
-    );
+);
 
 });
 
-
 /* ================================
-   UPDATE NOW
+UPDATE NOW
 ================================ */
 
 self.addEventListener("message", event => {
 
-    if(
-        event.data === "SKIP_WAITING" ||
-        (
-            event.data &&
-            event.data.type === "SKIP_WAITING"
-        )
-    ){
+if(  
+    event.data === "SKIP_WAITING" ||  
+    (  
+        event.data &&  
+        event.data.type === "SKIP_WAITING"  
+    )  
+){  
 
-        self.skipWaiting();
+    self.skipWaiting();  
 
-    }
+}
 
 });
