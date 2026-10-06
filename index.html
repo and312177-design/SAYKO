@@ -63,17 +63,32 @@ header{
     border-bottom:1px solid var(--border);
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
     padding:0 18px;
     position:sticky;
     top:0;
     z-index:500;
 }
 
+/* مجموعة زر الثلاث شرط والجرس */
+.headerActions{
+    position:absolute;
+    right:18px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    direction:ltr;
+}
+
+/* اسم البرنامج في المنتصف تمامًا */
 .logo{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
     font-size:24px;
     font-weight:bold;
     letter-spacing:2px;
+    white-space:nowrap;
 }
 
 .logo span{
@@ -88,21 +103,39 @@ header{
     cursor:pointer;
     width:45px;
     height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 /* ================= UPDATE BELL ================= */
 
+.updateBtn{
+    position:relative;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid var(--red);
+    background:var(--red);
+    color:#fff;
+    cursor:pointer;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
 .updateDot{
     position:absolute;
-    top:-5px;
-    right:-12px;
-    width:10px;
-    height:10px;
-    background:var(--red);
-    border:2px solid var(--card);
+    top:1px;
+    right:1px;
+    width:11px;
+    height:11px;
+    background:#fff;
+    border:2px solid var(--red);
     border-radius:50%;
     display:none;
-    box-shadow:0 0 0 2px rgba(255,0,0,.15);
+    box-shadow:0 0 0 2px rgba(255,255,255,.15);
 }
 
 .updateDot.show{
@@ -718,6 +751,21 @@ body.light .selectedName{
         font-size:20px;
     }
 
+    .headerActions{
+        right:10px;
+        gap:4px;
+    }
+
+    .menuBtn{
+        width:42px;
+        height:42px;
+    }
+
+    .updateBtn{
+        width:40px;
+        height:40px;
+    }
+
     .sideMenu{
         width:285px;
     }
@@ -730,6 +778,14 @@ body.light .selectedName{
         grid-template-columns:repeat(3,1fr);
     }
 
+    .logo{
+        font-size:18px;
+    }
+
+    .headerActions{
+        right:5px;
+    }
+
 }
 
 </style>
@@ -739,10 +795,31 @@ body.light .selectedName{
 
 <header>
 
+<!-- زر الثلاث شرط + الجرس جنب بعض -->
+
+<div class="headerActions">
+
 <button class="menuBtn"
         onclick="openMenu()">
     ☰
 </button>
+
+<button class="updateBtn"
+        id="updateBell"
+        onclick="checkForUpdate()"
+        aria-label="التحديثات">
+
+    🔔
+
+    <span id="updateDot"
+          class="updateDot"></span>
+
+</button>
+
+</div>
+
+
+<!-- اسم البرنامج في المنتصف -->
 
 <div class="logo">
     SAYKØ <span>FITNESS</span>
@@ -781,13 +858,8 @@ body.light .selectedName{
 
 <span class="icon">🔔</span>
 
-<span style="position:relative;">
-
+<span>
     التحديثات
-
-    <span id="updateDot"
-          class="updateDot"></span>
-
 </span>
 
 </button>
@@ -1451,6 +1523,7 @@ oninput="searchFoods()">
 ========================================================= */
 
 const foods = [
+
 {name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
 {name:"أرز بسمتي مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
 {name:"أرز بني مطبوخ",calories:123,protein:2.7,carbs:25.6,fat:1},
@@ -1820,6 +1893,7 @@ const foods = [
 {name:"فتير مشلتت",calories:400,protein:7,carbs:50,fat:20},
 {name:"فطير بالجبنة",calories:350,protein:10,carbs:40,fat:17},
 {name:"فطير بالعسل",calories:360,protein:6,carbs:60,fat:12}
+
 ];
 
 
@@ -1923,26 +1997,13 @@ function normalizeArabic(text){
         .trim()
         .toLowerCase()
 
-        /* إزالة التشكيل */
         .replace(/[\u064B-\u065F\u0670]/g,"")
-
-        /* توحيد أشكال الألف */
         .replace(/[أإآٱ]/g,"ا")
-
-        /* توحيد الياء والألف المقصورة */
         .replace(/ى/g,"ي")
-
-        /* توحيد التاء المربوطة */
         .replace(/ة/g,"ه")
-
-        /* توحيد الهمزة */
         .replace(/ؤ/g,"و")
         .replace(/ئ/g,"ي")
-
-        /* إزالة التطويل */
         .replace(/ـ/g,"")
-
-        /* توحيد المسافات */
         .replace(/\s+/g," ");
 
 }
@@ -1959,8 +2020,6 @@ function searchFoods(){
 
     const value =
         normalizeArabic(input.value);
-
-    /* لو البحث فاضي رجّع كل الأطعمة */
 
     if(value === ""){
 
