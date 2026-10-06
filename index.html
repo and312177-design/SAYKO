@@ -958,6 +958,8 @@ body.light .selectedName{
 id="searchInput"
 type="text"
 placeholder="ابحث عن أكلة..."
+autocomplete="off"
+inputmode="search"
 oninput="searchFoods()">
 
 </div>
@@ -1929,19 +1931,71 @@ function renderFoods(list=foods){
 }
 
 
-/* ================= SEARCH ================= */
+/* ================= SEARCH — FIXED ================= */
+
+function normalizeArabic(text){
+
+    return text
+        .toString()
+        .trim()
+        .toLowerCase()
+
+        /* إزالة التشكيل */
+        .replace(/[\u064B-\u065F\u0670]/g,"")
+
+        /* توحيد أشكال الألف */
+        .replace(/[أإآٱ]/g,"ا")
+
+        /* توحيد الياء والألف المقصورة */
+        .replace(/ى/g,"ي")
+
+        /* توحيد التاء المربوطة */
+        .replace(/ة/g,"ه")
+
+        /* توحيد الهمزة */
+        .replace(/ؤ/g,"و")
+        .replace(/ئ/g,"ي")
+
+        /* إزالة التطويل */
+        .replace(/ـ/g,"")
+
+        /* توحيد المسافات */
+        .replace(/\s+/g," ");
+
+}
+
 
 function searchFoods(){
 
-    const value=document
-        .getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
+    const input =
+        document.getElementById("searchInput");
 
-    const filtered=foods.filter(food=>
-        food.name.toLowerCase().includes(value)
-    );
+    if(!input){
+        return;
+    }
+
+    const value =
+        normalizeArabic(input.value);
+
+    /* لو البحث فاضي رجّع كل الأطعمة */
+
+    if(value === ""){
+
+        renderFoods(foods);
+
+        return;
+
+    }
+
+    const filtered =
+        foods.filter(food=>{
+
+            const foodName =
+                normalizeArabic(food.name);
+
+            return foodName.includes(value);
+
+        });
 
     renderFoods(filtered);
 
@@ -2786,16 +2840,7 @@ function hideUpdateDot(){
 
 function showUpdate(){
 
-    /*
-       نقطة على الجرس
-    */
-
     showUpdateDot();
-
-
-    /*
-       فتح التنبيه تلقائيًا
-    */
 
     const text =
         document.getElementById("updateText");
@@ -2806,7 +2851,6 @@ function showUpdate(){
             "يوجد تحديث جديد لـ SAYKØ FITNESS. قم بتحديث البرنامج الآن للحصول على آخر التعديلات.";
 
     }
-
 
     const modal =
         document.getElementById("updateModal");
@@ -2862,11 +2906,6 @@ async function checkForUpdate(){
 
         updateRegistration=reg;
 
-
-        /*
-           لو فيه تحديث جاهز بالفعل
-        */
-
         if(reg.waiting){
 
             showUpdate();
@@ -2877,17 +2916,7 @@ async function checkForUpdate(){
 
         }
 
-
-        /*
-           فحص sw.js الآن
-        */
-
         await reg.update();
-
-
-        /*
-           بعد الفحص لو أصبح التحديث جاهز
-        */
 
         if(reg.waiting){
 
@@ -2919,10 +2948,6 @@ function closeUpdate(){
         .getElementById("updateModal")
         .classList.remove("show");
 
-    /*
-       النقطة تظل موجودة حتى يتم تثبيت التحديث.
-    */
-
 }
 
 
@@ -2939,7 +2964,6 @@ async function applyUpdate(){
             .serviceWorker
             .getRegistration();
 
-
         if(
             reg &&
             reg.waiting
@@ -2947,11 +2971,6 @@ async function applyUpdate(){
 
             const waitingWorker =
                 reg.waiting;
-
-
-            /*
-               نمنع تكرار إعادة التحميل
-            */
 
             if(updateRefreshing){
 
@@ -2961,19 +2980,9 @@ async function applyUpdate(){
 
             updateRefreshing=true;
 
-
-            /*
-               إرسال أمر للتحديث
-            */
-
             waitingWorker.postMessage({
                 type:"SKIP_WAITING"
             });
-
-
-            /*
-               عند استلام النسخة الجديدة
-            */
 
             navigator
                 .serviceWorker
@@ -2989,12 +2998,6 @@ async function applyUpdate(){
                     {once:true}
                 );
 
-
-            /*
-               حماية في حالة عدم وصول
-               controllerchange
-            */
-
             setTimeout(()=>{
 
                 if(updateRefreshing){
@@ -3008,11 +3011,6 @@ async function applyUpdate(){
             },5000);
 
         }else{
-
-            /*
-               لا يوجد waiting worker
-               لذلك نعيد تحميل الصفحة
-            */
 
             hideUpdateDot();
 
@@ -3117,12 +3115,6 @@ if("serviceWorker" in navigator){
 
             try{
 
-                /*
-                   تسجيل Service Worker
-                   مع منع استخدام نسخة قديمة
-                   من sw.js
-                */
-
                 const reg =
                     await navigator
                     .serviceWorker
@@ -3133,25 +3125,13 @@ if("serviceWorker" in navigator){
                         }
                     );
 
-
                 updateRegistration=reg;
-
-
-                /*
-                   لو كان هناك تحديث
-                   جاهز قبل فتح الصفحة
-                */
 
                 if(reg.waiting){
 
                     showUpdate();
 
                 }
-
-
-                /*
-                   اكتشاف أي نسخة جديدة
-                */
 
                 reg.addEventListener(
                     "updatefound",
@@ -3166,15 +3146,9 @@ if("serviceWorker" in navigator){
 
                         }
 
-
                         newWorker.addEventListener(
                             "statechange",
                             ()=>{
-
-                                /*
-                                   installed + controller
-                                   = تحديث جديد للتطبيق
-                                */
 
                                 if(
                                     newWorker.state ===
@@ -3195,28 +3169,17 @@ if("serviceWorker" in navigator){
                     }
                 );
 
-
-                /*
-                   فحص أول بعد فتح الموقع
-                */
-
                 setTimeout(()=>{
 
                     checkForUpdate();
 
                 },1000);
 
-
-                /*
-                   فحص تلقائي كل 5 ثواني
-                */
-
                 setInterval(()=>{
 
                     checkForUpdate();
 
                 },5000);
-
 
             }catch(error){
 
@@ -3229,12 +3192,6 @@ if("serviceWorker" in navigator){
 
         }
     );
-
-
-    /*
-       عند رجوع المستخدم للتطبيق
-       يتم فحص التحديث فورًا
-    */
 
     document.addEventListener(
         "visibilitychange",
@@ -3268,4 +3225,4 @@ updateProgress();
 </script>
 
 </body>
-</html>
+      </html>
