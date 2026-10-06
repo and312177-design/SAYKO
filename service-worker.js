@@ -1,4 +1,4 @@
-const CACHE_NAME = "sayko-fitness-v12";
+const CACHE_NAME = "sayko-fitness-v13";
 
 const FILES_TO_CACHE = [
     "./",
@@ -26,9 +26,8 @@ self.addEventListener("install", event => {
     );
 
     /*
-       مهم:
        لا نستخدم skipWaiting هنا.
-       النسخة الجديدة ستنتظر حتى يضغط
+       النسخة الجديدة تنتظر حتى يضغط
        المستخدم على "تحديث الآن".
     */
 
@@ -82,7 +81,8 @@ self.addEventListener("fetch", event => {
 
     /*
        صفحات HTML:
-       نحاول الحصول على أحدث نسخة من السيرفر أولاً.
+       نحاول دائمًا الحصول على أحدث نسخة
+       من السيرفر أولًا.
     */
 
     if(
@@ -92,112 +92,4 @@ self.addEventListener("fetch", event => {
 
         event.respondWith(
 
-            fetch(event.request, {
-                cache: "no-store"
-            })
-
-            .then(response => {
-
-                const copy = response.clone();
-
-                caches.open(CACHE_NAME)
-                .then(cache => {
-
-                    cache.put(
-                        event.request,
-                        copy
-                    );
-
-                });
-
-                return response;
-
-            })
-
-            .catch(() => {
-
-                return caches.match(
-                    event.request
-                );
-
-            })
-
-        );
-
-        return;
-
-    }
-
-
-    /*
-       باقي الملفات:
-       Cache First
-    */
-
-    event.respondWith(
-
-        caches.match(event.request)
-
-        .then(cached => {
-
-            if(cached){
-
-                return cached;
-
-            }
-
-            return fetch(event.request)
-
-            .then(response => {
-
-                if(
-                    response &&
-                    response.status === 200 &&
-                    response.type === "basic"
-                ){
-
-                    const copy =
-                        response.clone();
-
-                    caches.open(CACHE_NAME)
-                    .then(cache => {
-
-                        cache.put(
-                            event.request,
-                            copy
-                        );
-
-                    });
-
-                }
-
-                return response;
-
-            });
-
-        })
-
-    );
-
-});
-
-
-/* ================================
-   UPDATE BUTTON
-================================ */
-
-self.addEventListener("message", event => {
-
-    if(
-        event.data === "SKIP_WAITING" ||
-        (
-            event.data &&
-            event.data.type === "SKIP_WAITING"
-        )
-    ){
-
-        self.skipWaiting();
-
-    }
-
-});
+           
