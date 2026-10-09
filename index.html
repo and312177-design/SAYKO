@@ -88,11 +88,33 @@ header{
 .headerActions{
     position:absolute;
     right:18px;
+    left:18px;
     display:flex;
     align-items:center;
-    gap:8px;
+    justify-content:space-between;
     direction:rtl;
+    pointer-events:none;
 }
+
+.headerActions button{
+    pointer-events:auto;
+}
+
+.menuBtn{
+    background:none;
+    border:0;
+    color:var(--text);
+    font-size:28px;
+    cursor:pointer;
+    width:45px;
+    height:45px;
+    order:1;
+}
+
+.updateBtn{
+    order:2;
+}
+
 
 .menuBtn{
     background:none;
@@ -798,6 +820,84 @@ body.light .selectedName{
 
 }
 
+
+/* ===== MEAL TABS ===== */
+
+.mealTabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.mealTab {
+    min-width: 0;
+    padding: 12px 5px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.mealTab.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+}
+
+.mealTotals {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 12px 0;
+}
+
+.mealTotalCalories {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.mealTotalCalories strong {
+    color: var(--red);
+    font-size: 23px;
+}
+
+.mealTotalCalories small {
+    font-size: 12px;
+}
+
+.mealMacros {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.mealMacro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.mealMacro strong {
+    color: var(--text);
+    font-size: 14px;
+}
+
+  
 </style>
 </head>
 
@@ -811,13 +911,11 @@ body.light .selectedName{
 
     <div class="headerActions">
 
-        <!-- الشرط -->
         <button class="menuBtn"
                 onclick="openMenu()">
             ☰
         </button>
 
-        <!-- الجرس -->
         <button class="updateBtn"
                 id="updateBell"
                 onclick="checkForUpdate()"
@@ -832,8 +930,6 @@ body.light .selectedName{
 
     </div>
 
-
-    <!-- اسم البرنامج في المنتصف -->
 
     <div class="logo">
         SAYKØ <span>FITNESS</span>
@@ -869,8 +965,6 @@ body.light .selectedName{
 
     <div class="menuItems">
 
-        <!-- المراجع فقط -->
-
         <button class="menuItem"
                 onclick="openReferences()">
 
@@ -879,8 +973,6 @@ body.light .selectedName{
 
         </button>
 
-
-        <!-- المظهر فقط -->
 
         <button class="menuItem"
                 onclick="openTheme()">
@@ -1022,6 +1114,27 @@ body.light .selectedName{
 
     </section>
 
+  
+<div class="mealTabs">
+    <button class="mealTab active"
+            data-meal="الفطار"
+            onclick="changeMeal('الفطار')">
+        الفطار
+    </button>
+
+    <button class="mealTab"
+            data-meal="الغداء"
+            onclick="changeMeal('الغداء')">
+        الغداء
+    </button>
+
+    <button class="mealTab"
+            data-meal="العشاء"
+            onclick="changeMeal('العشاء')">
+        العشاء
+    </button>
+</div>
+
 
     <div class="searchBox">
 
@@ -1061,6 +1174,38 @@ body.light .selectedName{
 
         </div>
 
+<div class="mealTotals">
+
+    <div class="mealTotalCalories">
+        <span>إجمالي سعرات الوجبة</span>
+        <strong>
+            <span id="mealCalories">0</span>
+            <small>kcal</small>
+        </strong>
+    </div>
+
+    <div class="mealMacros">
+
+        <div class="mealMacro">
+            <span>بروتين</span>
+            <strong><span id="mealProtein">0</span> g</strong>
+        </div>
+
+        <div class="mealMacro">
+            <span>كربوهيدرات</span>
+            <strong><span id="mealCarbs">0</span> g</strong>
+        </div>
+
+        <div class="mealMacro">
+            <span>دهون</span>
+            <strong><span id="mealFat">0</span> g</strong>
+        </div>
+
+    </div>
+
+</div>
+
+      
         <div id="selectedFoods"></div>
 
     </section>
@@ -1551,8 +1696,7 @@ body.light .selectedName{
 
 </div>
 
-
-<script>
+  <script>
 
 /* =========================================================
    SAYKØ FITNESS
@@ -1939,6 +2083,32 @@ const foods = [
 let selectedFoods =
 JSON.parse(localStorage.getItem("saykoFoods") || "[]");
 
+    
+let currentMeal = "الفطار";
+
+// الحفاظ على الأكلات القديمة
+selectedFoods.forEach(food => {
+    if (!food.meal) {
+        food.meal = "الفطار";
+    }
+});
+
+function changeMeal(meal) {
+    currentMeal = meal;
+
+    document.querySelectorAll(".mealTab").forEach(button => {
+        button.classList.toggle(
+            "active",
+            button.dataset.meal === meal
+        );
+    });
+
+    renderSelectedFoods();
+
+    updateMealTotals();
+}
+
+
 let selectedFood = null;
 let currentUnit = "gram";
 
@@ -2136,7 +2306,7 @@ const pieceFoods = new Set([
     "كيوي",
     "خوخ",
     "مشمش",
-    "برقوق",
+    "بروق",
     "كمثرى",
     "جوافة",
     "تين",
@@ -2177,8 +2347,6 @@ const pieceFoods = new Set([
 
 ]);
 
-
-/* ================= UNIT CONTROL ================= */
 
 function configureUnits(){
 
@@ -2404,6 +2572,8 @@ function addFood(){
 
         name:selectedFood.name,
 
+         meal:currentMeal,
+      
         grams:grams,
 
         calories:
@@ -2426,6 +2596,8 @@ function addFood(){
 
     renderSelectedFoods();
 
+    updateMealTotals();
+
     updateProgress();
 
     closeFood();
@@ -2435,35 +2607,40 @@ function addFood(){
 
 /* ================= SELECTED ================= */
 
+
 function renderSelectedFoods(){
 
-    const container=
+    const container =
         document.getElementById("selectedFoods");
 
-    container.innerHTML="";
+    container.innerHTML = "";
 
-    if(!selectedFoods.length){
+    // عرض أكلات الوجبة الحالية فقط
+    const mealFoods = selectedFoods.filter(food =>
+        (food.meal || "الفطار") === currentMeal
+    );
 
-        container.innerHTML=`
+    if(!mealFoods.length){
+
+        container.innerHTML = `
         <div style="
             text-align:center;
             color:var(--muted);
             padding:25px;
         ">
-            لم تضف أي أطعمة بعد
+            لم تضف أطعمة إلى ${currentMeal} بعد
         </div>`;
 
         return;
     }
 
-    selectedFoods.forEach(food=>{
+    mealFoods.forEach(food => {
 
-        const div=
-            document.createElement("div");
+        const div = document.createElement("div");
 
-        div.className="selectedFood";
+        div.className = "selectedFood";
 
-        div.innerHTML=`
+        div.innerHTML = `
 
         <div class="selectedTop">
 
@@ -2504,10 +2681,47 @@ function renderSelectedFoods(){
 
         </div>`;
 
+        
         container.appendChild(div);
 
     });
 
+    updateMealTotals();
+
+}
+
+
+function updateMealTotals(){
+
+    const mealFoods = selectedFoods.filter(food =>
+        (food.meal || "الفطار") === currentMeal
+    );
+
+    const totals = mealFoods.reduce((sum, food) => {
+        sum.calories += Number(food.calories) || 0;
+        sum.protein  += Number(food.protein) || 0;
+        sum.carbs    += Number(food.carbs) || 0;
+        sum.fat      += Number(food.fat) || 0;
+
+        return sum;
+    }, {
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0
+    });
+
+    document.getElementById("mealCalories").textContent =
+        formatNumber(totals.calories);
+
+    document.getElementById("mealProtein").textContent =
+        formatNumber(totals.protein);
+
+    document.getElementById("mealCarbs").textContent =
+        formatNumber(totals.carbs);
+
+    document.getElementById("mealFat").textContent =
+        formatNumber(totals.fat);
 }
 
 
@@ -2531,9 +2745,12 @@ function removeFood(id){
 
 /* ================= CLEAR ================= */
 
+
 function clearAll(){
 
-    selectedFoods=[];
+    selectedFoods = selectedFoods.filter(
+        food => (food.meal || "الفطار") !== currentMeal
+    );
 
     saveFoods();
 
@@ -2542,6 +2759,7 @@ function clearAll(){
     updateProgress();
 
 }
+
 
 
 /* ================= PROGRESS ================= */
@@ -2861,9 +3079,7 @@ function closeReferences(){
 }
 
 
-/* =========================================================
-   UPDATE SYSTEM
-========================================================= */
+/* ================= UPDATE SYSTEM ================= */
 
 function showUpdateDot(){
 
@@ -3133,9 +3349,7 @@ document
     });
 
 
-/* =========================================================
-   SERVICE WORKER
-========================================================= */
+/* ================= SERVICE WORKER ================= */
 
 if("serviceWorker" in navigator){
 
@@ -3252,4 +3466,4 @@ updateProgress();
 </script>
 
 </body>
-                  </html>
+</html>
