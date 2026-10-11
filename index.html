@@ -1704,7 +1704,6 @@ body.light .selectedName{
 ========================================================= */
 
 const foods = [
-
 {name:"أرز أبيض مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
 {name:"أرز بسمتي مطبوخ",calories:130,protein:2.7,carbs:28,fat:.3},
 {name:"أرز بني مطبوخ",calories:123,protein:2.7,carbs:25.6,fat:1},
@@ -1927,6 +1926,9 @@ const foods = [
 {name:"تبولة",calories:100,protein:3,carbs:12,fat:5},
 {name:"فتوش",calories:120,protein:3,carbs:15,fat:6},
 {name:"سلطة تونة",calories:130,protein:18,carbs:4,fat:5},
+{name:"سجق شرقي مطبوخ",calories:301,protein:12,carbs:2,fat:27},
+{name:"سجق إسكندراني",calories:300,protein:15,carbs:5,fat:24},
+{name:"سجق فراخ",calories:190,protein:15,carbs:5,fat:12},
 
 {name:"زيت زيتون",calories:884,protein:0,carbs:0,fat:100},
 {name:"زيت عباد الشمس",calories:884,protein:0,carbs:0,fat:100},
@@ -1940,7 +1942,10 @@ const foods = [
 {name:"صوص باربكيو",calories:172,protein:1,carbs:40,fat:.5},
 {name:"صوص حار",calories:25,protein:1,carbs:5,fat:.5},
 {name:"صوص ثوم",calories:500,protein:2,carbs:5,fat:52},
-
+{name:"حواوشي بلدي باللحمة",calories:280,protein:14,carbs:27,fat:12},
+{name:"حواوشي إسكندراني",calories:300,protein:15,carbs:30,fat:13},
+{name:"حواوشي باللحمة قليلة الدهون",calories:230,protein:16,carbs:27,fat:6},
+{name:"حواوشي فراخ",calories:240,protein:17,carbs:28,fat:7},
 {name:"شوكولاتة",calories:546,protein:4.9,carbs:61,fat:31},
 {name:"شوكولاتة داكنة",calories:598,protein:7.8,carbs:46,fat:43},
 {name:"شوكولاتة بالحليب",calories:535,protein:7.6,carbs:59,fat:30},
@@ -2027,6 +2032,21 @@ const foods = [
 {name:"شاي",calories:1,protein:0,carbs:.2,fat:0},
 {name:"شاي بالحليب",calories:35,protein:2,carbs:3,fat:2},
 {name:"كاكاو بالحليب",calories:80,protein:4,carbs:10,fat:3},
+  {name:"كشري مصري",calories:155,protein:5,carbs:29,fat:2},
+{name:"فتة لحمة",calories:180,protein:9,carbs:20,fat:7},
+{name:"كبدة إسكندراني",calories:210,protein:25,carbs:5,fat:10},
+{name:"سجق بالبصل والفلفل",calories:270,protein:14,carbs:7,fat:21},
+{name:"طاجن بامية باللحمة",calories:110,protein:7,carbs:9,fat:5},
+{name:"ملوخية مطبوخة",calories:45,protein:3,carbs:5,fat:2},
+{name:"قلقاس بالسلق",calories:100,protein:3,carbs:17,fat:3},
+{name:"بسلة بالجزر",calories:75,protein:3,carbs:12,fat:2},
+{name:"محشي كرنب",calories:130,protein:3,carbs:20,fat:4},
+{name:"محشي ورق عنب",calories:150,protein:3,carbs:23,fat:5},
+{name:"حمام محشي رز",calories:240,protein:20,carbs:12,fat:13},
+{name:"ممبار",calories:300,protein:12,carbs:20,fat:18},
+{name:"بطاطس بالصلصة",calories:95,protein:2,carbs:16,fat:3},
+{name:"فول بالزيت",calories:150,protein:7,carbs:17,fat:6},
+{name:"بيض بالبسطرمة",calories:210,protein:16,carbs:2,fat:15},
 
 {name:"بروتين مصل اللبن",calories:400,protein:80,carbs:8,fat:6},
 {name:"مسحوق بروتين",calories:400,protein:75,carbs:10,fat:7},
@@ -2074,8 +2094,148 @@ const foods = [
 {name:"فتير مشلتت",calories:400,protein:7,carbs:50,fat:20},
 {name:"فطير بالجبنة",calories:350,protein:10,carbs:40,fat:17},
 {name:"فطير بالعسل",calories:360,protein:6,carbs:60,fat:12}
+  
 
 ];
+    
+/* =====================================
+   SAYKØ FITNESS - منع تكرار الأكلات
+===================================== */
+
+function normalizeFoodName(name) {
+    return String(name || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[أإآ]/g, "ا")
+        .replace(/ة/g, "ه")
+        .replace(/ى/g, "ي")
+        .replace(/ـ/g, "")
+        .replace(/\s+/g, " ");
+}
+
+function removeDuplicateFoods() {
+    if (!Array.isArray(foods)) return;
+
+    const uniqueFoods = [];
+    const seenFoods = new Set();
+
+    foods.forEach(food => {
+        if (!food || !food.name) return;
+
+        const key = normalizeFoodName(food.name);
+
+        if (!key || seenFoods.has(key)) return;
+
+        seenFoods.add(key);
+        uniqueFoods.push(food);
+    });
+
+    foods.splice(0, foods.length, ...uniqueFoods);
+}
+
+// تنظيف قاعدة البيانات عند تشغيل البرنامج
+removeDuplicateFoods();
+
+    
+/* ===== تحويل أسماء الأكلات للمصري ===== */
+
+const egyptianFoodNames = {
+"أرز أبيض مطبوخ":"رز أبيض مطبوخ",
+"أرز بسمتي مطبوخ":"رز بسمتي مطبوخ",
+"أرز بني مطبوخ":"رز بني مطبوخ",
+"أرز أصفر":"رز أصفر",
+"أرز أحمر":"رز أحمر",
+"أرز أسود":"رز أسود",
+"أرز مصري مطبوخ":"رز مصري مطبوخ",
+"كينوا جافة":"كينوا ناشفة",
+"فشار بدون زيت":"فشار من غير زيت",
+"خبز بلدي":"عيش بلدي",
+"خبز أبيض":"عيش أبيض",
+"خبز أسمر":"عيش أسمر",
+"خبز لبناني":"عيش لبناني",
+"خبز تورتيلا":"عيش تورتيلا",
+"باجيت":"عيش باجيت",
+"خبز بالحبوب":"عيش بالحبوب",
+"العجينة":"عجينة",
+
+"صدر دجاج مطبوخ":"صدر فراخ مطبوخ",
+"صدر دجاج مشوي":"صدر فراخ مشوي",
+"صدر دجاج مسلوق":"صدر فراخ مسلوق",
+"فخذ دجاج":"ورك فراخ",
+"فخذ دجاج بدون جلد":"ورك فراخ من غير جلد",
+"جناح دجاج":"جناح فراخ",
+"دجاج مشوي":"فراخ مشوية",
+"دجاج مقلي":"فراخ مقلية",
+"دجاج بانيه":"فراخ بانيه",
+"قلوب دجاج":"قلوب فراخ",
+"قوانص دجاج":"قوانص فراخ",
+"نقانق دجاج":"سجق فراخ",
+"ناجتس دجاج":"ناجتس فراخ",
+"لحم بقري":"لحمة بقري",
+"لحم بقري قليل الدهون":"لحمة بقري قليلة الدهون",
+"لحم مفروم":"لحمة مفرومة",
+"لحم مفروم قليل الدهون":"لحمة مفرومة قليلة الدهون",
+"ستيك لحم":"ستيك لحمة",
+"لحم ضاني":"لحمة ضاني",
+"لحم جدي":"لحمة جدي",
+"لحم مشوي":"لحمة مشوية",
+"برجر لحم":"برجر لحمة",
+"شاورما لحم":"شاورما لحمة",
+"فتة لحمة":"فتة باللحمة",
+"فتة دجاج":"فتة فراخ",
+"شاورما دجاج":"شاورما فراخ",
+"ساندويتش دجاج":"ساندويتش فراخ",
+"فاهيتا دجاج":"فاهيتا فراخ",
+"برجر دجاج":"برجر فراخ",
+"تونة معلبة بالماء":"تونة معلبة بالمية",
+"بازلاء":"بسلة",
+"فاصوليا بيضاء":"فاصوليا بيضا",
+"فاصوليا حمراء":"فاصوليا حمرا",
+"فاصوليا سوداء":"فاصوليا سودا",
+"فاصوليا خضراء":"فاصوليا خضرا",
+"بذور اليقطين":"لب أبيض",
+"باذنجان":"بتنجان",
+"فطر":"مشروم",
+"ملفوف أحمر":"كرنب أحمر",
+"فلافل":"طعمية",
+"مسحوق بروتين":"بودرة بروتين",
+"بروتين مصل اللبن":"واي بروتين",
+"حليب بودرة":"لبن بودرة",
+"مرق دجاج":"مرقة فراخ",
+"شوربة دجاج":"شوربة فراخ",
+"لحم بط":"بط",
+"لحم أوز":"أوز",
+"مخ بقر":"مخ بقري",
+"سمبوسة لحم":"سمبوسك باللحمة",
+"سمبوسة جبنة":"سمبوسك بالجبنة",
+"سمبوسة خضار":"سمبوسك بالخضار",
+"فطير مشلتت":"فطير مشلتت",
+"فشار":"فشار",
+"قرنبيط":"قرنبيط",
+"طماطم":"طماطم",
+"خيار":"خيار",
+"فول مدمس":"فول مدمس",
+"جبنة قريش":"جبنة قريش",
+"كبدة فراخ":"كبدة فراخ",
+"كفتة":"كفتة",
+"سجق":"سجق",
+"بسطرمة":"بسطرمة"
+};
+
+foods.forEach(food => {
+    if (egyptianFoodNames[food.name]) {
+        food.name = egyptianFoodNames[food.name];
+    }
+});
+
+/* ===== إضافة أكلات إضافية ===== */
+
+foods.push(
+    {name:"قرنبيط مقلي",calories:118,protein:1.3,carbs:3.1,fat:11.5},
+    {name:"قرنبيط مطبوخ",calories:23,protein:1.8,carbs:4.1,fat:0.5},
+    {name:"عجة",calories:190,protein:10,carbs:8,fat:13}
+);
+
 
 
 /* ================= VARIABLES ================= */
