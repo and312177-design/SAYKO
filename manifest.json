@@ -1,7 +1,10 @@
+
 {
+  "id": "./",
   "name": "SAYKØ FITNESS",
   "short_name": "SAYKØ",
-  "start_url": "./index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#080808",
   "theme_color": "#080808",
@@ -10,9 +13,10 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "1790471069347.jpg",
+      "src": "./1790471069347.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any"
     }
   ]
 }
