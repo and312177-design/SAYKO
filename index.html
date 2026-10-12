@@ -32,7 +32,7 @@
 }
 
 :root{
-    --red:#ff0000;
+    --red:#c01717;
     --bg:#080808;
     --card:#111;
     --border:#292929;
@@ -2906,20 +2906,48 @@ function removeFood(id){
 /* ================= CLEAR ================= */
 
 
-function clearAll(){
+function clearAll() {
 
+    // حذف أكلات الوجبة الحالية فقط
     selectedFoods = selectedFoods.filter(
         food => (food.meal || "الفطار") !== currentMeal
     );
 
+    // حفظ التغييرات
     saveFoods();
 
+    // تحديث عرض الأطعمة المختارة
     renderSelectedFoods();
 
+    // تحديث إجماليات الوجبة الحالية
     updateProgress();
 
-}
+    // تحديث إجمالي السعرات والماكروز مباشرة
+    const totals = {
+        mealCalories: 0,
+        mealProtein: 0,
+        mealCarbs: 0,
+        mealFat: 0
+    };
 
+    const remainingFoods = selectedFoods.filter(
+        food => (food.meal || "الفطار") === currentMeal
+    );
+
+    remainingFoods.forEach(food => {
+        totals.mealCalories += Number(food.calories) || 0;
+        totals.mealProtein += Number(food.protein) || 0;
+        totals.mealCarbs += Number(food.carbs) || 0;
+        totals.mealFat += Number(food.fat) || 0;
+    });
+
+    Object.entries(totals).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = Math.round(value * 10) / 10;
+        }
+    });
+}
 
 
 /* ================= PROGRESS ================= */
@@ -3665,4 +3693,4 @@ function closeInstallPopup() {
 </script>
 
 </body>
-</html>
+      </html>
