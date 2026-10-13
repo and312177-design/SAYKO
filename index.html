@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+< lang="ar" dir="rtl">
 
 <head>
 
@@ -3705,7 +3705,7 @@ function closeInstallPopup() {
 ">
     <div style="
         background:#111;
-        border:1px solid #e50914;
+        border:1px solid #c01717;
         border-radius:20px;
         padding:25px;
         width:100%;
@@ -3713,14 +3713,14 @@ function closeInstallPopup() {
         text-align:center;
         color:white;
     ">
-        <h2 style="color:#e50914;margin-top:0">
+        <h2 style="color:#c01717;margin-top:0">
             SAYKØ FITNESS
         </h2>
 
         <p>ثبّت التطبيق على موبايلك للوصول إليه بسهولة!</p>
 
         <button id="installBtn" style="
-            background:#e50914;
+            background:#c01717;
             color:white;
             border:0;
             border-radius:10px;
@@ -3733,15 +3733,16 @@ function closeInstallPopup() {
         </button>
 
         <button id="closeInstall" style="
-            margin-top:12px;
-            background:transparent;
-            color:#aaa;
-            border:0;
-            padding:10px;
-        ">
-            ليس الآن
-        </button>
-    </div>
+        margin-top:12px;
+        background:transparent;
+        color:#aaa;
+        border:0;
+        padding:10px;
+    ">
+        ليس الآن
+    </button>
+
+</div>
 </div>
 
 <script>
@@ -3749,28 +3750,42 @@ let deferredInstallPrompt = null;
 
 const installBox = document.getElementById("installBox");
 const installBtn = document.getElementById("installBtn");
+const closeInstall = document.getElementById("closeInstall");
+
+function showInstallMessage() {
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+        return;
+    }
+
+    if (localStorage.getItem("saykoInstallDismissed") === "1") {
+        return;
+    }
+
+    installBox.style.display = "flex";
+}
 
 window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     deferredInstallPrompt = event;
+    showInstallMessage();
+});
 
-    if (!localStorage.getItem("saykoInstallDismissed")) {
-        installBox.style.display = "flex";
-    }
+window.addEventListener("load", () => {
+    setTimeout(showInstallMessage, 1200);
 });
 
 installBtn.addEventListener("click", async () => {
-    if (!deferredInstallPrompt) return;
-
-    deferredInstallPrompt.prompt();
-
-    await deferredInstallPrompt.userChoice;
-
-    deferredInstallPrompt = null;
-    installBox.style.display = "none";
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        installBox.style.display = "none";
+    } else {
+        alert("لتثبيت SAYKØ FITNESS، افتح قائمة Chrome ثم اختر تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية.");
+    }
 });
 
-document.getElementById("closeInstall").addEventListener("click", () => {
+closeInstall.addEventListener("click", () => {
     installBox.style.display = "none";
     localStorage.setItem("saykoInstallDismissed", "1");
 });
@@ -3779,5 +3794,6 @@ window.addEventListener("appinstalled", () => {
     installBox.style.display = "none";
 });
 </script>
+
 </body>
       </html>
