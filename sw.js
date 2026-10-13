@@ -1,4 +1,4 @@
-const CACHE_NAME = "sayko-fitness-v26";
+const CACHE_NAME = "sayko-fitness-v27";
 
 const FILES_TO_CACHE = [
 "./",
