@@ -3691,6 +3691,92 @@ function closeInstallPopup() {
 
 
 </script>
+<!-- نافذة تثبيت SAYKØ FITNESS -->
+<div id="installPopup" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    z-index:99999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+">
 
+    <div style="
+        background:#111;
+        border:1px solid #c01717;
+        border-radius:18px;
+        padding:25px 20px;
+        width:100%;
+        max-width:340px;
+        text-align:center;
+        color:white;
+        box-shadow:0 0 25px rgba(229,9,20,0.2);
+    ">
+
+        <img
+            src="1790471069347.jpg"
+            alt="SAYKØ FITNESS"
+            style="
+                width:85px;
+                height:85px;
+                object-fit:cover;
+                border-radius:18px;
+                margin-bottom:15px;
+            "
+        >
+
+        <h2 style="margin:0 0 10px;color:#c01717;">
+            SAYKØ FITNESS
+        </h2>
+
+        <p style="
+            color:#ccc;
+            font-size:14px;
+            line-height:1.8;
+            margin-bottom:22px;
+        ">
+            ثبّت التطبيق على موبايلك
+            واستمتع بحساب السعرات والبروتين
+            وتتبع تقدمك بسهولة.
+        </p>
+
+        <button
+            onclick="installSaykoApp()"
+            style="
+                width:100%;
+                padding:13px;
+                background:#c01717;
+                color:white;
+                border:0;
+                border-radius:10px;
+                font-size:16px;
+                font-weight:bold;
+                cursor:pointer;
+                margin-bottom:10px;
+            "
+        >
+            تثبيت التطبيق
+        </button>
+
+        <button
+            onclick="closeInstallPopup()"
+            style="
+                width:100%;
+                padding:11px;
+                background:#222;
+                color:#ccc;
+                border:1px solid #333;
+                border-radius:10px;
+                font-size:14px;
+                cursor:pointer;
+            "
+        >
+            ليس الآن
+        </button>
+
+    </div>
+</div>
 </body>
       </html>
