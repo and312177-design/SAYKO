@@ -3754,47 +3754,47 @@ const installBtn = document.getElementById("installBtn");
 const closeInstall = document.getElementById("closeInstall");
 
 function showInstallMessage() {
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-        return;
-    }
+const isInstalled =
+window.matchMedia("(display-mode: standalone)").matches ||
+window.navigator.standalone === true;
 
-    installBox.style.display = "flex";
+if (isInstalled) {
+    installBox.style.display = "none";
+    return;
+}
+
+installBox.style.display = "flex";
+
 }
 
 window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredInstallPrompt = event;
-    showInstallMessage();
+event.preventDefault();
+deferredInstallPrompt = event;
+showInstallMessage();
 });
 
 window.addEventListener("load", () => {
-    setTimeout(showInstallMessage, 1200);
-});
-
-window.addEventListener("load", () => {
-    setTimeout(showInstallMessage, 1200);
+setTimeout(showInstallMessage, 1200);
 });
 
 installBtn.addEventListener("click", async () => {
-    if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
-        installBox.style.display = "none";
-    } else {
-        alert("لتثبيت SAYKØ FITNESS، افتح قائمة Chrome ثم اختر تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية.");
-    }
+if (deferredInstallPrompt) {
+deferredInstallPrompt.prompt();
+
+    await deferredInstallPrompt.userChoice;
+
+    deferredInstallPrompt = null;
+    installBox.style.display = "none";
+} else {
+    alert("لتثبيت SAYKØ FITNESS، افتح قائمة Chrome ثم اختر تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية.");
+}
+
 });
 
 closeInstall.addEventListener("click", () => {
-    installBox.style.display = "none";
-    localStorage.setItem("saykoInstallDismissed", "1");
+installBox.style.display = "none";
 });
 
 window.addEventListener("appinstalled", () => {
-    installBox.style.display = "none";
+installBox.style.display = "none";
 });
-</script>
-
-</body>
-      </html>
