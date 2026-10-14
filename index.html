@@ -3733,15 +3733,16 @@ window.addEventListener("beforeinstallprompt", (event) => {
     deferredInstallPrompt = event;
 });
 
-if (document.readyState === "loading") {
-    document.addEventListener(
-        "DOMContentLoaded",
-        showInstallMessage,
-        { once: true }
-    );
-} else {
+
+
+if (document.readyState === "complete") {
     showInstallMessage();
+} else {
+    window.addEventListener("load", showInstallMessage, {
+        once: true
+    });
 }
+
 
 installBtn.addEventListener("click", async () => {
     if (!deferredInstallPrompt) {
@@ -3769,3 +3770,6 @@ closeInstall.addEventListener("click", () => {
 window.addEventListener("appinstalled", () => {
     installBox.style.display = "none";
 });
+</script>
+</body>
+      </html>
