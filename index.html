@@ -3652,44 +3652,6 @@ renderSelectedFoods();
 
 updateProgress();
     
-let saykoInstallPrompt = null;
-
-window.addEventListener("beforeinstallprompt", function(event) {
-    event.preventDefault();
-    saykoInstallPrompt = event;
-});
-
-window.addEventListener("load", function() {
-    const isInstalled =
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true;
-
-    if (!isInstalled) {
-        document.getElementById("installPopup").style.display = "flex";
-    }
-});
-
-async function installSaykoApp() {
-    if (saykoInstallPrompt) {
-        saykoInstallPrompt.prompt();
-
-        const choice = await saykoInstallPrompt.userChoice;
-        saykoInstallPrompt = null;
-
-        if (choice.outcome === "accepted") {
-            closeInstallPopup();
-        }
-    } else {
-        alert(
-            "لو التثبيت مش متاح من هنا، افتح قائمة المتصفح واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»."
-        );
-    }
-}
-
-function closeInstallPopup() {
-    document.getElementById("installPopup").style.display = "none";
-}
-
 
 </script>
 <!-- SAYKØ INSTALL APP -->
@@ -3747,22 +3709,63 @@ function closeInstallPopup() {
 </div>
 
 <script>
+
 let deferredInstallPrompt = null;
 
 const installBox = document.getElementById("installBox");
 const installBtn = document.getElementById("installBtn");
 const closeInstall = document.getElementById("closeInstall");
 
+function isSaykoInstalled() {
+    return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+    );
+}
 
 function showInstallMessage() {
-    const isInstalled =
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true;
+    installBox.style.display =
+        isSaykoInstalled() ? "none" : "flex";
+}
 
-    if (isInstalled) {
-        installBox.style.display = "none";
+window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+});
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        showInstallMessage,
+        { once: true }
+    );
+} else {
+    showInstallMessage();
+}
+
+installBtn.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) {
+        alert(
+            "افتح قائمة Chrome واختر تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية."
+        );
         return;
     }
 
-    installBox.style.display = "flex";
-}
+    deferredInstallPrompt.prompt();
+
+    const choice = await deferredInstallPrompt.userChoice;
+
+    if (choice.outcome === "accepted") {
+        installBox.style.display = "none";
+    }
+
+    deferredInstallPrompt = null;
+});
+
+closeInstall.addEventListener("click", () => {
+    installBox.style.display = "none";
+});
+
+window.addEventListener("appinstalled", () => {
+    installBox.style.display = "none";
+});
