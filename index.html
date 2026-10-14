@@ -1474,34 +1474,37 @@ body.light .selectedName{
 
 
 
-        <div class="inputGroup">
+<div class="inputGroup goalGroup">
 
-            <label>
-                الهدف
-            </label>
+    <label for="goal">
+        🎯 الهدف الرياضي
+    </label>
 
-            <select id="goal">
+    <select id="goal" class="goalSelect">
 
-                <option value="maintain">
-                    تثبيت الوزن
-                </option>
+        <option value="maintain">
+            ⚖️ تثبيت الوزن — الحفاظ على الوزن الحالي
+        </option>
 
-                <option value="build"
-                        selected>
-                    ضبط الدهون وبناء العضلات
-                </option>
+        <option value="build" selected>
+            💪 بناء العضلات — تحسين تكوين الجسم
+        </option>
 
-                <option value="lose">
-                    خسارة وزن تدريجية
-                </option>
+        <option value="lose">
+            🔥 خسارة الوزن — بشكل تدريجي
+        </option>
 
-                <option value="gain">
-                    زيادة الوزن
-                </option>
+        <option value="gain">
+            📈 زيادة الوزن — لدعم النمو العضلي
+        </option>
 
-            </select>
+    </select>
 
-        </div>
+    <small class="goalHint">
+   
+    </small>
+
+</div>
 
 
         <button class="primaryBtn"
