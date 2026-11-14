@@ -21,9 +21,7 @@
   <link rel="icon"
       type="image/jpeg"
       href="1790471069347.jpg">
-  <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://github.io">
-<meta name="google-site-verification" content="ضع_الرمز_الذي_نسخته_من_جوجل_هنا">
+  
 
 <link rel="manifest"
       href="manifest.json">
@@ -43,26 +41,33 @@
 }
 
 :root{
-    --red:#b5121b;
+    --red:#8f1018;
     --bg:#080808;
-    --card:#111;
-    --border:#292929;
+    --card:#111111;
+    --border:rgba(65,65,65,.72);
     --text:#fff;
     --muted:#aaa;
 }
 
 body.light{
     --bg:#f4f4f4;
-    --card:#fff;
-    --border:#d5d5d5;
+    --card:#ffffff;
+    --border:rgba(190,190,190,.72);
     --text:#111;
     --muted:#666;
 }
 
 body{
-    background:var(--bg);
+    background-color:var(--bg);
+    /* شعار SAYKØ أوضح مع زخارف هندسية خفيفة */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='620' viewBox='0 0 900 620'%3E%3Cdefs%3E%3ClinearGradient id='r' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23e50914' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23e50914' stop-opacity='.04'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23r)' stroke-width='2'%3E%3Ccircle cx='450' cy='310' r='235' stroke-dasharray='3 13'/%3E%3Ccircle cx='450' cy='310' r='260' stroke-opacity='.45'/%3E%3Cpath d='M90 310H245 M655 310H810 M450 35V105 M450 515V585'/%3E%3Cpath d='M170 115l34 34-34 34-34-34z M730 115l34 34-34 34-34-34z M170 437l34 34-34 34-34-34z M730 437l34 34-34 34-34-34z'/%3E%3C/g%3E%3Ctext x='50%25' y='51%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='158' font-weight='900' font-style='italic' letter-spacing='8' fill='%23ffffff' fill-opacity='.115' stroke='%23e50914' stroke-opacity='.28' stroke-width='2.5'%3ESAYK%C3%98%3C/text%3E%3Ctext x='50%25' y='61%25' text-anchor='middle' font-family='Arial,sans-serif' font-size='27' font-weight='700' letter-spacing='13' fill='%23e85b65' fill-opacity='.20'%3EF I T N E S S%3C/text%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:center 55%;
+    background-size:min(96vw,700px) auto;
+    background-attachment:fixed;
     color:var(--text);
     min-height:100vh;
+    padding-top:70px;
     transition:.25s;
 }
 
@@ -71,15 +76,19 @@ body{
 
 header{
     height:70px;
-    background:var(--card);
-    border-bottom:1px solid var(--border);
+    background:transparent;
+    border-bottom:1px solid transparent;
+    box-shadow:none;
     display:flex;
     align-items:center;
     justify-content:center;
     padding:0 18px;
-    position:sticky;
+    position:fixed;
     top:0;
-    z-index:500;
+    left:0;
+    right:0;
+    width:100%;
+    z-index:5000;
 }
 
 .logo{
@@ -279,7 +288,7 @@ header{
     flex-shrink:0;
 }
 
-
+/* SOCIAL ACCOUNTS */
 /* ================= MAIN ================= */
 
 main{
@@ -555,13 +564,20 @@ body.light .selectedName{
 
 .modalOverlay.show{
     display:flex;
+    overflow:hidden;
+    overscroll-behavior:contain;
+    touch-action:pan-y;
 }
 
 .modal{
     width:100%;
     max-width:430px;
     max-height:90vh;
+    max-height:90dvh;
     overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y;
     background:var(--card);
     border:1px solid var(--border);
     border-radius:18px;
@@ -581,12 +597,25 @@ body.light .selectedName{
 }
 
 .closeBtn{
-    background:none;
-    border:0;
-    color:var(--text);
+    width:36px;
+    height:36px;
+    min-width:36px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,rgba(143,16,24,.24),rgba(20,12,13,.92));
+    border:1px solid rgba(190,42,53,.48);
+    border-radius:11px;
+    color:#f0a0a5;
     font-size:25px;
+    line-height:1;
     cursor:pointer;
+    box-shadow:inset 0 1px rgba(255,255,255,.05),0 5px 14px rgba(0,0,0,.24);
+    transition:background .18s ease,border-color .18s ease,transform .18s ease;
 }
+.closeBtn:active{transform:scale(.94);background:linear-gradient(145deg,rgba(175,25,36,.42),rgba(20,12,13,.96));}
+.closeBtn:focus-visible{outline:2px solid #c34a53;outline-offset:2px;}
+.modalHeader .closeBtn{flex:0 0 36px;}
 
 .inputGroup{
     margin-bottom:14px;
@@ -613,9 +642,9 @@ body.light .selectedName{
 .primaryBtn{
     width:100%;
     padding:13px;
-    background:#555;
+    background:linear-gradient(135deg,#8f1018,#53070c);
     color:#fff;
-    border:1px solid #666;
+    border:1px solid #8f1018;
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
@@ -639,21 +668,22 @@ body.light .selectedName{
     flex:1;
     padding:10px;
     border-radius:8px;
-    border:1px solid #666;
-    background:#555;
+    border:1px solid #8f1018;
+    background:linear-gradient(135deg,#8f1018,#53070c);
     color:#fff;
     cursor:pointer;
     font-weight:bold;
 }
 
 .unitBtn:hover{
-    background:#666;
+    background:linear-gradient(135deg,#a51b25,#650910);
 }
 
 .unitBtn.active{
-    background:#555;
+    background:linear-gradient(135deg,#8f1018,#53070c);
     color:#fff;
-    border-color:#777;
+    border-color:#a51b25;
+    box-shadow:0 4px 13px rgba(143,16,24,.22);
 }
 
 
@@ -763,14 +793,115 @@ body.light .selectedName{
 
 .errorBox button{
     margin-top:15px;
-    background:#555;
+    background:linear-gradient(135deg,#8f1018,#53070c);
     color:#fff;
-    border:1px solid #666;
+    border:1px solid #8f1018;
     padding:9px 20px;
     border-radius:8px;
     cursor:pointer;
 }
 
+
+/* ================= CUSTOM FOOD ================= */
+.foodActionButtons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin:14px 0 9px;
+}
+.foodActionButtons .primaryBtn{
+    margin:0;
+    min-height:49px;
+    padding:11px 8px;
+    font-size:13px;
+}
+.customFoodFullBtn{
+    display:block;
+    width:100%;
+    min-height:47px;
+    margin:0 0 14px;
+}
+.mealHeaderRow{display:flex;align-items:stretch;gap:8px;margin:0 0 15px}
+.mealHeaderRow .mealTabs{flex:1;min-width:0;margin:0;}
+.addMealBtn{flex:0 0 auto;padding:0 12px;border:1px solid var(--red);border-radius:10px;background:rgba(143,16,24,.12);color:var(--text);font:inherit;font-size:12px;font-weight:800;white-space:nowrap;cursor:pointer}
+.customFoodOpenBtn{
+    background:var(--red);
+    border-color:var(--red);
+}
+.analyzeFoodOpenBtn{
+    background:linear-gradient(135deg,#8f1018,#53070c);
+    border-color:#a51b25;
+    box-shadow:0 5px 18px rgba(180,0,20,.2);
+}
+.analyzeHint{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    margin:-7px 0 14px;
+}
+.analyzeTextarea{
+    width:100%; min-height:112px; resize:vertical;
+    padding:13px; border-radius:11px; border:1px solid var(--border);
+    background:var(--bg); color:var(--text); outline:none;
+    font:inherit; line-height:1.7;
+}
+.analyzeResults{margin-top:14px;display:grid;gap:9px}
+.analyzeFoodRow{
+    display:grid;grid-template-columns:minmax(0,1fr) 82px;gap:8px;
+    align-items:center;padding:10px;border:1px solid var(--border);
+    border-radius:10px;background:var(--bg);
+}
+.analyzeFoodRow strong{display:block;font-size:13px}
+.analyzeFoodRow small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.analyzeFoodRow input{
+    width:100%;padding:9px 5px;text-align:center;border-radius:8px;
+    border:1px solid var(--border);background:var(--card);color:var(--text);
+}
+.analyzeTotals{margin-top:13px;padding:12px;border-radius:10px;background:rgba(150,15,25,.12);border:1px solid rgba(180,20,35,.35);font-size:12px;line-height:1.9}
+.productScannerOpenBtn{background:linear-gradient(135deg,#6f1119,#35070b);border-color:#8f1018;box-shadow:0 5px 16px rgba(160,0,20,.18)}
+.scannerVideoWrap{position:relative;overflow:hidden;border-radius:14px;background:#050505;border:1px solid var(--border);min-height:190px}
+#productScannerVideo{display:block;width:100%;max-height:270px;object-fit:cover}
+.scannerStatus{font-size:12px;line-height:1.7;color:var(--muted);margin:10px 0}
+.scannerPreview{display:none;margin-top:13px;padding:13px;border:1px solid rgba(143,16,24,.55);border-radius:13px;background:rgba(143,16,24,.08)}
+.scannerProductName{font-weight:800;font-size:16px;margin-bottom:4px}
+.scannerNutrients{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.scannerNutrient{padding:9px;border-radius:9px;background:rgba(255,255,255,.045);border:1px solid var(--border);font-size:12px}
+.scannerNutrient b{display:block;font-size:15px;margin-top:4px}
+.scannerWeightInput{width:100%;padding:11px;border-radius:9px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;margin-top:6px}
+.scannerActionRow{display:flex;gap:8px;margin-top:12px}
+.scannerActionRow button{flex:1;min-height:44px}
+.scannerSmall{font-size:11px;color:var(--muted);line-height:1.6}
+
+.savedMealActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:-5px 0 14px}
+.savedMealActionBtn{min-height:42px;padding:9px 10px;border:1px solid var(--red);border-radius:10px;background:rgba(143,16,24,.12);color:var(--text);font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.savedMealCard{padding:13px;margin:10px 0;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+.savedMealCardHead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}
+.savedMealCardName{font-weight:800;font-size:14px}
+.savedMealCardMeta{font-size:11px;color:var(--muted);line-height:1.7}
+.savedMealCardActions{display:flex;gap:7px;margin-top:10px}
+.savedMealCardActions button{flex:1;min-height:38px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;font-size:12px;font-weight:700}
+.savedMealCardActions .savedMealUse{background:var(--red);border-color:var(--red);color:#fff}
+.savedMealEmpty{text-align:center;color:var(--muted);padding:22px 10px;font-size:13px}
+@media(max-width:340px){.savedMealActions{grid-template-columns:1fr}}
+
+@media(max-width:480px){.foodActionButtons{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.foodActionButtons .primaryBtn{font-size:12px;padding:10px 5px;min-height:48px;line-height:1.35}.mealHeaderRow{gap:6px}.addMealBtn{padding:0 8px;font-size:11px}.mealTab{font-size:12px;padding:11px 3px}}
+@media(max-width:340px){.mealHeaderRow{flex-wrap:wrap}.mealHeaderRow .mealTabs{flex-basis:100%}.addMealBtn{width:100%;min-height:42px}}
+
+.customFoodNote{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin:-8px 0 15px;
+}
+.customFoodDelete{
+    margin-top:8px;
+    padding:7px 10px;
+    border:1px solid var(--red);
+    border-radius:8px;
+    color:var(--red);
+    background:transparent;
+    cursor:pointer;
+}
 
 /* ================= MOBILE ================= */
 
@@ -835,14 +966,15 @@ body.light .selectedName{
 /* ===== MEAL TABS ===== */
 
 .mealTabs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 15px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 
 .mealTab {
-    min-width: 0;
+    flex:1 0 auto;
+    min-width: 66px;
     padding: 12px 5px;
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -909,6 +1041,225 @@ body.light .selectedName{
 }
 
   
+
+/* ================= PREMIUM RED FINISH ================= */
+:root{--red:#8f1018;--red-deep:#53070c;--red-glow:rgba(143,16,24,.24);}
+button,.foodCard,.modal,.goalCard,.selectedFood,.liveItem{-webkit-tap-highlight-color:transparent;}
+button{transition:background .2s,border-color .2s,box-shadow .2s,transform .2s,opacity .2s;}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #a51b25;outline-offset:2px;}
+.editBtn,.updateBtn,.scrollBtn,.customFoodOpenBtn,.analyzeFoodOpenBtn{background:linear-gradient(135deg,#8f1018,#53070c);border-color:#8f1018;box-shadow:0 5px 16px var(--red-glow);}
+.clearBtn,.customFoodDelete{border-color:#8f1018;color:#c6535b;}
+.foodCard:hover,.selectedFood:hover,.liveItem:hover{border-color:#8f1018;box-shadow:0 5px 18px rgba(0,0,0,.22);}
+.searchBox input:focus,.inputGroup input:focus,.inputGroup select:focus,.analyzeTextarea:focus,.analyzeFoodRow input:focus{border-color:#8f1018;box-shadow:0 0 0 3px var(--red-glow);}
+.modal{box-shadow:0 18px 55px rgba(0,0,0,.48);}
+.primaryBtn:hover,.unitBtn:hover,.errorBox button:hover{background:linear-gradient(135deg,#a51b25,#650910);}
+.customFoodOpenBtn{background:linear-gradient(135deg,#8f1018,#53070c);border-color:#8f1018;}
+.analyzeTotals{background:rgba(143,16,24,.13);border-color:rgba(143,16,24,.42);}
+
+/* ================= PROFILE / MY DATA PREMIUM DESIGN ================= */
+#goalModal .profileModal{
+    max-width:460px;
+    padding:22px;
+    border:1px solid rgba(143,16,24,.48);
+    border-radius:22px;
+    background:radial-gradient(ellipse at  top right,rgba(143,16,24,.16),transparent 42%),linear-gradient(155deg,#151313 0%,#0b0b0c 58%,#10090a 100%);
+    box-shadow:0 24px 70px rgba(0,0,0,.72),0 0 30px rgba(143,16,24,.10);
+}
+#goalModal .modalHeader{align-items:flex-start;margin-bottom:18px;padding-bottom:17px;border-bottom:1px solid rgba(255,255,255,.07)}
+#goalModal .profileHeading{min-width:0}
+#goalModal .profileEyebrow{font-size:9px;letter-spacing:2.5px;font-weight:800;color:#b84a51;margin-bottom:7px}
+#goalModal .modalTitle{font-size:22px;letter-spacing:.1px;color:#fff}
+#goalModal .profileSubTitle{font-size:11px;line-height:1.7;color:#929092;margin-top:6px}
+#goalModal .closeBtn{width:32px;height:32px;flex:0 0 32px;border:1px solid rgba(255,255,255,.10);border-radius:10px;background:rgba(255,255,255,.04);color:#d6d1d1;line-height:1}
+#goalModal .profileSectionLabel{display:flex;align-items:center;gap:9px;margin:0 0 13px;color:#e8dfe0;font-size:12px;font-weight:700}
+#goalModal .profileSectionLabel span{width:4px;height:16px;border-radius:5px;background:linear-gradient(#c52b35,#650910);box-shadow:0 0 12px rgba(197,43,53,.4)}
+#goalModal .inputGroup{margin-bottom:11px;padding:12px 13px;border:1px solid rgba(255,255,255,.065);border-radius:13px;background:linear-gradient(120deg,rgba(255,255,255,.035),rgba(255,255,255,.012));}
+#goalModal .inputGroup label{color:#c0b9ba;font-size:12px;font-weight:600;margin-bottom:8px}
+#goalModal .inputGroup input,#goalModal .inputGroup select{min-height:44px;padding:11px 12px;border:1px solid rgba(255,255,255,.10);border-radius:10px;background:#090909;color:#f5f2f2;font-size:14px;}
+#goalModal .inputGroup input:focus,#goalModal .inputGroup select:focus{border-color:#8f1018;box-shadow:0 0 0 3px rgba(143,16,24,.16)}
+#goalModal .goalGroup{border-color:rgba(143,16,24,.24);background:linear-gradient(125deg,rgba(143,16,24,.10),rgba(255,255,255,.015))}
+#goalModal .goalGroup label{color:#e6c5c7}
+#goalModal .primaryBtn{margin-top:5px;min-height:48px;border-radius:12px;background:linear-gradient(135deg,#a51b25 0%,#710d15 55%,#4b080d 100%);border:1px solid rgba(205,55,65,.55);box-shadow:0 8px 22px rgba(105,8,16,.25);letter-spacing:.3px}
+#goalModal .primaryBtn:active{transform:scale(.99)}
+@media(max-width:480px){#goalModal.modalOverlay{padding:10px}#goalModal .profileModal{padding:17px;border-radius:19px;max-height:92dvh}#goalModal .modalTitle{font-size:20px}}
+
+
+
+/* PREMIUM SELECT MENUS – consistent dark red styling */
+select,
+.inputGroup select,
+#goalModal .inputGroup select,
+.analyzeFoodChoice{
+  -webkit-appearance:none;
+  appearance:none;
+  color-scheme:dark;
+  background-color:#100d0e;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23c34a53' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:left 13px center;
+  background-size:17px;
+  padding-left:42px !important;
+  border:1px solid rgba(143,16,24,.42);
+  border-radius:12px;
+  transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease;
+}
+select:focus,
+.inputGroup select:focus,
+#goalModal .inputGroup select:focus,
+.analyzeFoodChoice:focus{
+  outline:none;
+  border-color:#b52a34;
+  box-shadow:0 0 0 3px rgba(143,16,24,.19),0 5px 18px rgba(0,0,0,.2);
+  background-color:#160d0f;
+}
+select option,
+.inputGroup select option,
+.analyzeFoodChoice option{
+  background:#151112;
+  color:#f5eeee;
+  padding:12px;
+}
+select option:checked,
+.analyzeFoodChoice option:checked{
+  background:#651018;
+  color:#fff;
+}
+select:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+
+/* SAYKO CUSTOM CHOICE SHEET */
+.customSelectWrap{position:relative;width:100%;}
+.customSelectNative{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;left:0!important;bottom:0!important;padding:0!important;}
+.customSelectTrigger{width:100%;min-height:46px;padding:12px 42px 12px 14px;border:1px solid rgba(143,16,24,.55);border-radius:12px;background:linear-gradient(145deg,#171113,#090909);color:#f7eeee;text-align:right;font:inherit;position:relative;cursor:pointer;box-shadow:inset 0 1px rgba(255,255,255,.035),0 5px 15px rgba(0,0,0,.18);}
+.customSelectTrigger:before{content:'⌄';position:absolute;left:15px;top:50%;transform:translateY(-55%);color:#d45a63;font-size:22px;}
+.customSelectTrigger:focus{outline:none;border-color:#c13a45;box-shadow:0 0 0 3px rgba(143,16,24,.2);}
+.choiceShade{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(5px);z-index:99990;display:flex;align-items:flex-end;justify-content:center;padding:14px;}
+.choicePanel{width:min(100%,480px);max-height:min(72vh,620px);overflow:auto;background:linear-gradient(160deg,#1a1113,#090909 72%);border:1px solid rgba(190,42,53,.48);border-radius:22px;padding:17px 14px calc(16px + env(safe-area-inset-bottom));box-shadow:0 18px 65px rgba(0,0,0,.72),0 0 28px rgba(143,16,24,.12);}
+.choicePanelHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding:0 3px 12px;border-bottom:1px solid rgba(255,255,255,.08);}
+.choicePanelTitle{font-size:16px;font-weight:800;color:#fff;}
+.choicePanelClose{border:1px solid rgba(255,255,255,.1);background:#211719;color:#e9b8bc;border-radius:10px;width:34px;height:34px;font-size:20px;}
+.choiceOption{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:right;padding:14px 13px;margin:6px 0;border:1px solid rgba(255,255,255,.065);border-radius:12px;background:#100e0f;color:#eee;font:inherit;cursor:pointer;}
+.choiceOption.active{border-color:#a9232d;background:linear-gradient(100deg,rgba(143,16,24,.4),rgba(60,8,12,.3));color:#fff;box-shadow:inset 3px 0 #b72b36;}
+.choiceOption.active:after{content:'✓';color:#ed7c84;font-weight:bold;margin-right:12px;}
+@media(min-width:600px){.choiceShade{align-items:center}.choicePanel{max-height:65vh}}
+
+#errorOverlay .errorBox{position:relative;padding-top:48px;}
+#errorOverlay .errorCloseBtn{position:absolute;top:12px;left:12px;}
+
+/* FINAL HEADER PIN: keep logo, notification bell and menu at the top */
+html { scroll-padding-top: 12px; }
+body { padding-top: 0 !important; }
+body > header {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  z-index: 20 !important;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,.045);
+  isolation: auto;
+}
+body > header .logo,
+body > header .headerActions {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+body > header .logo { left: 50% !important; transform: translate(-50%, -50%) !important; }
+.headerTools{display:flex;align-items:center;gap:5px;direction:rtl}
+.tipsHeaderBtn{order:2;height:32px;padding:0 10px;border-radius:9px;border:1px solid rgba(169,25,37,.75);background:linear-gradient(145deg,#26090d,#10090a);color:#f1a0a6;font-size:11px;font-weight:800;letter-spacing:.2px;box-shadow:inset 0 1px rgba(255,255,255,.04);cursor:pointer}
+.headerTools .menuBtn{order:1}
+.tipsHeaderBtn:active{transform:scale(.96)}
+
+/* SAYKO advice modal and custom-food form polish */
+.saykoTips{margin:18px 0 22px;padding:18px;background:linear-gradient(145deg,#151515,#090909);border:1px solid #651018;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);position:relative;overflow:hidden}
+.saykoTips:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:#a31320;box-shadow:0 0 15px #a31320}
+.tipsTop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tipsEyebrow{font-size:10px;letter-spacing:2px;color:#a9a9a9;font-weight:700}
+.tipsHeading{font-size:19px;font-weight:900;color:#fff;margin-top:4px}
+.tipsBulb{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#26090d;border:1px solid #71101a;color:#e21b2b;font-size:22px}
+.tipsCategory{display:inline-block;margin-top:15px;padding:5px 11px;border-radius:20px;background:#310b10;color:#ff6570;border:1px solid #651018;font-size:11px;font-weight:800}
+.tipsText{color:#eee;font-size:14px;line-height:1.9;margin:10px 0 15px;min-height:52px}
+.tipsNext{width:100%;border:1px solid #a31320;border-radius:11px;padding:12px;background:linear-gradient(135deg,#8d101a,#570910);color:#fff;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 5px 14px rgba(120,0,12,.18)}
+.tipsNext:active{transform:scale(.985)}
+.tipsFoot{text-align:center;color:#777;font-size:10px;margin-top:11px;letter-spacing:.5px}
+
+.tipsModalBox{border-color:rgba(155,20,31,.58);background:linear-gradient(155deg,#151112,#090909);box-shadow:0 18px 55px rgba(0,0,0,.55)}
+.tipsModalCard{padding:17px;border:1px solid rgba(153,23,34,.42);border-radius:15px;background:linear-gradient(145deg,#1a1112,#0d0b0b);margin-bottom:14px;min-height:170px}
+.tipsModalCard .tipsBulb{margin-bottom:8px}
+.tipsModalCard .tipsCategory{margin-top:4px}
+.tipsModalCard .tipsText{min-height:0;margin:10px 0 12px}
+.tipsDetail{padding:11px 12px;margin-top:9px;border:1px solid rgba(255,255,255,.075);border-radius:11px;background:rgba(255,255,255,.025)}
+.tipsDetail strong{display:block;color:#e99aa1;font-size:12px;margin-bottom:5px}
+.tipsDetail p{color:#ddd;font-size:12px;line-height:1.8;margin:0}
+.tipsSource{font-size:10px;color:#999;margin-top:10px;line-height:1.7}
+.reference a{display:inline-block;margin-top:8px;color:#f08b94;text-decoration:none;font-size:12px;font-weight:700;border-bottom:1px solid rgba(240,139,148,.35);padding-bottom:2px}
+.reference a:focus,.reference a:hover{color:#fff}
+.referencesIntro{color:var(--muted);font-size:12px;line-height:1.8;padding:0 13px 10px}
+.tipsModalBox .tipsNext{margin-top:2px}
+#customFoodModal .modal{border:1px solid rgba(157,24,36,.55);background:linear-gradient(155deg,#151112,#090909);box-shadow:0 18px 55px rgba(0,0,0,.55)}
+#customFoodModal .modalHeader{padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.07)}
+#customFoodModal .inputGroup{padding:10px 11px;margin-bottom:10px;border:1px solid rgba(255,255,255,.075);border-radius:11px;background:linear-gradient(145deg,#151515,#0c0c0c)}
+#customFoodModal .inputGroup label{color:#d5a3a7;font-weight:700}
+#customFoodModal .inputGroup input{border:1px solid rgba(154,25,37,.45);border-radius:9px;background:#090909;color:#fff}
+#customFoodModal .inputGroup input:focus{border-color:#b32634;box-shadow:0 0 0 2px rgba(179,38,52,.12)}
+#customFoodModal .customFoodNote{padding:10px 12px;border:1px solid rgba(154,25,37,.3);border-radius:10px;background:rgba(130,12,24,.10);color:#c5b7b8}
+#customFoodModal .primaryBtn{margin-top:5px;background:linear-gradient(135deg,#94131e,#51080e);border-color:#9b1b27;box-shadow:0 6px 18px rgba(130,0,15,.2)}
+
+
+
+/* ===== SAYKØ GLASS PANELS: reveal the background artwork ===== */
+.goalCard,
+.foodCard,
+.selectedFood,
+.liveItem,
+.mealTab:not(.active),
+.mealTotals,
+.searchBox input,
+.analyzeFoodRow,
+.errorBox {
+  background: rgba(15, 13, 14, .48) !important;
+  border-color: rgba(143, 35, 45, .38);
+}
+.foodCard { box-shadow: inset 0 1px 0 rgba(255,255,255,.035); }
+.foodName, .goalTitle, .sectionTitle, .selectedFood,
+.liveItem span, .liveItem strong, .mealTotalCalories,
+.mealMacro, .mealMacro strong {
+  text-shadow: 0 1px 3px rgba(0,0,0,.72);
+}
+body.light .goalCard,
+body.light .foodCard,
+body.light .selectedFood,
+body.light .liveItem,
+body.light .mealTab:not(.active),
+body.light .mealTotals,
+body.light .searchBox input,
+body.light .analyzeFoodRow {
+  background: rgba(255,255,255,.68) !important;
+  text-shadow: none;
+}
+
+/* HOME ONLY: subtle glass cards; all other screens and controls stay solid */
+main .goalCard,
+main .searchBox input,
+main .foodCard,
+main .selectedFood,
+main .liveItem {
+    background: rgba(17,17,17,.48) !important;
+}
+body.light main .goalCard,
+body.light main .searchBox input,
+body.light main .foodCard,
+body.light main .selectedFood,
+body.light main .liveItem {
+    background: rgba(255,255,255,.68) !important;
+}
 </style>
 </head>
 
@@ -922,10 +1273,10 @@ body.light .selectedName{
 
     <div class="headerActions">
 
-        <button class="menuBtn"
-                onclick="openMenu()">
-            ☰
-        </button>
+        <div class="headerTools">
+            <button class="menuBtn" onclick="openMenu()" aria-label="القائمة">☰</button>
+            <button class="tipsHeaderBtn" type="button" onclick="openTipsModal()" aria-label="نصايح">نصايح</button>
+        </div>
 
         <button class="updateBtn"
                 id="updateBell"
@@ -992,6 +1343,7 @@ body.light .selectedName{
             <span>المظهر</span>
 
         </button>
+
 
     </div>
 
@@ -1125,30 +1477,20 @@ body.light .selectedName{
 
     </section>
 
-  
-<div class="mealTabs">
-    <button class="mealTab active"
-            data-meal="الفطار"
-            onclick="changeMeal('الفطار')">
-        الفطار
-    </button>
+    <div class="foodActionButtons">
+        <button class="primaryBtn productScannerOpenBtn" onclick="openProductScanner()">
+            📷 قارئ المنتجات
+        </button>
+        <button class="primaryBtn analyzeFoodOpenBtn" onclick="openAnalyzeFoodModal()">
+            ✦ حلّل أكلك
+        </button>
+    </div>
 
-    <button class="mealTab"
-            data-meal="الغداء"
-            onclick="changeMeal('الغداء')">
-        الغداء
+    <button class="primaryBtn customFoodOpenBtn customFoodFullBtn" onclick="openCustomFoodModal()">
+        ＋ إضافة أكلة جديدة
     </button>
-
-    <button class="mealTab"
-            data-meal="العشاء"
-            onclick="changeMeal('العشاء')">
-        العشاء
-    </button>
-</div>
-
 
     <div class="searchBox">
-
         <input
             id="searchInput"
             type="text"
@@ -1156,9 +1498,16 @@ body.light .selectedName{
             autocomplete="off"
             inputmode="search"
             oninput="searchFoods()">
-
     </div>
 
+    <div class="mealHeaderRow">
+        <div class="mealTabs" id="mealTabs"></div>
+        <button class="addMealBtn" type="button" onclick="openAddMealModal()">＋ أزود وجبة</button>
+    </div>
+    <div class="savedMealActions">
+        <button class="savedMealActionBtn" type="button" onclick="openSaveCurrentMealModal()">＋ حفظ الوجبة الحالية</button>
+        <button class="savedMealActionBtn" type="button" onclick="openSavedMealsModal()">▣ وجباتي المحفوظة</button>
+    </div>
 
     <div class="sectionTitle">
         الأطعمة
@@ -1372,17 +1721,169 @@ body.light .selectedName{
 </div>
 
 
+<!-- ================= CUSTOM FOOD MODAL ================= -->
+<div id="customFoodModal" class="modalOverlay">
+    <div class="modal">
+        <div class="modalHeader">
+            <div class="modalTitle">إضافة أكلة جديدة</div>
+            <button class="closeBtn" onclick="closeCustomFoodModal()">×</button>
+        </div>
+        <div class="inputGroup">
+            <label for="customFoodName">اسم الأكلة أو الوجبة</label>
+            <input id="customFoodName" type="text" maxlength="60" placeholder="مثال: ساندويتش بيتي">
+        </div>
+        <div class="customFoodNote">اكتب القيم الغذائية لكل 100 جرام، وبعد الحفظ هتظهر الأكلة في البحث وقائمة الأطعمة.</div>
+        <div class="inputGroup">
+            <label for="customFoodCalories">السعرات الحرارية (kcal)</label>
+            <input id="customFoodCalories" type="number" min="0" step="0.1" placeholder="مثال: 250">
+        </div>
+        <div class="inputGroup">
+            <label for="customFoodProtein">البروتين (جرام)</label>
+            <input id="customFoodProtein" type="number" min="0" step="0.1" placeholder="مثال: 15">
+        </div>
+        <div class="inputGroup">
+            <label for="customFoodCarbs">الكربوهيدرات (جرام)</label>
+            <input id="customFoodCarbs" type="number" min="0" step="0.1" placeholder="مثال: 30">
+        </div>
+        <div class="inputGroup">
+            <label for="customFoodFat">الدهون (جرام)</label>
+            <input id="customFoodFat" type="number" min="0" step="0.1" placeholder="مثال: 8">
+        </div>
+        <button class="primaryBtn" onclick="saveCustomFood()">حفظ الأكلة</button>
+    </div>
+</div>
+
+<!-- ================= ADD MEAL MODAL ================= -->
+<div id="addMealModal" class="modalOverlay" onclick="if(event.target===this)closeAddMealModal()">
+    <div class="modal">
+        <div class="modalHeader">
+            <div class="modalTitle">إضافة وجبة جديدة</div>
+            <button class="closeBtn" type="button" onclick="closeAddMealModal()">×</button>
+        </div>
+        <div class="inputGroup">
+            <label for="newMealName">اسم الوجبة</label>
+            <input id="newMealName" type="text" maxlength="40" placeholder="مثال: سناك أو وجبة قبل التمرين" autocomplete="off"
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();addMeal();}">
+        </div>
+        <button class="primaryBtn" type="button" onclick="addMeal()">＋ إنشاء الوجبة</button>
+    </div>
+</div>
+
+<!-- ================= SAVE / LOAD MEALS ================= -->
+<div id="saveCurrentMealModal" class="modalOverlay" onclick="if(event.target===this)closeSaveCurrentMealModal()">
+    <div class="modal">
+        <div class="modalHeader">
+            <div class="modalTitle">حفظ الوجبة الحالية</div>
+            <button class="closeBtn" type="button" onclick="closeSaveCurrentMealModal()">×</button>
+        </div>
+        <p style="color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 12px">هنحفظ الأطعمة والكميات الموجودة في الوجبة دي باسم تختاره، وتقدر تستخدمها تاني في أي وقت.</p>
+        <div class="inputGroup">
+            <label for="savedMealNameInput">اسم الوجبة المحفوظة</label>
+            <input id="savedMealNameInput" type="text" maxlength="50" placeholder="مثال: فطار الشوفان والبيض" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();saveCurrentMealAsTemplate();}">
+        </div>
+        <button class="primaryBtn" type="button" onclick="saveCurrentMealAsTemplate()">حفظ الوجبة</button>
+    </div>
+</div>
+
+<div id="savedMealsModal" class="modalOverlay" onclick="if(event.target===this)closeSavedMealsModal()">
+    <div class="modal">
+        <div class="modalHeader">
+            <div class="modalTitle">وجباتي المحفوظة</div>
+            <button class="closeBtn" type="button" onclick="closeSavedMealsModal()">×</button>
+        </div>
+        <div id="savedMealsList"></div>
+    </div>
+</div>
+
+<!-- ================= SAYKO TIPS MODAL ================= -->
+<div id="tipsModal" class="modalOverlay">
+    <div class="modal tipsModalBox">
+        <div class="modalHeader">
+            <div>
+                <div class="tipsEyebrow">SAYKØ KNOWLEDGE</div>
+                <div class="modalTitle">نصايح مفيدة</div>
+            </div>
+            <button class="closeBtn" type="button" onclick="closeTipsModal()">×</button>
+        </div>
+        <div class="tipsModalCard">
+            <div class="tipsBulb">✦</div>
+            <div class="tipsCategory" id="tipCategory">تغذية</div>
+            <p class="tipsText" id="tipText">نصيحة عملية مدعومة بمصدر موثوق.</p>
+            <div class="tipsDetail"><strong>مثال من الحياة اليومية</strong><p id="tipExample">مثال تطبيقي يظهر هنا.</p></div>
+            <div class="tipsDetail"><strong>جرّب تعمل إيه؟</strong><p id="tipAction">خطوة بسيطة قابلة للتطبيق.</p></div>
+            <p class="tipsSource" style="margin-top:12px">معلومة تعليمية عامة؛ لو عندك حالة صحية أو احتياج خاص، اسأل مختصًا مؤهلًا.</p>
+            <a class="tipsSource" id="tipSource" href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer">المصدر: WHO – افتح المرجع ↗</a>
+        </div>
+        <button class="primaryBtn tipsNext" type="button" onclick="showNewTip()">✦ نصيحة جديدة</button>
+        <div class="tipsFoot">معلومات عملية تساعدك تختار بشكل أذكى</div>
+    </div>
+</div>
+
+<!-- ================= SMART FOOD ANALYZER ================= -->
+<div id="analyzeFoodModal" class="modalOverlay">
+    <div class="modal">
+        <div class="modalHeader">
+            <div class="modalTitle">✦ حلّل أكلك</div>
+            <button class="closeBtn" onclick="closeAnalyzeFoodModal()">×</button>
+        </div>
+        <p class="analyzeHint">اكتب كل اللي أكلته بالكميات في سطر واحد، مثال: ١٠٠ جرام رز و١٥٠ جرام فراخ و٥٠ جرام خيار.</p>
+        <textarea id="analyzeFoodText" class="analyzeTextarea" placeholder="مثال: ١٠٠ جرام رز ١٥٠ جرام فراخ ٢٠٠ جرام بطاطس"></textarea>
+        <button class="primaryBtn" style="margin-top:10px;background:var(--red);border-color:var(--red)" onclick="analyzeMealText()">حلّل المكونات</button>
+        <div id="analyzeFoodResults" class="analyzeResults"></div>
+        <div id="analyzeFoodTotals" class="analyzeTotals" style="display:none"></div>
+        <button id="addAnalyzedFoodsBtn" class="primaryBtn" style="display:none;margin-top:12px;background:var(--red);border-color:var(--red)" onclick="addAnalyzedFoods()">إضافة الأكل للوجبة الحالية</button>
+    </div>
+</div>
+
+<!-- ================= PRODUCT BARCODE SCANNER ================= -->
+<div id="productScannerModal" class="modalOverlay">
+  <div class="modal">
+    <div class="modalHeader">
+      <div class="modalTitle">📷 قارئ المنتجات</div>
+      <button class="closeBtn" type="button" onclick="closeProductScanner()">×</button>
+    </div>
+    <p class="analyzeHint">وجّه الكاميرا إلى الباركود الموجود على العبوة. هنبحث عن المنتج ونعرض بياناته قبل إضافته.</p>
+    <div class="scannerVideoWrap"><video id="productScannerVideo" playsinline muted></video></div>
+    <div id="productScannerStatus" class="scannerStatus" aria-live="polite">اضغط تشغيل الكاميرا واسمح باستخدامها.</div>
+    <div class="scannerActionRow">
+      <button id="startProductCameraBtn" class="primaryBtn" type="button" onclick="startProductCamera()">تشغيل الكاميرا</button>
+      <button class="primaryBtn" type="button" style="background:#333;border-color:#555" onclick="stopProductCamera()">إيقاف</button>
+    </div>
+    <div id="productScannerPreview" class="scannerPreview">
+      <div id="scannerProductName" class="scannerProductName"></div>
+      <div id="scannerProductBrand" class="scannerSmall"></div>
+      <div id="scannerProductBarcode" class="scannerSmall"></div>
+      <div class="scannerNutrients">
+        <div class="scannerNutrient">السعرات / 100 جم أو مل<b id="scannerCalories100">—</b></div>
+        <div class="scannerNutrient">البروتين / 100<b id="scannerProtein100">—</b></div>
+        <div class="scannerNutrient">الكربوهيدرات / 100<b id="scannerCarbs100">—</b></div>
+        <div class="scannerNutrient">الدهون / 100<b id="scannerFat100">—</b></div>
+      </div>
+      <label class="scannerSmall" for="scannerPackageWeight">وزن/حجم العبوة (جرام أو مل)</label>
+      <input id="scannerPackageWeight" class="scannerWeightInput" type="number" min="1" step="any" placeholder="لو الوزن مش متسجل، اكتبه من العبوة">
+      <div id="scannerPackageTotal" class="scannerTotals" style="margin-top:10px;font-size:13px;line-height:1.8"></div>
+      <div class="scannerActionRow">
+        <button id="addScannedProductBtn" class="primaryBtn" type="button" onclick="addScannedProduct()" disabled>إضافة للوجبة</button>
+        <button class="primaryBtn" type="button" style="background:#333;border-color:#555" onclick="clearScannedProduct()">إلغاء</button>
+      </div>
+      <p class="scannerSmall" style="margin-top:9px">راجع الوزن والملصق الغذائي قبل الإضافة. قد تختلف البيانات أو لا تتوفر لبعض المنتجات.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ================= GOAL MODAL ================= -->
 
 <div id="goalModal"
      class="modalOverlay">
 
-    <div class="modal">
+    <div class="modal profileModal">
 
         <div class="modalHeader">
 
-            <div class="modalTitle">
-                احسب احتياجك اليومي
+            <div class="profileHeading">
+                <div class="profileEyebrow">SAYKØ FITNESS / PROFILE</div>
+                <div class="modalTitle">بياناتك الشخصية</div>
+                <div class="profileSubTitle">ظبّط بياناتك عشان نحسب احتياجك اليومي بشكل مناسب</div>
             </div>
 
             <button class="closeBtn"
@@ -1392,6 +1893,7 @@ body.light .selectedName{
 
         </div>
 
+        <div class="profileSectionLabel"><span></span> معلوماتك الأساسية</div>
 
         <div class="inputGroup">
 
@@ -1494,26 +1996,26 @@ body.light .selectedName{
 
     <select id="goal" class="goalSelect">
 
-        <option value="maintain">
-            ⚖️ تثبيت الوزن — الحفاظ على الوزن الحالي
+        <option value="bulk">
+            💪 التضخيم — دعم زيادة الكتلة العضلية
         </option>
 
-        <option value="build" selected>
-            💪 بناء العضلات — تحسين تكوين الجسم
+        <option value="cut" selected>
+            🔥 التنشيف — تحسين تركيب الجسم مع الحفاظ على العضلات
         </option>
 
         <option value="lose">
-            🔥 خسارة الوزن — بشكل تدريجي
+            ⚖️ نقصان الوزن — هدف عام لإدارة الوزن
         </option>
 
-        <option value="gain">
-            📈 زيادة الوزن — لدعم النمو العضلي
+        <option value="maintain">
+            ◈ الحفاظ على الوزن — استقرار العادات والوزن
         </option>
 
     </select>
 
-    <small class="goalHint">
-   
+    <small class="goalHint" style="display:block;margin-top:9px;color:#aaa;line-height:1.7">
+      الحسابات تقديرية للبالغين فقط. إذا كان العمر أقل من 18 سنة، راجع مختص تغذية للأطفال والمراهقين لتحديد الاحتياجات المناسبة للنمو.
     </small>
 
 </div>
@@ -1550,57 +2052,48 @@ body.light .selectedName{
         </div>
 
 
-        <div class="reference">
-
-            <strong>
-                USDA FoodData Central
-            </strong>
-
-            <span>
-                قاعدة بيانات غذائية للمعلومات والقيم الغذائية.
-            </span>
-
-        </div>
-
+        <p class="referencesIntro">المعلومات في SAYKØ مبنية على إرشادات ومراجع تعليمية موثوقة. افتح المصدر لقراءة التفاصيل الأصلية. الأرقام الغذائية تقديرية وقد تختلف حسب الصنف والعلامة التجارية والطبخ والكمية. التطبيق للتثقيف والتنظيم العام، وليس تشخيصًا أو بديلًا عن الطبيب أو اختصاصي التغذية. الاحتياجات تختلف حسب العمر والنمو والحالة الصحية والنشاط.</p>
 
         <div class="reference">
-
-            <strong>
-                Mifflin–St Jeor
-            </strong>
-
-            <span>
-                معادلة شائعة لتقدير معدل الأيض الأساسي.
-            </span>
-
+            <strong>منظمة الصحة العالمية (WHO) – الغذاء الصحي</strong>
+            <span>مبادئ التنوع والتوازن والاعتدال، والفواكه والخضروات والألياف والسكريات والملح.</span>
+            <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer">افتح المصدر الرسمي ↗</a>
         </div>
-
 
         <div class="reference">
-
-            <strong>
-                NIH / NIDDK
-            </strong>
-
-            <span>
-                مصادر ومعلومات تعليمية عن التغذية والوزن.
-            </span>
-
+            <strong>CDC – عادات صحية للأطفال والمراهقين</strong>
+            <span>إرشادات عامة عن الأكل المتوازن والنوم والحركة ودعم النمو الصحي.</span>
+            <a href="https://www.cdc.gov/healthy-weight-growth/tips-parents-caregivers/" target="_blank" rel="noopener noreferrer">افتح المصدر الرسمي ↗</a>
         </div>
-
 
         <div class="reference">
-
-            <strong>
-                Nutrition Facts Label
-            </strong>
-
-            <span>
-                معلومات الملصقات الغذائية وحساب العناصر الغذائية.
-            </span>
-
+            <strong>CDC – النوم والصحة</strong>
+            <span>توصيات مدة النوم حسب العمر، ومنها 8–10 ساعات للمراهقين من 13 إلى 18 سنة.</span>
+            <a href="https://www.cdc.gov/healthy-schools/sleep/index.html" target="_blank" rel="noopener noreferrer">افتح المصدر الرسمي ↗</a>
         </div>
 
+        <div class="reference">
+            <strong>CDC – النشاط البدني من 6 إلى 17 سنة</strong>
+            <span>شرح أنواع الحركة اليومية والأنشطة الهوائية وتقوية العضلات والعظام.</span>
+            <a href="https://www.cdc.gov/physical-activity-basics/guidelines/children.html" target="_blank" rel="noopener noreferrer">افتح المصدر الرسمي ↗</a>
+        </div>
+
+        <div class="reference">
+            <strong>NHS – قراءة الملصق الغذائي</strong>
+            <span>فهم السعرات وحجم الحصة والدهون والسكريات والملح على عبوات الطعام.</span>
+            <a href="https://www.nhs.uk/Live-well/eat-well/food-guidelines-and-food-labels/how-to-read-food-labels/" target="_blank" rel="noopener noreferrer">افتح المصدر الرسمي ↗</a>
+        </div>
+
+        <div class="reference">
+            <strong>USDA – FoodData Central</strong>
+            <span>قاعدة بيانات للبحث عن القيم الغذائية للأطعمة ومكوناتها وأحجام الحصص.</span>
+            <a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener noreferrer">افتح قاعدة البيانات ↗</a>
+        </div>
+
+        <div class="reference">
+            <strong>تنبيه عن دقة الأرقام</strong>
+            <span>القيم الغذائية تختلف حسب نوع الطعام والعلامة التجارية وطريقة الطبخ والكمية. ملصق المنتج الفعلي أو وصفة الطعام المحددة أدق من أي رقم عام.</span>
+        </div>
     </div>
 
 </div>
@@ -1681,6 +2174,7 @@ body.light .selectedName{
 
 
         <button class="primaryBtn"
+                id="applyUpdateBtn"
                 onclick="applyUpdate()">
             تحديث الآن
         </button>
@@ -1697,6 +2191,7 @@ body.light .selectedName{
 
     <div class="errorBox">
 
+        <button class="closeBtn errorCloseBtn" onclick="closeError()" aria-label="إغلاق">×</button>
         <h3>
             حدث خطأ
         </h3>
@@ -2255,6 +2750,62 @@ foods.push(
     {name:"عجة",calories:190,protein:10,carbs:8,fat:13}
 );
 
+/* ===== CUSTOM FOODS STORAGE ===== */
+let customFoods = [];
+try {
+    customFoods = JSON.parse(localStorage.getItem("saykoCustomFoods") || "[]");
+    if (!Array.isArray(customFoods)) customFoods = [];
+} catch (error) {
+    customFoods = [];
+}
+customFoods = customFoods.filter(food => food && food.name).map(food => ({
+    name: String(food.name),
+    calories: Number(food.calories) || 0,
+    protein: Number(food.protein) || 0,
+    carbs: Number(food.carbs) || 0,
+    fat: Number(food.fat) || 0,
+    isCustom: true
+}));
+foods.push(...customFoods);
+
+function openCustomFoodModal(){
+    ["customFoodName","customFoodCalories","customFoodProtein","customFoodCarbs","customFoodFat"].forEach(id => {
+        document.getElementById(id).value = "";
+    });
+    document.getElementById("customFoodModal").classList.add("show");
+}
+
+function closeCustomFoodModal(){
+    document.getElementById("customFoodModal").classList.remove("show");
+}
+
+function saveCustomFood(){
+    const name = document.getElementById("customFoodName").value.trim();
+    const calories = Number(document.getElementById("customFoodCalories").value);
+    const protein = Number(document.getElementById("customFoodProtein").value);
+    const carbs = Number(document.getElementById("customFoodCarbs").value);
+    const fat = Number(document.getElementById("customFoodFat").value);
+
+    if (!name || [calories, protein, carbs, fat].some(value => !Number.isFinite(value) || value < 0)) {
+        showError("اكتب اسم الأكلة وأدخل أرقامًا صحيحة غير سالبة لكل القيم الغذائية.");
+        return;
+    }
+    if (foods.some(food => normalizeArabic(food.name) === normalizeArabic(name))) {
+        showError("الاسم ده موجود بالفعل في قائمة الأطعمة.");
+        return;
+    }
+
+    const newFood = { name, calories, protein, carbs, fat, isCustom: true };
+    customFoods.push(newFood);
+    foods.push(newFood);
+    localStorage.setItem("saykoCustomFoods", JSON.stringify(customFoods));
+
+    const search = document.getElementById("searchInput");
+    search.value = "";
+    renderFoods(foods);
+    closeCustomFoodModal();
+}
+
 
 
 /* ================= VARIABLES ================= */
@@ -2264,28 +2815,173 @@ JSON.parse(localStorage.getItem("saykoFoods") || "[]");
 
     
 let currentMeal = "الفطار";
+let mealNames = JSON.parse(localStorage.getItem("saykoMealNames") || "null") || ["الفطار","الغداء","العشاء"];
 
 // الحفاظ على الأكلات القديمة
 selectedFoods.forEach(food => {
-    if (!food.meal) {
-        food.meal = "الفطار";
-    }
+    if (!food.meal) food.meal = "الفطار";
 });
+
+function saveMealNames(){
+    localStorage.setItem("saykoMealNames", JSON.stringify(mealNames));
+}
+
+// الوجبات المحفوظة: تُخزَّن محليًا على نفس الجهاز والمتصفح
+let savedMealTemplates = JSON.parse(localStorage.getItem("saykoSavedMealTemplates") || "[]");
+if (!Array.isArray(savedMealTemplates)) savedMealTemplates = [];
+
+function persistSavedMealTemplates(){
+    localStorage.setItem("saykoSavedMealTemplates", JSON.stringify(savedMealTemplates));
+}
+function openSaveCurrentMealModal(){
+    const mealFoods = selectedFoods.filter(food => (food.meal || "الفطار") === currentMeal);
+    if(!mealFoods.length){
+        showError("ضيف الأطعمة والكميات للوجبة الأول، وبعدها احفظها.");
+        return;
+    }
+    const input = document.getElementById("savedMealNameInput");
+    input.value = currentMeal;
+    document.getElementById("saveCurrentMealModal").classList.add("show");
+    setTimeout(() => input.focus(), 80);
+}
+function closeSaveCurrentMealModal(){
+    document.getElementById("saveCurrentMealModal")?.classList.remove("show");
+}
+function saveCurrentMealAsTemplate(){
+    const input = document.getElementById("savedMealNameInput");
+    const name = (input?.value || "").trim();
+    if(!name){ showError("اكتب اسم للوجبة المحفوظة."); input?.focus(); return; }
+    const mealFoods = selectedFoods.filter(food => (food.meal || "الفطار") === currentMeal);
+    if(!mealFoods.length){ showError("الوجبة دي مفيهاش أطعمة للحفظ."); closeSaveCurrentMealModal(); return; }
+    savedMealTemplates.unshift({
+        id: Date.now(),
+        name,
+        foods: mealFoods.map(food => ({
+            name: food.name, grams: Number(food.grams)||0, unit: food.unit||"g",
+            calories: Number(food.calories)||0, protein: Number(food.protein)||0,
+            carbs: Number(food.carbs)||0, fat: Number(food.fat)||0
+        })),
+        createdAt: new Date().toISOString()
+    });
+    persistSavedMealTemplates();
+    closeSaveCurrentMealModal();
+    showError("تم حفظ وجبتك باسم: " + name);
+}
+function openSavedMealsModal(){
+    renderSavedMealTemplates();
+    document.getElementById("savedMealsModal").classList.add("show");
+}
+function closeSavedMealsModal(){
+    document.getElementById("savedMealsModal")?.classList.remove("show");
+}
+function renderSavedMealTemplates(){
+    const holder = document.getElementById("savedMealsList");
+    if(!holder) return;
+    holder.innerHTML = "";
+    if(!savedMealTemplates.length){
+        holder.innerHTML = '<div class="savedMealEmpty">لسه مفيش وجبات محفوظة.<br>اختار وجبة فيها أطعمة واضغط «حفظ الوجبة الحالية».</div>';
+        return;
+    }
+    savedMealTemplates.forEach(template => {
+        const card = document.createElement("div");
+        card.className = "savedMealCard";
+        const calories = template.foods.reduce((sum, food) => sum + (Number(food.calories)||0), 0);
+        const head = document.createElement("div");
+        head.className = "savedMealCardHead";
+        const name = document.createElement("div");
+        name.className = "savedMealCardName";
+        name.textContent = template.name;
+        const count = document.createElement("span");
+        count.className = "savedMealCardMeta";
+        count.textContent = template.foods.length + " أصناف";
+        head.append(name, count);
+        const details = document.createElement("div");
+        details.className = "savedMealCardMeta";
+        details.textContent = template.foods.map(food => food.name + " (" + formatNumber(food.grams) + " " + (food.unit||"g") + ")").join(" • ") + " | " + formatNumber(calories) + " kcal";
+        const actions = document.createElement("div");
+        actions.className = "savedMealCardActions";
+        const useBtn = document.createElement("button");
+        useBtn.type = "button"; useBtn.className = "savedMealUse"; useBtn.textContent = "＋ أضف لوجبة اليوم";
+        useBtn.addEventListener("click", () => useSavedMealTemplate(template.id));
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button"; deleteBtn.textContent = "حذف";
+        deleteBtn.addEventListener("click", () => deleteSavedMealTemplate(template.id));
+        actions.append(useBtn, deleteBtn);
+        card.append(head, details, actions);
+        holder.appendChild(card);
+    });
+}
+function useSavedMealTemplate(id){
+    const template = savedMealTemplates.find(item => item.id === id);
+    if(!template) return;
+    const now = Date.now();
+    template.foods.forEach((food, index) => selectedFoods.push({
+        ...food, id: now + index, meal: currentMeal
+    }));
+    saveFoods(); renderSelectedFoods(); updateMealTotals(); updateProgress();
+    closeSavedMealsModal();
+    showError("تمت إضافة «" + template.name + "» إلى " + currentMeal);
+}
+function deleteSavedMealTemplate(id){
+    savedMealTemplates = savedMealTemplates.filter(item => item.id !== id);
+    persistSavedMealTemplates();
+    renderSavedMealTemplates();
+}
+
+function renderMealTabs(){
+    const holder = document.getElementById("mealTabs");
+    if(!holder) return;
+    holder.innerHTML = mealNames.map(meal => `
+      <button class="mealTab ${meal === currentMeal ? 'active' : ''}"
+              type="button" data-meal="${meal.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}"
+              onclick="changeMeal(this.dataset.meal)">${meal.replace(/</g,'&lt;')}</button>
+    `).join("");
+}
+
+function openAddMealModal(){
+    const modal = document.getElementById("addMealModal");
+    const input = document.getElementById("newMealName");
+    if(!modal || !input) return;
+    input.value = "";
+    modal.classList.add("show");
+    setTimeout(() => input.focus(), 80);
+}
+
+function closeAddMealModal(){
+    document.getElementById("addMealModal")?.classList.remove("show");
+}
+
+function addMeal(){
+    const input = document.getElementById("newMealName");
+    const name = (input?.value || "").trim();
+    if(!name){
+        if(typeof showError === "function") showError("اكتب اسم الوجبة الجديدة الأول.");
+        else alert("اكتب اسم الوجبة الجديدة الأول.");
+        input?.focus();
+        return;
+    }
+    if(mealNames.some(x => String(x).trim().toLocaleLowerCase() === name.toLocaleLowerCase())){
+        if(typeof showError === "function") showError("الوجبة دي موجودة بالفعل.");
+        else alert("الوجبة دي موجودة بالفعل.");
+        return;
+    }
+    mealNames.push(name);
+    currentMeal = name;
+    saveMealNames();
+    renderMealTabs();
+    renderSelectedFoods();
+    updateMealTotals();
+    closeAddMealModal();
+}
 
 function changeMeal(meal) {
     currentMeal = meal;
-
-    document.querySelectorAll(".mealTab").forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.meal === meal
-        );
-    });
-
+    renderMealTabs();
     renderSelectedFoods();
-
     updateMealTotals();
 }
+
+renderMealTabs();
 
 
 let selectedFood = null;
@@ -2304,6 +3000,15 @@ JSON.parse(localStorage.getItem("saykoGoals") || "null")
 let updateRegistration = null;
 let updateChecking = false;
 let updateRefreshing = false;
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistration().then(reg => {
+        if (reg) {
+            updateRegistration = reg;
+            watchForFutureUpdates(reg);
+        }
+    }).catch(()=>{});
+}
 
 
 /* ================= MENU ================= */
@@ -2327,14 +3032,15 @@ function closeMenu(){
 
 /* ================= FOODS ================= */
 
+let foodRenderToken = 0;
+
 function renderFoods(list=foods){
 
     const grid=document.getElementById("foodGrid");
-
+    const renderToken = ++foodRenderToken;
     grid.innerHTML="";
 
     if(!list.length){
-
         grid.innerHTML=`
         <div style="
             grid-column:1/-1;
@@ -2344,33 +3050,42 @@ function renderFoods(list=foods){
         ">
             لا توجد أطعمة بهذا الاسم
         </div>`;
-
         return;
     }
 
-    list.forEach(food=>{
+    // Show the first cards immediately, then add the rest in short frames.
+    // This keeps all foods searchable while preventing a long initial UI freeze.
+    let index = 0;
+    const batchSize = 48;
 
-        const card=document.createElement("div");
+    function appendFoodBatch(){
+        if(renderToken !== foodRenderToken) return;
+        const fragment = document.createDocumentFragment();
+        const stop = Math.min(index + batchSize, list.length);
 
-        card.className="foodCard";
+        for(; index < stop; index++){
+            const food = list[index];
+            const card=document.createElement("div");
+            card.className="foodCard";
+            card.onclick=()=>openFoodByName(food.name);
 
-        card.onclick=()=>{
-            openFoodByName(food.name);
-        };
+            const safeFoodName = String(food.name).replace(/[&<>"']/g, char => ({
+                "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"
+            }[char]));
 
-        card.innerHTML=`
-        <div class="foodName">
-            ${food.name}
-        </div>
+            card.innerHTML=`
+            <div class="foodName">${safeFoodName}</div>
+            <div class="foodCalories">${food.calories} kcal</div>`;
+            fragment.appendChild(card);
+        }
 
-        <div class="foodCalories">
-            ${food.calories} kcal
-        </div>`;
+        grid.appendChild(fragment);
+        if(index < list.length){
+            requestAnimationFrame(appendFoodBatch);
+        }
+    }
 
-        grid.appendChild(card);
-
-    });
-
+    appendFoodBatch();
 }
 
 
@@ -2784,6 +3499,203 @@ function addFood(){
 }
 
 
+/* ================= SMART FOOD ANALYZER ================= */
+let analyzedMealItems = [];
+let analyzerSavedScrollY = 0;
+let analyzerBodyLock = null;
+
+function lockPageBehindAnalyzer(){
+    if(analyzerBodyLock) return;
+    analyzerSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    analyzerBodyLock = {
+      position:document.body.style.position,
+      top:document.body.style.top,
+      left:document.body.style.left,
+      right:document.body.style.right,
+      width:document.body.style.width,
+      overflow:document.body.style.overflow
+    };
+    document.body.style.position="fixed";
+    document.body.style.top=`-${analyzerSavedScrollY}px`;
+    document.body.style.left="0";
+    document.body.style.right="0";
+    document.body.style.width="100%";
+    document.body.style.overflow="hidden";
+    const overlay=document.getElementById("analyzeFoodModal");
+    if(overlay){ overlay.style.overflow="hidden"; overlay.style.touchAction="pan-y"; }
+    const panel=overlay && overlay.querySelector(".modal");
+    if(panel){ panel.style.overflowY="auto"; panel.style.touchAction="pan-y"; panel.style.overscrollBehavior="contain"; }
+}
+function unlockPageBehindAnalyzer(){
+    if(!analyzerBodyLock) return;
+    const old=analyzerBodyLock;
+    document.body.style.position=old.position;
+    document.body.style.top=old.top;
+    document.body.style.left=old.left;
+    document.body.style.right=old.right;
+    document.body.style.width=old.width;
+    document.body.style.overflow=old.overflow;
+    const overlay=document.getElementById("analyzeFoodModal");
+    if(overlay){ overlay.style.overflow=""; overlay.style.touchAction=""; }
+    const panel=overlay && overlay.querySelector(".modal");
+    if(panel){ panel.style.overflowY=""; panel.style.touchAction=""; panel.style.overscrollBehavior=""; }
+    analyzerBodyLock=null;
+    window.scrollTo(0,analyzerSavedScrollY);
+}
+function openAnalyzeFoodModal(){
+    document.getElementById("analyzeFoodText").value = "";
+    document.getElementById("analyzeFoodResults").innerHTML = "";
+    document.getElementById("analyzeFoodTotals").style.display = "none";
+    document.getElementById("addAnalyzedFoodsBtn").style.display = "none";
+    analyzedMealItems = [];
+    lockPageBehindAnalyzer();
+    document.getElementById("analyzeFoodModal").classList.add("show");
+}
+function closeAnalyzeFoodModal(){
+    document.getElementById("analyzeFoodModal").classList.remove("show");
+    unlockPageBehindAnalyzer();
+}
+function normalizeFoodText(value){
+    return String(value || "").toLowerCase()
+      .replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه")
+      .replace(/[ًٌٍَُِّْـ]/g,"").replace(/[،,؛;+/\\n]+/g," ")
+      .replace(/\s+/g," ").trim();
+}
+function analyzerCleanName(value){
+    // نزيل أدوات الربط المنفصلة فقط، ولا نحذف أول حرف من اسم الأكلة.
+    const words=normalizeFoodText(value).split(" ").filter(Boolean);
+    while(words.length && ["و","مع","من"].includes(words[0])) words.shift();
+    while(words.length && ["و","مع"].includes(words[words.length-1])) words.pop();
+    return words.map(word => word.startsWith("ال") && word.length>3 ? word.slice(2) : word).join(" ").trim();
+}
+function toWesternDigits(value){
+    const map={"٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","٫":".","٬":""};
+    return String(value).replace(/[٠-٩٫٬]/g,ch=>map[ch] ?? ch);
+}
+// فهرس حيّ لكل الأصناف الأساسية والمخصصة في قاعدة البيانات.
+// كل كلمة تُفهرس كوحدة مستقلة؛ لذلك "موز" لا يطابق "موزاريلا".
+function buildAnalyzerFoodIndex(){
+    const index=new Map();
+    (Array.isArray(foods)?foods:[]).forEach(food=>{
+      if(!food || !food.name) return;
+      const normalized=analyzerCleanName(food.name);
+      const tokens=normalized.split(" ").filter(Boolean);
+      tokens.forEach(token=>{
+        const canonical=token==="ارز"?"رز":(token==="دجاج"?"فراخ":token);
+        if(!index.has(canonical)) index.set(canonical,[]);
+        if(!index.get(canonical).includes(food)) index.get(canonical).push(food);
+      });
+    });
+    return index;
+}
+function findFoodOptionsForAnalyzer(rawName){
+    let name=analyzerCleanName(rawName);
+    if(!name) return [];
+
+    // مرادفات مباشرة فقط، وليست مطابقة جزئية للحروف.
+    const aliases={
+      "ارز":"رز", "الرز":"رز", "الارز":"رز",
+      "فراخ":"فراخ", "دجاج":"فراخ",
+      "مكرونه":"مكرونه", "المكرونه":"مكرونه",
+      "بطاطس":"بطاطس", "بطاطا":"بطاطا",
+      "بيضه":"بيض", "بيضتين":"بيض", "البيض":"بيض",
+      "حليب":"لبن", "اللبن":"لبن",
+      "خبز بلدي":"عيش بلدي"
+    };
+    name=analyzerCleanName(aliases[name] || name);
+    const queryTokens=name.split(" ").filter(Boolean);
+    if(!queryTokens.length) return [];
+
+    const index=buildAnalyzerFoodIndex();
+    // نستخدم أصغر قائمة مرشحين أولاً ثم نتحقق من وجود كل كلمة كاملة.
+    const lists=queryTokens.map(token=>index.get(token)||[]).sort((a,b)=>a.length-b.length);
+    if(!lists[0].length) return [];
+    const candidates=lists[0].filter(food=>{
+      const foodTokens=analyzerCleanName(food.name).split(" ").filter(Boolean)
+        .map(token=>token==="ارز"?"رز":(token==="دجاج"?"فراخ":token));
+      if(queryTokens.length===1){
+        const token=queryTokens[0];
+        // أسماء الأنواع تبدأ باسم الأكلة؛ استثناء الفراخ لأن بعض القطع تبدأ بصدر/ورك/جناح.
+        return token==="فراخ" ? foodTokens.includes(token) : foodTokens[0]===token;
+      }
+      return queryTokens.every(token=>foodTokens.includes(token));
+    });
+    // الأقرب للاسم المكتوب أولاً، مع إبقاء كل الأنواع المتقاربة للاختيار.
+    return candidates.sort((a,b)=>{
+      const an=analyzerCleanName(a.name), bn=analyzerCleanName(b.name);
+      const ae=an===name?0:1, be=bn===name?0:1;
+      return ae-be || an.length-bn.length;
+    });
+}
+function analyzeMealText(){
+    const raw=toWesternDigits(document.getElementById("analyzeFoodText").value)
+      .replace(/[،,؛;\n]+/g," ");
+    const quantityPattern=/(\d+(?:\.\d+)?)\s*(كيلو(?:جرام)?|كجم|كغ|جرام|جم|غرام|g|kg)?/gi;
+    const marks=[]; let match;
+    while((match=quantityPattern.exec(raw))!==null){
+      marks.push({index:match.index,end:quantityPattern.lastIndex,qty:Number(match[1]),unit:(match[2]||"جرام").toLowerCase()});
+      if(match[0].length===0) quantityPattern.lastIndex++;
+    }
+    const parts=[];
+    marks.forEach((mark,i)=>{
+      let qty=mark.qty;
+      if(mark.unit.startsWith("كيلو")||mark.unit==="كجم"||mark.unit==="كغ"||mark.unit==="kg") qty*=1000;
+      const segmentEnd=i+1<marks.length?marks[i+1].index:raw.length;
+      let foodName=raw.slice(mark.end,segmentEnd)
+        .replace(/^\s*(?:و|مع)?\s*/,"")
+        .replace(/\s*(?:و|مع)\s*$/g,"")
+        .replace(/^\s*(?:جرام|جم|غرام)\s*/,"").trim();
+      if(qty>0 && foodName) parts.push({qty,foodName});
+    });
+    if(!parts.length){showError("اكتب الكمية ثم اسم الأكل، مثال: ١٠٠ جرام رز ١٥٠ جرام فراخ.");return;}
+    analyzedMealItems=parts.map(part=>{
+      const options=findFoodOptionsForAnalyzer(part.foodName);
+      return {food:options.length===1?options[0]:null,options,rawName:part.foodName,grams:part.qty};
+    });
+    renderAnalyzedFoods();
+}
+function renderAnalyzedFoods(){
+    const box=document.getElementById("analyzeFoodResults");
+    box.innerHTML="";
+    analyzedMealItems.forEach((item,index)=>{
+      const row=document.createElement("div"); row.className="analyzeFoodRow";
+      const info=document.createElement("div");
+      const title=document.createElement("strong");
+      title.textContent=item.food ? item.food.name : (item.options.length ? "اختار نوع "+item.rawName : "الصنف غير موجود: "+item.rawName);
+      const detail=document.createElement("small");
+      detail.textContent=item.food ? `الكمية ${formatNumber(item.grams)} جم · ${formatNumber(item.food.calories*item.grams/100)} kcal لكل الكمية` : (item.options.length ? `وجدنا ${item.options.length} اختيار مطابق للاسم؛ اختار الصنف الصحيح.` : "الصنف غير موجود في قاعدة البيانات؛ لم يتم تخمينه.");
+      info.append(title,detail);
+      if(!item.food && item.options.length){
+        const choice=document.createElement("select");
+        choice.className="analyzeFoodChoice";
+        choice.style.cssText="display:block;width:100%;margin-top:8px;padding:10px;background:#171717;color:#fff;border:1px solid var(--red);border-radius:9px";
+        const placeholder=document.createElement("option");placeholder.value="";placeholder.textContent="اختار الصنف";choice.append(placeholder);
+        item.options.forEach((food,i)=>{const option=document.createElement("option");option.value=String(i);option.textContent=food.name;choice.append(option);});
+        choice.addEventListener("change",()=>{item.food=choice.value===""?null:item.options[Number(choice.value)];renderAnalyzedFoods();});
+        info.append(choice);
+      }
+      const qty=document.createElement("input");qty.type="number";qty.min="1";qty.value=item.grams;qty.setAttribute("aria-label","الكمية بالجرام");
+      qty.addEventListener("change",()=>{const v=Number(qty.value);if(v>0){analyzedMealItems[index].grams=v;renderAnalyzedFoods();}});
+      row.append(info,qty);box.append(row);
+    });
+    const valid=analyzedMealItems.filter(x=>x.food);
+    const totals=valid.reduce((s,x)=>{const r=x.grams/100;s.calories+=x.food.calories*r;s.protein+=x.food.protein*r;s.carbs+=x.food.carbs*r;s.fat+=x.food.fat*r;return s;},{calories:0,protein:0,carbs:0,fat:0});
+    const totalBox=document.getElementById("analyzeFoodTotals");
+    totalBox.style.display="block";
+    totalBox.textContent=`إجمالي الأصناف المطابقة (${valid.length} من ${analyzedMealItems.length}): ${formatNumber(totals.calories)} kcal · بروتين ${formatNumber(totals.protein)} جم · كارب ${formatNumber(totals.carbs)} جم · دهون ${formatNumber(totals.fat)} جم`;
+    document.getElementById("addAnalyzedFoodsBtn").style.display=valid.length?"block":"none";
+}
+function addAnalyzedFoods(){
+    const valid=analyzedMealItems.filter(x=>x.food && x.grams>0);
+    if(!valid.length){showError("مفيش أصناف مؤكدة لإضافتها.");return;}
+    valid.forEach((x,i)=>{
+      const r=x.grams/100;
+      selectedFoods.push({id:Date.now()+i,name:x.food.name,meal:currentMeal,grams:x.grams,
+        calories:x.food.calories*r,protein:x.food.protein*r,carbs:x.food.carbs*r,fat:x.food.fat*r});
+    });
+    saveFoods();renderSelectedFoods();updateMealTotals();updateProgress();closeAnalyzeFoodModal();
+}
+
 /* ================= SELECTED ================= */
 
 
@@ -2834,7 +3746,7 @@ function renderSelectedFoods(){
                 </div>
 
                 <div class="selectedWeight">
-                    ${formatNumber(food.grams)} g
+                    ${formatNumber(food.grams)} ${food.unit||'g'}
                 </div>
 
             </div>
@@ -3100,110 +4012,57 @@ function closeGoal(){
 
 function calculateGoal(){
 
-    const weight=
-        parseFloat(
-            document.getElementById("weight").value
-        );
+    const weight = parseFloat(document.getElementById("weight").value);
+    const height = parseFloat(document.getElementById("height").value);
+    const age = parseFloat(document.getElementById("age").value);
+    const gender = document.getElementById("gender").value;
+    const activity = parseFloat(document.getElementById("activity").value);
+    const goal = document.getElementById("goal").value;
 
-    const height=
-        parseFloat(
-            document.getElementById("height").value
-        );
-
-    const age=
-        parseFloat(
-            document.getElementById("age").value
-        );
-
-    const gender=
-        document.getElementById("gender").value;
-
-    const activity=
-        parseFloat(
-            document.getElementById("activity").value
-        );
-
-    const goal=
-        document.getElementById("goal").value;
-
-    if(
-        !weight ||
-        !height ||
-        !age
-    ){
-
-        showError(
-            "من فضلك أدخل الوزن والطول والعمر."
-        );
-
+    if(!weight || !height || !age || weight <= 0 || height <= 0 || age <= 0){
+        showError("من فضلك أدخل الوزن والطول والعمر بشكل صحيح.");
         return;
-
     }
 
-    let bmr;
-
-    if(gender==="male"){
-
-        bmr=
-            (10*weight)
-            +(6.25*height)
-            -(5*age)
-            +5;
-
-    }else{
-
-        bmr=
-            (10*weight)
-            +(6.25*height)
-            -(5*age)
-            -161;
-
+    // Adult equations are not appropriate for children and adolescents.
+    if(age < 18){
+        showError("احتياجات الجسم قبل سن 18 بتختلف بسبب النمو. مش هنحسب سعرات للتضخيم أو التنشيف أو نقصان الوزن بمعادلة البالغين. الأفضل تحديد الاحتياج مع أخصائي تغذية أطفال ومراهقين.");
+        return;
     }
 
-    let calories=
-        bmr*activity;
+    // Mifflin-St Jeor estimate for adults; this is an estimate, not a prescription.
+    const bmr = gender === "male"
+        ? (10 * weight) + (6.25 * height) - (5 * age) + 5
+        : (10 * weight) + (6.25 * height) - (5 * age) - 161;
 
-    if(goal==="lose"){
-        calories-=250;
-    }
+    const maintenance = bmr * activity;
+    let calories = maintenance;
 
-    if(goal==="gain"){
-        calories+=250;
-    }
+    // Conservative adult-only adjustments; individual needs can differ.
+    if(goal === "bulk") calories = maintenance * 1.05;
+    if(goal === "cut") calories = maintenance * 0.93;
+    if(goal === "lose") calories = maintenance * 0.90;
+    if(goal === "maintain") calories = maintenance;
 
-    if(goal==="build"){
-        calories+=100;
-    }
+    calories = Math.round(calories);
 
-    calories=
-        Math.round(calories);
+    // Macro targets are derived from the selected calorie estimate and kept energy-consistent.
+    const proteinCalories = weight * 1.6 * 4;
+    const fatCalories = calories * 0.25;
+    const carbCalories = Math.max(0, calories - proteinCalories - fatCalories);
 
-    goals={
-
-        calories:calories,
-
-        protein:
-            Math.round(weight*1.6),
-
-        carbs:
-            Math.round((calories*.45)/4),
-
-        fat:
-            Math.round((calories*.25)/9)
-
+    goals = {
+        calories: calories,
+        protein: Math.round(weight * 1.6),
+        carbs: Math.round(carbCalories / 4),
+        fat: Math.round(fatCalories / 9)
     };
 
-    localStorage.setItem(
-        "saykoGoals",
-        JSON.stringify(goals)
-    );
-
+    localStorage.setItem("saykoGoals", JSON.stringify(goals));
     updateProgress();
-
     closeGoal();
 
 }
-
 
 /* ================= THEME ================= */
 
@@ -3316,89 +4175,114 @@ function showUpdate(){
 
     showUpdateDot();
 
-    const text =
-        document.getElementById("updateText");
+    const text = document.getElementById("updateText");
+    const applyBtn = document.getElementById("applyUpdateBtn");
 
     if(text){
-
         text.textContent =
             "يوجد تحديث جديد لـ SAYKØ FITNESS. قم بتحديث البرنامج الآن للحصول على آخر التعديلات.";
-
     }
+    if(applyBtn){ applyBtn.style.display = "block"; }
 
-    const modal =
-        document.getElementById("updateModal");
-
-    if(modal){
-        modal.classList.add("show");
-    }
+    const modal = document.getElementById("updateModal");
+    if(modal){ modal.classList.add("show"); }
 
 }
 
+function showNoUpdate(){
+
+    const text = document.getElementById("updateText");
+    const applyBtn = document.getElementById("applyUpdateBtn");
+
+    if(text){
+        text.textContent =
+            "مفيش تحديث حاليًا. لو ظهر أي تحديث جديد لـ SAYKØ FITNESS هنبهك.";
+    }
+    if(applyBtn){ applyBtn.style.display = "none"; }
+
+    const modal = document.getElementById("updateModal");
+    if(modal){ modal.classList.add("show"); }
+
+}
+
+function watchForFutureUpdates(reg){
+
+    if(!reg || reg.__saykoUpdateWatcher) return;
+    reg.__saykoUpdateWatcher = true;
+
+    reg.addEventListener("updatefound", ()=>{
+        const worker = reg.installing;
+        if(!worker) return;
+        worker.addEventListener("statechange", ()=>{
+            if(worker.state === "installed" && navigator.serviceWorker.controller){
+                showUpdate();
+            }
+        });
+    });
+
+    if(reg.waiting) showUpdate();
+}
 
 async function checkForUpdate(){
 
-    if(updateChecking){
-        return;
-    }
-
-    if(!("serviceWorker" in navigator)){
-        return;
-    }
-
-    updateChecking=true;
+    if(updateChecking) return;
+    updateChecking = true;
 
     try{
-
-        let reg =
-            updateRegistration;
-
-        if(!reg){
-
-            reg =
-                await navigator
-                .serviceWorker
-                .getRegistration();
-
-        }
-
-        if(!reg){
-
-            updateChecking=false;
+        if(!("serviceWorker" in navigator)){
+            showNoUpdate();
             return;
-
         }
 
-        updateRegistration=reg;
+        let reg = updateRegistration || await navigator.serviceWorker.getRegistration();
+        if(!reg){
+            showNoUpdate();
+            return;
+        }
+
+        updateRegistration = reg;
+        watchForFutureUpdates(reg);
 
         if(reg.waiting){
-
             showUpdate();
-
-            updateChecking=false;
             return;
-
         }
 
         await reg.update();
 
         if(reg.waiting){
             showUpdate();
+            return;
         }
 
+        // Give a newly found worker a moment to finish installing before reporting no update.
+        const installing = reg.installing;
+        if(installing){
+            await new Promise(resolve=>{
+                let finished = false;
+                const done = ()=>{
+                    if(finished) return;
+                    if(installing.state === "installed" || installing.state === "redundant"){
+                        finished = true;
+                        installing.removeEventListener("statechange", done);
+                        resolve();
+                    }
+                };
+                installing.addEventListener("statechange", done);
+                setTimeout(()=>{ if(!finished){ finished=true; installing.removeEventListener("statechange", done); resolve(); } }, 2500);
+                done();
+            });
+        }
+
+        if(reg.waiting){ showUpdate(); }
+        else { showNoUpdate(); }
+
     }catch(error){
-
-        console.log(
-            "Update check failed:",
-            error
-        );
-
+        console.log("Update check failed:", error);
+        showNoUpdate();
     }finally{
-
-        updateChecking=false;
-
+        updateChecking = false;
     }
-
 }
 
 
@@ -3545,9 +4429,11 @@ document
             function(e){
 
                 if(e.target===overlay){
-
-                    overlay.classList.remove("show");
-
+                    if(overlay.id==="analyzeFoodModal"){
+                        closeAnalyzeFoodModal();
+                    }else{
+                        overlay.classList.remove("show");
+                    }
                 }
 
             }
@@ -3622,11 +4508,10 @@ if("serviceWorker" in navigator){
 
                 },1000);
 
+                // Check periodically instead of polling every five seconds.
                 setInterval(()=>{
-
-                    checkForUpdate();
-
-                },5000);
+                    if(document.visibilityState === "visible") checkForUpdate();
+                },1800000);
 
             }catch(error){
 
@@ -3686,7 +4571,7 @@ updateProgress();
 ">
     <div style="
         background:#111;
-        border:1px solid #b5121b;
+        border:1px solid #8f1018;
         border-radius:20px;
         padding:25px;
         width:100%;
@@ -3701,7 +4586,7 @@ updateProgress();
         <p>ثبّت التطبيق على موبايلك للوصول إليه بسهولة!</p>
 
         <button id="installBtn" style="
-            background:#b5121b;
+            background:#8f1018;
             color:white;
             border:0;
             border-radius:10px;
@@ -3789,5 +4674,216 @@ window.addEventListener("appinstalled", () => {
     installBox.style.display = "none";
 });
 </script>
+
+<script>
+(()=>{
+  let activeSelect=null;
+  function closeChoice(){const old=document.querySelector('.choiceShade');if(old)old.remove();activeSelect=null;}
+  function openChoice(sel){
+    closeChoice(); activeSelect=sel;
+    const shade=document.createElement('div');shade.className='choiceShade';
+    shade.addEventListener('click',e=>{if(e.target===shade)closeChoice();});
+    const panel=document.createElement('div');panel.className='choicePanel';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+    const head=document.createElement('div');head.className='choicePanelHead';
+    const title=document.createElement('div');title.className='choicePanelTitle';
+    const label=sel.closest('.inputGroup')?.querySelector('label');title.textContent=label?.textContent?.trim()||'اختار';
+    const close=document.createElement('button');close.type='button';close.className='choicePanelClose';close.textContent='×';close.setAttribute('aria-label','إغلاق');close.onclick=closeChoice;
+    head.append(title,close);panel.append(head);
+    [...sel.options].forEach(opt=>{
+      if(opt.disabled && !opt.value) return;
+      const b=document.createElement('button');b.type='button';b.className='choiceOption'+(opt.value===sel.value?' active':'');b.textContent=opt.textContent.trim();
+      b.onclick=()=>{sel.value=opt.value;sel.dispatchEvent(new Event('change',{bubbles:true}));const wrap=sel.closest('.customSelectWrap');const trigger=wrap?.querySelector('.customSelectTrigger');if(trigger)trigger.textContent=opt.textContent.trim();closeChoice();};
+      panel.append(b);
+    });
+    shade.append(panel);document.body.append(shade);
+  }
+  function enhance(root=document){
+    root.querySelectorAll('select').forEach(sel=>{
+      if(sel.dataset.customChoice==='1')return;
+      sel.dataset.customChoice='1';
+      const wrap=document.createElement('div');wrap.className='customSelectWrap';
+      sel.parentNode.insertBefore(wrap,sel);wrap.append(sel);sel.classList.add('customSelectNative');
+      const trigger=document.createElement('button');trigger.type='button';trigger.className='customSelectTrigger';
+      const current=sel.options[sel.selectedIndex];trigger.textContent=current?current.textContent.trim():'اختار';
+      trigger.addEventListener('click',()=>{if(!sel.disabled)openChoice(sel);});wrap.append(trigger);
+      sel.addEventListener('change',()=>{const o=sel.options[sel.selectedIndex];trigger.textContent=o?o.textContent.trim():'اختار';});
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>enhance());else enhance();
+  const observer=new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>{if(n.nodeType===1){if(n.matches?.('select'))enhance(n.parentNode||document);else enhance(n);}})));
+  observer.observe(document.documentElement,{childList:true,subtree:true});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeChoice();});
+})();
+</script>
+
+
+<script>
+// نصائح عملية: معلومة + مثال واقعي + خطوة قابلة للتطبيق + مرجع
+(function(){
+ const tips=[
+  {c:'قراءة الملصق الغذائي',t:'الأرقام المكتوبة على العبوة غالبًا تخص 100 جرام أو حصة محددة، وليس العبوة كلها. لازم تبص على حجم الحصة وعدد الحصص.',e:'لو مكتوب 180 سعرة لكل 30 جرام، وأكلت 60 جرام، يبقى استهلكت تقريبًا 360 سعرة من المنتج.',a:'قارن بين منتجين من نفس النوع على أساس 100 جرام، وبعدها احسب الكمية اللي أكلتها فعلًا.',s:'NHS – Food labels',u:'https://www.nhs.uk/Live-well/eat-well/food-guidelines-and-food-labels/how-to-read-food-labels/'},
+  {c:'بناء وجبة متوازنة',t:'الوجبة المتوازنة مش لازم تكون غالية أو معقدة؛ اجمع مصدر طاقة ومصدر بروتين وخضار أو فاكهة، مع تنويع الأكل خلال اليوم.',e:'مثال مصري: رز + فراخ أو عدس + سلطة. وممكن عيش بلدي + فول + خيار وطماطم.',a:'في الوجبة الجاية أضف صنف خضار أو فاكهة لو مش موجود، وبدّل مصادر البروتين بين البيض والبقوليات واللبن والسمك والدجاج.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الألياف والهضم',t:'الألياف موجودة في الخضار والفاكهة والبقوليات والشوفان والحبوب الكاملة، وزيادتها تدريجيًا مع شرب سوائل كفاية يساعد على تحملها.',e:'بدل ما يكون الفطار عيش وجبن فقط كل يوم، ممكن تضيف ثمرة فاكهة أو خضار، وتدخل العدس أو الفول في وجبات أخرى.',a:'زود مصدر ألياف واحد كل مرة، مثل ثمرة فاكهة أو طبق خضار أو شوفان، بدل الزيادة المفاجئة.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الكربوهيدرات مش عدو',t:'الكربوهيدرات مصدر مهم للطاقة. الرز والعيش والبطاطس والشوفان والبقوليات ممكن يكونوا جزءًا من نظام متوازن؛ نوع الطعام والكمية والسياق مهمين.',e:'طبق رز مع خضار وبروتين وجبة عادية، ومش لازم تمنع الرز لمجرد إنك بتتمرن.',a:'اختار مصادر متنوعة، وجرّب أحيانًا الشوفان أو البطاطس أو الحبوب الكاملة بدل الاعتماد على صنف واحد.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'تنويع البروتين',t:'البروتين موجود في مصادر حيوانية ونباتية، ومش لازم تعتمد على نوع واحد في كل وجبة أو تشتري منتجات غالية.',e:'أمثلة متاحة: البيض، اللبن والزبادي، الفول والعدس، السمك، الدجاج، والجبن.',a:'نوّع المصادر على مدار الأسبوع، وخلي الوجبات مناسبة لاحتياجاتك بدل مطاردة رقم بروتين ثابت من غير تقييم.',s:'CDC – Healthy routines for teens',u:'https://www.cdc.gov/healthy-weight-growth/tips-parents-caregivers/'},
+  {c:'الفاكهة الكاملة والعصير',t:'الفاكهة الكاملة بتوفر أليافًا، بينما العصير، حتى لو طبيعي، قد يسهل شرب كمية كبيرة منه بسرعة وتكون أليافه أقل.',e:'ثمرة برتقال كاملة اختيار عملي كسناك، بدل الاعتماد كل مرة على كوب عصير كبير.',a:'خلي الفاكهة الكاملة اختيارك المعتاد، ونوّع بين الأنواع حسب المتاح والموسم.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'السكر المضاف',t:'المشروبات المحلاة والحلويات ممكن تزود السكر بسهولة. مش مطلوب تخاف من الأكل؛ الفكرة إن المشروبات المحلاة ما تبقاش مصدر الشرب الأساسي يوميًا.',e:'لو بتشرب مشروب غازي مع كل وجبة، جرّب تخلي المياه هي المشروب المعتاد وتستمتع بالمشروب المحلى أحيانًا.',a:'اقرأ خانة السكريات على العبوة وقارن المنتجات المتشابهة، وانتبه لحجم الحصة.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الملح والصوديوم',t:'بعض الأطعمة الجاهزة والمعلبة والصلصات قد تحتوي على صوديوم مرتفع حتى لو طعمها مش مالح جدًا.',e:'قارن بين نوعين من الجبن أو التونة المعلبة وشوف الصوديوم لكل 100 جرام أو لكل حصة.',a:'اختار أحيانًا المنتج الأقل صوديومًا، واشطف بعض المعلبات عند الحاجة، وقلل إضافة الملح تدريجيًا.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الدهون جزء من التغذية',t:'الجسم يحتاج الدهون، لكن أنواعها تختلف. المكسرات والبذور والأسماك وزيوت نباتية مثل زيت الزيتون مصادر لدهون غير مشبعة.',e:'ممكن تضيف كمية مناسبة من الطحينة أو المكسرات أو زيت الزيتون لوجبة متوازنة، بدل اعتبار كل الدهون ضارة.',a:'نوّع مصادر الدهون، وقلل الاعتماد المتكرر على المقليات والمنتجات الغنية بالدهون المتحولة.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'المياه والترطيب',t:'احتياج السوائل يختلف حسب الجو والنشاط والتعرق والحالة الصحية. اشرب بانتظام، وزوّد الانتباه في الحر وأثناء النشاط.',e:'في يوم المدرسة أو التمرين، خليك واخد زجاجة مياه واشرب على فترات بدل ما تفتكر المياه آخر اليوم.',a:'راقب العطش ولون البول كإشارات عامة، ولا تعتمد على رقم ثابت يناسب كل الناس.',s:'CDC – Healthy routines',u:'https://www.cdc.gov/healthy-weight-growth/tips-parents-caregivers/'},
+  {c:'قبل التمرين',t:'اختيار الأكل قبل التمرين يعتمد على توقيت التمرين وتحمل معدتك. وجبة مألوفة فيها كربوهيدرات، ومعها بروتين حسب الوقت، قد تساعدك على الشعور بطاقة أفضل.',e:'لو فاضل وقت مناسب على التمرين: زبادي مع شوفان أو ساندوتش جبنة مع ثمرة فاكهة. لو الوقت قصير اختار سناك خفيف يناسبك.',a:'جرّب اختيارات بسيطة ومألوفة، وتجنب تجربة وجبة ثقيلة لأول مرة قبل تمرين مهم.',s:'إرشادات التغذية العامة – WHO',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'بعد التمرين',t:'مش لازم تأكل في دقائق بعد آخر مجموعة. الأهم إنك تتناول وجبات كافية ومتوازنة خلال اليوم وتستمر في التعافي والنوم.',e:'بعد التمرين ممكن تكون وجبتك العادية: بطاطس أو رز + بيض أو فراخ أو فول + خضار.',a:'خطط لوجبة معتادة بعد التمرين حسب موعدك وجوعك، بدل القلق من نافذة زمنية ضيقة.',s:'CDC – Healthy routines',u:'https://www.cdc.gov/healthy-weight-growth/tips-parents-caregivers/'},
+  {c:'النوم للمراهقين',t:'النوم جزء أساسي من النمو والتعلم والتعافي. المراهقون يحتاجون عادةً إلى 8–10 ساعات نوم يوميًا.',e:'لو عندك مدرسة بدري، حاول تثبت ميعاد نوم واستيقاظ قدر الإمكان، وقلل استخدام الشاشة قبل النوم.',a:'اعمل روتين هادئ قبل النوم وخلي مواعيدك منتظمة قدر الإمكان. لو عندك مشكلة نوم مستمرة، تحدث مع ولي أمرك ومختص.',s:'CDC – Sleep and Health (8–10 ساعات للمراهقين)',u:'https://www.cdc.gov/healthy-schools/sleep/index.html'},
+  {c:'الحركة اليومية',t:'النشاط مش معناه جيم فقط؛ المشي وركوب الدراجة واللعب والرياضة كلها طرق للحركة. التوصيات للمراهقين تشمل نشاطًا يوميًا متنوعًا.',e:'المشي للمدرسة أو لعب كرة مع الأصدقاء أو ركوب الدراجة يمكن أن يدخل ضمن نشاط اليوم.',a:'اختار نشاطًا آمنًا وممتعًا تقدر تكرره، واجمع بين الحركة الهوائية وأنشطة تقوية العضلات والعظام خلال الأسبوع.',s:'CDC – Physical activity ages 6–17',u:'https://www.cdc.gov/physical-activity-basics/guidelines/children.html'},
+  {c:'التدرج في التمرين',t:'التقدم الجيد بييجي من تعلم الحركة والتحكم فيها ثم زيادة التحدي تدريجيًا. زيادة الحمل بسرعة ممكن تضعف الأداء.',e:'لو بتتعلم تمرين ضغط أو سكوات، ابدأ بنسخة تقدر تنفذها بتحكم، وبعد ما تتقنها زوّد الصعوبة تدريجيًا.',a:'سجل التمرين والأداء، واطلب من مدرب مؤهل يراجع التقنية، وتوقف لو ظهر ألم حاد أو غير معتاد.',s:'CDC – Physical activity',u:'https://www.cdc.gov/physical-activity-basics/guidelines/children.html'},
+  {c:'أيام الراحة',t:'الراحة مش كسل؛ الجسم يحتاج وقتًا للتعافي. وزّع المجهود خلال الأسبوع وتجنب تدريب نفس العضلات بشدة كل يوم.',e:'بعد يوم تمرين قوي للرجلين، ممكن يكون اليوم التالي نشاطًا خفيفًا مثل المشي أو راحة حسب إحساسك.',a:'اهتم بالنوم والتغذية، وخلي جدول التدريب مناسبًا لخبرتك ومدرستك وقدرتك على التعافي.',s:'CDC – Healthy routines',u:'https://www.cdc.gov/healthy-weight-growth/tips-parents-caregivers/'},
+  {c:'سلامة الطعام',t:'افصل الطعام النيّ عن المطبوخ، وبرّد بقايا الطعام سريعًا، واغسل اليدين والأسطح والأدوات لتقليل انتقال الميكروبات.',e:'ما تستخدمش نفس طبق أو سكينة الفراخ النيّة لتقديم الفراخ بعد التسوية من غير غسلها جيدًا.',a:'احفظ الطعام بالطريقة المناسبة، واتبع إرشادات السلامة والتخزين، خصوصًا في الجو الحار.',s:'WHO – Healthy diet and food safety',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الأكل المعلب والمجمد',t:'مش كل طعام معلب أو مجمد غير صحي. الخضار والفاكهة المجمدة أو المعلبة قد تكون اختيارات عملية؛ راجع السكر المضاف والصوديوم.',e:'كيس خضار مجمد بدون صوص أو فاصوليا معلبة قليلة الملح ممكن يساعدك تجهز وجبة بسرعة.',a:'اختار المنتجات ذات الإضافات الأقل عند المقارنة، واغسل أو صفِّ بعض المعلبات حسب نوعها.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الأكل مش اختبار كمال',t:'الصحة بتتأثر بعاداتك على المدى الطويل، مش بوجبة واحدة. التنوع والانتظام والمرونة أهم من محاولة جعل كل وجبة مثالية.',e:'لو أكلت وجبة مختلفة في مناسبة، ارجع لعاداتك المعتادة في الوجبة التالية من غير عقاب أو تخطي وجبات.',a:'ركز على عادات قابلة للاستمرار، واطلب مساعدة مختص لو الأكل أو الوزن بقى مصدر قلق مستمر.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'الخضار المجمد والمعلب',t:'الخضار المجمد أو المعلب ممكن يكون اختيارًا عمليًا ومغذيًا، ومش أقل قيمة تلقائيًا من الطازج. راجع الإضافات خصوصًا الملح أو السكر.',e:'لو مفيش خضار طازج في البيت، استخدم خضارًا مجمدًا من غير صوص، أو نوعًا معلبًا أقل في الصوديوم.',a:'اختار الشكل الأسهل والمتاح لك، وقارن الملصق الغذائي بين المنتجات المتشابهة.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'البقوليات اختيار اقتصادي',t:'الفول والعدس والحمص والفاصوليا بيوفروا بروتينًا نباتيًا وأليافًا، ويدخلوا في وجبات متنوعة ومشبعة.',e:'طبق فول مع عيش وخضار، أو شوربة عدس مع سلطة، أمثلة بسيطة من أكل البيت.',a:'بدّل بين البقوليات ومصادر البروتين الأخرى خلال الأسبوع، حسب المتاح وتفضيلاتك.',s:'WHO – Healthy diet',u:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'},
+  {c:'قارن المنتج على أساس واحد',t:'مقارنة منتجين تحتاج نفس وحدة القياس. المقارنة لكل 100 جرام غالبًا أسهل من مقارنة حصص بأحجام مختلفة.',e:'لو عبوة زبادي تعرض القيم لكل 100 جرام وأخرى لكل 150 جرام، حوّل القيم لنفس الأساس قبل الحكم.',a:'ابدأ بعمود 100 جرام أو 100 مل، وبعدها احسب ما تناولته فعليًا.',s:'NHS – Food labels',u:'https://www.nhs.uk/Live-well/eat-well/food-guidelines-and-food-labels/how-to-read-food-labels/'},
+  {c:'افهم معنى السكريات',t:'إجمالي السكريات على الملصق قد يشمل سكريات طبيعية موجودة في بعض المكونات، لذلك اقرأ قائمة المكونات وحجم الحصة مع جدول القيم.',e:'الزبادي السادة والزبادي المحلى ممكن يختلفوا في السكر المضاف؛ قارن الملصقين بدل الاعتماد على شكل العبوة.',a:'قارن منتجات من نفس الفئة، وابحث عن السكر المضاف في قائمة المكونات عندما تكون المعلومة متاحة.',s:'NHS – Food labels',u:'https://www.nhs.uk/Live-well/eat-well/food-guidelines-and-food-labels/how-to-read-food-labels/'},
+  {c:'النشاط مش لازم يكون جيم',t:'المشي واللعب وركوب الدراجة والرياضة كلها صور للنشاط البدني. للأطفال والمراهقين من 6 إلى 17 سنة، توصي CDC بما لا يقل عن 60 دقيقة يوميًا من نشاط متوسط إلى قوي، مع تنويع الأنشطة.',e:'المشي، لعب الكرة، ركوب الدراجة، أو نشاط مدرسي ممتع ممكن يساهم في حركة اليوم.',a:'اختار حركة مناسبة وآمنة وممتعة، وزوّدها تدريجيًا حسب قدرتك؛ التوصية العمرية لا تعني ضرورة تمرين شاق متواصل.',s:'CDC – Children and adolescents activity',u:'https://www.cdc.gov/physical-activity-basics/guidelines/children.html'},
+  {c:'النوم حسب العمر',t:'احتياج النوم يختلف مع العمر. توصي CDC عادةً بـ8–10 ساعات للمراهقين من 13 إلى 18 سنة، بينما يحتاج البالغون إلى مدة مختلفة.',e:'لو بتصحى بدري للمدرسة، احسب ميعاد نوم يسمح بوقت كافٍ بدل محاولة تعويض كل النوم في يوم واحد.',a:'حافظ على مواعيد نوم واستيقاظ منتظمة قدر الإمكان، واطلب مساعدة مختص لو صعوبة النوم مستمرة.',s:'CDC – Sleep and Health',u:'https://www.cdc.gov/healthy-schools/sleep/'}
+ ];
+ let last=-1;
+ window.openTipsModal=function(){document.getElementById('tipsModal').classList.add('show');if(last===-1)window.showNewTip();};
+ window.closeTipsModal=function(){document.getElementById('tipsModal').classList.remove('show');};
+ window.showNewTip=function(){
+   let next=Math.floor(Math.random()*tips.length);
+   if(tips.length>1){while(next===last)next=Math.floor(Math.random()*tips.length);}
+   last=next;const tip=tips[next];
+   const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+   put('tipCategory',tip.c);put('tipText',tip.t);put('tipExample',tip.e);put('tipAction',tip.a);const src=document.getElementById('tipSource');if(src){src.textContent='المصدر: '+tip.s+' — افتح المرجع ↗';src.href=tip.u;}
+ };
+})();</script>
+
+<script>
+document.addEventListener('click',function(e){if(e.target && e.target.id==='tipsModal') closeTipsModal();});
+</script>
+
+<script>
+/* SAYKO Product Scanner: barcode -> Open Food Facts -> preview -> user confirms */
+(function(){
+  let stream=null, detector=null, scanning=false, scanLoop=null, currentProduct=null, zxingReader=null;
+  const $=id=>document.getElementById(id);
+  const status=(msg)=>{const el=$('productScannerStatus');if(el)el.textContent=msg;};
+  const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString('ar-EG',{maximumFractionDigits:1}):'غير متوفر';
+  function parsePackQuantity(text, normalized){
+    const raw=String(text||'').toLowerCase().replace(/,/g,'.').replace(/×/g,'x').trim();
+    if(raw){
+      const multi=raw.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)\s*(kg|كجم|غرام|جرام|جم|g|ml|مل|لتر|l)/i);
+      if(multi){let q=Number(multi[1])*Number(multi[2]);let u=multi[3].toLowerCase();if(['kg','كجم'].includes(u))q*=1000;if(['لتر','l'].includes(u))q*=1000;return {value:q,unit:/(ml|مل|لتر|\bl\b)/i.test(u)?'ml':'g'};}
+      const m=raw.match(/(\d+(?:\.\d+)?)\s*(kg|كجم|غرام|جرام|جم|g|ml|مل|لتر|l)/i);
+      if(m){let q=Number(m[1]);let u=m[2].toLowerCase();if(['kg','كجم'].includes(u))q*=1000;if(['لتر','l'].includes(u))q*=1000;return {value:q,unit:/(ml|مل|لتر|\bl\b)/i.test(u)?'ml':'g'};}
+    }
+    const n=Number(normalized);return Number.isFinite(n)&&n>0?{value:n,unit:'g'}:null;
+  }
+  function nutriment(n, keys){for(const k of keys){const v=n?.[k];if(v!==undefined&&v!==null&&v!==''&&Number.isFinite(Number(v)))return Number(v);}return null;}
+  window.openProductScanner=function(){
+    clearScannedProduct();$('productScannerModal').classList.add('show');
+    status('بنطلب إذن الكاميرا… وافق من رسالة المتصفح لبدء المسح.');
+    // Request camera permission immediately from the user's button click.
+    // The browser still requires each visitor to grant permission.
+    window.startProductCamera();
+  };
+  window.closeProductScanner=function(){stopProductCamera();$('productScannerModal').classList.remove('show');};
+  window.clearScannedProduct=function(){
+    currentProduct=null;$('productScannerPreview').style.display='none';$('scannerPackageWeight').value='';$('scannerPackageTotal').textContent='';$('addScannedProductBtn').disabled=true;
+  };
+  window.stopProductCamera=function(){
+    scanning=false;if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
+    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+    const video=$('productScannerVideo');if(video){video.pause();video.srcObject=null;}
+    if(zxingReader){try{zxingReader.reset();}catch(e){}zxingReader=null;}
+  };
+  async function loadZXing(){
+    if(window.ZXingBrowser)return window.ZXingBrowser;
+    await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src='https://unpkg.com/@zxing/browser@0.1.5/umd/index.min.js';sc.onload=resolve;sc.onerror=reject;document.head.appendChild(sc);});
+    return window.ZXingBrowser;
+  }
+  window.startProductCamera=async function(){
+    stopProductCamera();clearScannedProduct();
+    if(!navigator.mediaDevices?.getUserMedia){status('المتصفح لا يتيح الكاميرا. افتح التطبيق من Chrome على اتصال آمن HTTPS.');return;}
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+      const video=$('productScannerVideo');video.srcObject=stream;await video.play();scanning=true;
+      if('BarcodeDetector' in window){
+        try{detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128','itf']});}
+        catch(e){detector=null;}
+      }
+      if(detector){status('الكاميرا شغالة؛ وجّه الباركود داخل الصورة.');const scan=async()=>{
+        if(!scanning)return;
+        try{const codes=await detector.detect(video);if(codes?.length){await lookupProduct(codes[0].rawValue);return;}}
+        catch(e){}
+        scanLoop=requestAnimationFrame(scan);
+      };scan();
+      }else{
+        status('بنجهّز قارئ الباركود للكاميرا…');
+        const ZX=await loadZXing();
+        if(!scanning)return;
+        const reader=new ZX.BrowserMultiFormatReader();zxingReader=reader;
+        reader.decodeFromVideoElement(video,(result,err)=>{if(result&&scanning){lookupProduct(result.getText());}});
+        status('الكاميرا شغالة؛ وجّه الباركود داخل الصورة.');
+      }
+    }catch(err){
+      stopProductCamera();
+      status(err?.name==='NotAllowedError'?'اسمح للمتصفح باستخدام الكاميرا من إعدادات الموقع ثم جرّب تاني.':'تعذر تشغيل الكاميرا. تأكد إن التطبيق مفتوح من HTTPS وإن مفيش تطبيق تاني بيستخدم الكاميرا.');
+    }
+  };
+  async function lookupProduct(code){
+    if(!scanning)return;stopProductCamera();status('تمت قراءة الباركود. بنبحث عن المنتج…');
+    try{
+      const url='https://world.openfoodfacts.org/api/v3/product/'+encodeURIComponent(code)+'.json?fields=code,product_name,product_name_ar,brands,quantity,product_quantity,nutriments,image_front_url,serving_size';
+      const res=await fetch(url,{headers:{'Accept':'application/json'}});if(!res.ok)throw new Error('network');
+      const data=await res.json();const p=data?.product;
+      if(!p||data.status===0){status('المنتج مش موجود في قاعدة البيانات. جرّب تصوير جدول القيم والوزن يدويًا أو أعد المسح.');return;}
+      const n=p.nutriments||{};
+      const calories=nutriment(n,['energy-kcal_100g','energy-kcal_value','energy-kcal']);
+      const protein=nutriment(n,['proteins_100g']);
+      const carbs=nutriment(n,['carbohydrates_100g']);
+      const fat=nutriment(n,['fat_100g']);
+      const pack=parsePackQuantity(p.quantity,p.product_quantity);
+      currentProduct={code:String(code),name:p.product_name_ar||p.product_name||'منتج غذائي',brand:p.brands||'',quantity:pack,calories,protein,carbs,fat};
+      $('scannerProductName').textContent=currentProduct.name;
+      $('scannerProductBrand').textContent=currentProduct.brand?'العلامة التجارية: '+currentProduct.brand:'';
+      $('scannerProductBarcode').textContent='الباركود: '+code;
+      $('scannerCalories100').textContent=calories===null?'غير متوفر':fmt(calories)+' kcal';
+      $('scannerProtein100').textContent=protein===null?'غير متوفر':fmt(protein)+' جم';
+      $('scannerCarbs100').textContent=carbs===null?'غير متوفر':fmt(carbs)+' جم';
+      $('scannerFat100').textContent=fat===null?'غير متوفر':fmt(fat)+' جم';
+      $('scannerPackageWeight').value=pack?pack.value:'';
+      $('scannerPackageWeight').placeholder=pack?'الوزن/الحجم المسجل':'الوزن غير مسجل — اكتبه من العبوة';
+      $('productScannerPreview').style.display='block';
+      updatePackageTotal();
+      status('راجع المنتج والوزن. الإضافة مش هتحصل غير لما تضغط بنفسك.');
+    }catch(e){status('حصلت مشكلة في الاتصال بقاعدة بيانات المنتجات. تأكد من الإنترنت وجرّب مرة أخرى.');}
+  }
+  function updatePackageTotal(){
+    if(!currentProduct)return;
+    const q=Number($('scannerPackageWeight').value);const c=currentProduct.calories;
+    const valid=q>0&&c!==null;
+    $('addScannedProductBtn').disabled=!valid;
+    if(!q){$('scannerPackageTotal').textContent='وزن العبوة غير معروف. اكتبه من العبوة عشان نحسب الإجمالي بدقة.';return;}
+    if(c===null){$('scannerPackageTotal').textContent='السعرات غير متوفرة في قاعدة البيانات؛ لا يمكن حساب الإجمالي من غير بيانات مؤكدة.';return;}
+    const factor=q/100;
+    $('scannerPackageTotal').textContent='إجمالي العبوة: '+fmt(c*factor)+' kcal'+
+      (currentProduct.protein===null?'':' · بروتين '+fmt(currentProduct.protein*factor)+' جم')+
+      (currentProduct.carbs===null?'':' · كارب '+fmt(currentProduct.carbs*factor)+' جم')+
+      (currentProduct.fat===null?'':' · دهون '+fmt(currentProduct.fat*factor)+' جم');
+  }
+  $('scannerPackageWeight')?.addEventListener('input',updatePackageTotal);
+  window.addScannedProduct=function(){
+    if(!currentProduct)return;const q=Number($('scannerPackageWeight').value);const p=currentProduct;
+    if(!(q>0)||p.calories===null){status('لازم وزن صحيح وسعرات مسجلة عشان نضيف المنتج من غير تخمين.');return;}
+    const factor=q/100;
+    selectedFoods.push({id:Date.now(),name:p.name+(p.brand?' - '+p.brand:''),meal:currentMeal,grams:q,
+      calories:p.calories*factor,protein:(p.protein||0)*factor,carbs:(p.carbs||0)*factor,fat:(p.fat||0)*factor,unit:p.quantity?.unit||'g'});
+    saveFoods();renderSelectedFoods();updateMealTotals();updateProgress();closeProductScanner();
+  };
+})();
+</script>
+
 </body>
       </html>
