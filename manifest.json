@@ -1,23 +1,16 @@
 {
-"id": "./",
-"name": "SAYKØ FITNESS",
-"short_name": "SAYKØ",
-"description": "SAYKØ FITNESS - Nutrition, Calories and Progress",
-"start_url": "./",
-"scope": "./",
-"display": "standalone",
-"background_color": "#080808",
-"theme_color": "#080808",
-"orientation": "portrait",
-"lang": "ar",
-"dir": "rtl",
-"prefer_related_applications": false,
-"icons": [
-{
-"src": "./1790471069347.jpg",
-"sizes": "512x512",
-"type": "image/jpeg",
-"purpose": "any"
-}
-]
+  "name": "SAYKØ FITNESS",
+  "short_name": "SAYKØ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    {
+      "src": "SAYKO_FITNESS_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
