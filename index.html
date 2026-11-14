@@ -4375,10 +4375,15 @@ async function applyUpdate(){
 
 function showError(message){
 
+    const text = String(message || "حدث خطأ غير متوقع.");
+    const title = document.querySelector("#errorOverlay .errorBox h3");
+    const isSuccess = /^(تم |تمت |تم حفظ|تمت إضافة|تم بنجاح)/.test(text.trim());
+
+    if (title) title.textContent = isSuccess ? "تم بنجاح" : "حدث خطأ";
+
     document
         .getElementById("errorText")
-        .textContent=
-        message;
+        .textContent = text;
 
     document
         .getElementById("errorOverlay")
@@ -4886,4 +4891,4 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
 </script>
 
 </body>
-      </html>
+              </html>
