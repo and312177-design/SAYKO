@@ -4328,17 +4328,10 @@ function showUpdate(){
 
 function showNoUpdate(){
 
-    const text = document.getElementById("updateText");
-    const applyBtn = document.getElementById("applyUpdateBtn");
-
-    if(text){
-        text.textContent =
-            "مفيش تحديث حاليًا. لو ظهر أي تحديث جديد لـ SAYKØ FITNESS هنبهك.";
-    }
-    if(applyBtn){ applyBtn.style.display = "none"; }
-
+    // لا تعرض أي رسالة عند عدم وجود تحديث.
+    // تظهر نافذة التحديث فقط عند اكتشاف إصدار جديد بالفعل.
     const modal = document.getElementById("updateModal");
-    if(modal){ modal.classList.add("show"); }
+    if(modal){ modal.classList.remove("show"); }
 
 }
 
