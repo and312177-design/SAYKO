@@ -5165,9 +5165,24 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
     setFlashUI();
   };
   window.toggleProductFlash=async function(){
-    const track=stream?.getVideoTracks?.()[0];if(!track){status('شغّل الكاميرا الأول.');return;}
-    try{await track.applyConstraints({advanced:[{torch:!flashOn}]});flashOn=!flashOn;flashSupported=true;setFlashUI();status(flashOn?'تم تشغيل الفلاش.':'تم إيقاف الفلاش.');}
-    catch(e){flashSupported=false;flashOn=false;setFlashUI();status('المتصفح رفض تشغيل الفلاش. جرّب فتح التطبيق من Chrome عبر HTTPS والسماح بالكاميرا.');}
+    const track=stream?.getVideoTracks?.()[0];
+    if(!track){status('شغّل الكاميرا الأول، وبعدها جرّب الفلاش.');return;}
+    const btn=$('scannerFlashBtn');
+    if(btn)btn.disabled=true;
+    try{
+      const wanted=!flashOn;
+      let applied=false;
+      try{await track.applyConstraints({torch:wanted});applied=true;}catch(e){}
+      if(!applied) await track.applyConstraints({advanced:[{torch:wanted}]});
+      flashOn=wanted;
+      let caps=null;try{caps=track.getCapabilities?.();}catch(e){}
+      flashSupported=!!caps?.torch || applied;
+      setFlashUI();
+      status(flashOn?'تم إرسال أمر تشغيل الفلاش للكاميرا. لو الإضاءة لم تعمل، فالمتصفح لا يتيح التحكم بها على هذا الجهاز.':'تم إيقاف الفلاش.');
+    }catch(e){
+      flashSupported=false;flashOn=false;setFlashUI();
+      status('الكاميرا الحالية لا تسمح بالتحكم في الفلاش من المتصفح. جرّب فتح الموقع مباشرة في Chrome وتأكد أن الكاميرا الخلفية مستخدمة.');
+    }finally{if(btn)btn.disabled=!stream;}
   };
   async function loadZXing(){
     if(window.ZXingBrowser)return window.ZXingBrowser;
@@ -5179,9 +5194,20 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
     if(!navigator.mediaDevices?.getUserMedia){status('المتصفح لا يتيح الكاميرا. افتح التطبيق من Chrome على اتصال HTTPS.');return;}
     try{
       stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
+      let track=stream.getVideoTracks()[0];
+      try{
+        const devices=await navigator.mediaDevices.enumerateDevices();
+        const backs=devices.filter(d=>d.kind==='videoinput' && /back|rear|environment|خلف/i.test(d.label));
+        const currentId=track?.getSettings?.().deviceId;
+        const back=backs.find(d=>d.deviceId!==currentId) || backs[0];
+        if(back && back.deviceId && back.deviceId!==currentId){
+          stream.getTracks().forEach(t=>t.stop());
+          stream=await navigator.mediaDevices.getUserMedia({video:{deviceId:{exact:back.deviceId},width:{ideal:1280},height:{ideal:720}},audio:false});
+          track=stream.getVideoTracks()[0];
+        }
+      }catch(e){}
       const video=$('productScannerVideo');video.srcObject=stream;await video.play();scanning=true;
-      const track=stream.getVideoTracks()[0];
-      try{const caps=track.getCapabilities?.();flashSupported=!!caps?.torch;}catch(e){flashSupported=false;}
+      try{const caps=track?.getCapabilities?.();flashSupported=!!caps?.torch;}catch(e){flashSupported=false;}
       setFlashUI();
       if('BarcodeDetector' in window){try{detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128','itf']});}catch(e){detector=null;}}
       if(detector){
