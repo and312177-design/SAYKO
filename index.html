@@ -1958,6 +1958,7 @@ body.light main .liveItem {
     <div id="productScannerStatus" class="scannerStatus" aria-live="polite">اضغط تشغيل الكاميرا واسمح باستخدامها.</div>
     <div class="scannerActionRow">
       <button id="startProductCameraBtn" class="primaryBtn" type="button" onclick="startProductCamera()">تشغيل الكاميرا</button>
+      <button id="productTorchBtn" class="primaryBtn" type="button" style="background:#333;border-color:#555" onclick="toggleProductTorch()" disabled>تشغيل الفلاش</button>
       <button class="primaryBtn" type="button" style="background:#333;border-color:#555" onclick="stopProductCamera()">إيقاف</button>
     </div>
     <div id="productScannerPreview" class="scannerPreview">
@@ -5123,7 +5124,7 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
   window.stopProductCamera=function(){
     scanning=false;if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
     torchSupported=false;torchOn=false;
-    const torchBtn=$('productTorchBtn');if(torchBtn){torchBtn.disabled=true;torchBtn.textContent='الفلاش غير متاح';}
+    const torchBtn=$('productTorchBtn');if(torchBtn){torchBtn.disabled=true;torchBtn.textContent='تشغيل الفلاش';}
     if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
     const video=$('productScannerVideo');if(video){video.pause();video.srcObject=null;}
     if(zxingReader){try{zxingReader.reset();}catch(e){}zxingReader=null;}
@@ -5140,17 +5141,19 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
     try{
       // جرّب الكاميرا الخلفية أولًا، ثم اختيار الكاميرا الافتراضية إذا رفض المتصفح القيد.
       try{
-        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:'environment'}},audio:false});
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});
       }catch(cameraConstraintError){
-        stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
       }
       const video=$('productScannerVideo');video.srcObject=stream;await video.play();scanning=true;
       const track=stream.getVideoTracks()[0];
       let caps={};try{caps=track.getCapabilities?track.getCapabilities():{};}catch(e){}
-      torchSupported=!!caps.torch;
+      // بعض إصدارات Chrome على Android لا تُظهر caps.torch رغم دعم الفلاش؛
+      // لذلك نسمح بالمحاولة الفعلية بدل تعطيل الزر اعتمادًا على getCapabilities فقط.
+      torchSupported=!!track;
       const torchBtn=$('productTorchBtn');
-      if(torchBtn){torchBtn.disabled=!torchSupported;torchBtn.textContent=torchSupported?'تشغيل الفلاش':'الفلاش غير مدعوم في الكاميرا';}
-      if(!torchSupported)status('الكاميرا تعمل. جهازك أو المتصفح لا يتيح التحكم بالفلاش هنا؛ يمكنك مسح الباركود بدون فلاش.');
+      if(torchBtn){torchBtn.disabled=!track;torchBtn.textContent='تشغيل الفلاش';}
+      if(!caps.torch)status('الكاميرا تعمل. جرّب زر تشغيل الفلاش؛ الدعم يختلف حسب الكاميرا والمتصفح.');
       if('BarcodeDetector' in window){
         try{detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128','itf']});}
         catch(e){detector=null;}
@@ -5176,14 +5179,17 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
   };
   window.toggleProductTorch=async function(){
     const track=stream?.getVideoTracks?.()[0];
-    if(!track||!torchSupported){status('الفلاش غير مدعوم من الكاميرا أو المتصفح الحالي. الكاميرا تظل تعمل للمسح.');return;}
+    if(!track){status('شغّل الكاميرا أولًا ثم جرّب الفلاش.');return;}
     try{
-      torchOn=!torchOn;
-      await track.applyConstraints({advanced:[{torch:torchOn}]});
-      const btn=$('productTorchBtn');if(btn)btn.textContent=torchOn?'إيقاف الفلاش':'تشغيل الفلاش';
+      const nextState=!torchOn;
+      // جرّب صيغة القيود القياسية على مسار الكاميرا الخلفية.
+      await track.applyConstraints({advanced:[{torch:nextState}]});
+      torchOn=nextState;
+      const btn=$('productTorchBtn');if(btn){btn.disabled=false;btn.textContent=torchOn?'إطفاء الفلاش':'تشغيل الفلاش';}
+      status(torchOn?'الفلاش شغال. وجّه الكاميرا للمنتج والتقط الصورة/امسح الباركود.':'تم إطفاء الفلاش.');
     }catch(e){
-      torchOn=false;const btn=$('productTorchBtn');if(btn)btn.textContent='الفلاش غير متاح';
-      status('تعذر تشغيل الفلاش على هذا الجهاز/المتصفح. المسح بالكاميرا ما زال متاحًا.');
+      torchOn=false;const btn=$('productTorchBtn');if(btn){btn.disabled=false;btn.textContent='تشغيل الفلاش';}
+      status('المتصفح أو الكاميرا الحالية لا تسمح بتشغيل الفلاش من داخل التطبيق. جرّب Chrome مع الكاميرا الخلفية.');
     }
   };
   async function lookupProduct(code){
