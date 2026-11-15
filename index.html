@@ -874,6 +874,8 @@ body.light .selectedName{
 .scannerStatus{font-size:12px;line-height:1.7;color:var(--muted);margin:10px 0}
 .scannerPreview{display:none;margin-top:13px;padding:13px;border:1px solid rgba(143,16,24,.55);border-radius:13px;background:rgba(143,16,24,.08)}
 .scannerProductName{font-weight:800;font-size:16px;margin-bottom:4px}
+.scannerProductImage{display:none;width:112px;height:112px;object-fit:contain;background:#fff;border-radius:12px;padding:5px;margin:0 auto 12px;border:1px solid var(--border)}
+.scannerFlashBtn{background:#333!important;border-color:#555!important;min-width:112px}
 .scannerNutrients{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
 .scannerNutrient{padding:9px;border-radius:9px;background:rgba(255,255,255,.045);border:1px solid var(--border);font-size:12px}
 .scannerNutrient b{display:block;font-size:15px;margin-top:4px}
@@ -1955,12 +1957,14 @@ body.light main .liveItem {
     </div>
     <p class="analyzeHint">وجّه الكاميرا إلى الباركود الموجود على العبوة. هنبحث عن المنتج ونعرض بياناته قبل إضافته.</p>
     <div class="scannerVideoWrap"><video id="productScannerVideo" playsinline muted></video></div>
+    <div class="scannerActionRow"><button id="scannerFlashBtn" class="primaryBtn scannerFlashBtn" type="button" onclick="toggleProductFlash()">⚡ تشغيل الفلاش</button></div>
     <div id="productScannerStatus" class="scannerStatus" aria-live="polite">اضغط تشغيل الكاميرا واسمح باستخدامها.</div>
     <div class="scannerActionRow">
       <button id="startProductCameraBtn" class="primaryBtn" type="button" onclick="startProductCamera()">تشغيل الكاميرا</button>
       <button class="primaryBtn" type="button" style="background:#333;border-color:#555" onclick="stopProductCamera()">إيقاف</button>
     </div>
     <div id="productScannerPreview" class="scannerPreview">
+      <img id="scannerProductImage" class="scannerProductImage" alt="صورة المنتج الممسوح" referrerpolicy="no-referrer">
       <div id="scannerProductName" class="scannerProductName"></div>
       <div id="scannerProductBrand" class="scannerSmall"></div>
       <div id="scannerProductBarcode" class="scannerSmall"></div>
@@ -4793,6 +4797,9 @@ function showInstallMessage() {
     if(isSaykoInstalled()){
         installBox.style.display = "none";
         saykoUnlockPageScroll();
+        // أول مرة يفتح التطبيق بعد تثبيته: ابدأ الشرح تلقائيًا،
+        // وبعد إنهاء الشرح ستظهر بيانات المستخدم مباشرة.
+        setTimeout(saykoLaunchTutorialAfterInstallModal, 0);
     } else {
         installBox.style.display = "flex";
         saykoLockPageScroll();
@@ -4830,7 +4837,7 @@ installBtn.addEventListener("click", async () => {
     if (choice.outcome === "accepted") {
         installBox.style.display = "none";
         saykoInstallFlowCompleted = true;
-        try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+        try { localStorage.setItem("saykoInstalledPending_v3", "1"); } catch(e) {}
         // افتح الجولة فور إغلاق نافذة التثبيت التابعة للمتصفح.
         setTimeout(saykoLaunchTutorialAfterInstallModal, 120);
     }
@@ -4841,10 +4848,11 @@ installBtn.addEventListener("click", async () => {
 function saykoLaunchTutorialAfterInstallModal(){
     installBox.style.display = "none";
     let seen = false;
-    try { seen = localStorage.getItem("saykoTutorialSeen_v2") === "1"; } catch(e) {}
+    try { seen = localStorage.getItem("saykoTutorialSeen_v3") === "1"; } catch(e) {}
     if(!seen){
         saykoTutorialOpenedAfterInstall = true;
-        try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+        saykoTutorialWasInstallLaunch = true;
+        try { localStorage.removeItem("saykoInstalledPending_v3"); } catch(e) {}
         openTutorial(false);
     } else {
         saykoUnlockPageScroll();
@@ -4867,8 +4875,8 @@ function saykoOpenTutorialAfterInstallClose(){
     let pending = false;
     let seen = false;
     try {
-        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
-        seen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
+        pending = localStorage.getItem("saykoInstalledPending_v3") === "1";
+        seen = localStorage.getItem("saykoTutorialSeen_v3") === "1";
     } catch(e) {}
     if(!pending || seen || !saykoInstallFlowCompleted) return;
 
@@ -4878,13 +4886,14 @@ function saykoOpenTutorialAfterInstallClose(){
     if(installBox && getComputedStyle(installBox).display !== "none") return;
 
     saykoTutorialOpenedAfterInstall = true;
-    try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+    saykoTutorialWasInstallLaunch = true;
+    try { localStorage.removeItem("saykoInstalledPending_v3"); } catch(e) {}
     openTutorial(false);
 }
 
 window.addEventListener("appinstalled", () => {
     saykoInstallFlowCompleted = true;
-    try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+    try { localStorage.setItem("saykoInstalledPending_v3", "1"); } catch(e) {}
     requestAnimationFrame(() => setTimeout(saykoLaunchTutorialAfterInstallModal, 180));
 });
 
@@ -4953,6 +4962,7 @@ const saykoTutorialSteps = [
 ];
 
 let saykoTutorialIndex = 0;
+let saykoTutorialWasInstallLaunch = false;
 
 function renderTutorialStep(){
     const step = saykoTutorialSteps[saykoTutorialIndex];
@@ -4968,6 +4978,7 @@ function renderTutorialStep(){
 }
 
 function openTutorial(manual = false){
+    if(manual) saykoTutorialWasInstallLaunch = false;
     saykoTutorialIndex = 0;
     renderTutorialStep();
     document.getElementById("tutorialOverlay").classList.add("show");
@@ -4980,10 +4991,13 @@ function closeTutorial(){
 }
 
 function finishTutorial(){
-    try { localStorage.setItem("saykoTutorialSeen_v2", "1"); } catch(e) {}
+    try { localStorage.setItem("saykoTutorialSeen_v3", "1"); } catch(e) {}
     closeTutorial();
-    // بعد التخطي أو الضغط على "ابدأ الاستخدام" افتح صفحة بياناتي فورًا.
-    openGoal();
+    // بيانات المستخدم تظهر فقط بعد جولة أول تثبيت، وليس عند فتح الشرح من القائمة.
+    if(saykoTutorialWasInstallLaunch){
+        saykoTutorialWasInstallLaunch = false;
+        openGoal();
+    }
 }
 
 function changeTutorialStep(direction){
@@ -5009,8 +5023,8 @@ function saykoShowFirstLaunchTutorial() {
     let pending = false;
     let alreadySeen = false;
     try {
-        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
-        alreadySeen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
+        pending = localStorage.getItem("saykoInstalledPending_v3") === "1";
+        alreadySeen = localStorage.getItem("saykoTutorialSeen_v3") === "1";
     } catch(e) {}
     if(!pending || alreadySeen) return;
     saykoInstallFlowCompleted = true;
@@ -5120,12 +5134,14 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
 </script>
 
 <script>
-/* SAYKO Product Scanner: barcode -> Open Food Facts -> preview -> user confirms */
+/* SAYKO Product Scanner: barcode -> Open Food Facts -> product preview -> user confirms */
 (function(){
   let stream=null, detector=null, scanning=false, scanLoop=null, currentProduct=null, zxingReader=null;
+  let lookupBusy=false, flashOn=false, flashSupported=false;
   const $=id=>document.getElementById(id);
-  const status=(msg)=>{const el=$('productScannerStatus');if(el)el.textContent=msg;};
+  const status=msg=>{const el=$('productScannerStatus');if(el)el.textContent=msg;};
   const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString('ar-EG',{maximumFractionDigits:1}):'غير متوفر';
+  function setFlashUI(){const b=$('scannerFlashBtn');if(!b)return;b.disabled=!flashSupported;b.textContent=flashSupported?(flashOn?'⚡ إيقاف الفلاش':'⚡ تشغيل الفلاش'):'⚡ الفلاش غير مدعوم';}
   function parsePackQuantity(text, normalized){
     const raw=String(text||'').toLowerCase().replace(/,/g,'.').replace(/×/g,'x').trim();
     if(raw){
@@ -5137,70 +5153,68 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
     const n=Number(normalized);return Number.isFinite(n)&&n>0?{value:n,unit:'g'}:null;
   }
   function nutriment(n, keys){for(const k of keys){const v=n?.[k];if(v!==undefined&&v!==null&&v!==''&&Number.isFinite(Number(v)))return Number(v);}return null;}
-  window.openProductScanner=function(){
-    clearScannedProduct();$('productScannerModal').classList.add('show');
-    status('بنطلب إذن الكاميرا… وافق من رسالة المتصفح لبدء المسح.');
-    // Request camera permission immediately from the user's button click.
-    // The browser still requires each visitor to grant permission.
-    window.startProductCamera();
-  };
+  window.openProductScanner=function(){clearScannedProduct();$('productScannerModal').classList.add('show');status('بنطلب إذن الكاميرا… وافق من رسالة المتصفح لبدء المسح.');window.startProductCamera();};
   window.closeProductScanner=function(){stopProductCamera();$('productScannerModal').classList.remove('show');};
   window.clearScannedProduct=function(){
-    currentProduct=null;$('productScannerPreview').style.display='none';$('scannerPackageWeight').value='';$('scannerPackageTotal').textContent='';$('addScannedProductBtn').disabled=true;
+    currentProduct=null;lookupBusy=false;
+    const preview=$('productScannerPreview');if(preview)preview.style.display='none';
+    const img=$('scannerProductImage');if(img){img.removeAttribute('src');img.style.display='none';}
+    if($('scannerPackageWeight'))$('scannerPackageWeight').value='';
+    if($('scannerPackageTotal'))$('scannerPackageTotal').textContent='';
+    if($('addScannedProductBtn'))$('addScannedProductBtn').disabled=true;
   };
   window.stopProductCamera=function(){
-    scanning=false;if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
+    scanning=false;flashOn=false;flashSupported=false;
+    if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
     if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
     const video=$('productScannerVideo');if(video){video.pause();video.srcObject=null;}
     if(zxingReader){try{zxingReader.reset();}catch(e){}zxingReader=null;}
+    setFlashUI();
+  };
+  window.toggleProductFlash=async function(){
+    const track=stream?.getVideoTracks?.()[0];if(!track||!flashSupported){status('الفلاش غير متاح على الكاميرا الحالية.');return;}
+    try{await track.applyConstraints({advanced:[{torch:!flashOn}]});flashOn=!flashOn;setFlashUI();}
+    catch(e){flashSupported=false;flashOn=false;setFlashUI();status('الجهاز أو المتصفح لا يدعم تشغيل الفلاش داخل الكاميرا.');}
   };
   async function loadZXing(){
     if(window.ZXingBrowser)return window.ZXingBrowser;
-    await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src='https://unpkg.com/@zxing/browser@0.1.5/umd/index.min.js';sc.onload=resolve;sc.onerror=reject;document.head.appendChild(sc);});
-    return window.ZXingBrowser;
+    await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src='https://unpkg.com/@zxing/browser@0.1.5/umd/index.min.js';sc.onload=resolve;sc.onerror=()=>reject(new Error('تعذر تحميل قارئ الباركود'));document.head.appendChild(sc);});
+    if(!window.ZXingBrowser)throw new Error('ZXing غير متاح');return window.ZXingBrowser;
   }
   window.startProductCamera=async function(){
     stopProductCamera();clearScannedProduct();
-    if(!navigator.mediaDevices?.getUserMedia){status('المتصفح لا يتيح الكاميرا. افتح التطبيق من Chrome على اتصال آمن HTTPS.');return;}
+    if(!navigator.mediaDevices?.getUserMedia){status('المتصفح لا يتيح الكاميرا. افتح التطبيق من Chrome على اتصال HTTPS.');return;}
     try{
-      stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+      stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
       const video=$('productScannerVideo');video.srcObject=stream;await video.play();scanning=true;
-      if('BarcodeDetector' in window){
-        try{detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128','itf']});}
-        catch(e){detector=null;}
-      }
-      if(detector){status('الكاميرا شغالة؛ وجّه الباركود داخل الصورة.');const scan=async()=>{
-        if(!scanning)return;
-        try{const codes=await detector.detect(video);if(codes?.length){await lookupProduct(codes[0].rawValue);return;}}
-        catch(e){}
-        scanLoop=requestAnimationFrame(scan);
-      };scan();
+      const track=stream.getVideoTracks()[0];
+      try{const caps=track.getCapabilities?.();flashSupported=!!caps?.torch;}catch(e){flashSupported=false;}
+      setFlashUI();
+      if('BarcodeDetector' in window){try{detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128','itf']});}catch(e){detector=null;}}
+      if(detector){
+        status('الكاميرا شغالة؛ وجّه الباركود داخل الإطار.');
+        const scan=async()=>{if(!scanning||lookupBusy)return;try{const codes=await detector.detect(video);if(codes?.length){await lookupProduct(codes[0].rawValue);return;}}catch(e){}if(scanning)scanLoop=requestAnimationFrame(scan);};scan();
       }else{
-        status('بنجهّز قارئ الباركود للكاميرا…');
-        const ZX=await loadZXing();
-        if(!scanning)return;
+        status('بنجهّز قارئ الباركود…');const ZX=await loadZXing();if(!scanning)return;
         const reader=new ZX.BrowserMultiFormatReader();zxingReader=reader;
-        reader.decodeFromVideoElement(video,(result,err)=>{if(result&&scanning){lookupProduct(result.getText());}});
-        status('الكاميرا شغالة؛ وجّه الباركود داخل الصورة.');
+        reader.decodeFromVideoElement(video,(result,err)=>{if(result&&scanning&&!lookupBusy)lookupProduct(result.getText());});
+        status('الكاميرا شغالة؛ وجّه الباركود داخل الإطار.');
       }
-    }catch(err){
-      stopProductCamera();
-      status(err?.name==='NotAllowedError'?'اسمح للمتصفح باستخدام الكاميرا من إعدادات الموقع ثم جرّب تاني.':'تعذر تشغيل الكاميرا. تأكد إن التطبيق مفتوح من HTTPS وإن مفيش تطبيق تاني بيستخدم الكاميرا.');
-    }
+    }catch(err){stopProductCamera();status(err?.name==='NotAllowedError'?'اسمح للمتصفح باستخدام الكاميرا من إعدادات الموقع ثم جرّب تاني.':(err?.message||'تعذر تشغيل الكاميرا. تأكد من HTTPS وإغلاق أي تطبيق آخر يستخدم الكاميرا.'));}
   };
   async function lookupProduct(code){
-    if(!scanning)return;stopProductCamera();status('تمت قراءة الباركود. بنبحث عن المنتج…');
+    if(!scanning||lookupBusy)return;lookupBusy=true;stopProductCamera();status('تمت قراءة الباركود. بنبحث عن المنتج…');
     try{
-      const url='https://world.openfoodfacts.org/api/v3/product/'+encodeURIComponent(code)+'.json?fields=code,product_name,product_name_ar,brands,quantity,product_quantity,nutriments,image_front_url,serving_size';
+      const url='https://world.openfoodfacts.org/api/v3/product/'+encodeURIComponent(code)+'.json?fields=code,product_name,product_name_ar,brands,quantity,product_quantity,nutriments,image_front_url,image_url,serving_size';
       const res=await fetch(url,{headers:{'Accept':'application/json'}});if(!res.ok)throw new Error('network');
       const data=await res.json();const p=data?.product;
-      if(!p||data.status===0){status('المنتج مش موجود في قاعدة البيانات. جرّب تصوير جدول القيم والوزن يدويًا أو أعد المسح.');return;}
-      const n=p.nutriments||{};
-      const calories=nutriment(n,['energy-kcal_100g','energy-kcal_value','energy-kcal']);
-      const protein=nutriment(n,['proteins_100g']);
-      const carbs=nutriment(n,['carbohydrates_100g']);
-      const fat=nutriment(n,['fat_100g']);
-      const pack=parsePackQuantity(p.quantity,p.product_quantity);
+      if(!p||data.status===0){lookupBusy=false;status('المنتج غير موجود في قاعدة البيانات الحالية. جرّب إعادة المسح أو أدخل الوزن والقيم يدويًا؛ مش كل منتجات السوق مسجلة.');return;}
+      const n=p.nutriments||{};const pack=parsePackQuantity(p.quantity,p.product_quantity);
+      const baseSuffix=pack?.unit==='ml'?'_100ml':'_100g';
+      const calories=nutriment(n,[ 'energy-kcal'+baseSuffix, pack?.unit==='ml'?'energy-kcal_100g':'energy-kcal_100ml' ]);
+      const protein=nutriment(n,[ 'proteins'+baseSuffix, pack?.unit==='ml'?'proteins_100g':'proteins_100ml' ]);
+      const carbs=nutriment(n,[ 'carbohydrates'+baseSuffix, pack?.unit==='ml'?'carbohydrates_100g':'carbohydrates_100ml' ]);
+      const fat=nutriment(n,[ 'fat'+baseSuffix, pack?.unit==='ml'?'fat_100g':'fat_100ml' ]);
       currentProduct={code:String(code),name:p.product_name_ar||p.product_name||'منتج غذائي',brand:p.brands||'',quantity:pack,calories,protein,carbs,fat};
       $('scannerProductName').textContent=currentProduct.name;
       $('scannerProductBrand').textContent=currentProduct.brand?'العلامة التجارية: '+currentProduct.brand:'';
@@ -5209,29 +5223,28 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
       $('scannerProtein100').textContent=protein===null?'غير متوفر':fmt(protein)+' جم';
       $('scannerCarbs100').textContent=carbs===null?'غير متوفر':fmt(carbs)+' جم';
       $('scannerFat100').textContent=fat===null?'غير متوفر':fmt(fat)+' جم';
+      const img=$('scannerProductImage');const imageUrl=p.image_front_url||p.image_url;
+      if(img&&imageUrl&&/^https:\/\//i.test(imageUrl)){img.onload=()=>img.style.display='block';img.onerror=()=>{img.style.display='none';};img.src=imageUrl;}else if(img){img.style.display='none';img.removeAttribute('src');}
       $('scannerPackageWeight').value=pack?pack.value:'';
       $('scannerPackageWeight').placeholder=pack?'الوزن/الحجم المسجل':'الوزن غير مسجل — اكتبه من العبوة';
-      $('productScannerPreview').style.display='block';
-      updatePackageTotal();
-      status('راجع المنتج والوزن. الإضافة مش هتحصل غير لما تضغط بنفسك.');
-    }catch(e){status('حصلت مشكلة في الاتصال بقاعدة بيانات المنتجات. تأكد من الإنترنت وجرّب مرة أخرى.');}
+      $('productScannerPreview').style.display='block';updatePackageTotal();
+      lookupBusy=false;status('راجع صورة المنتج والوزن والإجمالي. الإضافة لن تتم إلا بعد ضغطك على الزر.');
+    }catch(e){lookupBusy=false;status('حصلت مشكلة في الاتصال بقاعدة بيانات المنتجات. تأكد من الإنترنت وجرّب مرة أخرى.');}
   }
   function updatePackageTotal(){
-    if(!currentProduct)return;
-    const q=Number($('scannerPackageWeight').value);const c=currentProduct.calories;
-    const valid=q>0&&c!==null;
-    $('addScannedProductBtn').disabled=!valid;
-    if(!q){$('scannerPackageTotal').textContent='وزن العبوة غير معروف. اكتبه من العبوة عشان نحسب الإجمالي بدقة.';return;}
-    if(c===null){$('scannerPackageTotal').textContent='السعرات غير متوفرة في قاعدة البيانات؛ لا يمكن حساب الإجمالي من غير بيانات مؤكدة.';return;}
-    const factor=q/100;
-    $('scannerPackageTotal').textContent='إجمالي العبوة: '+fmt(c*factor)+' kcal'+
+    if(!currentProduct)return;const q=Number($('scannerPackageWeight').value),c=currentProduct.calories;
+    const valid=q>0&&c!==null;$('addScannedProductBtn').disabled=!valid;
+    if(!q){$('scannerPackageTotal').textContent='وزن العبوة غير معروف. اكتبه كما هو مطبوع على الكيس لحساب الإجمالي بدقة.';return;}
+    if(c===null){$('scannerPackageTotal').textContent='السعرات غير متوفرة في قاعدة البيانات؛ لن نخمن الإجمالي.';return;}
+    const factor=q/100;const unit=currentProduct.quantity?.unit==='ml'?'مل':'جم';
+    $('scannerPackageTotal').textContent='إجمالي العبوة ('+fmt(q)+' '+unit+'): '+fmt(c*factor)+' kcal'+
       (currentProduct.protein===null?'':' · بروتين '+fmt(currentProduct.protein*factor)+' جم')+
       (currentProduct.carbs===null?'':' · كارب '+fmt(currentProduct.carbs*factor)+' جم')+
       (currentProduct.fat===null?'':' · دهون '+fmt(currentProduct.fat*factor)+' جم');
   }
   $('scannerPackageWeight')?.addEventListener('input',updatePackageTotal);
   window.addScannedProduct=function(){
-    if(!currentProduct)return;const q=Number($('scannerPackageWeight').value);const p=currentProduct;
+    if(!currentProduct)return;const q=Number($('scannerPackageWeight').value),p=currentProduct;
     if(!(q>0)||p.calories===null){status('لازم وزن صحيح وسعرات مسجلة عشان نضيف المنتج من غير تخمين.');return;}
     const factor=q/100;
     selectedFoods.push({id:Date.now(),name:p.name+(p.brand?' - '+p.brand:''),meal:currentMeal,grams:q,
