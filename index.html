@@ -5141,7 +5141,7 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
   const $=id=>document.getElementById(id);
   const status=msg=>{const el=$('productScannerStatus');if(el)el.textContent=msg;};
   const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString('ar-EG',{maximumFractionDigits:1}):'غير متوفر';
-  function setFlashUI(){const b=$('scannerFlashBtn');if(!b)return;b.disabled=!flashSupported;b.textContent=flashSupported?(flashOn?'⚡ إيقاف الفلاش':'⚡ تشغيل الفلاش'):'⚡ الفلاش غير مدعوم';}
+  function setFlashUI(){const b=$('scannerFlashBtn');if(!b)return;b.disabled=!stream;b.textContent=!stream?'⚡ شغّل الكاميرا أولاً':(flashSupported?(flashOn?'⚡ إيقاف الفلاش':'⚡ تشغيل الفلاش'):'⚡ جرّب تشغيل الفلاش');}
   function parsePackQuantity(text, normalized){
     const raw=String(text||'').toLowerCase().replace(/,/g,'.').replace(/×/g,'x').trim();
     if(raw){
@@ -5172,9 +5172,9 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
     setFlashUI();
   };
   window.toggleProductFlash=async function(){
-    const track=stream?.getVideoTracks?.()[0];if(!track||!flashSupported){status('الفلاش غير متاح على الكاميرا الحالية.');return;}
-    try{await track.applyConstraints({advanced:[{torch:!flashOn}]});flashOn=!flashOn;setFlashUI();}
-    catch(e){flashSupported=false;flashOn=false;setFlashUI();status('الجهاز أو المتصفح لا يدعم تشغيل الفلاش داخل الكاميرا.');}
+    const track=stream?.getVideoTracks?.()[0];if(!track){status('شغّل الكاميرا الأول.');return;}
+    try{await track.applyConstraints({advanced:[{torch:!flashOn}]});flashOn=!flashOn;flashSupported=true;setFlashUI();status(flashOn?'تم تشغيل الفلاش.':'تم إيقاف الفلاش.');}
+    catch(e){flashSupported=false;flashOn=false;setFlashUI();status('المتصفح رفض تشغيل الفلاش. جرّب فتح التطبيق من Chrome عبر HTTPS والسماح بالكاميرا.');}
   };
   async function loadZXing(){
     if(window.ZXingBrowser)return window.ZXingBrowser;
