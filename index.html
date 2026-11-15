@@ -1349,7 +1349,7 @@ body.light main .liveItem {
 
         <button class="updateBtn"
                 id="updateBell"
-                onclick="checkForUpdate()"
+                onclick="checkForUpdate(true)"
                 aria-label="التحديثات">
 
             🔔
@@ -4290,7 +4290,11 @@ function showUpdate(){
 
 }
 
-function showNoUpdate(){
+function showNoUpdate(manual = false){
+
+    // عدم وجود تحديث لا يظهر تلقائياً؛ الرسالة تظهر فقط بطلب المستخدم.
+    if(!manual) return;
+
 
     const text = document.getElementById("updateText");
     const applyBtn = document.getElementById("applyUpdateBtn");
@@ -4324,20 +4328,20 @@ function watchForFutureUpdates(reg){
     if(reg.waiting) showUpdate();
 }
 
-async function checkForUpdate(){
+async function checkForUpdate(manual = false){
 
     if(updateChecking) return;
     updateChecking = true;
 
     try{
         if(!("serviceWorker" in navigator)){
-            showNoUpdate();
+            showNoUpdate(manual);
             return;
         }
 
         let reg = updateRegistration || await navigator.serviceWorker.getRegistration();
         if(!reg){
-            showNoUpdate();
+            showNoUpdate(manual);
             return;
         }
 
@@ -4376,11 +4380,11 @@ async function checkForUpdate(){
         }
 
         if(reg.waiting){ showUpdate(); }
-        else { showNoUpdate(); }
+        else { showNoUpdate(manual); }
 
     }catch(error){
         console.log("Update check failed:", error);
-        showNoUpdate();
+        showNoUpdate(manual);
     }finally{
         updateChecking = false;
     }
