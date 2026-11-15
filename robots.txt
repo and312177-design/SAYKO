@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://and312177-design.github.io/SAYKO/sitemap.xml
