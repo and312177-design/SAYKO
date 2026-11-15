@@ -1270,6 +1270,65 @@ body.light main .selectedFood,
 body.light main .liveItem {
     background: rgba(255,255,255,.68) !important;
 }
+
+/* ================= SAYKO FIRST-RUN TUTORIAL ================= */
+.tutorialOverlay{
+    position:fixed; inset:0; z-index:50000;
+    display:none; align-items:center; justify-content:center;
+    padding:16px; background:rgba(0,0,0,.88);
+    backdrop-filter:blur(9px); direction:rtl;
+}
+.tutorialOverlay.show{display:flex}
+.tutorialShell{
+    width:100%; max-width:430px; max-height:min(92vh,820px);
+    overflow:auto; background:var(--card,#111);
+    color:var(--text,#fff); border:1px solid var(--red,#8f1018);
+    border-radius:24px; box-shadow:0 25px 90px rgba(0,0,0,.55);
+    padding:20px;
+}
+.tutorialTop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tutorialBrand{font-size:12px;letter-spacing:2px;color:var(--red,#8f1018);font-weight:900}
+.tutorialSkip{
+    border:1px solid var(--border,#444);background:transparent;color:var(--text,#fff);
+    border-radius:20px;padding:8px 13px;font-size:12px;cursor:pointer
+}
+.tutorialEyebrow{margin-top:22px;color:#c34a53;font-size:12px;font-weight:800}
+.tutorialTitle{font-size:25px;line-height:1.35;margin:7px 0 8px;font-weight:900}
+.tutorialDescription{font-size:14px;line-height:1.8;color:var(--muted,#aaa);margin:0 0 16px}
+.tutorialVisual{
+    min-height:220px;border-radius:18px;padding:17px;
+    background:radial-gradient(circle at 85% 10%,rgba(143,16,24,.22),transparent 42%),var(--bg,#080808);
+    border:1px solid rgba(255,255,255,.09);display:flex;flex-direction:column;justify-content:center;gap:12px;
+    overflow:hidden;
+}
+.tutorialMockHead{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:14px}
+.tutorialMockPill{font-size:10px;padding:5px 9px;border-radius:20px;background:var(--red-deep,#53070c);color:#fff}
+.tutorialMockCard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:12px}
+.tutorialMockLabel{font-size:11px;color:#aaa;margin-bottom:5px}
+.tutorialMockValue{font-size:22px;font-weight:900}
+.tutorialMockBars{display:grid;gap:9px}
+.tutorialMockBar{height:8px;background:#39393d;border-radius:20px;overflow:hidden}
+.tutorialMockBar i{display:block;height:100%;background:var(--red,#8f1018);border-radius:20px}
+.tutorialMockGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tutorialMockFood{border-radius:12px;background:rgba(255,255,255,.07);padding:12px;text-align:center;font-size:12px;border:1px solid rgba(255,255,255,.07)}
+.tutorialMockFood b{display:block;font-size:23px;margin-bottom:5px}
+.tutorialMockRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tutorialMockChip{background:#29292d;border:1px solid #444;border-radius:20px;padding:7px 11px;font-size:11px}
+.tutorialMockChip.active{background:var(--red-deep,#53070c);border-color:var(--red,#8f1018)}
+.tutorialMockButton{background:linear-gradient(135deg,var(--red,#8f1018),var(--red-deep,#53070c));color:white;border-radius:10px;padding:10px;text-align:center;font-size:12px;font-weight:800}
+.tutorialProgress{height:5px;background:rgba(255,255,255,.1);border-radius:20px;margin:18px 0 14px;overflow:hidden}
+.tutorialProgress span{display:block;height:100%;background:var(--red,#8f1018);border-radius:20px;transition:width .25s}
+.tutorialFooter{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tutorialCount{font-size:12px;color:var(--muted,#aaa);white-space:nowrap}
+.tutorialActions{display:flex;gap:8px}
+.tutorialAction{
+    border:1px solid var(--border,#444);border-radius:12px;padding:11px 15px;
+    background:transparent;color:var(--text,#fff);font-weight:800;cursor:pointer
+}
+.tutorialAction.primary{background:linear-gradient(135deg,var(--red,#8f1018),var(--red-deep,#53070c));border-color:var(--red,#8f1018);color:#fff;min-width:112px}
+.tutorialAction:disabled{opacity:.35;cursor:not-allowed}
+@media(max-width:380px){.tutorialShell{padding:15px}.tutorialTitle{font-size:22px}.tutorialVisual{min-height:200px}}
+
 </style>
 </head>
 
@@ -1354,11 +1413,44 @@ body.light main .liveItem {
 
         </button>
 
+        <button class="menuItem"
+                type="button"
+                onclick="closeMenu(); openTutorial(true);">
+
+            <span class="icon">🎓</span>
+            <span>شرح البرنامج</span>
+
+        </button>
+
 
     </div>
 
 </div>
 
+<!-- ================= SAYKO TUTORIAL ================= -->
+<div id="tutorialOverlay" class="tutorialOverlay" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
+    <div class="tutorialShell">
+        <div class="tutorialTop">
+            <div class="tutorialBrand">SAYKØ FITNESS • QUICK TOUR</div>
+            <button class="tutorialSkip" type="button" onclick="finishTutorial()">تخطي الشرح</button>
+        </div>
+
+        <div class="tutorialEyebrow" id="tutorialEyebrow">أهلاً بيك في SAYKØ</div>
+        <h2 class="tutorialTitle" id="tutorialTitle">خلّينا نبدأ</h2>
+        <p class="tutorialDescription" id="tutorialDescription">جولة سريعة تعرفك على أهم أدوات البرنامج.</p>
+
+        <div class="tutorialVisual" id="tutorialVisual" aria-label="رسم توضيحي للخطوة"></div>
+
+        <div class="tutorialProgress"><span id="tutorialProgressBar"></span></div>
+        <div class="tutorialFooter">
+            <div class="tutorialCount" id="tutorialCount">1 / 7</div>
+            <div class="tutorialActions">
+                <button class="tutorialAction" id="tutorialPrev" type="button" onclick="changeTutorialStep(-1)">السابق</button>
+                <button class="tutorialAction primary" id="tutorialNext" type="button" onclick="changeTutorialStep(1)">التالي</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ================= MAIN ================= -->
 
@@ -4672,9 +4764,39 @@ function isSaykoInstalled() {
     );
 }
 
+// تثبيت الخلفية في مكانها أثناء ظهور أي نافذة فوق الصفحة.
+let saykoSavedScrollY = 0;
+let saykoPageLocked = false;
+function saykoLockPageScroll(){
+    if(saykoPageLocked) return;
+    saykoSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    saykoPageLocked = true;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${saykoSavedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+}
+function saykoUnlockPageScroll(){
+    if(!saykoPageLocked) return;
+    saykoPageLocked = false;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    document.body.style.overflow = "";
+    window.scrollTo(0, saykoSavedScrollY);
+}
 function showInstallMessage() {
-    installBox.style.display =
-        isSaykoInstalled() ? "none" : "flex";
+    if(isSaykoInstalled()){
+        installBox.style.display = "none";
+        saykoUnlockPageScroll();
+    } else {
+        installBox.style.display = "flex";
+        saykoLockPageScroll();
+    }
 }
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -4707,18 +4829,206 @@ installBtn.addEventListener("click", async () => {
 
     if (choice.outcome === "accepted") {
         installBox.style.display = "none";
+        saykoInstallFlowCompleted = true;
+        try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+        // افتح الجولة فور إغلاق نافذة التثبيت التابعة للمتصفح.
+        setTimeout(saykoLaunchTutorialAfterInstallModal, 120);
     }
 
     deferredInstallPrompt = null;
 });
 
-closeInstall.addEventListener("click", () => {
+function saykoLaunchTutorialAfterInstallModal(){
     installBox.style.display = "none";
+    let seen = false;
+    try { seen = localStorage.getItem("saykoTutorialSeen_v2") === "1"; } catch(e) {}
+    if(!seen){
+        saykoTutorialOpenedAfterInstall = true;
+        try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+        openTutorial(false);
+    } else {
+        saykoUnlockPageScroll();
+    }
+}
+
+closeInstall.addEventListener("click", () => {
+    // زر «ليس الآن» هو إغلاق نافذة التثبيت الظاهرة في الصورة.
+    saykoInstallFlowCompleted = true;
+    saykoLaunchTutorialAfterInstallModal();
 });
 
+
+// حالة انتظار إغلاق شاشة التثبيت الثانية
+let saykoInstallFlowCompleted = false;
+let saykoTutorialOpenedAfterInstall = false;
+
+function saykoOpenTutorialAfterInstallClose(){
+    if(saykoTutorialOpenedAfterInstall) return;
+    let pending = false;
+    let seen = false;
+    try {
+        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
+        seen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
+    } catch(e) {}
+    if(!pending || seen || !saykoInstallFlowCompleted) return;
+
+    const overlay = document.getElementById("tutorialOverlay");
+    if(!overlay) return;
+    // لا تعرض الجولة فوق أي شاشة تثبيت؛ انتظر إغلاقها فعليًا.
+    if(installBox && getComputedStyle(installBox).display !== "none") return;
+
+    saykoTutorialOpenedAfterInstall = true;
+    try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+    openTutorial(false);
+}
+
 window.addEventListener("appinstalled", () => {
-    installBox.style.display = "none";
+    saykoInstallFlowCompleted = true;
+    try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+    requestAnimationFrame(() => setTimeout(saykoLaunchTutorialAfterInstallModal, 180));
 });
+
+// عند الرجوع من شاشة تأكيد التثبيت أو إغلاقها، افتح الشرح بعد اختفائها.
+document.addEventListener("visibilitychange", () => {
+    if(document.visibilityState === "visible"){
+        saykoOpenTutorialAfterInstallClose();
+    }
+});
+window.addEventListener("focus", saykoOpenTutorialAfterInstallClose);
+
+/* ================= SAYKO TUTORIAL LOGIC ================= */
+const saykoTutorialSteps = [
+    {
+        eyebrow: "الخطوة 1 • البداية",
+        title: "تابع هدفك اليومي",
+        description: "في أول الصفحة هتلاقي ملخص السعرات والبروتين والكربوهيدرات والدهون. اضغط تعديل البيانات عشان تضبط بياناتك وأهدافك.",
+        visual: `<div class="tutorialMockHead"><span>SAYKØ FITNESS</span><span class="tutorialMockPill">هدفك اليومي</span></div>
+          <div class="tutorialMockCard"><div class="tutorialMockLabel">السعرات اليومية</div><div class="tutorialMockValue">2,000 <small style="font-size:11px;color:#aaa">kcal</small></div><div class="tutorialMockBars"><div class="tutorialMockBar"><i style="width:65%"></i></div><div class="tutorialMockBar"><i style="width:42%"></i></div><div class="tutorialMockBar"><i style="width:78%"></i></div></div></div>
+          <div class="tutorialMockButton">✎ تعديل البيانات والأهداف</div>`
+    },
+    {
+        eyebrow: "الخطوة 2 • البحث",
+        title: "اختار الأكل بسهولة",
+        description: "استخدم مربع البحث أو تصفّح قائمة الأطعمة. اضغط على الطعام اللي عايز تضيفه عشان تحدد الكمية.",
+        visual: `<div class="tutorialMockCard"><div class="tutorialMockLabel">ابحث عن طعام</div><div style="border:1px solid #555;border-radius:10px;padding:11px;color:#aaa">⌕ اكتب اسم الطعام...</div></div>
+          <div class="tutorialMockGrid"><div class="tutorialMockFood"><b>🍚</b>أرز</div><div class="tutorialMockFood"><b>🍗</b>فراخ</div><div class="tutorialMockFood"><b>🥚</b>بيض</div><div class="tutorialMockFood"><b>🍌</b>موز</div></div>`
+    },
+    {
+        eyebrow: "الخطوة 3 • الكمية",
+        title: "حدد الكمية وشوف الحساب",
+        description: "بعد اختيار الطعام، اختار الوحدة المناسبة مثل الجرام أو المعلقة أو القطعة، واكتب الكمية. القيم الغذائية هتتحدث قدامك قبل الإضافة.",
+        visual: `<div class="tutorialMockHead"><span>إضافة طعام</span><span class="tutorialMockPill">الكمية</span></div>
+          <div class="tutorialMockRow"><span class="tutorialMockChip active">جرام</span><span class="tutorialMockChip">معلقة</span><span class="tutorialMockChip">قطعة</span></div>
+          <div class="tutorialMockCard"><div class="tutorialMockLabel">الكمية</div><div class="tutorialMockValue">150 جم</div></div>
+          <div class="tutorialMockGrid"><div class="tutorialMockFood">🔥 السعرات<b>195</b></div><div class="tutorialMockFood">💪 البروتين<b>12 جم</b></div></div>
+          <div class="tutorialMockButton">إضافة للوجبة</div>`
+    },
+    {
+        eyebrow: "الخطوة 4 • الوجبات",
+        title: "قسّم يومك لوجبات",
+        description: "تنقّل بين الفطار والغداء والعشاء، أو أضف وجبة جديدة. تقدر كمان تحفظ وجبة كاملة وترجع تستخدمها بعدين.",
+        visual: `<div class="tutorialMockRow"><span class="tutorialMockChip active">الفطار</span><span class="tutorialMockChip">الغداء</span><span class="tutorialMockChip">العشاء</span></div>
+          <div class="tutorialMockCard"><div class="tutorialMockHead"><span>وجباتي</span><span>＋</span></div><p style="font-size:12px;color:#aaa;margin:9px 0">اختار الوجبة الحالية وسجّل الأطعمة اللي أكلتها.</p><div class="tutorialMockButton">＋ حفظ الوجبة الحالية</div></div>
+`
+    },
+    {
+        eyebrow: "الخطوة 5 • أدوات إضافية",
+        title: "أضف أكلك بأكثر من طريقة",
+        description: "تقدر تضيف أكلة من عندك، أو تستخدم «حلّل أكلك» لإدخال المكونات، أو قارئ المنتجات لقراءة بيانات المنتج بالكاميرا.",
+        visual: `<div class="tutorialMockGrid"><div class="tutorialMockFood"><b>✚</b>أكلة جديدة</div><div class="tutorialMockFood"><b>✦</b>حلّل أكلك</div><div class="tutorialMockFood" style="grid-column:1/-1"><b>▣</b>قارئ المنتجات بالكاميرا</div></div>
+          <div class="tutorialMockCard" style="font-size:11px;color:#bbb">راجع القيم الظاهرة قبل إضافتها لوجبتك.</div>`
+    },
+    {
+        eyebrow: "الخطوة 6 • متابعة يومك",
+        title: "راجع إجمالي وجبتك",
+        description: "بعد إضافة الأطعمة، هتظهر في قائمة الوجبة مع إجمالي السعرات والعناصر الغذائية. تقدر تراجع اللي سجلته أو تمسح عناصر الوجبة.",
+        visual: `<div class="tutorialMockCard"><div class="tutorialMockHead"><span>إجمالي الوجبة</span><span class="tutorialMockPill">اليوم</span></div><div class="tutorialMockValue">640 kcal</div><div class="tutorialMockGrid" style="margin-top:10px"><div class="tutorialMockFood">بروتين<b>38 جم</b></div><div class="tutorialMockFood">كربوهيدرات<b>72 جم</b></div><div class="tutorialMockFood" style="grid-column:1/-1">دهون<b>18 جم</b></div></div></div>`
+    },
+    {
+        eyebrow: "الخطوة 7 • جاهز!",
+        title: "ابدأ رحلتك مع SAYKØ",
+        description: "كده بقيت تعرف الأساسيات. افتح قائمة الثلاث شرط في أي وقت لإعادة الجولة، واستخدم البرنامج لتسجيل أكلك ومتابعة تقدمك.",
+        visual: `<div style="text-align:center;padding:12px"><div style="font-size:54px;font-weight:1000;letter-spacing:3px">SAYKØ</div><div style="color:var(--red,#8f1018);font-weight:900;letter-spacing:4px;font-size:12px">FITNESS</div><div style="font-size:42px;margin:20px 0 8px">✓</div><div style="font-size:14px;color:#ddd">أنت جاهز للبدء</div></div>`
+    }
+];
+
+let saykoTutorialIndex = 0;
+
+function renderTutorialStep(){
+    const step = saykoTutorialSteps[saykoTutorialIndex];
+    if(!step) return;
+    document.getElementById("tutorialEyebrow").textContent = step.eyebrow;
+    document.getElementById("tutorialTitle").textContent = step.title;
+    document.getElementById("tutorialDescription").textContent = step.description;
+    document.getElementById("tutorialVisual").innerHTML = step.visual;
+    document.getElementById("tutorialCount").textContent = `${saykoTutorialIndex + 1} / ${saykoTutorialSteps.length}`;
+    document.getElementById("tutorialProgressBar").style.width = `${((saykoTutorialIndex + 1) / saykoTutorialSteps.length) * 100}%`;
+    document.getElementById("tutorialPrev").disabled = saykoTutorialIndex === 0;
+    document.getElementById("tutorialNext").textContent = saykoTutorialIndex === saykoTutorialSteps.length - 1 ? "ابدأ الاستخدام" : "التالي";
+}
+
+function openTutorial(manual = false){
+    saykoTutorialIndex = 0;
+    renderTutorialStep();
+    document.getElementById("tutorialOverlay").classList.add("show");
+    saykoLockPageScroll();
+}
+
+function closeTutorial(){
+    document.getElementById("tutorialOverlay").classList.remove("show");
+    saykoUnlockPageScroll();
+}
+
+function finishTutorial(){
+    try { localStorage.setItem("saykoTutorialSeen_v2", "1"); } catch(e) {}
+    closeTutorial();
+    // بعد التخطي أو الضغط على "ابدأ الاستخدام" افتح صفحة بياناتي فورًا.
+    openGoal();
+}
+
+function changeTutorialStep(direction){
+    const next = saykoTutorialIndex + direction;
+    if(next < 0) return;
+    if(next >= saykoTutorialSteps.length){
+        finishTutorial();
+        return;
+    }
+    saykoTutorialIndex = next;
+    renderTutorialStep();
+}
+
+document.addEventListener("keydown", (event) => {
+    if(event.key === "Escape" && document.getElementById("tutorialOverlay")?.classList.contains("show")){
+        finishTutorial();
+    }
+});
+
+// في أول تشغيل للتطبيق المثبّت، أو عند الرجوع من شاشة التثبيت،
+// افتح الشرح فقط بعد اختفاء شاشة التثبيت بالكامل.
+function saykoShowFirstLaunchTutorial() {
+    let pending = false;
+    let alreadySeen = false;
+    try {
+        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
+        alreadySeen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
+    } catch(e) {}
+    if(!pending || alreadySeen) return;
+    saykoInstallFlowCompleted = true;
+    const check = () => {
+        if(installBox && getComputedStyle(installBox).display !== "none"){
+            setTimeout(check, 150);
+            return;
+        }
+        saykoOpenTutorialAfterInstallClose();
+    };
+    check();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", saykoShowFirstLaunchTutorial, { once: true });
+} else {
+    saykoShowFirstLaunchTutorial();
+}
 </script>
 
 <script>
