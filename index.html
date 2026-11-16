@@ -1781,6 +1781,85 @@ body > header .tipsHeaderBtn {
   body > header .headerTools { gap: 4px !important; margin-right: -2px !important; }
 }
 </style>
+
+<style id="sayko-header-definitive-alignment">
+/* One definitive header layout: exact center brand, evenly sized controls, no overlap. */
+body > header {
+  position: relative !important; display: block !important;
+  box-sizing: border-box !important; width: 100% !important;
+  height: 76px !important; min-height: 76px !important;
+  padding: 0 !important; margin: 0 !important;
+  overflow: visible !important; background: transparent !important;
+  background-color: transparent !important; border: 0 !important;
+  box-shadow: none !important; -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+body > header .headerActions {
+  display: contents !important; position: static !important;
+  inset: auto !important; width: auto !important; height: auto !important;
+  margin: 0 !important; padding: 0 !important; transform: none !important;
+  animation: none !important; pointer-events: none !important;
+}
+body > header .logo {
+  position: absolute !important; left: 50% !important; top: 50% !important;
+  transform: translate(-50%,-50%) !important; margin: 0 !important; padding: 0 !important;
+  width: max-content !important; max-width: calc(100vw - 164px) !important;
+  overflow: visible !important; white-space: nowrap !important;
+  text-overflow: clip !important; text-align: center !important;
+  line-height: 1 !important; font-size: clamp(15px,4.8vw,23px) !important;
+  letter-spacing: .7px !important; font-weight: 1000 !important;
+  -webkit-text-stroke: .3px currentColor !important; z-index: 4 !important;
+}
+body > header .logo span { font-weight: 1000 !important; }
+body > header .headerTools {
+  position: absolute !important; top: 50% !important; right: 5px !important;
+  left: auto !important; transform: translateY(-50%) !important;
+  display: flex !important; flex-direction: row !important; direction: rtl !important;
+  align-items: center !important; justify-content: flex-start !important;
+  gap: 6px !important; width: max-content !important; height: 44px !important;
+  margin: 0 !important; padding: 0 !important; z-index: 6 !important;
+  pointer-events: auto !important;
+}
+body > header .menuBtn, body > header .updateBtn {
+  box-sizing: border-box !important; display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  flex: 0 0 40px !important; width: 40px !important; min-width: 40px !important;
+  height: 40px !important; min-height: 40px !important; padding: 0 !important;
+  margin: 0 !important; border-radius: 12px !important;
+  line-height: 1 !important; position: relative !important;
+  top: auto !important; transform: none !important; animation: none !important;
+}
+body > header .menuBtn { font-size: 24px !important; background: rgba(15,13,14,.72) !important;
+  border: 1px solid rgba(180,45,55,.48) !important; }
+body > header .tipsHeaderBtn {
+  box-sizing: border-box !important; display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  flex: 0 0 56px !important; width: 56px !important; min-width: 56px !important;
+  height: 38px !important; min-height: 38px !important; padding: 0 5px !important;
+  margin: 0 !important; border-radius: 11px !important; line-height: 1 !important;
+  font-size: 11px !important; font-weight: 850 !important; white-space: nowrap !important;
+  position: relative !important; top: auto !important; transform: none !important;
+  animation: none !important;
+}
+body > header .updateBtn {
+  position: absolute !important; top: 50% !important; left: 5px !important; right: auto !important;
+  transform: translateY(-50%) !important; z-index: 6 !important;
+  background: var(--red) !important; border: 1px solid var(--red) !important;
+  color: #fff !important; font-size: 18px !important;
+}
+body > header .updateBtn .updateDot { top: 2px !important; right: 2px !important; }
+@media (max-width: 380px) {
+  body > header .headerTools { right: 3px !important; gap: 4px !important; }
+  body > header .updateBtn { left: 3px !important; }
+  body > header .menuBtn, body > header .updateBtn {
+    flex-basis: 36px !important; width: 36px !important; min-width: 36px !important;
+    height: 38px !important; min-height: 38px !important;
+  }
+  body > header .tipsHeaderBtn { flex-basis: 51px !important; width: 51px !important; min-width: 51px !important; height: 36px !important; font-size: 10px !important; }
+  body > header .logo { max-width: calc(100vw - 145px) !important; font-size: clamp(13px,4.2vw,16px) !important; letter-spacing: .2px !important; }
+}
+</style>
+
 </head>
 
 
@@ -1875,7 +1954,7 @@ body > header .tipsHeaderBtn {
 
         <button class="menuItem"
                 type="button"
-                onclick="closeMenu(); window.location.assign(new URL('founder.html', window.location.href).href);">
+                onclick="closeMenu(); window.location.href='founder.html';">
 
             <span class="icon">👤</span>
             <span>عن المؤسس</span>
@@ -1915,6 +1994,10 @@ body > header .tipsHeaderBtn {
 <!-- ================= MAIN ================= -->
 
 <main>
+
+    <div class="subtitle">
+        Nutrition • Calories • Progress
+    </div>
 
 
     <section class="goalCard">
@@ -5826,82 +5909,5 @@ main .goalCard .progressBar{width:100%; max-width:100%;}
 }
 </style>
 
-
-
-<style id="sayko-layout-repair-final">
-/* Clean, consistent header and a clear gap before the daily goal card. */
-body > header {
-  box-sizing: border-box !important;
-  position: relative !important;
-  top: auto !important; left: auto !important; right: auto !important;
-  width: 100% !important;
-  height: 78px !important; min-height: 78px !important;
-  padding: 0 8px !important;
-  display: grid !important;
-  grid-template-columns: minmax(42px,1fr) auto minmax(100px,1fr) !important;
-  align-items: center !important;
-  overflow: visible !important;
-  background: transparent !important; background-color: transparent !important;
-  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
-  border: 0 !important; box-shadow: none !important;
-  z-index: 20 !important;
-}
-body > header .logo {
-  grid-column: 2 !important; grid-row: 1 !important;
-  position: relative !important; left: auto !important; top: auto !important;
-  justify-self: center !important; align-self: center !important;
-  transform: none !important; margin: 0 !important;
-  width: max-content !important; max-width: calc(100vw - 160px) !important;
-  white-space: nowrap !important; overflow: visible !important;
-  text-overflow: clip !important; text-align: center !important;
-  font-size: clamp(20px, 5.1vw, 30px) !important;
-  font-weight: 1000 !important; letter-spacing: .8px !important;
-  line-height: 1.1 !important; z-index: 2 !important;
-}
-body > header .logo span { font-weight: 1000 !important; }
-body > header .headerActions { display: contents !important; }
-body > header .headerTools {
-  grid-column: 3 !important; grid-row: 1 !important;
-  justify-self: end !important; align-self: center !important;
-  display: flex !important; flex-direction: row !important;
-  direction: rtl !important; align-items: center !important;
-  justify-content: flex-start !important; gap: 5px !important;
-  width: max-content !important; height: auto !important; min-height: 0 !important;
-  margin: 0 !important; padding: 0 !important;
-  position: relative !important; transform: none !important;
-  pointer-events: auto !important; z-index: 3 !important;
-}
-body > header .updateBtn {
-  grid-column: 1 !important; grid-row: 1 !important;
-  justify-self: start !important; align-self: center !important;
-  position: relative !important; inset: auto !important;
-  margin: 0 !important; transform: none !important; z-index: 3 !important;
-}
-body > header .menuBtn, body > header .tipsHeaderBtn {
-  position: relative !important; inset: auto !important; top: auto !important; bottom: auto !important;
-  margin: 0 !important; align-self: center !important; transform: none !important;
-}
-body > main {
-  position: relative !important; z-index: 1 !important;
-  padding-top: 22px !important;
-  scroll-margin-top: 90px !important;
-}
-main .goalCard { margin-top: 0 !important; }
-@media (max-width: 430px) {
-  body > header { padding-inline: 5px !important; grid-template-columns: minmax(38px,1fr) auto minmax(96px,1fr) !important; }
-  body > header .logo { font-size: clamp(20px, 5.1vw, 24px) !important; letter-spacing: .25px !important; max-width: calc(100vw - 140px) !important; }
-  body > header .headerTools { gap: 4px !important; }
-  body > header .menuBtn { width: 36px !important; min-width: 36px !important; height: 38px !important; }
-  body > header .tipsHeaderBtn { width: 50px !important; min-width: 50px !important; padding-inline: 3px !important; font-size: 10px !important; }
-  body > header .updateBtn { width: 38px !important; min-width: 38px !important; height: 38px !important; }
-}
-@media (max-width: 350px) {
-  body > header .logo { font-size: 18px !important; letter-spacing: 0 !important; max-width: calc(100vw - 130px) !important; }
-  body > header .menuBtn { width: 33px !important; min-width: 33px !important; }
-  body > header .tipsHeaderBtn { width: 47px !important; min-width: 47px !important; font-size: 9px !important; }
-  body > header .updateBtn { width: 35px !important; min-width: 35px !important; }
-}
-</style>
 </body>
         </html>
-
