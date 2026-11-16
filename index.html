@@ -1409,6 +1409,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
 }
 
 </style>
+<style id="sayko-pull-refresh-fix">
+/* Keep normal scrolling, but prevent browser pull-to-refresh from reloading the PWA. */
+html, body {
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+}
+body {
+  -webkit-overflow-scrolling: touch;
+}
+</style>
 </head>
 
 
@@ -1498,6 +1508,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
 
             <span class="icon">🎓</span>
             <span>شرح البرنامج</span>
+
+        </button>
+
+        <button class="menuItem"
+                type="button"
+                onclick="closeMenu(); window.location.href='founder.html';">
+
+            <span class="icon">👤</span>
+            <span>عن المؤسس</span>
 
         </button>
 
@@ -5354,37 +5373,6 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
 })();
 </script>
 
-
-<!-- SAYKØ FITNESS | Founder profile -->
-<section class="sayko-founder" aria-labelledby="sayko-founder-title" dir="rtl">
-  <div class="sayko-founder-inner">
-    <p class="sayko-founder-kicker">THE PERSON BEHIND THE BRAND</p>
-    <h2 id="sayko-founder-title">مؤسس SAYKØ FITNESS</h2>
-    <p class="sayko-founder-name">عمار سعيد</p>
-    <p class="sayko-founder-role">Founder &amp; Creator</p>
-    <div class="sayko-founder-links">
-      <a href="founder.html">اعرف المزيد عن المؤسس</a>
-      <a href="https://www.instagram.com/ammar_sayko/" target="_blank" rel="noopener noreferrer">Instagram @ammar_sayko</a>
-    </div>
-  </div>
-</section>
-<style>
-.sayko-founder{margin:36px 14px 24px;padding:1px;border-radius:22px;background:linear-gradient(135deg,#a51d2d,#343434 58%,#a51d2d);color:#fff}
-.sayko-founder-inner{padding:25px 20px;border-radius:21px;background:#101010;text-align:center}
-.sayko-founder-kicker{margin:0 0 10px;color:#d56b76;font-size:11px;letter-spacing:2px;direction:ltr}
-.sayko-founder h2{margin:0 0 12px;font-size:23px;color:#fff}
-.sayko-founder-name{margin:0;font-size:22px;font-weight:800;color:#fff}
-.sayko-founder-role{margin:6px 0 14px;color:#e18a93;font-size:13px;direction:ltr}
-.sayko-founder-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.sayko-founder-links a{display:inline-block;padding:10px 15px;border:1px solid #8f1018;border-radius:12px;color:#fff;text-decoration:none;font-size:13px}
-.sayko-founder-links a:first-child{background:#8f1018}
-
-.spoonSyncGroup{display:flex;align-items:end;gap:9px;margin:12px 0 16px;direction:rtl}
-.spoonSyncField{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
-.spoonSyncField label{font-size:12px;font-weight:800;color:var(--text,#fff)}
-.spoonSyncField input{width:100%;min-width:0;box-sizing:border-box;padding:12px 9px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;text-align:center;font-weight:800}
-.spoonSyncEquals{padding:0 2px 12px;color:var(--red,#e45b65);font-weight:900}
-</style>
 
 </body>
         </html>
