@@ -1419,6 +1419,368 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 </style>
+
+<style id="sayko-header-controls-alignment">
+/* Premium, stable header layout: all controls share the exact 70px header centerline. */
+body > header {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 0 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+body > header .logo {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  line-height: 1 !important;
+  z-index: 2 !important;
+  white-space: nowrap !important;
+}
+body > header .headerActions {
+  position: absolute !important;
+  inset: 0 14px !important;
+  width: auto !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  direction: rtl !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  animation: none !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+body > header .headerTools {
+  height: 70px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  direction: rtl !important;
+}
+body > header .headerActions > button,
+body > header .headerTools > button {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+  transform: none !important;
+  animation: none !important;
+  pointer-events: auto !important;
+}
+body > header .menuBtn {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  font-size: 25px !important;
+  border-radius: 12px !important;
+}
+body > header .tipsHeaderBtn {
+  width: auto !important;
+  min-width: 66px !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border-radius: 11px !important;
+  font-size: 12px !important;
+  line-height: 38px !important;
+  white-space: nowrap !important;
+}
+body > header .updateBtn {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  border-radius: 13px !important;
+  font-size: 18px !important;
+}
+body > header .updateBtn .updateDot {
+  top: 3px !important;
+  right: 3px !important;
+  margin: 0 !important;
+}
+@media (max-width: 380px) {
+  body > header { padding-inline: 8px !important; }
+  body > header .headerActions { inset-inline: 8px !important; }
+  body > header .headerTools { gap: 5px !important; }
+  body > header .menuBtn,
+  body > header .updateBtn { width: 38px !important; min-width: 38px !important; height: 40px !important; }
+  body > header .tipsHeaderBtn { min-width: 58px !important; padding-inline: 8px !important; }
+  body > header .logo { font-size: 17px !important; letter-spacing: 1px !important; }
+}
+
+/* Prevent the advice control from covering the centered brand on narrow screens. */
+@media (max-width: 430px) {
+  body > header .logo {
+    left: calc(50% - 34px) !important;
+    max-width: calc(100vw - 168px) !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: clamp(13px, 4.1vw, 17px) !important;
+    letter-spacing: .5px !important;
+  }
+  body > header .headerTools { gap: 5px !important; }
+  body > header .tipsHeaderBtn {
+    min-width: 54px !important;
+    width: 54px !important;
+    padding-inline: 5px !important;
+    font-size: 11px !important;
+  }
+}
+@media (max-width: 350px) {
+  body > header .logo {
+    left: calc(50% - 31px) !important;
+    max-width: calc(100vw - 154px) !important;
+    font-size: 12px !important;
+    letter-spacing: 0 !important;
+  }
+  body > header .menuBtn,
+  body > header .updateBtn {
+    width: 36px !important;
+    min-width: 36px !important;
+  }
+  body > header .tipsHeaderBtn {
+    min-width: 50px !important;
+    width: 50px !important;
+    font-size: 10px !important;
+  }
+}
+</style>
+
+
+<style id="sayko-header-final-layout">
+/* Final header layout: brand centered, menu + tips right, bell left */
+body > header {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  width: 100% !important; height: 70px !important;
+  padding: 0 12px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) !important;
+  align-items: center !important;
+  direction: ltr !important;
+  overflow: visible !important;
+}
+body > header .headerActions {
+  display: contents !important;
+  position: static !important;
+  inset: auto !important; width: auto !important; height: auto !important;
+  transform: none !important; animation: none !important;
+  pointer-events: none !important;
+}
+body > header .logo {
+  grid-column: 2 !important; grid-row: 1 !important;
+  position: relative !important; left: auto !important; top: auto !important;
+  justify-self: center !important; align-self: center !important;
+  transform: none !important; margin: 0 !important;
+  width: max-content !important; max-width: none !important;
+  white-space: nowrap !important; overflow: visible !important;
+  text-overflow: clip !important; text-align: center !important;
+  z-index: 2 !important;
+}
+body > header .headerTools {
+  grid-column: 3 !important; grid-row: 1 !important;
+  justify-self: end !important; align-self: center !important;
+  display: flex !important; flex-direction: row !important;
+  direction: rtl !important; align-items: center !important;
+  justify-content: flex-start !important; gap: 7px !important;
+  width: max-content !important; height: auto !important;
+  margin: 0 !important; padding: 0 !important;
+  position: relative !important; transform: none !important;
+  pointer-events: auto !important; z-index: 3 !important;
+}
+body > header .menuBtn, body > header .tipsHeaderBtn {
+  position: relative !important; inset: auto !important;
+  top: auto !important; bottom: auto !important;
+  margin: 0 !important; align-self: center !important;
+  transform: none !important; animation: none !important;
+}
+body > header .updateBtn {
+  grid-column: 1 !important; grid-row: 1 !important;
+  justify-self: start !important; align-self: center !important;
+  position: relative !important; inset: auto !important;
+  margin: 0 !important; transform: none !important;
+  z-index: 3 !important; pointer-events: auto !important;
+}
+@media (max-width: 430px) {
+  body > header { padding-inline: 10px !important; }
+  body > header .logo {
+    left: auto !important; max-width: none !important;
+    font-size: clamp(14px, 4.5vw, 18px) !important;
+    letter-spacing: .6px !important;
+  }
+  body > header .headerTools { gap: 5px !important; }
+  body > header .menuBtn { width: 38px !important; min-width: 38px !important; height: 40px !important; }
+  body > header .tipsHeaderBtn { width: 54px !important; min-width: 54px !important; padding-inline: 4px !important; font-size: 11px !important; }
+  body > header .updateBtn { width: 40px !important; min-width: 40px !important; height: 40px !important; }
+}
+@media (max-width: 350px) {
+  body > header { padding-inline: 7px !important; }
+  body > header .logo { font-size: 13px !important; letter-spacing: 0 !important; }
+  body > header .headerTools { gap: 3px !important; }
+  body > header .menuBtn { width: 34px !important; min-width: 34px !important; }
+  body > header .tipsHeaderBtn { width: 49px !important; min-width: 49px !important; font-size: 10px !important; }
+  body > header .updateBtn { width: 36px !important; min-width: 36px !important; height: 38px !important; }
+}
+</style>
+
+<style id="sayko-header-edge-correction">
+/* Edge-aligned controls: hamburger at the far right, tips immediately inward, bell at far left. */
+body > header { padding-left: 4px !important; padding-right: 4px !important; }
+body > header .headerTools {
+  grid-column: 3 !important; justify-self: end !important;
+  flex-direction: row !important; direction: rtl !important;
+  justify-content: flex-start !important; gap: 5px !important;
+  margin-right: 0 !important;
+}
+body > header .menuBtn { order: 0 !important; margin-right: 0 !important; }
+body > header .tipsHeaderBtn { order: 1 !important; }
+body > header .updateBtn { justify-self: start !important; margin-left: 0 !important; }
+@media (max-width: 430px) {
+  body > header { padding-left: 3px !important; padding-right: 3px !important; }
+  body > header .headerTools { gap: 4px !important; }
+}
+</style>
+
+
+<style id="sayko-header-solid-transparent-bold-brand">
+/* Completely transparent header surface; keep the existing scroll hide/show motion. */
+body > header {
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+body > header .logo {
+  font-weight: 1000 !important;
+  -webkit-text-stroke: .25px currentColor;
+  letter-spacing: 1.2px !important;
+}
+body > header .logo span {
+  font-weight: 1000 !important;
+}
+</style>
+
+
+<style id="sayko-header-balanced-final-v2">
+/* Balanced premium header: larger brand, aligned controls, responsive spacing. */
+body > header {
+  height: 76px !important;
+  min-height: 76px !important;
+  padding: 0 8px !important;
+  display: grid !important;
+  grid-template-columns: minmax(42px,1fr) auto minmax(100px,1fr) !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+body > header .logo {
+  grid-column: 2 !important; grid-row: 1 !important;
+  justify-self: center !important; align-self: center !important;
+  position: relative !important; left: auto !important; top: auto !important;
+  width: max-content !important; max-width: none !important;
+  margin: 0 !important; padding: 0 !important;
+  font-size: clamp(18px, 5.8vw, 26px) !important;
+  line-height: 1 !important; letter-spacing: 1.35px !important;
+  font-weight: 1000 !important; -webkit-text-stroke: .35px currentColor !important;
+  white-space: nowrap !important; text-align: center !important;
+  transform: none !important; z-index: 2 !important;
+}
+body > header .logo span { font-weight: 1000 !important; }
+body > header .headerActions { display: contents !important; }
+body > header .headerTools {
+  grid-column: 3 !important; grid-row: 1 !important;
+  justify-self: end !important; align-self: center !important;
+  display: flex !important; flex-direction: row !important;
+  direction: rtl !important; align-items: center !important;
+  justify-content: flex-start !important; gap: 7px !important;
+  height: auto !important; margin: 0 !important; padding: 0 !important;
+  position: relative !important; z-index: 3 !important;
+}
+body > header .updateBtn {
+  grid-column: 1 !important; grid-row: 1 !important;
+  justify-self: start !important; align-self: center !important;
+  width: 42px !important; min-width: 42px !important; height: 42px !important;
+  border-radius: 13px !important; margin: 0 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  position: relative !important; z-index: 3 !important;
+}
+body > header .menuBtn {
+  width: 42px !important; min-width: 42px !important; height: 42px !important;
+  border-radius: 13px !important; font-size: 24px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+}
+body > header .tipsHeaderBtn {
+  width: 58px !important; min-width: 58px !important; height: 38px !important;
+  padding: 0 6px !important; border-radius: 11px !important;
+  font-size: 12px !important; font-weight: 850 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+}
+@media (max-width: 380px) {
+  body > header { grid-template-columns: 38px minmax(0,1fr) 96px !important; padding-inline: 5px !important; }
+  body > header .logo { font-size: clamp(16px, 5.3vw, 19px) !important; letter-spacing: .45px !important; }
+  body > header .headerTools { gap: 4px !important; }
+  body > header .menuBtn { width: 38px !important; min-width: 38px !important; height: 40px !important; }
+  body > header .tipsHeaderBtn { width: 54px !important; min-width: 54px !important; height: 36px !important; font-size: 11px !important; }
+  body > header .updateBtn { width: 38px !important; min-width: 38px !important; height: 40px !important; }
+}
+@media (max-width: 330px) {
+  body > header { grid-template-columns: 36px minmax(0,1fr) 88px !important; }
+  body > header .logo { font-size: 15px !important; letter-spacing: .1px !important; }
+  body > header .tipsHeaderBtn { width: 49px !important; min-width: 49px !important; font-size: 10px !important; }
+  body > header .menuBtn, body > header .updateBtn { width: 36px !important; min-width: 36px !important; }
+}
+</style>
+
+
+<style id="sayko-header-tips-right-fix">
+/* Move Tips to the outer right side so it stays clear of the centered brand. */
+body > header .headerTools {
+  direction: ltr !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  margin-right: -3px !important;
+}
+body > header .tipsHeaderBtn {
+  flex: 0 0 54px !important;
+  width: 54px !important;
+  min-width: 54px !important;
+}
+@media (max-width: 380px) {
+  body > header .headerTools { gap: 4px !important; margin-right: -2px !important; }
+}
+</style>
 </head>
 
 
@@ -1513,7 +1875,7 @@ body {
 
         <button class="menuItem"
                 type="button"
-                onclick="closeMenu(); window.location.href='founder.html';">
+                onclick="closeMenu(); window.location.assign(new URL('founder.html', window.location.href).href);">
 
             <span class="icon">👤</span>
             <span>عن المؤسس</span>
@@ -1553,10 +1915,6 @@ body {
 <!-- ================= MAIN ================= -->
 
 <main>
-
-    <div class="subtitle">
-        Nutrition • Calories • Progress
-    </div>
 
 
     <section class="goalCard">
@@ -2727,7 +3085,6 @@ const foods = [
 {name:"بيتزا",calories:266,protein:11,carbs:33,fat:10},
 {name:"بيتزا جبنة",calories:285,protein:12,carbs:36,fat:10},
 {name:"بيتزا خضار",calories:250,protein:10,carbs:35,fat:8},
-{name:"برجر لحم",calories:295,protein:17,carbs:10,fat:21},
 {name:"برجر دجاج",calories:230,protein:18,carbs:20,fat:9},
 {name:"هوت دوج",calories:290,protein:10,carbs:4,fat:26},
 {name:"ساندويتش تونة",calories:190,protein:16,carbs:20,fat:6},
@@ -2760,15 +3117,11 @@ const foods = [
 {name:"شاي بالحليب",calories:35,protein:2,carbs:3,fat:2},
 {name:"كاكاو بالحليب",calories:80,protein:4,carbs:10,fat:3},
   {name:"كشري مصري",calories:155,protein:5,carbs:29,fat:2},
-{name:"فتة لحمة",calories:180,protein:9,carbs:20,fat:7},
 {name:"كبدة إسكندراني",calories:210,protein:25,carbs:5,fat:10},
 {name:"سجق بالبصل والفلفل",calories:270,protein:14,carbs:7,fat:21},
 {name:"طاجن بامية باللحمة",calories:110,protein:7,carbs:9,fat:5},
-{name:"ملوخية مطبوخة",calories:45,protein:3,carbs:5,fat:2},
 {name:"قلقاس بالسلق",calories:100,protein:3,carbs:17,fat:3},
 {name:"بسلة بالجزر",calories:75,protein:3,carbs:12,fat:2},
-{name:"محشي كرنب",calories:130,protein:3,carbs:20,fat:4},
-{name:"محشي ورق عنب",calories:150,protein:3,carbs:23,fat:5},
 {name:"حمام محشي رز",calories:240,protein:20,carbs:12,fat:13},
 {name:"ممبار",calories:300,protein:12,carbs:20,fat:18},
 {name:"بطاطس بالصلصة",calories:95,protein:2,carbs:16,fat:3},
@@ -2822,11 +3175,21 @@ const foods = [
 {name:"جلاش بالجبنة",calories:280,protein:9,carbs:26,fat:15},
 {name:"فتير مشلتت",calories:400,protein:7,carbs:50,fat:20},
 {name:"فطير بالجبنة",calories:350,protein:10,carbs:40,fat:17},
-{name:"فطير بالعسل",calories:360,protein:6,carbs:60,fat:12}
-  
+{name:"فطير بالعسل",calories:360,protein:6,carbs:60,fat:12},
 
+{name:"طعمية مقلية",calories:333,protein:13,carbs:32,fat:18},
+{name:"مكرونة بشاميل",calories:220,protein:8,carbs:22,fat:10},
+{name:"حواوشي",calories:260,protein:13,carbs:25,fat:12},
+{name:"مسقعة باللحمة",calories:130,protein:6,carbs:9,fat:8},
+{name:"بامية مطبوخة",calories:70,protein:3,carbs:8,fat:3},
+{name:"حمص الشام",calories:90,protein:4.5,carbs:15,fat:1.5},
+{name:"عيش فينو",calories:290,protein:9,carbs:55,fat:4},
+{name:"عسل أسود",calories:290,protein:0,carbs:75,fat:0.1},
+{name:"جبنة إسطنبولي",calories:280,protein:14,carbs:4,fat:23},
+{name:"شاورما فراخ",calories:190,protein:24,carbs:3,fat:9},
 ];
-    
+
+/* القيم الغذائية في قاعدة الأطعمة تقديرية لكل 100 جم، وقد تختلف حسب الوصفة وطريقة التحضير. */
 /* =====================================
    SAYKØ FITNESS - منع تكرار الأكلات
 ===================================== */
@@ -4468,20 +4831,20 @@ function watchForFutureUpdates(reg){
     if(reg.waiting) showUpdate();
 }
 
-async function checkForUpdate(){
+async function checkForUpdate(showResult = true){
 
     if(updateChecking) return;
     updateChecking = true;
 
     try{
         if(!("serviceWorker" in navigator)){
-            showNoUpdate();
+            if(showResult) showNoUpdate();
             return;
         }
 
         let reg = updateRegistration || await navigator.serviceWorker.getRegistration();
         if(!reg){
-            showNoUpdate();
+            if(showResult) showNoUpdate();
             return;
         }
 
@@ -4520,11 +4883,11 @@ async function checkForUpdate(){
         }
 
         if(reg.waiting){ showUpdate(); }
-        else { showNoUpdate(); }
+        else if(showResult){ showNoUpdate(); }
 
     }catch(error){
         console.log("Update check failed:", error);
-        showNoUpdate();
+        if(showResult) showNoUpdate();
     }finally{
         updateChecking = false;
     }
@@ -4754,13 +5117,13 @@ if("serviceWorker" in navigator){
 
                 setTimeout(()=>{
 
-                    checkForUpdate();
+                    checkForUpdate(false);
 
                 },1000);
 
                 // Check periodically instead of polling every five seconds.
                 setInterval(()=>{
-                    if(document.visibilityState === "visible") checkForUpdate();
+                    if(document.visibilityState === "visible") checkForUpdate(false);
                 },1800000);
 
             }catch(error){
@@ -4785,7 +5148,7 @@ if("serviceWorker" in navigator){
                 "visible"
             ){
 
-                checkForUpdate();
+                checkForUpdate(false);
 
             }
 
@@ -5374,5 +5737,171 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
 </script>
 
 
+<style id="sayko-transparent-auto-hide-header">
+/* Transparent glass header that hides while scrolling down and returns while scrolling up. */
+body > header {
+  background: rgba(12, 12, 12, .24) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(125%) !important;
+  backdrop-filter: blur(12px) saturate(125%) !important;
+  border-bottom: 1px solid rgba(255,255,255,.055) !important;
+  box-shadow: 0 5px 22px rgba(0,0,0,.08) !important;
+  transition: transform .32s cubic-bezier(.2,.75,.25,1), background .25s ease !important;
+  will-change: transform;
+}
+body > header.sayko-header-hidden {
+  transform: translateY(-105%) !important;
+  pointer-events: none !important;
+}
+body > header.sayko-header-visible {
+  transform: translateY(0) !important;
+}
+</style>
+<script id="sayko-header-scroll-behavior">
+(() => {
+  const header = document.querySelector('body > header');
+  if (!header) return;
+  let lastY = Math.max(0, window.scrollY || 0);
+  let ticking = false;
+  const show = () => {
+    header.classList.remove('sayko-header-hidden');
+    header.classList.add('sayko-header-visible');
+  };
+  const hide = () => {
+    header.classList.add('sayko-header-hidden');
+    header.classList.remove('sayko-header-visible');
+  };
+  show();
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const y = Math.max(0, window.scrollY || 0);
+      const delta = y - lastY;
+      if (y <= 45) show();
+      else if (delta > 5) hide();
+      else if (delta < -5) show();
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
+
+
+<style id="sayko-goal-card-full-visible">
+/* Keep the complete daily-goal panel visible on every screen size. */
+main .goalCard{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+  margin-inline:0 !important;
+}
+main .goalCard *{box-sizing:border-box;min-width:0;}
+main .goalCard .goalTop{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap;
+}
+main .goalCard .goalTitle{flex:1 1 auto; min-width:0;}
+main .goalCard .editBtn{flex:0 0 auto; white-space:nowrap;}
+main .goalCard .totalCalories{white-space:normal; overflow-wrap:anywhere;}
+main .goalCard .progressInfo{
+  display:flex; justify-content:space-between; align-items:center;
+  gap:8px; flex-wrap:wrap; width:100%;
+}
+main .goalCard .progressInfo > span:last-child{
+  text-align:left; overflow-wrap:anywhere;
+}
+main .goalCard .progressBar{width:100%; max-width:100%;}
+@media(max-width:380px){
+  main .goalCard{padding:14px !important;}
+  main .goalCard .goalTitle{font-size:17px;}
+  main .goalCard .totalCalories{font-size:25px;}
+  main .goalCard .progressInfo{font-size:12px;}
+}
+</style>
+
+
+
+<style id="sayko-layout-repair-final">
+/* Clean, consistent header and a clear gap before the daily goal card. */
+body > header {
+  box-sizing: border-box !important;
+  position: relative !important;
+  top: auto !important; left: auto !important; right: auto !important;
+  width: 100% !important;
+  height: 78px !important; min-height: 78px !important;
+  padding: 0 8px !important;
+  display: grid !important;
+  grid-template-columns: minmax(42px,1fr) auto minmax(100px,1fr) !important;
+  align-items: center !important;
+  overflow: visible !important;
+  background: transparent !important; background-color: transparent !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  border: 0 !important; box-shadow: none !important;
+  z-index: 20 !important;
+}
+body > header .logo {
+  grid-column: 2 !important; grid-row: 1 !important;
+  position: relative !important; left: auto !important; top: auto !important;
+  justify-self: center !important; align-self: center !important;
+  transform: none !important; margin: 0 !important;
+  width: max-content !important; max-width: calc(100vw - 160px) !important;
+  white-space: nowrap !important; overflow: visible !important;
+  text-overflow: clip !important; text-align: center !important;
+  font-size: clamp(20px, 5.1vw, 30px) !important;
+  font-weight: 1000 !important; letter-spacing: .8px !important;
+  line-height: 1.1 !important; z-index: 2 !important;
+}
+body > header .logo span { font-weight: 1000 !important; }
+body > header .headerActions { display: contents !important; }
+body > header .headerTools {
+  grid-column: 3 !important; grid-row: 1 !important;
+  justify-self: end !important; align-self: center !important;
+  display: flex !important; flex-direction: row !important;
+  direction: rtl !important; align-items: center !important;
+  justify-content: flex-start !important; gap: 5px !important;
+  width: max-content !important; height: auto !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important;
+  position: relative !important; transform: none !important;
+  pointer-events: auto !important; z-index: 3 !important;
+}
+body > header .updateBtn {
+  grid-column: 1 !important; grid-row: 1 !important;
+  justify-self: start !important; align-self: center !important;
+  position: relative !important; inset: auto !important;
+  margin: 0 !important; transform: none !important; z-index: 3 !important;
+}
+body > header .menuBtn, body > header .tipsHeaderBtn {
+  position: relative !important; inset: auto !important; top: auto !important; bottom: auto !important;
+  margin: 0 !important; align-self: center !important; transform: none !important;
+}
+body > main {
+  position: relative !important; z-index: 1 !important;
+  padding-top: 22px !important;
+  scroll-margin-top: 90px !important;
+}
+main .goalCard { margin-top: 0 !important; }
+@media (max-width: 430px) {
+  body > header { padding-inline: 5px !important; grid-template-columns: minmax(38px,1fr) auto minmax(96px,1fr) !important; }
+  body > header .logo { font-size: clamp(20px, 5.1vw, 24px) !important; letter-spacing: .25px !important; max-width: calc(100vw - 140px) !important; }
+  body > header .headerTools { gap: 4px !important; }
+  body > header .menuBtn { width: 36px !important; min-width: 36px !important; height: 38px !important; }
+  body > header .tipsHeaderBtn { width: 50px !important; min-width: 50px !important; padding-inline: 3px !important; font-size: 10px !important; }
+  body > header .updateBtn { width: 38px !important; min-width: 38px !important; height: 38px !important; }
+}
+@media (max-width: 350px) {
+  body > header .logo { font-size: 18px !important; letter-spacing: 0 !important; max-width: calc(100vw - 130px) !important; }
+  body > header .menuBtn { width: 33px !important; min-width: 33px !important; }
+  body > header .tipsHeaderBtn { width: 47px !important; min-width: 47px !important; font-size: 9px !important; }
+  body > header .updateBtn { width: 35px !important; min-width: 35px !important; }
+}
+</style>
 </body>
         </html>
+
