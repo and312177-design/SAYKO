@@ -1,97 +1,148 @@
-const CACHE_NAME = "sayko-fitness-v37";
 
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./1790471069347.jpg"
-];
+const CACHE_NAME = "sayko-fitness-v38";
+const APP_SHELL = ["./", "./index.html", "./manifest.json"];
 
-/* INSTALL */
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
 
-  // يترك التحديث ينتظر موافقة المستخدم
+    await Promise.all(APP_SHELL.map(async path => {
+      try {
+        const url = new URL(path, self.registration.scope).href;
+        const response = await fetch(url, { cache: "reload" });
+
+        if (response && response.ok) {
+          await cache.put(url, response.clone());
+        }
+      } catch (_) {
+        // تجاهل الملفات غير المتاحة مؤقتًا
+      }
+    })());
+  })());
 });
 
-/* ACTIVATE */
 self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys.map(key => {
-          if (key.startsWith("sayko-fitness-") && key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      ))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+
+    await Promise.all(
+      keys
+        .filter(key =>
+          key.startsWith("sayko-fitness-") &&
+          key !== CACHE_NAME
+        )
+        .map(key => caches.delete(key))
+    );
+
+    await self.clients.claim();
+  })());
 });
 
-/* FETCH */
 self.addEventListener("fetch", event => {
   const request = event.request;
 
-  // تجاهل الطلبات غير التابعة لنفس الموقع
-  if (new URL(request.url).origin !== self.location.origin) {
-    return;
-  }
+  if (request.method !== "GET") return;
 
-  // صفحات التطبيق: الشبكة أولاً ثم النسخة المحفوظة
+  const url = new URL(request.url);
+  const scopeURL = new URL(self.registration.scope);
+
+  if (url.origin !== scopeURL.origin) return;
+
+  // صفحات الموقع
   if (
     request.mode === "navigate" ||
     request.destination === "document"
   ) {
-    event.respondWith(
-      fetch(request, { cache: "no-store" })
-        .then(response => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => cache.put(request, copy));
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+
+      try {
+        const response = await fetch(request, {
+          cache: "no-store"
+        });
+
+        if (response && response.ok) {
+          await cache.put(request, response.clone());
+        }
+
+        return response;
+      } catch (_) {
+        const cached = await caches.match(request, {
+          ignoreSearch: true
+        });
+
+        if (cached) return cached;
+
+        const indexURL = new URL(
+          "index.html",
+          self.registration.scope
+        ).href;
+
+        const indexPage = await caches.match(indexURL, {
+          ignoreSearch: true
+        });
+
+        if (indexPage) return indexPage;
+
+        const rootPage = await caches.match(
+          self.registration.scope,
+          { ignoreSearch: true }
+        );
+
+        if (rootPage) return rootPage;
+
+        return new Response(
+          "افتح التطبيق بالإنترنت مرة واحدة أولاً حتى يتم حفظ النسخة للعمل دون اتصال.",
+          {
+            status: 503,
+            headers: {
+              "Content-Type": "text/plain; charset=utf-8"
+            }
           }
-          return response;
-        })
-        .catch(async () => {
-          return (
-            await caches.match(request) ||
-            await caches.match("./index.html") ||
-            new Response("الصفحة غير متاحة دون إنترنت. افتح التطبيق بالإنترنت مرة واحدة لتحميل الملفات.", {
-              headers: { "Content-Type": "text/plain; charset=utf-8" }
-            })
-          );
-        })
-    );
+        );
+      }
+    })());
 
     return;
   }
 
-  // الملفات والصور والموارد: الكاش أولاً
-  event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
+  // ملفات الموقع
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
 
-      return fetch(request).then(response => {
-        if (response && response.ok && response.type === "basic") {
-          const copy = response.clone();
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(request, copy));
+    if (cached) return cached;
+
+    try {
+      const response = await fetch(request);
+
+      if (
+        response &&
+        response.ok &&
+        response.type === "basic"
+      ) {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(request, response.clone());
+      }
+
+      return response;
+    } catch (_) {
+      return new Response(
+        "هذا الملف لم يتم حفظه على الجهاز بعد.",
+        {
+          status: 503,
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
+          }
         }
-        return response;
-      });
-    })
-  );
+      );
+    }
+  })());
 });
 
-/* UPDATE NOW */
 self.addEventListener("message", event => {
   if (
     event.data === "SKIP_WAITING" ||
-    (event.data && event.data.type === "SKIP_WAITING")
+    event.data?.type === "SKIP_WAITING"
   ) {
     self.skipWaiting();
   }
