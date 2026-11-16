@@ -5909,5 +5909,174 @@ main .goalCard .progressBar{width:100%; max-width:100%;}
 }
 </style>
 
+
+<style id="sayko-header-final-fix-20261116">
+/* Final override: keep header controls aligned on every mobile width. */
+body > header {
+  position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important;
+  width: 100% !important; height: 76px !important; min-height: 76px !important;
+  display: block !important; box-sizing: border-box !important;
+  padding: 0 12px !important; overflow: visible !important;
+  background: transparent !important; border: 0 !important; box-shadow: none !important;
+}
+body > header .headerActions {
+  position: absolute !important; inset: 0 !important; display: block !important;
+  width: auto !important; height: auto !important; margin: 0 !important; padding: 0 !important;
+  pointer-events: none !important;
+}
+body > header .logo {
+  position: absolute !important; left: 50% !important; top: 50% !important;
+  transform: translate(-50%,-50%) !important; margin: 0 !important;
+  width: max-content !important; max-width: calc(100vw - 190px) !important;
+  white-space: nowrap !important; text-align: center !important;
+  font-size: clamp(14px,4.4vw,23px) !important; line-height: 1 !important;
+  letter-spacing: .5px !important; font-weight: 1000 !important; z-index: 5 !important;
+}
+body > header .headerTools {
+  position: absolute !important; top: 50% !important; right: 12px !important; left: auto !important;
+  transform: translateY(-50%) !important; display: flex !important;
+  flex-direction: row !important; direction: rtl !important; align-items: center !important;
+  justify-content: center !important; gap: 8px !important; width: auto !important;
+  height: 46px !important; margin: 0 !important; padding: 0 !important;
+  z-index: 7 !important; pointer-events: auto !important;
+}
+body > header .menuBtn, body > header .updateBtn {
+  box-sizing: border-box !important; display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  width: 42px !important; min-width: 42px !important; height: 42px !important;
+  min-height: 42px !important; flex: 0 0 42px !important; padding: 0 !important;
+  margin: 0 !important; border-radius: 12px !important; line-height: 1 !important;
+  pointer-events: auto !important;
+}
+body > header .menuBtn { font-size: 25px !important; }
+body > header .tipsHeaderBtn {
+  box-sizing: border-box !important; display: inline-flex !important;
+  align-items: center !important; justify-content: center !important;
+  width: 58px !important; min-width: 58px !important; height: 40px !important;
+  min-height: 40px !important; flex: 0 0 58px !important; padding: 0 5px !important;
+  margin: 0 !important; border-radius: 11px !important; font-size: 12px !important;
+  font-weight: 900 !important; line-height: 1 !important; white-space: nowrap !important;
+}
+body > header .updateBtn {
+  position: absolute !important; top: 50% !important; left: 12px !important; right: auto !important;
+  transform: translateY(-50%) !important; z-index: 7 !important;
+}
+@media (max-width: 380px) {
+  body > header .headerTools { right: 6px !important; gap: 5px !important; }
+  body > header .updateBtn { left: 6px !important; }
+  body > header .menuBtn, body > header .updateBtn {
+    width: 38px !important; min-width: 38px !important; height: 38px !important;
+    min-height: 38px !important; flex-basis: 38px !important;
+  }
+  body > header .tipsHeaderBtn { width: 52px !important; min-width: 52px !important;
+    flex-basis: 52px !important; height: 36px !important; font-size: 10px !important; }
+  body > header .logo { max-width: calc(100vw - 165px) !important;
+    font-size: clamp(12px,3.8vw,15px) !important; letter-spacing: 0 !important; }
+}
+</style>
 </body>
         </html>
+
+
+<style id="sayko-final-header-layout-v4">
+/* Definitive mobile/desktop header alignment */
+html { scroll-padding-top: 82px !important; }
+body { padding-top: 76px !important; }
+body > header {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  width: 100% !important;
+  height: 76px !important; min-height: 76px !important;
+  box-sizing: border-box !important;
+  padding: 0 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  direction: ltr !important;
+  background: transparent !important;
+  z-index: 5000 !important;
+  overflow: visible !important;
+}
+body > header .logo {
+  position: absolute !important;
+  left: 50% !important; top: 50% !important;
+  transform: translate(-50%,-50%) !important;
+  margin: 0 !important; padding: 0 !important;
+  width: max-content !important; max-width: calc(100vw - 180px) !important;
+  text-align: center !important; white-space: nowrap !important;
+  font-family: Arial, sans-serif !important;
+  font-size: clamp(15px, 4.5vw, 21px) !important;
+  line-height: 1.15 !important; font-weight: 1000 !important;
+  letter-spacing: .45px !important;
+  z-index: 2 !important;
+}
+body > header .logo span { font-weight: 1000 !important; }
+body > header .headerActions {
+  position: absolute !important;
+  top: 0 !important; left: 8px !important; right: 8px !important;
+  width: auto !important; height: 76px !important; min-height: 76px !important;
+  margin: 0 !important; padding: 0 !important;
+  display: flex !important; flex-direction: row !important;
+  align-items: center !important; justify-content: space-between !important;
+  direction: ltr !important; gap: 6px !important;
+  transform: none !important; animation: none !important;
+  pointer-events: none !important; z-index: 3 !important;
+}
+/* Bell stays at the far left */
+body > header .headerActions > .updateBtn {
+  order: 0 !important; position: relative !important;
+  inset: auto !important; flex: 0 0 42px !important;
+  width: 42px !important; min-width: 42px !important;
+  height: 42px !important; min-height: 42px !important;
+  margin: 0 !important; padding: 0 !important;
+  display: inline-flex !important; align-items: center !important;
+  justify-content: center !important; border-radius: 50% !important;
+  pointer-events: auto !important; transform: none !important;
+  z-index: 4 !important;
+}
+/* On the right: hamburger first at the edge, tips immediately to its left */
+body > header .headerTools {
+  order: 1 !important; position: relative !important;
+  inset: auto !important; flex: 0 0 auto !important;
+  width: max-content !important; height: 48px !important; min-height: 48px !important;
+  margin: 0 !important; padding: 0 !important;
+  display: flex !important; flex-direction: row !important;
+  direction: rtl !important; align-items: center !important;
+  justify-content: flex-start !important; gap: 7px !important;
+  transform: none !important; z-index: 4 !important;
+}
+body > header .headerTools > .menuBtn {
+  order: 0 !important; position: relative !important; inset: auto !important;
+  flex: 0 0 42px !important; width: 42px !important; min-width: 42px !important;
+  height: 42px !important; min-height: 42px !important;
+  margin: 0 !important; padding: 0 !important;
+  display: inline-flex !important; align-items: center !important;
+  justify-content: center !important; font-size: 27px !important;
+  transform: none !important; pointer-events: auto !important;
+}
+body > header .headerTools > .tipsHeaderBtn {
+  order: 1 !important; position: relative !important; inset: auto !important;
+  flex: 0 0 58px !important; width: 58px !important; min-width: 58px !important;
+  height: 36px !important; min-height: 36px !important;
+  margin: 0 !important; padding: 0 5px !important;
+  display: inline-flex !important; align-items: center !important;
+  justify-content: center !important; font-size: 12px !important;
+  line-height: 1 !important; white-space: nowrap !important;
+  transform: none !important; pointer-events: auto !important;
+}
+body > main {
+  position: relative !important; z-index: 1 !important;
+  margin-top: 0 !important; padding-top: 18px !important;
+}
+body > main .goalCard { margin-top: 0 !important; }
+@media (max-width: 380px) {
+  body > header { padding-inline: 7px !important; }
+  body > header .headerActions { left: 5px !important; right: 5px !important; }
+  body > header .headerActions > .updateBtn,
+  body > header .headerTools > .menuBtn { flex-basis: 38px !important; width: 38px !important; min-width: 38px !important; height: 40px !important; }
+  body > header .headerTools { gap: 4px !important; }
+  body > header .headerTools > .tipsHeaderBtn { flex-basis: 52px !important; width: 52px !important; min-width: 52px !important; font-size: 11px !important; }
+  body > header .logo { font-size: clamp(13px, 4vw, 16px) !important; max-width: calc(100vw - 155px) !important; letter-spacing: 0 !important; }
+}
+</style>
+
