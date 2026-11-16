@@ -4909,7 +4909,7 @@ installBtn.addEventListener("click", async () => {
     if (choice.outcome === "accepted") {
         installBox.style.display = "none";
         saykoInstallFlowCompleted = true;
-        try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+        try { localStorage.setItem("saykoInstalledPending_v3", "1"); } catch(e) {}
         // افتح الجولة فور إغلاق نافذة التثبيت التابعة للمتصفح.
         setTimeout(saykoLaunchTutorialAfterInstallModal, 120);
     }
@@ -4924,12 +4924,12 @@ function saykoLaunchTutorialAfterInstallModal(){
     if (installBox) installBox.style.display = "none";
 
     let seen = false;
-    try { seen = localStorage.getItem("saykoTutorialSeen_v2") === "1"; } catch(e) {}
+    try { seen = localStorage.getItem("saykoTutorialSeen_v3") === "1"; } catch(e) {}
 
     if (!seen) {
         // Set the guard BEFORE opening the overlay to prevent duplicate opens.
         saykoTutorialOpenedAfterInstall = true;
-        try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+        try { localStorage.removeItem("saykoInstalledPending_v3"); } catch(e) {}
         openTutorial(false);
     } else {
         saykoTutorialOpenedAfterInstall = true;
@@ -4953,8 +4953,8 @@ function saykoOpenTutorialAfterInstallClose(){
     let pending = false;
     let seen = false;
     try {
-        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
-        seen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
+        pending = localStorage.getItem("saykoInstalledPending_v3") === "1";
+        seen = localStorage.getItem("saykoTutorialSeen_v3") === "1";
     } catch(e) {}
     if(!pending || seen || !saykoInstallFlowCompleted) return;
 
@@ -4964,13 +4964,13 @@ function saykoOpenTutorialAfterInstallClose(){
     if(installBox && getComputedStyle(installBox).display !== "none") return;
 
     saykoTutorialOpenedAfterInstall = true;
-    try { localStorage.removeItem("saykoInstalledPending_v2"); } catch(e) {}
+    try { localStorage.removeItem("saykoInstalledPending_v3"); } catch(e) {}
     openTutorial(false);
 }
 
 window.addEventListener("appinstalled", () => {
     saykoInstallFlowCompleted = true;
-    try { localStorage.setItem("saykoInstalledPending_v2", "1"); } catch(e) {}
+    try { localStorage.setItem("saykoInstalledPending_v3", "1"); } catch(e) {}
     requestAnimationFrame(() => setTimeout(saykoLaunchTutorialAfterInstallModal, 180));
 });
 
@@ -5068,7 +5068,7 @@ function closeTutorial(){
 }
 
 function finishTutorial(){
-    try { localStorage.setItem("saykoTutorialSeen_v2", "1"); } catch(e) {}
+    try { localStorage.setItem("saykoTutorialSeen_v3", "1"); } catch(e) {}
     const wasManual = saykoTutorialManualMode;
     closeTutorial();
     // في الشرح اليدوي من القائمة نرجع للتطبيق فقط؛ صفحة بياناتي تفتح بعد شرح أول تشغيل فقط.
@@ -5099,14 +5099,14 @@ function saykoShowFirstLaunchTutorial() {
     let pending = false;
     let alreadySeen = false;
     try {
-        alreadySeen = localStorage.getItem("saykoTutorialSeen_v2") === "1";
-        pending = localStorage.getItem("saykoInstalledPending_v2") === "1";
+        alreadySeen = localStorage.getItem("saykoTutorialSeen_v3") === "1";
+        pending = localStorage.getItem("saykoInstalledPending_v3") === "1";
 
         // Chrome's menu option "Install app / Add to Home screen" does not
         // reliably fire the appinstalled event. Detect the actual standalone
         // launch instead, then queue the first-run tutorial on this device.
         if (isSaykoInstalled() && !alreadySeen) {
-            localStorage.setItem("saykoInstalledPending_v2", "1");
+            localStorage.setItem("saykoInstalledPending_v3", "1");
             pending = true;
         }
     } catch(e) {}
