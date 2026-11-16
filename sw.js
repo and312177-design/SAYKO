@@ -1,200 +1,98 @@
-const CACHE_NAME = "sayko-fitness-v36";
+const CACHE_NAME = "sayko-fitness-v37";
 
 const FILES_TO_CACHE = [
-"./",
-"./index.html",
-"./manifest.json",
-"./1790471069347.jpg"
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./1790471069347.jpg"
 ];
 
-/* ================================
-INSTALL
-================================ */
-
+/* INSTALL */
 self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(FILES_TO_CACHE))
+  );
 
-event.waitUntil(  
-
-    caches.open(CACHE_NAME)  
-    .then(cache => {  
-
-        return cache.addAll(FILES_TO_CACHE);  
-
-    })  
-
-);  
-
-/*  
-   لا نستخدم skipWaiting هنا.  
-   النسخة الجديدة تنتظر حتى يضغط  
-   المستخدم على "تحديث الآن".  
-*/
-
+  // يترك التحديث ينتظر موافقة المستخدم
 });
 
-/* ================================
-ACTIVATE
-================================ */
-
+/* ACTIVATE */
 self.addEventListener("activate", event => {
-
-event.waitUntil(  
-
-    caches.keys()  
-    .then(keys => {  
-
-        return Promise.all(  
-
-            keys.map(key => {  
-
-                if(key !== CACHE_NAME){  
-
-                    return caches.delete(key);  
-
-                }  
-
-                return null;  
-
-            })  
-
-        );  
-
-    })  
-    .then(() => {  
-
-        return self.clients.claim();  
-
-    })  
-
-);
-
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.map(key => {
+          if (key.startsWith("sayko-fitness-") && key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      ))
+      .then(() => self.clients.claim())
+  );
 });
 
-/* ================================
-FETCH
-================================ */
-
+/* FETCH */
 self.addEventListener("fetch", event => {
+  const request = event.request;
 
-/*  
-   صفحات HTML:  
-   نحاول دائمًا الحصول على أحدث نسخة  
-   من السيرفر أولًا.  
-*/  
+  // تجاهل الطلبات غير التابعة لنفس الموقع
+  if (new URL(request.url).origin !== self.location.origin) {
+    return;
+  }
 
-if(  
-    event.request.mode === "navigate" ||  
-    event.request.destination === "document"  
-){  
+  // صفحات التطبيق: الشبكة أولاً ثم النسخة المحفوظة
+  if (
+    request.mode === "navigate" ||
+    request.destination === "document"
+  ) {
+    event.respondWith(
+      fetch(request, { cache: "no-store" })
+        .then(response => {
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(async () => {
+          return (
+            await caches.match(request) ||
+            await caches.match("./index.html") ||
+            new Response("الصفحة غير متاحة دون إنترنت. افتح التطبيق بالإنترنت مرة واحدة لتحميل الملفات.", {
+              headers: { "Content-Type": "text/plain; charset=utf-8" }
+            })
+          );
+        })
+    );
 
-    event.respondWith(  
+    return;
+  }
 
-        fetch(event.request, {  
-            cache: "no-store"  
-        })  
+  // الملفات والصور والموارد: الكاش أولاً
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
 
-        .then(response => {  
-
-            const copy = response.clone();  
-
-            caches.open(CACHE_NAME)  
-            .then(cache => {  
-
-                cache.put(  
-                    event.request,  
-                    copy  
-                );  
-
-            });  
-
-            return response;  
-
-        })  
-
-        .catch(() => {  
-
-            return caches.match(  
-                event.request  
-            );  
-
-        })  
-
-    );  
-
-    return;  
-
-}  
-
-
-/*  
-   باقي الملفات:  
-   نستخدم الكاش أولًا،  
-   وإذا لم نجد الملف نحاول تحميله من السيرفر.  
-*/  
-
-event.respondWith(  
-
-    caches.match(event.request)  
-
-    .then(cached => {  
-
-        if(cached){  
-
-            return cached;  
-
-        }  
-
-        return fetch(event.request)  
-
-        .then(response => {  
-
-            if(  
-                response &&  
-                response.status === 200 &&  
-                response.type === "basic"  
-            ){  
-
-                const copy =  
-                    response.clone();  
-
-                caches.open(CACHE_NAME)  
-                .then(cache => {  
-
-                    cache.put(  
-                        event.request,  
-                        copy  
-                    );  
-
-                });  
-
-            }  
-
-            return response;  
-
-        });  
-
-    })  
-
-);
-
+      return fetch(request).then(response => {
+        if (response && response.ok && response.type === "basic") {
+          const copy = response.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => cache.put(request, copy));
+        }
+        return response;
+      });
+    })
+  );
 });
 
-/* ================================
-UPDATE NOW
-================================ */
-
+/* UPDATE NOW */
 self.addEventListener("message", event => {
-
-if(  
-    event.data === "SKIP_WAITING" ||  
-    (  
-        event.data &&  
-        event.data.type === "SKIP_WAITING"  
-    )  
-){  
-
-    self.skipWaiting();  
-
-}
-
+  if (
+    event.data === "SKIP_WAITING" ||
+    (event.data && event.data.type === "SKIP_WAITING")
+  ) {
+    self.skipWaiting();
+  }
 });
