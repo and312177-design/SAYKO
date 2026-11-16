@@ -1400,19 +1400,6 @@ button:active,.menuItem:active,.tutorialAction:active{transform:scale(.97);filte
   box-shadow:0 2px 8px rgba(143,16,24,.28);
 }
 .sideMenu{transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .25s ease}
-.founderMenuItem{position:relative}
-.founderMenuArrow{margin-inline-start:auto;font-size:24px;line-height:1;color:#c77a83}
-.founderCardOverlay{position:fixed;inset:0;z-index:10050;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
-.founderCardOverlay.open{display:flex}
-.founderMiniCard{position:relative;width:min(100%,360px);padding:30px 23px 25px;border:1px solid rgba(190,65,78,.48);border-radius:25px;background:linear-gradient(155deg,#191919,#090909 72%);color:#fff;text-align:center;box-shadow:0 22px 70px rgba(0,0,0,.48);animation:saykoModalIn .25s ease both}
-.founderMiniClose{position:absolute;top:10px;left:12px;width:34px;height:34px;border:1px solid #383838;border-radius:50%;background:#222;color:#fff;font-size:23px;line-height:1}
-.founderMiniMark{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 13px;border:1px solid #a52a38;border-radius:17px;background:linear-gradient(145deg,#8f1018,#30080d);font-size:27px;font-weight:900;letter-spacing:-2px}
-.founderMiniEyebrow{margin:0 0 7px;color:#d27b85;font-size:10px;letter-spacing:3px;direction:ltr}
-.founderMiniCard h2{margin:0;color:#fff;font-size:25px;font-weight:850}
-.founderMiniRole{margin:5px 0 14px;color:#d98b94;font-size:12px;letter-spacing:.4px;direction:ltr}
-.founderMiniCopy{margin:0 auto 19px;max-width:285px;color:#c8c8c8;font-size:13px;line-height:1.9}
-.founderMiniInstagram{display:inline-flex;align-items:center;gap:6px;padding:10px 15px;border:1px solid #87303a;border-radius:12px;background:rgba(143,16,24,.16);color:#fff;text-decoration:none;font-size:12px}
-.founderMiniInstagram span{color:#e49aa2;direction:ltr}
 .tutorialShell{animation:saykoModalIn .32s cubic-bezier(.2,.8,.2,1) both}
 #installBox > div{animation:saykoModalIn .32s cubic-bezier(.2,.8,.2,1) both}
 input,select,textarea{transition:border-color .18s ease,box-shadow .18s ease}
@@ -1514,29 +1501,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
 
         </button>
 
-        <button class="menuItem founderMenuItem"
-                type="button"
-                onclick="closeMenu(); openFounderCard();">
-            <span class="icon">✦</span>
-            <span>عن المؤسس</span>
-            <span class="founderMenuArrow" aria-hidden="true">‹</span>
-        </button>
 
     </div>
 
-</div>
-
-<!-- ================= FOUNDER MINI CARD ================= -->
-<div id="founderCardOverlay" class="founderCardOverlay" onclick="if(event.target===this)closeFounderCard()" aria-hidden="true">
-  <section class="founderMiniCard" role="dialog" aria-modal="true" aria-labelledby="founderMiniTitle" dir="rtl">
-    <button class="founderMiniClose" type="button" onclick="closeFounderCard()" aria-label="إغلاق">×</button>
-    <div class="founderMiniMark" aria-hidden="true">S</div>
-    <p class="founderMiniEyebrow">THE CREATOR</p>
-    <h2 id="founderMiniTitle">عمار سعيد</h2>
-    <p class="founderMiniRole">Founder &amp; Creator</p>
-    <p class="founderMiniCopy">مؤسس SAYKØ FITNESS، منصة تساعدك تتابع أهدافك في اللياقة والتغذية.</p>
-    <a class="founderMiniInstagram" href="https://www.instagram.com/ammar_sayko/" target="_blank" rel="noopener noreferrer">Instagram <span>@ammar_sayko</span> ↗</a>
-  </section>
 </div>
 
 <!-- ================= SAYKO TUTORIAL ================= -->
@@ -1852,19 +1819,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
             معلقتين كبار = 30 جرام تقريبًا لهذه الأكلة
         </div>
 
-        <div class="inputGroup">
+        <div class="inputGroup" id="quantityInputGroup">
 
-            <label id="quantityLabel">
-                الكمية بالجرام
-            </label>
+            <label id="quantityLabel">الكمية بالجرام</label>
 
-            <input id="foodQuantity"
-                   type="number"
-                   min="1"
-                   value="100"
-                   placeholder="الكمية بالجرام"
-                   oninput="updateLiveNutrition()">
+            <input id="foodQuantity" type="number" min="1" value="100"
+                   placeholder="الكمية بالجرام" oninput="updateLiveNutrition()">
 
+        </div>
+
+        <div id="spoonSyncGroup" class="spoonSyncGroup" style="display:none">
+            <div class="spoonSyncField">
+                <label for="spoonCountInput">عدد المعالق</label>
+                <input id="spoonCountInput" type="number" min="0" step="0.5" value="1" oninput="syncGramsFromSpoons()">
+            </div>
+            <div class="spoonSyncEquals">=</div>
+            <div class="spoonSyncField">
+                <label for="spoonGramInput">الوزن بالجرام</label>
+                <input id="spoonGramInput" type="number" min="0" step="1" value="15" oninput="syncSpoonsFromGrams()">
+            </div>
         </div>
 
 
@@ -3262,22 +3235,6 @@ function closeMenu(){
 
 }
 
-function openFounderCard(){
-    const overlay=document.getElementById("founderCardOverlay");
-    if(!overlay)return;
-    overlay.classList.add("open");
-    overlay.setAttribute("aria-hidden","false");
-    document.body.style.overflow="hidden";
-}
-
-function closeFounderCard(){
-    const overlay=document.getElementById("founderCardOverlay");
-    if(!overlay)return;
-    overlay.classList.remove("open");
-    overlay.setAttribute("aria-hidden","true");
-    document.body.style.overflow="";
-}
-
 
 /* ================= FOODS ================= */
 
@@ -3522,6 +3479,22 @@ function updateSpoonConversionNote(){
     note.textContent = `المعلقة الكبيرة = ${formatNumber(one)} جرام · معلقتين كبار = ${formatNumber(one * 2)} جرام`;
 }
 
+function syncGramsFromSpoons(){
+    if(!selectedFood) return;
+    const count=Math.max(0,Number(document.getElementById("spoonCountInput").value)||0);
+    const one=Number(selectedFood.spoonGrams)||15;
+    document.getElementById("spoonGramInput").value= count ? formatNumber(count*one) : 0;
+    updateLiveNutrition();
+}
+
+function syncSpoonsFromGrams(){
+    if(!selectedFood) return;
+    const grams=Math.max(0,Number(document.getElementById("spoonGramInput").value)||0);
+    const one=Number(selectedFood.spoonGrams)||15;
+    document.getElementById("spoonCountInput").value= grams ? formatNumber(grams/one) : 0;
+    updateLiveNutrition();
+}
+
 function setUnit(unit){
 
     if(!selectedFood) return;
@@ -3533,7 +3506,19 @@ function setUnit(unit){
         unit="gram";
     }
 
+    const previousUnit=currentUnit;
+    if(unit==="spoon" && previousUnit!=="spoon"){
+        const one=Number(selectedFood.spoonGrams)||15;
+        document.getElementById("spoonCountInput").value=1;
+        document.getElementById("spoonGramInput").value=one;
+    }else if(previousUnit==="spoon" && unit!=="spoon"){
+        const grams=Number(document.getElementById("spoonGramInput").value)||0;
+        document.getElementById("foodQuantity").value=grams || 1;
+    }
+
     currentUnit=unit;
+    document.getElementById("quantityInputGroup").style.display=unit==="spoon"?"none":"block";
+    document.getElementById("spoonSyncGroup").style.display=unit==="spoon"?"flex":"none";
 
     updateSpoonConversionNote();
     updateUnitButtons();
@@ -3619,23 +3604,14 @@ function getCurrentGrams(){
         return 0;
     }
 
-    const quantity=
-        parseFloat(
-            document.getElementById("foodQuantity").value
-        );
-
-    if(
-        !quantity ||
-        quantity<=0
-    ){
-        return 0;
+    if(currentUnit==="spoon"){
+        return Math.max(0,Number(document.getElementById("spoonGramInput").value)||0);
     }
+
+    const quantity=parseFloat(document.getElementById("foodQuantity").value);
+    if(!quantity || quantity<=0) return 0;
 
     let grams=quantity;
-
-    if(currentUnit==="spoon"){
-        grams=quantity*(Number(selectedFood.spoonGrams)||15);
-    }
 
     if(currentUnit==="piece"){
         grams=quantity*50;
@@ -3693,17 +3669,9 @@ function addFood(){
 
     if(!selectedFood) return;
 
-    const quantity=
-        parseFloat(
-            document
-            .getElementById("foodQuantity")
-            .value
-        );
+    const grams= getCurrentGrams();
 
-    if(
-        !quantity ||
-        quantity<=0
-    ){
+    if(!grams || grams<=0){
 
         showError(
             "من فضلك أدخل كمية صحيحة."
@@ -3711,9 +3679,6 @@ function addFood(){
 
         return;
     }
-
-    const grams=
-        getCurrentGrams();
 
     const ratio=
         grams/100;
@@ -5390,7 +5355,38 @@ document.addEventListener('click',function(e){if(e.target && e.target.id==='tips
 </script>
 
 
+<!-- SAYKØ FITNESS | Founder profile -->
+<section class="sayko-founder" aria-labelledby="sayko-founder-title" dir="rtl">
+  <div class="sayko-founder-inner">
+    <p class="sayko-founder-kicker">THE PERSON BEHIND THE BRAND</p>
+    <h2 id="sayko-founder-title">مؤسس SAYKØ FITNESS</h2>
+    <p class="sayko-founder-name">عمار سعيد</p>
+    <p class="sayko-founder-role">Founder &amp; Creator</p>
+    <p class="sayko-founder-copy">SAYKØ FITNESS منصة للياقة والتغذية، أُنشئت لتقديم أدوات ومعلومات رقمية تساعد المستخدمين على متابعة أهدافهم وبناء عادات صحية.</p>
+    <div class="sayko-founder-links">
+      <a href="founder.html">اعرف المزيد عن المؤسس</a>
+      <a href="https://www.instagram.com/ammar_sayko/" target="_blank" rel="noopener noreferrer">Instagram @ammar_sayko</a>
+    </div>
+  </div>
+</section>
+<style>
+.sayko-founder{margin:36px 14px 24px;padding:1px;border-radius:22px;background:linear-gradient(135deg,#a51d2d,#343434 58%,#a51d2d);color:#fff}
+.sayko-founder-inner{padding:25px 20px;border-radius:21px;background:#101010;text-align:center}
+.sayko-founder-kicker{margin:0 0 10px;color:#d56b76;font-size:11px;letter-spacing:2px;direction:ltr}
+.sayko-founder h2{margin:0 0 12px;font-size:23px;color:#fff}
+.sayko-founder-name{margin:0;font-size:22px;font-weight:800;color:#fff}
+.sayko-founder-role{margin:6px 0 14px;color:#e18a93;font-size:13px;direction:ltr}
+.sayko-founder-copy{max-width:620px;margin:0 auto 18px;color:#c9c9c9;line-height:1.9;font-size:14px}
+.sayko-founder-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.sayko-founder-links a{display:inline-block;padding:10px 15px;border:1px solid #8f1018;border-radius:12px;color:#fff;text-decoration:none;font-size:13px}
+.sayko-founder-links a:first-child{background:#8f1018}
 
+.spoonSyncGroup{display:flex;align-items:end;gap:9px;margin:12px 0 16px;direction:rtl}
+.spoonSyncField{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.spoonSyncField label{font-size:12px;font-weight:800;color:var(--text,#fff)}
+.spoonSyncField input{width:100%;min-width:0;box-sizing:border-box;padding:12px 9px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;text-align:center;font-weight:800}
+.spoonSyncEquals{padding:0 2px 12px;color:var(--red,#e45b65);font-weight:900}
+</style>
 
 </body>
         </html>
