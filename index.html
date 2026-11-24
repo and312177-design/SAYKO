@@ -1860,6 +1860,35 @@ body > header .updateBtn .updateDot { top: 2px !important; right: 2px !important
 }
 </style>
 
+<style>
+/* رسالة الخطأ بنفس تصميم نافذة تثبيت SAYKO: خلفية داكنة وإطار/زر أحمر وكتابة بيضاء */
+#errorOverlay .errorBox {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #8f1018 !important;
+  border-radius: 20px !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,.38) !important;
+  box-sizing: border-box !important;
+  max-height: calc(100dvh - 40px) !important;
+  overflow-y: auto !important;
+}
+@media (max-width: 380px) {
+  #errorOverlay .errorBox { width: calc(100% - 32px) !important; padding: 20px 16px !important; }
+}
+#errorOverlay .errorBox h3,
+#errorOverlay .errorBox p,
+#errorOverlay .errorBox span {
+  color: #ffffff !important;
+}
+#errorOverlay .errorBox button {
+  background: #8f1018 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+</style>
 </head>
 
 
@@ -2866,6 +2895,19 @@ body > header .updateBtn .updateDot { top: 2px !important; right: 2px !important
 
   <script>
 
+/* قراءة بيانات التخزين بأمان حتى لا يتوقف التطبيق لو كانت البيانات تالفة */
+function saykoReadJSON(key, fallback, validator){
+    try {
+        const raw = localStorage.getItem(key);
+        if (raw === null || raw === "") return fallback;
+        const value = JSON.parse(raw);
+        return !validator || validator(value) ? value : fallback;
+    } catch (error) {
+        console.warn("تعذر قراءة بيانات SAYKO:", key, error);
+        return fallback;
+    }
+}
+
 /* =========================================================
    SAYKØ FITNESS
    LARGE FOOD DATABASE
@@ -3481,12 +3523,11 @@ function saveCustomFood(){
 
 /* ================= VARIABLES ================= */
 
-let selectedFoods =
-JSON.parse(localStorage.getItem("saykoFoods") || "[]");
+let selectedFoods = saykoReadJSON("saykoFoods", [], Array.isArray).filter(food => food && typeof food === "object" && typeof food.name === "string");
 
     
 let currentMeal = "الفطار";
-let mealNames = JSON.parse(localStorage.getItem("saykoMealNames") || "null") || ["الفطار","الغداء","العشاء"];
+let mealNames = saykoReadJSON("saykoMealNames", ["الفطار","الغداء","العشاء"], value => Array.isArray(value) && value.every(item => typeof item === "string"));
 
 // الحفاظ على الأكلات القديمة
 selectedFoods.forEach(food => {
@@ -3498,8 +3539,7 @@ function saveMealNames(){
 }
 
 // الوجبات المحفوظة: تُخزَّن محليًا على نفس الجهاز والمتصفح
-let savedMealTemplates = JSON.parse(localStorage.getItem("saykoSavedMealTemplates") || "[]");
-if (!Array.isArray(savedMealTemplates)) savedMealTemplates = [];
+let savedMealTemplates = saykoReadJSON("saykoSavedMealTemplates", [], Array.isArray);
 
 function persistSavedMealTemplates(){
     localStorage.setItem("saykoSavedMealTemplates", JSON.stringify(savedMealTemplates));
@@ -3658,15 +3698,12 @@ renderMealTabs();
 let selectedFood = null;
 let currentUnit = "gram";
 
-let goals =
-JSON.parse(localStorage.getItem("saykoGoals") || "null")
-||
-{
+let goals = saykoReadJSON("saykoGoals", {
     calories:2500,
     protein:150,
     carbs:300,
     fat:70
-};
+}, value => value && typeof value === "object" && !Array.isArray(value));
 
 let updateRegistration = null;
 let updateChecking = false;
@@ -4413,6 +4450,7 @@ function renderSelectedFoods(){
             لم تضف أطعمة إلى ${currentMeal} بعد
         </div>`;
 
+        updateMealTotals();
         return;
     }
 
@@ -5245,11 +5283,50 @@ if("serviceWorker" in navigator){
 
 loadTheme();
 
+// تصفير سجل الأكل والسعرات كل 24 ساعة، حتى لو كان التطبيق مغلقًا.
+const SAYKO_DAY_MS = 24 * 60 * 60 * 1000;
+const SAYKO_DAILY_RESET_KEY = "saykoDailyFoodResetAt_v1";
+function saykoCheckDailyFoodReset(){
+    const now = Date.now();
+    let lastReset = Number(localStorage.getItem(SAYKO_DAILY_RESET_KEY));
+
+    // أول تشغيل بعد إضافة الخاصية: يبدأ سجل اليوم من الصفر.
+    if (!lastReset || !Number.isFinite(lastReset)) {
+        selectedFoods = [];
+        localStorage.setItem("saykoFoods", "[]");
+        localStorage.setItem(SAYKO_DAILY_RESET_KEY, String(now));
+        return true;
+    }
+
+    if (now - lastReset >= SAYKO_DAY_MS) {
+        selectedFoods = [];
+        localStorage.setItem("saykoFoods", "[]");
+        localStorage.setItem(SAYKO_DAILY_RESET_KEY, String(now));
+        return true;
+    }
+    return false;
+}
+
+saykoCheckDailyFoodReset();
 renderFoods();
-
 renderSelectedFoods();
-
 updateProgress();
+
+// لو التطبيق مفتوح وقت اكتمال الـ24 ساعة، يتم التصفير تلقائيًا أيضًا.
+setInterval(() => {
+    if (saykoCheckDailyFoodReset()) {
+        renderSelectedFoods();
+        updateProgress();
+    }
+}, 60 * 1000);
+
+// فحص إضافي عند الرجوع للتطبيق بعد إغلاقه أو تركه بالخلفية.
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && saykoCheckDailyFoodReset()) {
+        renderSelectedFoods();
+        updateProgress();
+    }
+});
     
 
 </script>
