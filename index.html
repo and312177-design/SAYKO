@@ -1412,10 +1412,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
 <style id="sayko-pull-refresh-fix">
 /* Keep normal scrolling, but prevent browser pull-to-refresh from reloading the PWA. */
 html, body {
-  overscroll-behavior-y: none;
-  overscroll-behavior-x: none;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto;
+  overscroll-behavior-x: auto;
 }
 body {
+  position: static !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  touch-action: pan-y pan-x !important;
   -webkit-overflow-scrolling: touch;
 }
 </style>
@@ -3725,7 +3732,6 @@ function openMenu(){
 
     document.getElementById("sideMenu").classList.add("open");
     document.getElementById("sideOverlay").classList.add("show");
-    document.body.style.overflow="hidden";
 
 }
 
@@ -3733,7 +3739,6 @@ function closeMenu(){
 
     document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("sideOverlay").classList.remove("show");
-    document.body.style.overflow="";
 
 }
 
@@ -4230,43 +4235,17 @@ let analyzerSavedScrollY = 0;
 let analyzerBodyLock = null;
 
 function lockPageBehindAnalyzer(){
-    if(analyzerBodyLock) return;
-    analyzerSavedScrollY = window.scrollY || window.pageYOffset || 0;
-    analyzerBodyLock = {
-      position:document.body.style.position,
-      top:document.body.style.top,
-      left:document.body.style.left,
-      right:document.body.style.right,
-      width:document.body.style.width,
-      overflow:document.body.style.overflow
-    };
-    document.body.style.position="fixed";
-    document.body.style.top=`-${analyzerSavedScrollY}px`;
-    document.body.style.left="0";
-    document.body.style.right="0";
-    document.body.style.width="100%";
-    document.body.style.overflow="hidden";
+    // No page locking: the app remains scrollable while dialogs are open.
     const overlay=document.getElementById("analyzeFoodModal");
-    if(overlay){ overlay.style.overflow="hidden"; overlay.style.touchAction="pan-y"; }
     const panel=overlay && overlay.querySelector(".modal");
-    if(panel){ panel.style.overflowY="auto"; panel.style.touchAction="pan-y"; panel.style.overscrollBehavior="contain"; }
+    if(panel){ panel.style.overflowY="auto"; panel.style.webkitOverflowScrolling="touch"; }
 }
 function unlockPageBehindAnalyzer(){
-    if(!analyzerBodyLock) return;
-    const old=analyzerBodyLock;
-    document.body.style.position=old.position;
-    document.body.style.top=old.top;
-    document.body.style.left=old.left;
-    document.body.style.right=old.right;
-    document.body.style.width=old.width;
-    document.body.style.overflow=old.overflow;
     const overlay=document.getElementById("analyzeFoodModal");
-    if(overlay){ overlay.style.overflow=""; overlay.style.touchAction=""; }
     const panel=overlay && overlay.querySelector(".modal");
-    if(panel){ panel.style.overflowY=""; panel.style.touchAction=""; panel.style.overscrollBehavior=""; }
-    analyzerBodyLock=null;
-    window.scrollTo(0,analyzerSavedScrollY);
+    if(panel){ panel.style.overflowY=""; panel.style.webkitOverflowScrolling=""; }
 }
+
 function openAnalyzeFoodModal(){
     document.getElementById("analyzeFoodText").value = "";
     document.getElementById("analyzeFoodResults").innerHTML = "";
@@ -5399,31 +5378,10 @@ function isSaykoInstalled() {
     );
 }
 
-// تثبيت الخلفية في مكانها أثناء ظهور أي نافذة فوق الصفحة.
-let saykoSavedScrollY = 0;
-let saykoPageLocked = false;
-function saykoLockPageScroll(){
-    if(saykoPageLocked) return;
-    saykoSavedScrollY = window.scrollY || window.pageYOffset || 0;
-    saykoPageLocked = true;
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${saykoSavedScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-    document.body.style.overflow = "hidden";
-}
-function saykoUnlockPageScroll(){
-    if(!saykoPageLocked) return;
-    saykoPageLocked = false;
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-    document.body.style.overflow = "";
-    window.scrollTo(0, saykoSavedScrollY);
-}
+// Page scrolling is never locked by installation or tutorial dialogs.
+function saykoLockPageScroll(){}
+function saykoUnlockPageScroll(){}
+
 function showInstallMessage() {
     if(isSaykoInstalled()){
         installBox.style.display = "none";
@@ -6086,47 +6044,6 @@ body > main {
   touch-action: pan-y !important;
 }
 </style>
-<script id="sayko-scroll-emergency-v4-js">
-(() => {
-  function releaseStalePageLocks() {
-    // Modal/menu scripts may have left inline locks after a hide/offline transition.
-    if (document.documentElement) {
-      document.documentElement.style.overflowX = "hidden";
-      document.documentElement.style.overflowY = "auto";
-      document.documentElement.style.position = "";
-      document.documentElement.style.height = "";
-    }
-    if (document.body) {
-      document.body.style.position = "static";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      document.body.style.height = "";
-      document.body.style.maxHeight = "";
-      document.body.style.overflowX = "hidden";
-      document.body.style.overflowY = "visible";
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "pan-y";
-    }
-  }
-  releaseStalePageLocks();
-  window.addEventListener("online", releaseStalePageLocks);
-  window.addEventListener("offline", releaseStalePageLocks);
-  window.addEventListener("focus", releaseStalePageLocks);
-  window.addEventListener("pageshow", releaseStalePageLocks);
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) releaseStalePageLocks();
-  });
-  // Clear any lock re-applied by delayed startup code once the page has settled.
-  setTimeout(releaseStalePageLocks, 250);
-  setTimeout(releaseStalePageLocks, 1000);
-  setTimeout(releaseStalePageLocks, 2500);
-})();
-</script>
-
-</body>
-        </html>
 
 
 <style id="sayko-final-header-layout-v4">
@@ -6230,4 +6147,5 @@ body > main .goalCard { margin-top: 0 !important; }
   body > header .logo { font-size: clamp(13px, 4vw, 16px) !important; max-width: calc(100vw - 155px) !important; letter-spacing: 0 !important; }
 }
 </style>
-
+</body>
+</html>
