@@ -6051,6 +6051,38 @@ body > header .updateBtn {
     font-size: clamp(12px,3.8vw,15px) !important; letter-spacing: 0 !important; }
 }
 </style>
+
+<script id="sayko-offline-scroll-recovery-v1">
+(() => {
+  // Fail-safe: restore page scrolling when no full-screen overlay is actually open.
+  const visible = (el) => !!el && getComputedStyle(el).display !== 'none' &&
+    (el.classList.contains('show') || el.style.display === 'flex' || el.style.display === 'block');
+  function restoreIfNoOverlay() {
+    const install = document.getElementById('installBox');
+    const tutorial = document.getElementById('tutorialOverlay');
+    const analyzer = document.getElementById('analyzeFoodModal');
+    const menu = document.getElementById('sideOverlay');
+    if (visible(install) || visible(tutorial) || visible(analyzer) || (menu && menu.classList.contains('show'))) return;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.documentElement.style.overflowY = 'auto';
+    document.body.style.overflowY = 'auto';
+    if (typeof saykoUnlockPageScroll === 'function') saykoUnlockPageScroll();
+    if (typeof unlockPageBehindAnalyzer === 'function') unlockPageBehindAnalyzer();
+  }
+  // Ensure normal scrolling in offline mode and after the app returns from background.
+  window.addEventListener('offline', restoreIfNoOverlay);
+  window.addEventListener('online', restoreIfNoOverlay);
+  window.addEventListener('pageshow', restoreIfNoOverlay);
+  window.addEventListener('load', () => setTimeout(restoreIfNoOverlay, 250));
+  setTimeout(restoreIfNoOverlay, 800);
+})();
+</script>
+
 </body>
         </html>
 
