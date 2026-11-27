@@ -3725,7 +3725,6 @@ function openMenu(){
 
     document.getElementById("sideMenu").classList.add("open");
     document.getElementById("sideOverlay").classList.add("show");
-    document.documentElement.style.overflow="hidden";
     document.body.style.overflow="hidden";
 
 }
@@ -3734,13 +3733,7 @@ function closeMenu(){
 
     document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("sideOverlay").classList.remove("show");
-    document.documentElement.style.overflow="";
     document.body.style.overflow="";
-    document.body.style.position="";
-    document.body.style.top="";
-    document.body.style.left="";
-    document.body.style.right="";
-    document.body.style.width="";
 
 }
 
@@ -4240,10 +4233,18 @@ function lockPageBehindAnalyzer(){
     if(analyzerBodyLock) return;
     analyzerSavedScrollY = window.scrollY || window.pageYOffset || 0;
     analyzerBodyLock = {
-      htmlOverflow:document.documentElement.style.overflow,
-      bodyOverflow:document.body.style.overflow
+      position:document.body.style.position,
+      top:document.body.style.top,
+      left:document.body.style.left,
+      right:document.body.style.right,
+      width:document.body.style.width,
+      overflow:document.body.style.overflow
     };
-    document.documentElement.style.overflow="hidden";
+    document.body.style.position="fixed";
+    document.body.style.top=`-${analyzerSavedScrollY}px`;
+    document.body.style.left="0";
+    document.body.style.right="0";
+    document.body.style.width="100%";
     document.body.style.overflow="hidden";
     const overlay=document.getElementById("analyzeFoodModal");
     if(overlay){ overlay.style.overflow="hidden"; overlay.style.touchAction="pan-y"; }
@@ -4253,13 +4254,12 @@ function lockPageBehindAnalyzer(){
 function unlockPageBehindAnalyzer(){
     if(!analyzerBodyLock) return;
     const old=analyzerBodyLock;
-    document.documentElement.style.overflow=old.htmlOverflow;
-    document.body.style.overflow=old.bodyOverflow;
-    document.body.style.position="";
-    document.body.style.top="";
-    document.body.style.left="";
-    document.body.style.right="";
-    document.body.style.width="";
+    document.body.style.position=old.position;
+    document.body.style.top=old.top;
+    document.body.style.left=old.left;
+    document.body.style.right=old.right;
+    document.body.style.width=old.width;
+    document.body.style.overflow=old.overflow;
     const overlay=document.getElementById("analyzeFoodModal");
     if(overlay){ overlay.style.overflow=""; overlay.style.touchAction=""; }
     const panel=overlay && overlay.querySelector(".modal");
@@ -5406,21 +5406,23 @@ function saykoLockPageScroll(){
     if(saykoPageLocked) return;
     saykoSavedScrollY = window.scrollY || window.pageYOffset || 0;
     saykoPageLocked = true;
-    // Use overflow locking only. Fixed-body locking can permanently freeze
-    // scrolling in Android WebView/PWA after offline/background transitions.
-    document.documentElement.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${saykoSavedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
     document.body.style.overflow = "hidden";
 }
 function saykoUnlockPageScroll(){
+    if(!saykoPageLocked) return;
     saykoPageLocked = false;
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
     document.body.style.position = "";
     document.body.style.top = "";
     document.body.style.left = "";
     document.body.style.right = "";
     document.body.style.width = "";
-    if(Number.isFinite(saykoSavedScrollY)) window.scrollTo(0, saykoSavedScrollY);
+    document.body.style.overflow = "";
+    window.scrollTo(0, saykoSavedScrollY);
 }
 function showInstallMessage() {
     if(isSaykoInstalled()){
@@ -6049,37 +6051,77 @@ body > header .updateBtn {
     font-size: clamp(12px,3.8vw,15px) !important; letter-spacing: 0 !important; }
 }
 </style>
-<script id="sayko-offline-scroll-unfreeze-guard">
+
+<style id="sayko-scroll-emergency-v4">
+/* V4: Android/PWA document-scroll recovery. Keep the document as the scroll root. */
+html {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scroll-behavior: auto !important;
+  touch-action: pan-y !important;
+}
+body {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch !important;
+  background-attachment: scroll !important;
+}
+body > main {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  touch-action: pan-y !important;
+}
+</style>
+<script id="sayko-scroll-emergency-v4-js">
 (() => {
-  const hasVisibleLockUI = () => {
-    const shown = el => !!el && getComputedStyle(el).display !== "none" &&
-      (el.classList.contains("show") || el.id === "installBox");
-    return shown(document.getElementById("tutorialOverlay")) ||
-      shown(document.getElementById("analyzeFoodModal")) ||
-      shown(document.getElementById("sideOverlay")) ||
-      (document.getElementById("installBox") &&
-       getComputedStyle(document.getElementById("installBox")).display !== "none");
-  };
-  const restoreScrollIfUnblocked = () => {
-    if (hasVisibleLockUI()) return;
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-    document.body.style.touchAction = "pan-y";
-  };
-  window.addEventListener("online", restoreScrollIfUnblocked);
-  window.addEventListener("offline", restoreScrollIfUnblocked);
-  window.addEventListener("focus", restoreScrollIfUnblocked);
+  function releaseStalePageLocks() {
+    // Modal/menu scripts may have left inline locks after a hide/offline transition.
+    if (document.documentElement) {
+      document.documentElement.style.overflowX = "hidden";
+      document.documentElement.style.overflowY = "auto";
+      document.documentElement.style.position = "";
+      document.documentElement.style.height = "";
+    }
+    if (document.body) {
+      document.body.style.position = "static";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.height = "";
+      document.body.style.maxHeight = "";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "visible";
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "pan-y";
+    }
+  }
+  releaseStalePageLocks();
+  window.addEventListener("online", releaseStalePageLocks);
+  window.addEventListener("offline", releaseStalePageLocks);
+  window.addEventListener("focus", releaseStalePageLocks);
+  window.addEventListener("pageshow", releaseStalePageLocks);
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) restoreScrollIfUnblocked();
+    if (!document.hidden) releaseStalePageLocks();
   });
-  window.addEventListener("pageshow", restoreScrollIfUnblocked);
-  setTimeout(restoreScrollIfUnblocked, 500);
-  setTimeout(restoreScrollIfUnblocked, 1500);
+  // Clear any lock re-applied by delayed startup code once the page has settled.
+  setTimeout(releaseStalePageLocks, 250);
+  setTimeout(releaseStalePageLocks, 1000);
+  setTimeout(releaseStalePageLocks, 2500);
 })();
 </script>
 
@@ -6188,5 +6230,4 @@ body > main .goalCard { margin-top: 0 !important; }
   body > header .logo { font-size: clamp(13px, 4vw, 16px) !important; max-width: calc(100vw - 155px) !important; letter-spacing: 0 !important; }
 }
 </style>
-
 
