@@ -95,13 +95,9 @@ body.light{
 
 body{
     background-color:var(--bg);
-    /* شعار SAYKØ أوضح مع زخارف هندسية خفيفة */
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='620' viewBox='0 0 900 620'%3E%3Cdefs%3E%3ClinearGradient id='r' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23e50914' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23e50914' stop-opacity='.04'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23r)' stroke-width='2'%3E%3Ccircle cx='450' cy='310' r='235' stroke-dasharray='3 13'/%3E%3Ccircle cx='450' cy='310' r='260' stroke-opacity='.45'/%3E%3Cpath d='M90 310H245 M655 310H810 M450 35V105 M450 515V585'/%3E%3Cpath d='M170 115l34 34-34 34-34-34z M730 115l34 34-34 34-34-34z M170 437l34 34-34 34-34-34z M730 437l34 34-34 34-34-34z'/%3E%3C/g%3E%3Ctext x='50%25' y='51%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='158' font-weight='900' font-style='italic' letter-spacing='8' fill='%23ffffff' fill-opacity='.115' stroke='%23e50914' stroke-opacity='.28' stroke-width='2.5'%3ESAYK%C3%98%3C/text%3E%3Ctext x='50%25' y='61%25' text-anchor='middle' font-family='Arial,sans-serif' font-size='27' font-weight='700' letter-spacing='13' fill='%23e85b65' fill-opacity='.20'%3EF I T N E S S%3C/text%3E%3C/svg%3E");
-    background-repeat:no-repeat;
-    background-position:center 55%;
-    background-size:min(96vw,700px) auto;
-    background-attachment:fixed;
+    /* الخلفية ثابتة عبر عنصر مستقل حتى لا تتحرك مع سكرول أندرويد */
     color:var(--text);
+    isolation:isolate;
     min-height:100vh;
     padding-top:70px;
     transition:.25s;
@@ -1406,6 +1402,19 @@ input,select,textarea{transition:border-color .18s ease,box-shadow .18s ease}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1018)!important;box-shadow:0 0 0 3px rgba(143,16,24,.13)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='620' viewBox='0 0 900 620'%3E%3Cdefs%3E%3ClinearGradient id='r' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23e50914' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23e50914' stop-opacity='.04'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23r)' stroke-width='2'%3E%3Ccircle cx='450' cy='310' r='235' stroke-dasharray='3 13'/%3E%3Ccircle cx='450' cy='310' r='260' stroke-opacity='.45'/%3E%3Cpath d='M90 310H245 M655 310H810 M450 35V105 M450 515V585'/%3E%3Cpath d='M170 115l34 34-34 34-34-34z M730 115l34 34-34 34-34-34z M170 437l34 34-34 34-34-34z M730 437l34 34-34 34-34-34z'/%3E%3C/g%3E%3Ctext x='50%25' y='51%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='158' font-weight='900' font-style='italic' letter-spacing='8' fill='%23ffffff' fill-opacity='.115' stroke='%23e50914' stroke-opacity='.28' stroke-width='2.5'%3ESAYK%C3%98%3C/text%3E%3Ctext x='50%25' y='61%25' text-anchor='middle' font-family='Arial,sans-serif' font-size='27' font-weight='700' letter-spacing='13' fill='%23e85b65' fill-opacity='.20'%3EF I T N E S S%3C/text%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:center 55%;
+    background-size:min(96vw,700px) auto;
 }
 
 </style>
