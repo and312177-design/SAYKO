@@ -1412,17 +1412,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red,#8f1
 <style id="sayko-pull-refresh-fix">
 /* Keep normal scrolling, but prevent browser pull-to-refresh from reloading the PWA. */
 html, body {
-  overflow-x: hidden;
-  overflow-y: auto !important;
-  overscroll-behavior-y: auto;
-  overscroll-behavior-x: auto;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
 }
 body {
-  position: static !important;
-  height: auto !important;
-  max-height: none !important;
-  overflow-y: auto !important;
-  touch-action: pan-y pan-x !important;
   -webkit-overflow-scrolling: touch;
 }
 </style>
@@ -1896,6 +1889,15 @@ body > header .updateBtn .updateDot { top: 2px !important; right: 2px !important
   border: 0 !important;
 }
 </style>
+<script>
+// SAYKO: online/offline state only; does not change the original UI design.
+(function(){
+  function sync(){ document.documentElement.dataset.saykoOffline = navigator.onLine ? "false" : "true"; }
+  sync();
+  window.addEventListener("online", sync);
+  window.addEventListener("offline", sync);
+})();
+</script>
 </head>
 
 
@@ -3732,6 +3734,7 @@ function openMenu(){
 
     document.getElementById("sideMenu").classList.add("open");
     document.getElementById("sideOverlay").classList.add("show");
+    document.body.style.overflow="hidden";
 
 }
 
@@ -3739,6 +3742,7 @@ function closeMenu(){
 
     document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("sideOverlay").classList.remove("show");
+    document.body.style.overflow="";
 
 }
 
@@ -4235,17 +4239,43 @@ let analyzerSavedScrollY = 0;
 let analyzerBodyLock = null;
 
 function lockPageBehindAnalyzer(){
-    // No page locking: the app remains scrollable while dialogs are open.
+    if(analyzerBodyLock) return;
+    analyzerSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    analyzerBodyLock = {
+      position:document.body.style.position,
+      top:document.body.style.top,
+      left:document.body.style.left,
+      right:document.body.style.right,
+      width:document.body.style.width,
+      overflow:document.body.style.overflow
+    };
+    document.body.style.position="fixed";
+    document.body.style.top=`-${analyzerSavedScrollY}px`;
+    document.body.style.left="0";
+    document.body.style.right="0";
+    document.body.style.width="100%";
+    document.body.style.overflow="hidden";
     const overlay=document.getElementById("analyzeFoodModal");
+    if(overlay){ overlay.style.overflow="hidden"; overlay.style.touchAction="pan-y"; }
     const panel=overlay && overlay.querySelector(".modal");
-    if(panel){ panel.style.overflowY="auto"; panel.style.webkitOverflowScrolling="touch"; }
+    if(panel){ panel.style.overflowY="auto"; panel.style.touchAction="pan-y"; panel.style.overscrollBehavior="contain"; }
 }
 function unlockPageBehindAnalyzer(){
+    if(!analyzerBodyLock) return;
+    const old=analyzerBodyLock;
+    document.body.style.position=old.position;
+    document.body.style.top=old.top;
+    document.body.style.left=old.left;
+    document.body.style.right=old.right;
+    document.body.style.width=old.width;
+    document.body.style.overflow=old.overflow;
     const overlay=document.getElementById("analyzeFoodModal");
+    if(overlay){ overlay.style.overflow=""; overlay.style.touchAction=""; }
     const panel=overlay && overlay.querySelector(".modal");
-    if(panel){ panel.style.overflowY=""; panel.style.webkitOverflowScrolling=""; }
+    if(panel){ panel.style.overflowY=""; panel.style.touchAction=""; panel.style.overscrollBehavior=""; }
+    analyzerBodyLock=null;
+    window.scrollTo(0,analyzerSavedScrollY);
 }
-
 function openAnalyzeFoodModal(){
     document.getElementById("analyzeFoodText").value = "";
     document.getElementById("analyzeFoodResults").innerHTML = "";
@@ -5378,10 +5408,31 @@ function isSaykoInstalled() {
     );
 }
 
-// Page scrolling is never locked by installation or tutorial dialogs.
-function saykoLockPageScroll(){}
-function saykoUnlockPageScroll(){}
-
+// تثبيت الخلفية في مكانها أثناء ظهور أي نافذة فوق الصفحة.
+let saykoSavedScrollY = 0;
+let saykoPageLocked = false;
+function saykoLockPageScroll(){
+    if(saykoPageLocked) return;
+    saykoSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    saykoPageLocked = true;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${saykoSavedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+}
+function saykoUnlockPageScroll(){
+    if(!saykoPageLocked) return;
+    saykoPageLocked = false;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    document.body.style.overflow = "";
+    window.scrollTo(0, saykoSavedScrollY);
+}
 function showInstallMessage() {
     if(isSaykoInstalled()){
         installBox.style.display = "none";
@@ -6009,41 +6060,8 @@ body > header .updateBtn {
     font-size: clamp(12px,3.8vw,15px) !important; letter-spacing: 0 !important; }
 }
 </style>
-
-<style id="sayko-scroll-emergency-v4">
-/* V4: Android/PWA document-scroll recovery. Keep the document as the scroll root. */
-html {
-  height: auto !important;
-  min-height: 100% !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  scroll-behavior: auto !important;
-  touch-action: pan-y !important;
-}
-body {
-  position: static !important;
-  inset: auto !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  width: auto !important;
-  height: auto !important;
-  min-height: 100vh !important;
-  max-height: none !important;
-  overflow-x: hidden !important;
-  overflow-y: visible !important;
-  touch-action: pan-y !important;
-  -webkit-overflow-scrolling: touch !important;
-  background-attachment: scroll !important;
-}
-body > main {
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  touch-action: pan-y !important;
-}
-</style>
+</body>
+        </html>
 
 
 <style id="sayko-final-header-layout-v4">
@@ -6147,5 +6165,4 @@ body > main .goalCard { margin-top: 0 !important; }
   body > header .logo { font-size: clamp(13px, 4vw, 16px) !important; max-width: calc(100vw - 155px) !important; letter-spacing: 0 !important; }
 }
 </style>
-</body>
-</html>
+
