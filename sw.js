@@ -1,35 +1,34 @@
 const CACHE_NAME = "sayko-offline-v1";
-
-const APP_FILES = [
-  "./",
-  "./index.html",
-  "./manifest.json"
-];
+const APP_FILES = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      for (const file of APP_FILES) {
-        try {
-          await cache.add(file);
-        } catch (error) {
-          console.log("تعذر تخزين:", file);
-        }
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+
+    for (const file of APP_FILES) {
+      try {
+        await cache.add(file);
+      } catch (e) {
+        console.log("Cache optional file skipped:", file);
       }
-    }).then(() => self.skipWaiting())
-  );
+    }
+
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key.startsWith("sayko-offline-") && key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+
+    await Promise.all(
+      keys
+        .filter(k => k.startsWith("sayko-offline-") && k !== CACHE_NAME)
+        .map(k => caches.delete(k))
+    );
+
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener("fetch", event => {
@@ -39,57 +38,51 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(request.url);
 
-  // تجاهل المواقع الخارجية
   if (url.origin !== self.location.origin) return;
 
-  // فتح البرنامج والصفحات
+  // صفحات البرنامج
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request);
 
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(request, copy);
-              cache.put("./index.html", response.clone());
-            });
-          }
-
-          return response;
-        })
-        .catch(async () => {
+        if (response.ok) {
           const cache = await caches.open(CACHE_NAME);
+          cache.put(request, response.clone());
+          cache.put("./index.html", response.clone());
+        }
 
-          return (
-            await cache.match(request) ||
-            await cache.match("./index.html") ||
-            await cache.match("./")
-          );
-        })
-    );
+        return response;
+
+      } catch (e) {
+        const cache = await caches.open(CACHE_NAME);
+
+        return (
+          await cache.match(request) ||
+          await cache.match("./index.html") ||
+          await cache.match("./")
+        );
+      }
+    })());
 
     return;
   }
 
-  // الملفات المحفوظة: الصور والسكريبتات والستايل
-  event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
+  // ملفات البرنامج والصور والموارد
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
 
-      return fetch(request).then(response => {
-        if (response.ok) {
-          const copy = response.clone();
+    if (cached) return cached;
 
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, copy);
-          });
-        }
+    const response = await fetch(request);
 
-        return response;
-      });
-    })
-  );
+    if (response.ok) {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, response.clone());
+    }
+
+    return response;
+  })());
 });
 
 // استقبال أمر تحديث البرنامج
