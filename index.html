@@ -6051,38 +6051,7 @@ body > header .updateBtn {
     font-size: clamp(12px,3.8vw,15px) !important; letter-spacing: 0 !important; }
 }
 </style>
-
-<script id="sayko-offline-scroll-recovery-v1">
-(() => {
-  // Fail-safe: restore page scrolling when no full-screen overlay is actually open.
-  const visible = (el) => !!el && getComputedStyle(el).display !== 'none' &&
-    (el.classList.contains('show') || el.style.display === 'flex' || el.style.display === 'block');
-  function restoreIfNoOverlay() {
-    const install = document.getElementById('installBox');
-    const tutorial = document.getElementById('tutorialOverlay');
-    const analyzer = document.getElementById('analyzeFoodModal');
-    const menu = document.getElementById('sideOverlay');
-    if (visible(install) || visible(tutorial) || visible(analyzer) || (menu && menu.classList.contains('show'))) return;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    document.documentElement.style.overflowY = 'auto';
-    document.body.style.overflowY = 'auto';
-    if (typeof saykoUnlockPageScroll === 'function') saykoUnlockPageScroll();
-    if (typeof unlockPageBehindAnalyzer === 'function') unlockPageBehindAnalyzer();
-  }
-  // Ensure normal scrolling in offline mode and after the app returns from background.
-  window.addEventListener('offline', restoreIfNoOverlay);
-  window.addEventListener('online', restoreIfNoOverlay);
-  window.addEventListener('pageshow', restoreIfNoOverlay);
-  window.addEventListener('load', () => setTimeout(restoreIfNoOverlay, 250));
-  setTimeout(restoreIfNoOverlay, 800);
-})();
-</script>
-
+\n<style id="sayko-scroll-root-recovery-v2">\n/* Root-level fallback for mobile browsers/PWA offline mode. */\nhtml, body { height:auto !important; min-height:100% !important; overflow-x:hidden !important; overflow-y:auto !important; }\nbody { position:relative !important; touch-action:pan-y !important; }\nmain { height:auto !important; min-height:0 !important; overflow:visible !important; touch-action:pan-y !important; }\n</style>\n<script id="sayko-scroll-root-recovery-v2-js">\n(() => {\n  const $ = id => document.getElementById(id);\n  const shown = el => !!el && getComputedStyle(el).display !== 'none' && (el.classList.contains('show') || el.style.display === 'flex' || el.style.display === 'block');\n  function anyOverlayOpen(){\n    return shown($('installBox')) || shown($('tutorialOverlay')) || shown($('analyzeFoodModal')) ||\n      ($('sideOverlay') && $('sideOverlay').classList.contains('show')) ||\n      document.querySelector('.modalOverlay.show, .choiceShade, #errorOverlay.show');\n  }\n  function recover(){\n    if(anyOverlayOpen()) return;\n    const body = document.body, html = document.documentElement;\n    // If body was frozen with top:-Npx, recover that scroll position before removing the lock.\n    let y = window.scrollY || window.pageYOffset || 0;\n    const top = parseFloat(body.style.top || '0');\n    if(body.style.position === 'fixed' && top < 0) y = Math.max(y, -top);\n    body.style.position = ''; body.style.top = ''; body.style.left = ''; body.style.right = '';\n    body.style.width = ''; body.style.overflow = ''; body.style.overflowY = ''; body.style.touchAction = '';\n    html.style.overflow = ''; html.style.overflowY = ''; html.style.height = '';\n    // Reset stale JS lock flags so later modal close routines don't re-freeze the page.\n    if(typeof saykoPageLocked !== 'undefined') saykoPageLocked = false;\n    if(typeof analyzerBodyLock !== 'undefined') analyzerBodyLock = null;\n    if(typeof saykoUnlockPageScroll === 'function') { try { saykoUnlockPageScroll(); } catch(e) {} }\n    if(typeof unlockPageBehindAnalyzer === 'function') { try { unlockPageBehindAnalyzer(); } catch(e) {} }\n    requestAnimationFrame(() => { if(!anyOverlayOpen()) window.scrollTo(0, y); });\n  }\n  ['offline','online','pageshow','focus'].forEach(evt => window.addEventListener(evt, recover, {passive:true}));\n  document.addEventListener('visibilitychange', () => { if(!document.hidden) recover(); });\n  window.addEventListener('load', recover);\n  // Catch a scroll lock that gets applied and left behind after a modal closes.\n  const observer = new MutationObserver(() => { if(!anyOverlayOpen()) recover(); });\n  observer.observe(document.body, {attributes:true, attributeFilter:['style','class'], subtree:true});\n  setInterval(recover, 1200);\n  setTimeout(recover, 300); setTimeout(recover, 1500);\n})();\n</script>\n
 </body>
         </html>
 
