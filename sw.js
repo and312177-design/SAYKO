@@ -1,48 +1,35 @@
+const CACHE_NAME = "sayko-offline-v1";
 
-const CACHE_NAME = "sayko-fitness-v39";
-
-const APP_SHELL = [
+const APP_FILES = [
   "./",
   "./index.html",
   "./manifest.json"
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-
-    for (const path of APP_SHELL) {
-      try {
-        const url = new URL(path, self.registration.scope);
-        const response = await fetch(url, { cache: "reload" });
-
-        if (response.ok) {
-          await cache.put(url, response.clone());
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const file of APP_FILES) {
+        try {
+          await cache.add(file);
+        } catch (error) {
+          console.log("تعذر تخزين:", file);
         }
-      } catch (error) {
-        console.log("Cache failed:", path);
       }
-    }
-
-    await self.skipWaiting();
-  })());
+    }).then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-
-    await Promise.all(
-      keys
-        .filter(key =>
-          key.startsWith("sayko-fitness-") &&
-          key !== CACHE_NAME
-        )
-        .map(key => caches.delete(key))
-    );
-
-    await self.clients.claim();
-  })());
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key.startsWith("sayko-offline-") && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener("fetch", event => {
@@ -51,76 +38,63 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
-  const scopeURL = new URL(self.registration.scope);
 
-  if (url.origin !== scopeURL.origin) return;
+  // تجاهل المواقع الخارجية
+  if (url.origin !== self.location.origin) return;
 
-  if (
-    request.mode === "navigate" ||
-    request.destination === "document"
-  ) {
-    event.respondWith((async () => {
-      try {
-        const response = await fetch(request);
+  // فتح البرنامج والصفحات
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
 
-        if (response.ok) {
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(request, copy);
+              cache.put("./index.html", response.clone());
+            });
+          }
+
+          return response;
+        })
+        .catch(async () => {
           const cache = await caches.open(CACHE_NAME);
-          await cache.put(request, response.clone());
-        }
 
-        return response;
-      } catch (error) {
-        const cache = await caches.open(CACHE_NAME);
-
-        return (
-          await cache.match(request, { ignoreSearch: true }) ||
-          await cache.match(
-            new URL("index.html", self.registration.scope).href
-          ) ||
-          await cache.match(self.registration.scope) ||
-          new Response("البرنامج يحتاج فتحه بالإنترنت مرة واحدة لحفظ النسخة.", {
-            status: 503,
-            headers: {
-              "Content-Type": "text/plain; charset=utf-8"
-            }
-          })
-        );
-      }
-    })());
+          return (
+            await cache.match(request) ||
+            await cache.match("./index.html") ||
+            await cache.match("./")
+          );
+        })
+    );
 
     return;
   }
 
-  event.respondWith((async () => {
-    const cached = await caches.match(request);
+  // الملفات المحفوظة: الصور والسكريبتات والستايل
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
 
-    if (cached) return cached;
+      return fetch(request).then(response => {
+        if (response.ok) {
+          const copy = response.clone();
 
-    try {
-      const response = await fetch(request);
-
-      if (response.ok && response.type === "basic") {
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, response.clone());
-      }
-
-      return response;
-    } catch (error) {
-      return new Response("الملف غير متاح بدون إنترنت.", {
-        status: 503,
-        headers: {
-          "Content-Type": "text/plain; charset=utf-8"
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, copy);
+          });
         }
+
+        return response;
       });
-    }
-  })());
+    })
+  );
 });
 
+// استقبال أمر تحديث البرنامج
 self.addEventListener("message", event => {
-  if (
-    event.data === "SKIP_WAITING" ||
-    event.data?.type === "SKIP_WAITING"
-  ) {
+  if (event.data === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
